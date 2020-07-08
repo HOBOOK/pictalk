@@ -5,16 +5,110 @@
 
 <th:block layout:fragment="title">픽톡(PicTalk) | 채팅</th:block>
 <th:block layout:fragment="js">
-    <!--추가 JS -->
 
-    <!--추가 JS 끝-->
 </th:block>
+<th:block layout:fragment="js-end">
+    <script src="js/chat.js"></script>
+</th:block>
+
 <th:block layout:fragment="css">
-    <!--추가 CSS -->
-
-    <!--추가 CSS 끝-->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.0/css/all.css">
+    <link rel="stylesheet" href="css/chat.css"/>
 </th:block>
 
-<section layout:fragment="content">
-    채팅
+<section layout:fragment="content" ng-controller="chatController" class="content-chat-container">
+    <div class="chat-sidebar-container">
+        <div class="chat-sidebar-header">
+            <h3>오픈 채팅방</h3>
+
+            <div id="chat-room-search">
+                <input class="input-search" type="text" placeholder="방 검색..."/>
+                <div id="chat-room-tags">
+                    <span>인기 태그</span>
+                    <a>#tag1</a>
+                </div>
+            </div>
+        </div>
+        <div class="chat-sidebar-content-container">
+            <div id="chat-room" class="chat-sidebar-content" ng-repeat="room in rooms" ng-click="connect($event, room)">
+                <img ng-src="/img/logo/logo_endspring.png" alt="thumbnail"/>
+                <span id="chat-room-info">
+                    <h5>{{room.title}}</h5><span> ({{room.member}} / {{room.max}})</span>
+                    <p>{{room.description}}</p>
+                </span>
+
+                <div class="chat-room-detail">
+                    <p>입장하기</p>
+                </div>
+            </div>
+        </div>
+        <div class="chat-sidebar-footer">
+
+        </div>
+    </div>
+
+    <div id="chat-container">
+        <div id="chat-page" class="hidden">
+            <div class="chat-container">
+                <div class="chat-header">
+                    <img src="/img/logo/logo_endspring.png"/>
+                    <div class="chat-header-info">
+                        <h2>{{currentRoom.title}}</h2>
+                        <p>{{currentRoom.description}}</p>
+                    </div>
+
+                    <div class="chat-header-menu">
+                            <span ng-click="onClickToggleMenu()">
+                                <i class="fas fa-bars"></i>
+                            </span>
+                    </div>
+                </div>
+                <div class="connecting">
+                    연결중...
+                </div>
+                <ul id="messageArea">
+
+                </ul>
+                <form id="messageForm" name="messageForm">
+                    <div class="form-group">
+                        <div class="input-group clearfix">
+                            <input type="text" id="message" placeholder="메시지 입력..." autocomplete="off" class="form-control"/>
+
+                            <div class="form-buttons">
+                                <button type="submit" ng-click="sendMessage($event)" class="send-message">
+                                    <i class="fas fa-paper-plane"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="chat-sidebar-container" id="chat-menu">
+        <div class="chat-sidebar-header">
+            <h3>채팅방 정보</h3>
+        </div>
+        <div class="chat-sidebar-content-container">
+            <div class="chat-sidebar-content" id="chat-profile">
+                <img src="/img/logo/logo_endspring.png"/>
+                <h4>사용자 닉네임</h4>
+            </div>
+            <div class="chat-sidebar-content" id="chat-user-info">
+                <h6>참여자 정보</h6>
+                <ul class="chat-user-profile">
+                    <li ng-repeat="participant in chatRoom.users">
+                        <img src="/img/logo/logo_endspring.png"/>
+                        <span>participant.name</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="chat-sidebar-footer">
+                <span class="chat-sidebar-footer-buttons">
+                    <i class="fas fa-door-open"></i>
+                </span>
+        </div>
+    </div>
 </section>
