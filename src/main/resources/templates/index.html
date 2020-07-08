@@ -5,6 +5,10 @@
     <title>픽톡(PicTalk) - 끝봄의 이미지 채팅</title>
 
     <link rel="stylesheet" href="css/main.css"/>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.0/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.0/angular-animate.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.0/angular-sanitize.min.js"></script>
 </head>
 <body>
     <!-- 헬로우 월드 -->
@@ -18,5 +22,10 @@
         <p>박경호 | 송치민 | 최지은</p>
     </div>
     <!-- 헬로우 월드 종료 -->
+
+    <!-- 지은이는 보아라 -->
+    <div ng-app ng-init="name='jieun'">
+        hello {{name}}
+    </div>
 </body>
 </html>
