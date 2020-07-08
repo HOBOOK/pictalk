@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <meta charset="UTF-8">
+    <title>
+        <th:block layout:fragment="title">픽톡(PicTalk) - 끝봄의 이미지 채팅</th:block>
+    </title>
+
+    <link rel="stylesheet" href="css/main.css"/>
+    <th:block layout:fragment="css"></th:block>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.0/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.0/angular-animate.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.0/angular-sanitize.min.js"></script>
+    <th:block layout:fragment="js"></th:block>
+</head>
+<body>
+    <header th:replace="fragment/header :: header"></header>
+    <div class="content">
+        <section layout:fragment="content"></section>
+    </div>
+</body>
+</html>

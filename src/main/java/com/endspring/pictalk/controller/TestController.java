@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class TestController {
 
     @GetMapping("/")
-    public String index(){
-        return "index";
+    public String test(){
+        return "app/chat";
     }
 }
