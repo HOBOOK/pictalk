@@ -10,7 +10,7 @@ var messageArea = document.querySelector('#messageArea');
 var connectingElement = document.querySelector('.connecting');
 var chatMenu = document.querySelector('#chat-menu');
 
-app.controller("chatController", function ($scope, $http) {
+app.controller("chatController", function ($scope, $http, $uibModal) {
     $scope.rooms = [];
     $scope.rooms = [{
         id: "1",
@@ -103,6 +103,24 @@ app.controller("chatController", function ($scope, $http) {
             chatMenu.style.display = 'none';
         }
     };
+
+    $scope.onClickExitChatRoom = function(){
+        chatMenu.style.display = 'none';
+        disConnect();
+    }
+
+    $scope.onClickAddChatRoom = function(){
+        console.log('대화방 추가 버튼 테스트');
+        var modalInstance = $uibModal.open({
+            templateUrl: 'modal/modal_chat',
+            controller: 'chatModalController',
+        });
+        modalInstance.result.then(function (selectedItem) {
+            console.log("modal click ok : " + selectedItem);
+        }, function () {
+            console.log('modal에서 dismissed at: ' + new Date());
+        });
+    }
 });
 
 
@@ -125,6 +143,8 @@ function connect(event, room) {
 
 function disConnect(){
     currentRoom = null;
+    chatPage.classList.add('hidden');
+    connectingElement.classList.remove('hidden');
 }
 
 function sendMessage(event) {

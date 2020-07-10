@@ -1,1 +1,1 @@
-var app = angular.module("mainApp", ['ngAnimate', 'ngSanitize']);
+var app = angular.module("mainApp", ['ngAnimate', 'ngSanitize', 'ui.bootstrap']);

@@ -5,13 +5,22 @@
 
 <th:block layout:fragment="title">픽톡(PicTalk) | 채팅</th:block>
 <th:block layout:fragment="js">
-
+    <!-- BootStrap JS -->
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 </th:block>
 <th:block layout:fragment="js-end">
     <script src="js/chat.js"></script>
+    <script src="js/chat_modal.js"></script>
 </th:block>
 
 <th:block layout:fragment="css">
+    <!-- BootStrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+    <!-- BootStrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+
+
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.0/css/all.css">
     <link rel="stylesheet" href="css/chat.css"/>
 </th:block>
@@ -20,7 +29,7 @@
     <div class="chat-sidebar-container">
         <div class="chat-sidebar-header">
             <h3>오픈 채팅방</h3>
-
+            <span class="chat-sidebar-button" ng-click="onClickAddChatRoom()"><i class="fas fa-plus"></i></span>
             <div id="chat-room-search">
                 <input class="input-search" type="text" placeholder="방 검색..."/>
                 <div id="chat-room-tags">
@@ -30,11 +39,11 @@
             </div>
         </div>
         <div class="chat-sidebar-content-container">
-            <div id="chat-room" class="chat-sidebar-content" ng-repeat="room in rooms" ng-click="connect($event, room)">
-                <img ng-src="/img/logo/logo_endspring.png" alt="thumbnail"/>
+            <div id="chat-room" class="chat-sidebar-content ng-cloak" ng-repeat="room in rooms" ng-click="connect($event, room)">
+                <img ng-src="/img/thumbnail_example.png" alt="thumbnail" class="img-circle"/>
                 <span id="chat-room-info">
-                    <h5>{{room.title}}</h5><span> ({{room.member}} / {{room.max}})</span>
-                    <p>{{room.description}}</p>
+                    <h5 ng-bind="room.title"></h5><span>({{room.member}} / {{room.max}})</span>
+                    <p ng-bind="room.description"></p>
                 </span>
 
                 <div class="chat-room-detail">
@@ -51,7 +60,7 @@
         <div id="chat-page" class="hidden">
             <div class="chat-container">
                 <div class="chat-header">
-                    <img src="/img/logo/logo_endspring.png"/>
+                    <img src="/img/thumbnail_example.png"/>
                     <div class="chat-header-info">
                         <h2>{{currentRoom.title}}</h2>
                         <p>{{currentRoom.description}}</p>
@@ -70,15 +79,16 @@
 
                 </ul>
                 <form id="messageForm" name="messageForm">
-                    <div class="form-group">
-                        <div class="input-group clearfix">
-                            <input type="text" id="message" placeholder="메시지 입력..." autocomplete="off" class="form-control"/>
+                    <div class="input-group clearfix">
+                        <input type="text" id="message" placeholder="메시지 입력..." autocomplete="off"/>
 
-                            <div class="form-buttons">
-                                <button type="submit" ng-click="sendMessage($event)" class="send-message">
-                                    <i class="fas fa-paper-plane"></i>
-                                </button>
-                            </div>
+                        <div class="form-buttons">
+                            <button type="button" ng-click="" class="circle">
+                                <i class="fas fa-paperclip"></i>
+                            </button>
+                            <button type="submit" ng-click="sendMessage($event)" class="circle">
+                                <i class="fas fa-paper-plane"></i>
+                            </button>
                         </div>
                     </div>
                 </form>
@@ -92,7 +102,7 @@
         </div>
         <div class="chat-sidebar-content-container">
             <div class="chat-sidebar-content" id="chat-profile">
-                <img src="/img/logo/logo_endspring.png"/>
+                <img src="/img/thumbnail_example.png"/>
                 <h4>사용자 닉네임</h4>
             </div>
             <div class="chat-sidebar-content" id="chat-user-info">
@@ -106,9 +116,9 @@
             </div>
         </div>
         <div class="chat-sidebar-footer">
-                <span class="chat-sidebar-footer-buttons">
+                <button type="button" class="square" ng-click="onClickExitChatRoom()">
                     <i class="fas fa-door-open"></i>
-                </span>
+                </button>
         </div>
     </div>
 </section>
