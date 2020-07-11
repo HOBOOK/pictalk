@@ -4734,7 +4734,7 @@ input[type=button].btn-block, input[type=reset].btn-block, input[type=submit].bt
 
 .nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active {
     color: #6c757d;
-    background-color: #fff;
+    background-color: #007bff;  /*#fff에서 수정*/
     border-color: #dee2e6 #dee2e6 #fff
 }
 
