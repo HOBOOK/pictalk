@@ -13,12 +13,21 @@
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.0/angular.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.0/angular-animate.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.0/angular-sanitize.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdn.rawgit.com/angular-ui/bootstrap/gh-pages/ui-bootstrap-tpls-2.5.0.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+    <script src="js/main.js"></script>
     <th:block layout:fragment="js"></th:block>
 </head>
 <body>
-    <header th:replace="fragment/header :: header"></header>
-    <div class="content">
-        <section layout:fragment="content"></section>
+    <div class="layout-main" ng-app="mainApp">
+<!--        <header th:replace="fragment/header :: header"></header>-->
+        <nav th:replace="fragment/nav :: nav"></nav>
+        <div class="content">
+            <section layout:fragment="content"></section>
+        </div>
     </div>
+
+    <th:block layout:fragment="js-end"></th:block>
 </body>
 </html>
