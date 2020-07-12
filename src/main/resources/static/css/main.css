@@ -39,4 +39,5 @@ div.nav-group ul{
 div.content{
     display: flex;
     flex: 1;
+    overflow-y: auto;
 }

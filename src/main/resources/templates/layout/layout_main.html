@@ -7,22 +7,34 @@
         <th:block layout:fragment="title">픽톡(PicTalk) - 끝봄의 이미지 채팅</th:block>
     </title>
 
+    <!-- BootStrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+
+    <!-- Global Common CSS -->
     <link rel="stylesheet" href="css/main.css"/>
     <th:block layout:fragment="css"></th:block>
 
+    <!-- AngularJs JS -->
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.0/angular.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.0/angular-animate.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.0/angular-sanitize.min.js"></script>
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdn.rawgit.com/angular-ui/bootstrap/gh-pages/ui-bootstrap-tpls-2.5.0.js"></script>
+
+    <!-- JQuery JS -->
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    <!-- BootStrap JS -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+
+    <!-- Global Common JS -->
     <script src="js/main.js"></script>
     <th:block layout:fragment="js"></th:block>
 </head>
 <body>
     <div class="layout-main" ng-app="mainApp">
 <!--        <header th:replace="fragment/header :: header"></header>-->
-        <nav th:replace="fragment/nav :: nav"></nav>
+    <nav th:replace="~{fragment/nav :: nav}"></nav>
         <div class="content">
             <section layout:fragment="content"></section>
         </div>

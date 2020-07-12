@@ -113,7 +113,7 @@ app.controller("chatController", function ($scope, $http, $uibModal) {
         console.log('대화방 추가 버튼 테스트');
         var modalInstance = $uibModal.open({
             templateUrl: 'modal/modal_chat',
-            controller: 'chatModalController',
+            controller: 'chatModalController'
         });
         modalInstance.result.then(function (selectedItem) {
             console.log("modal click ok : " + selectedItem);
