@@ -204,6 +204,14 @@ app.controller("chatController", function ($scope, $http, $uibModal, $filter) {
             }
         ];
         $scope.manager = $filter('filter')($scope.participants, {id: currentRoom.manager_id}, true)[0];
+        $scope.config_chat = {
+            selectedParticipant: {
+                id: -1,
+                nickname: null,
+                email: null,
+                thumbnail: null
+            }
+        }
     }
 
 
@@ -242,6 +250,18 @@ app.controller("chatController", function ($scope, $http, $uibModal, $filter) {
         }, function () {
             console.log('modal에서 dismissed at: ' + new Date());
         });
+    }
+    $scope.onClickParticipant = function(participant){
+        if($scope.config_chat.selectedParticipant.id !== participant.id)
+            $scope.config_chat.selectedParticipant = participant;
+        else{
+            $scope.config_chat.selectedParticipant = {
+                id: -1,
+                nickname: null,
+                email: null,
+                thumbnail: null
+            }
+        }
     }
 });
 

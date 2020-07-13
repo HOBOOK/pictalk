@@ -129,9 +129,16 @@
             <div class="chat-sidebar-content" id="chat-user-info">
                 <h6>참여자 정보 (300명)</h6>
                 <ul class="chat-user-profile">
-                    <li ng-repeat="participant in participants">
+                    <li ng-repeat="participant in participants" ng-click="onClickParticipant(participant)">
                         <img ng-src="{{participant.thumbnail}}"/>
                         <span ng-bind="participant.nickname"></span>
+                        <div class="chat-user-menu" ng-show="participant.id === config_chat.selectedParticipant.id">
+                            <ul>
+                                <li><span><i class="far fa-comments"></i></span><br/> 1:1 대화</li>
+                                <li><span><i class="fas fa-user-plus"></i></span><br/> 팔로우</li>
+                                <li><span><i class="far fa-bell"></i></span><br/> 신고</li>
+                            </ul>
+                        </div>
                     </li>
                 </ul>
             </div>

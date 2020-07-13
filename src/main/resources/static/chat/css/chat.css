@@ -408,8 +408,10 @@ nav{
     list-style: none;
     padding: 0;
     font-size:12px;
+
 }
 #chat-user-info .chat-user-profile li{
+    cursor: pointer;
     padding:6px;
 }
 #chat-user-info .chat-user-profile img{
@@ -420,6 +422,34 @@ nav{
     vertical-align: middle;
 }
 
+.chat-user-menu{
+    padding:5px 10px 5px 10px;
+    border-top: 1px solid rgba(0,0,0,0.1);
+    border-bottom: 1px solid rgba(0,0,0,0.1);
+}
+.chat-user-menu ul{
+    list-style: none;
+    padding: 0;
+}
+.chat-user-menu li{
+    text-align: center;
+    cursor: pointer;
+    display: inline-block;
+    margin-right: 16px;
+    font-size:11px;
+
+}
+.chat-user-menu span{
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+    line-height: 32px;
+    background-color: rgba(0,0,0,0.08);
+    display: inline-block;
+    font-size: 12px;
+    color: #777777;
+    margin-bottom:6px;
+}
 #chat-data-log{
 
 }
