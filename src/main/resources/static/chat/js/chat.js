@@ -10,85 +10,207 @@ var messageArea = document.querySelector('#messageArea');
 var connectingElement = document.querySelector('.connecting');
 var chatMenu = document.querySelector('#chat-menu');
 
-app.controller("chatController", function ($scope, $http, $uibModal) {
+app.controller("chatController", function ($scope, $http, $uibModal, $filter) {
     $scope.rooms = [];
     $scope.rooms = [{
-        id: "1",
+        id: 1,
         type: 0,
         title: "제목",
         description: "채팅방 들어오세요~",
-        category:["#태그1","#태그2"],
-        img: "/img/test.png",
+        category:["태그1","태그2"],
+        img: "/chat/img/thumbnail_example.png",
         max: 10,
-        member: 0
+        member: 0,
+        createDate: "2020.07.13",
+        manager_id: 1
     },{
-        id: "2",
+        id: 2,
         type: 1,
         title: "제목2",
         description: "채팅방 들어오세요~",
-        category:["#태그1","#태그2"],
-        img: "/img/test.png",
+        category:["태그1","태그2"],
+        img: "/chat/img/thumbnail_example.png",
         max: 10,
-        member: 0
+        member: 0,
+        createDate: "2020.07.13",
+        manager_id: 1
     },{
-        id: "3",
+        id: 3,
         type: 0,
         title: "제목3",
         description: "채팅방 들어오세요~",
-        category:["#태그1","#태그2"],
-        img: "/img/test.png",
+        category:["태그1","태그2"],
+        img: "/chat/img/thumbnail_example.png",
         max: 10,
-        member: 0
+        member: 0,
+        createDate: "2020.07.13",
+        manager_id: 1
     },{
-        id: "4",
+        id: 4,
         type: 1,
         title: "제목4",
         description: "채팅방 들어오세요~",
-        category:["#태그1","#태그2"],
-        img: "/img/test.png",
+        category:["태그1","태그2"],
+        img: "/chat/img/thumbnail_example.png",
         max: 10,
-        member: 0
+        member: 0,
+        createDate: "2020.07.13",
+        manager_id: 1
     },{
-        id: "5",
+        id: 5,
         type: 0,
         title: "제목5",
         description: "채팅방 들어오세요~",
-        category:["#태그1","#태그2"],
-        img: "/img/test.png",
+        category:["태그1","태그2"],
+        img: "/chat/img/thumbnail_example.png",
         max: 10,
-        member: 0
+        member: 0,
+        createDate: "2020.07.13",
+        manager_id: 1
     },{
-        id: "6",
+        id: 6,
         type: 1,
         title: "제목6",
         description: "채팅방 들어오세요~",
-        category:["#태그1","#태그2"],
-        img: "/img/test.png",
+        category:["태그1","태그2"],
+        img: "/chat/img/thumbnail_example.png",
         max: 10,
-        member: 0
+        member: 0,
+        createDate: "2020.07.13",
+        manager_id: 1
     },{
-        id: "7",
+        id: 7,
         type: 0,
         title: "제목7",
         description: "채팅방 들어오세요~",
-        category:["#태그1","#태그2"],
-        img: "/img/test.png",
+        category:["태그1","태그2"],
+        img: "/chat/img/thumbnail_example.png",
         max: 10,
-        member: 0
+        member: 0,
+        createDate: "2020.07.13",
+        manager_id: 1
     },{
-        id: "8",
+        id: 8,
         type: 1,
         title: "제목8",
         description: "채팅방 들어오세요~",
-        category:["#태그1","#태그2"],
-        img: "/img/test.png",
+        category:["태그1","태그2"],
+        img: "/chat/img/thumbnail_example.png",
         max: 10,
-        member: 0
+        member: 0,
+        createDate: "2020.07.13",
+        manager_id: 1
     }];
+
+    $scope.initDumpData = function(){
+        $scope.storage_image = [
+            {
+                id: 1,
+                url: "/chat/img/image_example.jpg"
+            },
+            {
+                id: 2,
+                url: "/chat/img/image_example.jpg"
+            },
+            {
+                id: 3,
+                url: "/chat/img/image_example.jpg"
+            },
+            {
+                id: 4,
+                url: "/chat/img/image_example.jpg"
+            },
+            {
+                id: 5,
+                url: "/chat/img/image_example.jpg"
+            },
+            {
+                id: 6,
+                url: "/chat/img/image_example.jpg"
+            }
+        ]
+        $scope.participants = [
+            {
+                id: 1,
+                nickname: "팍경호",
+                email: "park@naver.com",
+                thumbnail: "/chat/img/thumbnail_example.png"
+            },
+            {
+                id: 2,
+                nickname: "쏭치민",
+                email: "song@naver.com",
+                thumbnail: "/chat/img/thumbnail_example.png"
+            },
+            {
+                id: 3,
+                nickname: "쵸지은",
+                email: "choi@naver.com",
+                thumbnail: "/chat/img/thumbnail_example.png"
+            },
+            {
+                id: 4,
+                nickname: "팍경호",
+                email: "park@naver.com",
+                thumbnail: "/chat/img/thumbnail_example.png"
+            },
+            {
+                id: 5,
+                nickname: "쏭치민",
+                email: "song@naver.com",
+                thumbnail: "/chat/img/thumbnail_example.png"
+            },
+            {
+                id: 6,
+                nickname: "쵸지은",
+                email: "choi@naver.com",
+                thumbnail: "/chat/img/thumbnail_example.png"
+            },
+            {
+                id: 7,
+                nickname: "팍경호",
+                email: "park@naver.com",
+                thumbnail: "/chat/img/thumbnail_example.png"
+            },
+            {
+                id: 8,
+                nickname: "쏭치민",
+                email: "song@naver.com",
+                thumbnail: "/chat/img/thumbnail_example.png"
+            },
+            {
+                id: 9,
+                nickname: "쵸지은",
+                email: "choi@naver.com",
+                thumbnail: "/chat/img/thumbnail_example.png"
+            },
+            {
+                id: 10,
+                nickname: "팍경호",
+                email: "park@naver.com",
+                thumbnail: "/chat/img/thumbnail_example.png"
+            },
+            {
+                id: 11,
+                nickname: "쏭치민",
+                email: "song@naver.com",
+                thumbnail: "/chat/img/thumbnail_example.png"
+            },
+            {
+                id: 12,
+                nickname: "쵸지은",
+                email: "choi@naver.com",
+                thumbnail: "/chat/img/thumbnail_example.png"
+            }
+        ];
+        $scope.manager = $filter('filter')($scope.participants, {id: currentRoom.manager_id}, true)[0];
+    }
+
 
     $scope.connect = function ($event, room) {
         connect($event, room);
         $scope.currentRoom = room;
+        $scope.initDumpData();
     };
 
     $scope.sendMessage = function ($event) {
@@ -113,7 +235,7 @@ app.controller("chatController", function ($scope, $http, $uibModal) {
         console.log('대화방 추가 버튼 테스트');
         var modalInstance = $uibModal.open({
             templateUrl: 'modal/modal_chat',
-            controller: 'chatModalController',
+            controller: 'chatModalController'
         });
         modalInstance.result.then(function (selectedItem) {
             console.log("modal click ok : " + selectedItem);

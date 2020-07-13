@@ -1,5 +1,30 @@
-<div class="wrapper">
-    <div ng-model="" class="modal_wrapper">
-        새로운 채팅 추가 모달창
-    </div>
+<div class="chat-modal-header">
+    <h3>새로운 대화방 생성</h3>
+    <span class="chat-modal-button" ng-click="cancel()"><i class="fas fa-times"></i></span>
+</div>
+<div class="chat-modal-content-container">
+    <ul class="chat-add-info">
+        <li>
+            <h5>대화방 제목</h5>
+            <input type="text"/>
+        </li>
+        <li>
+            <h5>설명</h5>
+            <input type="text"/>
+        </li>
+        <li>
+            <h5>해시 태그</h5>
+            <input type="text"/>
+            <ul class="chat-add-tag-list">
+
+            </ul>
+        </li>
+        <li>
+            <h5>설정</h5>
+
+        </li>
+    </ul>
+</div>
+<div class="chat-modal-footer">
+    <button id="chat-add-button" class="default" type="submit" ng-click="ok()">생성</button>
 </div>

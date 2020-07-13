@@ -1,0 +1,49 @@
+.modal-dialog{
+    height: 100%;
+    margin: 0 auto;
+    text-align: center;
+}
+.modal-content{
+    border: none;
+    display: inline-block;
+    margin-top: 30px;
+    height: calc(100% - 60px);
+    min-height: 500px;
+    overflow-y: auto;
+    text-align: left;
+    width: 400px;
+    background-color: #fff;
+}
+
+.chat-modal-header{
+    margin: 20px 20px 10px 20px;
+    display: inline-block;
+    width: calc(100% - 40px);
+}
+.chat-modal-header h3{
+    display: inline-block;
+}
+
+.chat-modal-button{
+    float: right;
+    display: inline-block;
+    width: 32px;
+    height: 32px;
+    line-height: 32px;
+    border-radius: 50%;
+    text-align: center;
+    vertical-align: middle;
+    cursor:pointer;
+}
+.chat-modal-button:hover{
+    background-color: rgba(0,0,0,0.1);
+}
+
+.chat-modal-content-container{
+    height: calc(100% - 120px);
+    display: inline-block;
+}
+
+.chat-modal-footer{
+    text-align: right;
+}
