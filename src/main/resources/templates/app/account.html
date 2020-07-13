@@ -52,6 +52,11 @@
 
     <!--추가 JS 끝-->
 </th:block>
+<th:block layout:fragment="js-end">
+    <script src="js/management.js"></script>
+</th:block>
+
+
 <th:block layout:fragment="css">
     <!--추가 CSS -->
     <!--    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">-->
@@ -61,7 +66,7 @@
     <!--추가 CSS 끝-->
 </th:block>
 
-<section layout:fragment="content" style="background-color: lightgray;">
+<section layout:fragment="content" ng-controller="accountCtrl" style="background-color: lightgray;">
 
     <div class="content">
 
@@ -93,162 +98,17 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr>
-                                <td>1</td>
+                            <tr ng-repeat="account in accounts">
+                                <td>{{account.no}}</td>
                                 <td><img class="rounded-circle" src="management/img/profile.png" style="width: 25px; height: 25px;"></td>
-                                <td></td>
-                                <td>박경호</td>
-                                <td>호북이</td>
-                                <td>남</td>
-                                <td></td>
-                                <td>2020-07-09 20:00</td>
-                                <td>1</td>
-                                <td>0</td>
-
-                            </tr>
-                            <tr>
-                                <td>2</td>
-                                <td><img class="rounded-circle" src="management/img/profile.png" style="width: 25px; height: 25px;"></td>
-                                <td>vzcxds@gmail.com</td>
-                                <td>송치민</td>
-                                <td>송치킨</td>
-                                <td>남</td>
-                                <td>1995/03/16</td>
-                                <td>2020-07-09 20:00</td>
-                                <td>10</td>
-                                <td>0</td>
-                            </tr>
-                            <tr>
-                                <td>3</td>
-                                <td><img class="rounded-circle" src="management/img/profile.png" style="width: 25px; height: 25px;"></td>
-                                <td></td>
-                                <td>최지은</td>
-                                <td>최단비</td>
-                                <td>여</td>
-                                <td></td>
-                                <td>2020-07-09 20:00</td>
-                                <td>112</td>
-                                <td>0</td>
-                            </tr>
-                            <tr>
-                                <td>4</td>
-                                <td><img class="rounded-circle" src="management/img/profile.png" style="width: 25px; height: 25px;"></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td>2020-07-09 20:00</td>
-                                <td>1</td>
-                                <td>0</td>
-                            </tr>
-                            <tr>
-                                <td>5</td>
-                                <td><img class="rounded-circle" src="management/img/profile.png" style="width: 25px; height: 25px;"></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td>2020-07-09 20:00</td>
-                                <td>1</td>
-                                <td>0</td>
-                            </tr>
-                            <tr>
-                                <td>6</td>
-                                <td><img class="rounded-circle" src="management/img/profile.png" style="width: 25px; height: 25px;"></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td>2020-07-09 20:00</td>
-                                <td>1</td>
-                                <td>0</td>
-                            </tr>
-                            <tr>
-                                <td>7</td>
-                                <td><img class="rounded-circle" src="management/img/profile.png" style="width: 25px; height: 25px;"></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td>2020-07-09 20:00</td>
-                                <td>1</td>
-                                <td>0</td>
-                            </tr>
-                            <tr>
-                                <td>8</td>
-                                <td><img class="rounded-circle" src="management/img/profile.png" style="width: 25px; height: 25px;"></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td>2020-07-09 20:00</td>
-                                <td>1</td>
-                                <td>0</td>
-                            </tr>
-                            <tr>
-                                <td>9</td>
-                                <td><img class="rounded-circle" src="management/img/profile.png" style="width: 25px; height: 25px;"></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td>2020-07-09 20:00</td>
-                                <td>1</td>
-                                <td>0</td>
-                            </tr>
-                            <tr>
-                                <td>10</td>
-                                <td><img class="rounded-circle" src="management/img/profile.png" style="width: 25px; height: 25px;"></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td>2020-07-09 20:00</td>
-                                <td>1</td>
-                                <td>0</td>
-                            </tr>
-                            <tr>
-                                <td>11</td>
-                                <td><img class="rounded-circle" src="management/img/profile.png" style="width: 25px; height: 25px;"></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td>2020-07-09 20:00</td>
-                                <td>1</td>
-                                <td>0</td>
-                            </tr>
-                            <tr>
-                                <td>12</td>
-                                <td><img class="rounded-circle" src="management/img/profile.png" style="width: 25px; height: 25px;"></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td>2020-07-09 20:00</td>
-                                <td>1</td>
-                                <td>0</td>
-                            </tr>
-                            <tr>
-                                <td>13</td>
-                                <td><img class="rounded-circle" src="management/img/profile.png" style="width: 25px; height: 25px;"></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td>2020-07-09 20:00</td>
-                                <td>1</td>
-                                <td>0</td>
+                                <td>{{account.email}}</td>
+                                <td>{{account.name}}</td>
+                                <td>{{account.nickname}}</td>
+                                <td>{{account.gender}}</td>
+                                <td>{{account.birthday}}</td>
+                                <td>{{account.joindate}}</td>
+                                <td>{{account.reportnum}}</td>
+                                <td>{{account.state}}</td>
                             </tr>
 
                             </tbody>
@@ -285,7 +145,5 @@
             </div>
         </div>
     </div>
-
-
 
 </section>
