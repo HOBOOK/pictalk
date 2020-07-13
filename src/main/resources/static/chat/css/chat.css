@@ -187,6 +187,7 @@ nav{
     margin-left: 10px;
     margin-right: 10px;
     width: 320px;
+    min-width: 320px;
     padding: 10px 0px 10px 0px;
     background-color: #fff;
     border-radius: 5px;
@@ -309,15 +310,88 @@ nav{
     display: flex;
 }
 #chat-profile{
+    position: relative;
     text-align: center;
+    z-index: 1;
+    color: #fff;
+
+}
+#chat-profile::after{
+    content: "";
+    position: absolute;
+    z-index:-1;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background:
+            linear-gradient(
+                    rgba(0, 0, 0, 0.5),
+                    rgba(0, 0, 0, 0.5)
+            ),
+            url("/chat/img/thumbnail_example.png") center center;
 }
 #chat-profile img{
     width:80px;
     height: 80px;
     border-radius: 50%;
-    margin:0 auto;
+    margin:20px auto;
+}
+.chat-profile-create{
+    display: block;
+    border-top: 1px solid rgba(255,255,255,0.5);
+    text-align: right;
+    padding:10px 5px 0 5px;
+    font-size:12px;
+}
+.chat-profile-create h6{
+    font-weight: bold;
+    margin-right:6px;
+}
+.chat-profile-manager-info{
+    font-size:12px;
+    text-align: right;
+    padding:0 5px 0 5px;
+}
+.chat-profile-manager-info h6{
+    font-weight: bold;
+    margin-right:6px;
+}
+.chat-profile-manager-info img{
+    width:32px !important;
+    height: 32px !important;
+    margin:0 6px 0 0 !important;
+    border-radius: 50%;
 }
 
+.chat-profile-tags{
+    padding: 0;
+    list-style: none;
+}
+.chat-profile-tags li{
+    display: inline-block;
+    background-color: rgba(0,0,0,0.5);
+    color:#fff;
+    margin-right:6px;
+    padding: 3px;
+    font-size: 11px;
+}
+.chat-profile-tags a{
+    color:rgba(255,255,255,0.7);
+}
+.chat-profile-menu{
+    padding: 0;
+    margin-top:20px;
+    list-style: none;
+}
+.chat-profile-menu li{
+    display: inline-block;
+    margin-right:12px;
+}
+.chat-profile-menu a{
+    color:#fff;
+    text-decoration: none;
+}
 .input-search{
     padding: 10px 15px 10px 15px;
     background-color: #e8e8e8;
@@ -354,7 +428,7 @@ nav{
     padding: 0;
     font-size:12px;
     overflow: hidden;
-    height: 80px;
+    height: 75px;
 }
 #chat-data-log .chat-data-image li{
     padding: 6px;

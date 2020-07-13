@@ -35,7 +35,7 @@
         </div>
         <div class="chat-sidebar-content-container">
             <div id="chat-room" class="chat-sidebar-content ng-cloak" ng-repeat="room in rooms" ng-click="connect($event, room)">
-                <img ng-src="/chat/img/thumbnail_example.png" alt="thumbnail" class="img-circle"/>
+                <img ng-src="{{room.img}}" alt="thumbnail" class="img-circle"/>
                 <span id="chat-room-info">
                     <h5 ng-bind="room.title"></h5><span>({{room.member}} / {{room.max}})</span>
                     <p ng-bind="room.description"></p>
@@ -55,7 +55,7 @@
         <div id="chat-page" class="hidden">
             <div class="chat-container">
                 <div class="chat-header">
-                    <img src="/chat/img/thumbnail_example.png"/>
+                    <img ng-src="{{currentRoom.img}}"/>
                     <div class="chat-header-info">
                         <h2>{{currentRoom.title}}</h2>
                         <p>{{currentRoom.description}}</p>
@@ -97,8 +97,26 @@
         </div>
         <div class="chat-sidebar-content-container">
             <div class="chat-sidebar-content" id="chat-profile">
-                <img src="/chat/img/thumbnail_example.png"/>
-                <h4>사용자 닉네임</h4>
+
+                <img ng-src="{{currentRoom.img}}"/>
+                <h4 ng-bind="currentRoom.title"></h4>
+                <h6 ng-bind="currentRoom.description"></h6>
+                <ul class="chat-profile-tags">
+                    <li ng-repeat="category in currentRoom.category">
+                        <a href="#"># category</a>
+                    </li>
+                </ul>
+                <span class="chat-profile-create"><h6>생성일 | </h6> {{currentRoom.createDate}}</span>
+                <div class="chat-profile-manager-info">
+                    <h6>방장 | </h6>
+                    <img ng-src="{{manager.thumbnail}}"/>
+                    <span ng-bind="manager.nickname"></span>
+
+                </div>
+                <ul class="chat-profile-menu">
+                    <li><a href="#"><i class="fas fa-comment-dots"></i> 공지</a></li>
+                    <li><a href="#"><i class="fas fa-vote-yea"></i> 투표</a></li>
+                </ul>
             </div>
             <div class="chat-sidebar-content" id="chat-data-log">
                 <h6>사진 기록</h6><span class="btn-more">더보기</span>
@@ -109,7 +127,7 @@
                 </ul>
             </div>
             <div class="chat-sidebar-content" id="chat-user-info">
-                <h6>참여자 정보</h6>
+                <h6>참여자 정보 (300명)</h6>
                 <ul class="chat-user-profile">
                     <li ng-repeat="participant in participants">
                         <img ng-src="{{participant.thumbnail}}"/>
