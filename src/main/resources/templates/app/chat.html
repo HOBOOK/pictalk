@@ -100,12 +100,20 @@
                 <img src="/chat/img/thumbnail_example.png"/>
                 <h4>사용자 닉네임</h4>
             </div>
+            <div class="chat-sidebar-content" id="chat-data-log">
+                <h6>사진 기록</h6><span class="btn-more">더보기</span>
+                <ul class="chat-data-image">
+                    <li ng-repeat="image in storage_image | limitTo: 4">
+                        <img ng-src="{{image.url}}"/>
+                    </li>
+                </ul>
+            </div>
             <div class="chat-sidebar-content" id="chat-user-info">
                 <h6>참여자 정보</h6>
                 <ul class="chat-user-profile">
-                    <li ng-repeat="participant in chatRoom.users">
-                        <img src="/img/logo/logo_endspring.png"/>
-                        <span>participant.name</span>
+                    <li ng-repeat="participant in participants">
+                        <img ng-src="{{participant.thumbnail}}"/>
+                        <span ng-bind="participant.nickname"></span>
                     </li>
                 </ul>
             </div>

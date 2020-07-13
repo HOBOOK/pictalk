@@ -86,6 +86,108 @@ app.controller("chatController", function ($scope, $http, $uibModal) {
         member: 0
     }];
 
+    $scope.storage_image = [
+        {
+            id: "1",
+            url: "/chat/img/image_example.jpg"
+        },
+        {
+            id: "2",
+            url: "/chat/img/image_example.jpg"
+        },
+        {
+            id: "3",
+            url: "/chat/img/image_example.jpg"
+        },
+        {
+            id: "4",
+            url: "/chat/img/image_example.jpg"
+        },
+        {
+            id: "5",
+            url: "/chat/img/image_example.jpg"
+        },
+        {
+            id: "6",
+            url: "/chat/img/image_example.jpg"
+        }
+    ]
+
+    $scope.participants = [
+        {
+            id: "1",
+            nickname: "팍경호",
+            email: "park@naver.com",
+            thumbnail: "/chat/img/thumbnail_example.png"
+        },
+        {
+            id: "2",
+            nickname: "쏭치민",
+            email: "song@naver.com",
+            thumbnail: "/chat/img/thumbnail_example.png"
+        },
+        {
+            id: "3",
+            nickname: "쵸지은",
+            email: "choi@naver.com",
+            thumbnail: "/chat/img/thumbnail_example.png"
+        },
+        {
+            id: "4",
+            nickname: "팍경호",
+            email: "park@naver.com",
+            thumbnail: "/chat/img/thumbnail_example.png"
+        },
+        {
+            id: "5",
+            nickname: "쏭치민",
+            email: "song@naver.com",
+            thumbnail: "/chat/img/thumbnail_example.png"
+        },
+        {
+            id: "6",
+            nickname: "쵸지은",
+            email: "choi@naver.com",
+            thumbnail: "/chat/img/thumbnail_example.png"
+        },
+        {
+            id: "7",
+            nickname: "팍경호",
+            email: "park@naver.com",
+            thumbnail: "/chat/img/thumbnail_example.png"
+        },
+        {
+            id: "8",
+            nickname: "쏭치민",
+            email: "song@naver.com",
+            thumbnail: "/chat/img/thumbnail_example.png"
+        },
+        {
+            id: "9",
+            nickname: "쵸지은",
+            email: "choi@naver.com",
+            thumbnail: "/chat/img/thumbnail_example.png"
+        },
+        {
+            id: "10",
+            nickname: "팍경호",
+            email: "park@naver.com",
+            thumbnail: "/chat/img/thumbnail_example.png"
+        },
+        {
+            id: "11",
+            nickname: "쏭치민",
+            email: "song@naver.com",
+            thumbnail: "/chat/img/thumbnail_example.png"
+        },
+        {
+            id: "12",
+            nickname: "쵸지은",
+            email: "choi@naver.com",
+            thumbnail: "/chat/img/thumbnail_example.png"
+        }
+    ];
+
     $scope.connect = function ($event, room) {
         connect($event, room);
         $scope.currentRoom = room;

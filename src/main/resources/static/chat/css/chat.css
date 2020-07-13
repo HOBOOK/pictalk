@@ -108,12 +108,20 @@ button.circle:hover{
 }
 
 button.square{
-    color: #505050;
+    font-size:18px;
+    color: #909090;
     background-color: transparent;
     border-color: transparent;
 }
 button.square:hover{
     background-color: rgba(0,0,0,0.1);
+}
+
+.btn-more{
+    float: right;
+    font-size: 10px;
+    cursor: pointer;
+    color: #a0a0a0;
 }
 
 .wrapper{
@@ -156,7 +164,9 @@ nav{
 #chat-menu{
     display: none;
 }
-
+#chat-room{
+    cursor: pointer;
+}
 #chat-room-search{
     margin-top: 20px;
     width: 100%;
@@ -195,6 +205,7 @@ nav{
 
 .chat-sidebar-content-container::-webkit-scrollbar
 {
+    position: absolute;
     width: 3px;
     background-color: transparent;
 }
@@ -205,20 +216,26 @@ nav{
 }
 
 .chat-sidebar-content-container{
-    height: calc(100% - 180px);
-    overflow-y: auto;
+    height: calc(100% - 120px);
+    overflow-y: scroll;
+    overflow-y: overlay;
+    overflow-x: hidden;
 }
 
 .chat-sidebar-content{
-    display: inline-block;
     position: relative;
+    display: inline-block;
     margin-left: auto;
     margin-right: auto;
     padding:10px;
     width: 100%;
     background-color: white;
-    cursor: pointer;
-    border-bottom:1px solid rgba(0,0,0,0.1);
+    border-bottom:1px solid rgba(0,0,0,0.07);
+}
+
+.chat-sidebar-content h6{
+    display: inline-block;
+    margin-bottom:10px;
 }
 
 .chat-sidebar-footer{
@@ -324,7 +341,29 @@ nav{
 #chat-user-info .chat-user-profile img{
     width: 32px;
     height: 32px;
+    margin-right:8px;
     border-radius: 50%;
+    vertical-align: middle;
+}
+
+#chat-data-log{
+
+}
+#chat-data-log .chat-data-image{
+    list-style: none;
+    padding: 0;
+    font-size:12px;
+    overflow: hidden;
+    height: 80px;
+}
+#chat-data-log .chat-data-image li{
+    padding: 6px;
+    display: inline-block;
+}
+#chat-data-log .chat-data-image img{
+    width: 60px;
+    height: 60px;
+    margin-right:2px;
     vertical-align: middle;
 }
 
