@@ -5,10 +5,11 @@ var username = null;
 var rooms = null;
 var currentRoom  = null;
 var chatPage = document.querySelector('#chat-page');
-var messageInput = document.querySelector('#message');
+var messageInput = document.querySelector('#chat-message');
 var messageArea = document.querySelector('#messageArea');
 var connectingElement = document.querySelector('.connecting');
-var chatMenu = document.querySelector('#chat-menu');
+var chatMenu = document.querySelector('#chat-tab');
+var layout = document.querySelector('.layout-main');
 
 app.controller("chatController", function ($scope, $http, $uibModal, $filter) {
     $scope.rooms = [];
@@ -18,40 +19,40 @@ app.controller("chatController", function ($scope, $http, $uibModal, $filter) {
         title: "제목",
         description: "채팅방 들어오세요~",
         category:["태그1","태그2"],
-        img: "/chat/img/thumbnail_example.png",
-        max: 10,
-        member: 0,
+        img: "/img/no-image.png",
+        max: 100,
+        member: 30,
         createDate: "2020.07.13",
         manager_id: 1
     },{
         id: 2,
         type: 1,
-        title: "제목2",
-        description: "채팅방 들어오세요~",
+        title: "제목제목제목",
+        description: "채팅방 채팅방 들어오세요~",
         category:["태그1","태그2"],
-        img: "/chat/img/thumbnail_example.png",
-        max: 10,
-        member: 0,
+        img: "/img/no-image.png",
+        max: 50,
+        member: 25,
         createDate: "2020.07.13",
         manager_id: 1
     },{
         id: 3,
         type: 0,
-        title: "제목3",
-        description: "채팅방 들어오세요~",
+        title: "제목제목",
+        description: "채팅방 들어오세요 들어오세요~",
         category:["태그1","태그2"],
         img: "/chat/img/thumbnail_example.png",
-        max: 10,
-        member: 0,
+        max: 500,
+        member: 500,
         createDate: "2020.07.13",
         manager_id: 1
     },{
         id: 4,
         type: 1,
-        title: "제목4",
-        description: "채팅방 들어오세요~",
+        title: "제목제목제목제목제목제목제목제목제목",
+        description: "채팅방 들어오세요 들어오세요 들어오세요 들어오세요 들어오세요~",
         category:["태그1","태그2"],
-        img: "/chat/img/thumbnail_example.png",
+        img: "/img/no-image.png",
         max: 10,
         member: 0,
         createDate: "2020.07.13",
@@ -73,7 +74,7 @@ app.controller("chatController", function ($scope, $http, $uibModal, $filter) {
         title: "제목6",
         description: "채팅방 들어오세요~",
         category:["태그1","태그2"],
-        img: "/chat/img/thumbnail_example.png",
+        img: "/img/no-image.png",
         max: 10,
         member: 0,
         createDate: "2020.07.13",
@@ -210,6 +211,9 @@ app.controller("chatController", function ($scope, $http, $uibModal, $filter) {
                 nickname: null,
                 email: null,
                 thumbnail: null
+            },
+            ui:{
+                sidebarIndex: 0
             }
         }
     }
@@ -226,29 +230,43 @@ app.controller("chatController", function ($scope, $http, $uibModal, $filter) {
     };
 
     $scope.onClickToggleMenu = function () {
+
         var display = chatMenu.style.display;
         if(display === 'none' || display ===''){
             chatMenu.style.display = 'inline-block';
         }else{
+            $scope.config_chat.ui.sidebarIndex = 0;
             chatMenu.style.display = 'none';
         }
     };
+    $scope.onClickOpenChatInfo = function(){
+        $scope.config_chat.ui.sidebarIndex = 0;
+    }
 
     $scope.onClickExitChatRoom = function(){
         chatMenu.style.display = 'none';
         disConnect();
     }
 
+    $scope.onClickOpenSidebar = function(index){
+        $scope.config_chat.ui.sidebarIndex = index;
+        chatMenu.style.display = 'inline-block';
+    }
+
     $scope.onClickAddChatRoom = function(){
         console.log('대화방 추가 버튼 테스트');
+        layout.style.filter = "blur(1px)";
         var modalInstance = $uibModal.open({
             templateUrl: 'modal/modal_chat',
             controller: 'chatModalController'
         });
-        modalInstance.result.then(function (selectedItem) {
-            console.log("modal click ok : " + selectedItem);
+        modalInstance.result.then(function (newChatRoom) {
+            console.log("modal click ok : " + newChatRoom);
+            $scope.rooms.push(newChatRoom);
+            layout.style.filter = "";
         }, function () {
             console.log('modal에서 dismissed at: ' + new Date());
+            layout.style.filter = "";
         });
     }
     $scope.onClickParticipant = function(participant){
@@ -265,6 +283,16 @@ app.controller("chatController", function ($scope, $http, $uibModal, $filter) {
     }
 });
 
+app.directive('backImg', function(){
+    return function(scope, element, attrs){
+        attrs.$observe('backImg', function(value) {
+            element.css({
+                'background':
+                        'linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(' + value + ') center center'
+            });
+        });
+    };
+});
 
 var colors = [
     '#2196F3', '#32c787', '#00BCD4', '#ff5652',
@@ -291,6 +319,9 @@ function disConnect(){
 
 function sendMessage(event) {
     var messageContent = messageInput.value.trim();
+    if(messageContent.length<1){
+        return;
+    }
     var message = {
         type: 'CHAT',
         content: messageContent,
