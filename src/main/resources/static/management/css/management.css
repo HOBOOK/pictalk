@@ -1,0 +1,22 @@
+.content-management-content{
+    width: 100%;
+    height: 100%;
+    display: flex;
+}
+
+.card-box{
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 5px;
+    margin-bottom: 30px;
+}
+
+.badge{
+    font-size: 120%;
+}
+
+.rounded-circle-profile{
+    width: 25px;
+    height: 25px;
+}
+

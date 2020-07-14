@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <head>
+        <meta charset="utf-8">
+        <title>Register</title>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.0/angular.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.0/angular-animate.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.0/angular-sanitize.min.js"></script>
+
+        <link rel="canonical" href="https://getbootstrap.com/docs/4.5/examples/checkout/">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+
+        <style>
+            .bd-placeholder-img {
+                font-size: 1.125rem;
+                text-anchor: middle;
+                -webkit-user-select: none;
+                -moz-user-select: none;
+                -ms-user-select: none;
+                user-select: none;
+            }
+
+            @media (min-width: 768px) {
+                .bd-placeholder-img-lg {
+                    font-size: 3.5rem;
+                }
+            }
+            .container {
+                max-width: 960px;
+            }
+            .col-md-8{
+                margin: auto;
+            }
+            .list-inline li{
+                display: inline-block;
+                margin-right: 10px;
+
+            }
+            ul{
+                text-align: center;
+            }
+
+            li a{
+                display: inline-block;
+            }
+
+            .explain{
+                margin-top: 20px;
+                margin-bottom: 10px
+            ;
+                text-align: center;
+                font-size: large;
+                color: #9e9e9e;
+
+            }
+            .list-inline img{
+                height: 35px;
+                margin-top: 10px;
+            }
+
+
+            .my-5 .pt-5{
+                margin-top: 20px;
+            }
+            .mb-3 .ng-valid{
+                border: solid 1px green;
+            }
+            .mb-3 .ng-invalid.ng-dirty{
+                border: solid 1px red;
+            }
+            .warning{
+                color: red;
+            }
+        </style>
+        <!-- Custom styles for this template -->
+    </head>
+</head>
+<body class="bg-light" cz-shortcut-listen="true">
+<div ng-app class="container">
+    <div class="py-5 text-center">
+        <h2>Create Account</h2>
+<!--        <p class="lead">Below is an example form built entirely with Bootstrap’s form controls. Each required form group has a validation state that can be triggered by attempting to submit the form without completing it.</p>-->
+    </div>
+
+    <div class="row">
+        <div class="col-md-8 order-md-1">
+            <form class="has-success" name="registerForm">
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label for="firstName">First name</label>
+                        <input type="text" class="form-control" id="firstName" name="firstName" placeholder="" ng-model="firstName" required>
+                        <div class="warning" ng-show="registerForm.firstName.$touched && registerForm.firstName.$invalid">
+                            Valid first name is required.
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="lastName">Last name</label>
+                        <input type="text" class="form-control" id="lastName" name="lastName" placeholder="" value="" ng-model="lastName" required>
+                        <div class="warning" ng-show="registerForm.lastName.$touched && registerForm.lastName.$invalid">
+                            Valid last name is required.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="nickName">Nickname</label>
+                    <div class="input-group">
+                        <input type="text" class="form-control" id="nickName" name="nickName" placeholder="nickName" ng-model="nickName" required>
+                        <div class="warning" ng-show="registerForm.nickName.$touched && registerForm.nickName.$invalid">
+                            Your nickname is required.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="email">Email</label>
+                    <input type="email" class="form-control" id="email" name="email" placeholder="you@example.com" ng-model="email" required>
+                    <div class="warning" ng-show="registerForm.email.$touched && registerForm.email.$invalid">
+                        Please enter a valid email address for shipping updates.
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="password">Password</label>
+                    <input type="text" class="form-control" id="password" name="password" ng-model="password" required>
+                    <div class="warning" ng-show="registerForm.password.$touched && registerForm.password.$invalid">
+                        Please enter your password.
+                    </div>
+                </div>
+                <div class="mb-4">
+                    <label>Gender</label>
+                    <div class="custom-control custom-radio">
+                        <input id="credit" name="paymentMethod" type="radio" class="custom-control-input" checked="" required="">
+                        <label class="custom-control-label" for="credit">Female</label>
+                    </div>
+                    <div class="custom-control custom-radio">
+                        <input id="debit" name="paymentMethod" type="radio" class="custom-control-input" required="">
+                        <label class="custom-control-label" for="debit">Male</label>
+                    </div>
+
+                </div>
+
+                <hr class="mb-4">
+                <button class="btn btn-primary btn-lg btn-block" type="submit" ng-disabled="registerForm.$invalid">Create</button>
+
+
+            </form>
+            <div>
+                <div class="explain">Signin with your social media account.</div>
+                <ul class="list-inline">
+                    <li><a><img src="icon/facebook.png"/></a></li>
+                    <li><a><img src="icon/google.png"/></a></li>
+                    <li><a><img src="icon/instagram.png"/></a></li>
+                    <li><a><img src="icon/linkedin.png"/></a></li>
+                    <li><a><img src="icon/twitter.png"/></a></li>
+                </ul>
+
+            </div>
+        </div>
+
+    </div>
+
+    <footer class="my-5 pt-5 text-muted text-center text-small">
+        <p class="mb-1">© 2020 Company Name</p>
+<!--        <ul class="list-inline">-->
+<!--            <li class="list-inline-item"><a href="#">Privacy</a></li>-->
+<!--            <li class="list-inline-item"><a href="#">Terms</a></li>-->
+<!--            <li class="list-inline-item"><a href="#">Support</a></li>-->
+<!--        </ul>-->
+    </footer>
+</div>
+<!--<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>-->
+<!--<script>window.jQuery || document.write('<script src="/docs/4.5/assets/js/vendor/jquery.slim.min.js"><\/script>')</script><script src="/docs/4.5/dist/js/bootstrap.bundle.min.js" integrity="sha384-1CmrxMRARb6aLqgBO7yyAxTOQE2AKb9GfXnEo760AUcUmFx3ibVJJAzGytlQcNXd" crossorigin="anonymous"></script>-->
+<!--<script src="form-validation.js"></script>-->
+
+</body>
+</html>
