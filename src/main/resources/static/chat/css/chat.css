@@ -74,6 +74,9 @@ button {
     cursor: pointer;
     min-height: 38px;
 }
+button:focus{
+    outline: none;
+}
 
 button.default {
     background-color: #e8e8e8;
@@ -571,18 +574,20 @@ nav{
 }
 #chat-page .chat-message {
     position: relative;
-    padding: 20px;
+    padding: 10px 20px 10px 20px;
     max-width: 75%;
-    display: -webkit-box;
-    display: -moz-box;
+    /*display: -webkit-box;*/
+    /*display: -moz-box;*/
+    display: flex;
 }
 #chat-page .chat-message.me{
     margin-left:auto;
 }
 #chat-page .chat-message-cover{
 
-    display: -webkit-box;
-    display: -moz-box;
+    /*display: -webkit-box;*/
+    /*display: -moz-box;*/
+    display: flex;
 }
 
 #chat-page .chat-message-cover.me{
@@ -633,10 +638,34 @@ nav{
     margin-top:20px;
     padding:5px;
     background-color: #fff;
+    margin-right:0;
     margin-left:40px;
 }
 #chat-page .chat-message.me p{
+    margin-left:0;
     margin-right:40px;
+}
+
+#messageArea .chat-message img{
+    display: flex;
+    margin-top: 20px;
+    max-width: 75%;
+    max-height: 300px;
+    border-radius: 5px;
+    margin-right: 0;
+    margin-left: 40px;
+}
+#messageArea .chat-message.me img{
+    margin-right: 40px;
+    margin-left: 0;
+}
+
+#chat-page h6{
+    font-size: 10px;
+    font-weight: normal;
+    display: inline-block;
+    align-self: flex-end;
+    margin: 0 10px 0 10px;
 }
 
 #chat-message {

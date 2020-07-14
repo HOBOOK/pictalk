@@ -229,6 +229,10 @@ app.controller("chatController", function ($scope, $http, $uibModal, $filter) {
         sendMessage($event);
     };
 
+    $scope.sendImageMessage = function($event, url){
+        sendImageMessage($event, url);
+    };
+
     $scope.onClickToggleMenu = function () {
 
         var display = chatMenu.style.display;
@@ -322,17 +326,17 @@ function sendMessage(event) {
     var message = {
         type: 'CHAT',
         content: messageContent,
-        sender: username
-
+        sender: username,
+        date: getTimeStamp()
     };
     messageInput.value = '';
-
+    var isMe = message.sender === username;
     var messageElement = document.createElement('li');
     var messageCoverElement = document.createElement('span');
 
     messageCoverElement.classList.add('chat-message-cover');
     messageElement.classList.add('chat-message');
-    if(message.sender === username){
+    if(isMe){
         messageCoverElement.classList.add('me');
         messageElement.classList.add('me');
     }
@@ -352,12 +356,77 @@ function sendMessage(event) {
     var messageText = document.createTextNode(message.content);
     textElement.appendChild(messageText);
 
-    messageCoverElement.appendChild(textElement);
 
+    var dateElement = document.createElement('h6');
+    var dateText = document.createTextNode(parseDateString(message.date.substring(11)));
+    dateElement.appendChild(dateText);
+
+    if(isMe){
+        messageCoverElement.appendChild(dateElement);
+        messageCoverElement.appendChild(textElement);
+    }else{
+        messageCoverElement.appendChild(textElement);
+        messageCoverElement.appendChild(dateElement);
+    }
     messageElement.appendChild(messageCoverElement);
 
     messageArea.appendChild(messageElement);
     messageArea.scrollTop = messageArea.scrollHeight;
+    event.preventDefault();
+}
+
+function sendImageMessage(event, url) {
+    var message = {
+        type: 'IMAGE',
+        content: '/chat/img/image_example.jpg',
+        sender: username,
+        date: getTimeStamp()
+    };
+    var isMe = message.sender === username;
+    var messageElement = document.createElement('li');
+    var messageCoverElement = document.createElement('span');
+
+    messageCoverElement.classList.add('chat-message-cover');
+    messageElement.classList.add('chat-message');
+    if(isMe){
+        messageCoverElement.classList.add('me');
+        messageElement.classList.add('me');
+    }
+    var avatarElement = document.createElement('i');
+    var avatarText = document.createTextNode(message.sender[0]);
+    avatarElement.appendChild(avatarText);
+    avatarElement.style['background-color'] = getAvatarColor(message.sender);
+
+    messageCoverElement.appendChild(avatarElement);
+
+    var usernameElement = document.createElement('span');
+    var usernameText = document.createTextNode(message.sender);
+    usernameElement.appendChild(usernameText);
+    messageCoverElement.appendChild(usernameElement);
+
+    var imageElement = document.createElement('img');
+    imageElement.src = message.content;
+
+
+    var dateElement = document.createElement('h6');
+    var dateText = document.createTextNode(parseDateString(message.date.substring(11)));
+    dateElement.appendChild(dateText);
+
+    if(isMe){
+        messageCoverElement.appendChild(dateElement);
+        messageCoverElement.appendChild(imageElement);
+    }else{
+        messageCoverElement.appendChild(imageElement);
+        messageCoverElement.appendChild(dateElement);
+    }
+
+    messageElement.appendChild(messageCoverElement);
+
+    messageArea.appendChild(messageElement);
+    setTimeout(function () {
+        messageArea.scrollTop = messageArea.scrollHeight;
+    },50);
+
     event.preventDefault();
 }
 
@@ -373,4 +442,49 @@ function getAvatarColor(messageSender) {
 
 function clearChatText() {
     $("#messageArea").empty();
+}
+
+/* 현재 시간 yyyy-mm-dd hh:mm:ss 포맷으로 가져오기 */
+function getTimeStamp() {
+    var d = new Date();
+    var s =
+        leadingZeros(d.getFullYear(), 4) + '-' +
+        leadingZeros(d.getMonth() + 1, 2) + '-' +
+        leadingZeros(d.getDate(), 2) + ' ' +
+
+        leadingZeros(d.getHours(), 2) + ':' +
+        leadingZeros(d.getMinutes(), 2) + ':' +
+        leadingZeros(d.getSeconds(), 2);
+    return s;
+}
+
+function leadingZeros(n, digits) {
+    var zero = '';
+    n = n.toString();
+
+    if (n.length < digits) {
+        for (var i = 0; i < digits - n.length; i++)
+            zero += '0';
+    }
+    return zero + n;
+}
+
+
+/* 날짜 변환 함수 ex) 오전 12:00 */
+function parseDateString(a) {
+    var time = a; // 'hh:mm' 형태로 값이 들어온다
+    var getTime = time.substring(0, 2);
+    var intTime = parseInt(getTime);
+    if (intTime < 12 ) {
+        var str = '오전 ';
+    } else {
+        var str = '오후 ';
+    }
+    if (intTime == 12) {
+        var cvHour = intTime;
+    } else {
+        var cvHour = intTime%12;
+    }
+    var res = str + ('0' + cvHour).slice(-2) + time.substring(2,5);
+    return res;
 }
