@@ -239,9 +239,6 @@ app.controller("chatController", function ($scope, $http, $uibModal, $filter) {
             chatMenu.style.display = 'none';
         }
     };
-    $scope.onClickOpenChatInfo = function(){
-        $scope.config_chat.ui.sidebarIndex = 0;
-    }
 
     $scope.onClickExitChatRoom = function(){
         chatMenu.style.display = 'none';

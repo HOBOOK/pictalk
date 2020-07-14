@@ -133,7 +133,7 @@ nav{
     background: #fff;
 }
 .chat-sidebar-header{
-    margin: 20px 20px 10px 20px;
+    margin: 10px 20px 10px 20px;
     display: inline-block;
     width: calc(100% - 40px);
 }

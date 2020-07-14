@@ -103,6 +103,7 @@
         <div class="chat-sidebar-container chat-sidebar-tab" id="chat-menu" ng-show="config_chat.ui.sidebarIndex===0">
             <div class="chat-sidebar-header">
                 <h3>채팅방 정보</h3>
+                <span class="chat-sidebar-button" ng-click="onClickToggleMenu()"><i class="fas fa-times"></i></span>
             </div>
             <div class="chat-sidebar-content-container">
                 <div class="chat-sidebar-content" id="chat-profile" back-img="{{currentRoom.img}}">
@@ -163,6 +164,7 @@
         <div class="chat-sidebar-container chat-sidebar-tab" id="#chat-album" ng-show="config_chat.ui.sidebarIndex===1">
             <div class="chat-sidebar-header">
                 <h3>이미지 서랍</h3>
+                <span class="chat-sidebar-button" ng-click="onClickOpenSidebar(0)"><i class="fas fa-arrow-left"></i></span>
             </div>
             <div class="chat-sidebar-content-container">
                 <div class="chat-sidebar-content">
@@ -207,14 +209,12 @@
                 </div>
             </div>
             <div class="chat-sidebar-footer">
-                <button type="button" class="sidebar" ng-click="onClickOpenChatInfo()">
-                    <i class="fas fa-arrow-left"></i>
-                </button>
             </div>
         </div>
         <div class="chat-sidebar-container chat-sidebar-tab" id="#chat-image-log" ng-show="config_chat.ui.sidebarIndex===2">
             <div class="chat-sidebar-header">
                 <h3>사진 기록</h3>
+                <span class="chat-sidebar-button" ng-click="onClickOpenSidebar(0)"><i class="fas fa-arrow-left"></i></span>
             </div>
             <div class="chat-sidebar-content-container">
                 <div class="chat-sidebar-content">
@@ -226,9 +226,6 @@
                 </div>
             </div>
             <div class="chat-sidebar-footer">
-                <button type="button" class="sidebar" ng-click="onClickOpenChatInfo()">
-                    <i class="fas fa-arrow-left"></i>
-                </button>
             </div>
         </div>
     </div>
