@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.0/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.0/angular-animate.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.0/angular-sanitize.min.js"></script>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <style>
+        .wrap{
+            width: 800px;
+            min-height: 800px;
+            position: relative;
+        }
+        .left_wrap{
+            width: 20%;
+            height: 800px;
+            background-color: aliceblue;
+            position: relative;
+            margin-left: 15px;
+        }
+
+        .right_wrap{
+            width: 800px;
+            min-height: 100px;
+            top: 0px;
+            left: 200px;
+            position: absolute;
+
+        }
+
+        .left_nav_li{
+            list-style: none;
+            padding-top: 20px;
+        }
+
+        .right_nav{
+            overflow: hidden;
+        }
+        .right_nav_li{
+            list-style: none;
+            float: left;
+            display: inline;
+            margin-right: 10px;
+            width: 200px;
+            height: 200px;
+            margin-bottom: 10px;
+        }
+        .left_nav li{
+            width: 100%;
+        }
+        .card{
+            /* height: 100%; */
+            width:200px;
+            height:200px;
+            position:absolute;
+        }
+
+        li div.card:hover + .hover_card {
+            display:block;
+
+        }
+
+
+        .hover_card{
+            background-color:RGB(0,0,0,0.5) ;
+            width:200px;
+            height:200px;
+            position:absolute;
+            z-index:10;
+            display:none;
+
+        }
+        ul li:hover .hover_card{display: inline;}
+        .card-btn{
+            width:100px;
+            display:block;
+            margin-left: 50px;
+            margin-top: 80px;
+            top:10px;
+            opacity:1.0;
+            curser:pointer;
+        }
+        .container{
+            position: absolute;
+            margin-left:235px;
+        }
+
+    </style>
+    <script>
+        var app = angular.module('image',[]);
+
+
+        app.controller('ImageCtrl',function ($scope) {
+            $scope.images=[
+                {
+                    src: 'profile/choidanbi.jpeg',
+                    id:1
+
+                },
+                {
+                    src: 'profile/choidanbi.jpeg',
+                    id:2
+                },
+                {
+                    src: 'profile/choidanbi.jpeg',
+                    id:3
+                },
+                {
+                    src: 'profile/choidanbi.jpeg',
+                    id:4
+                }
+            ]
+
+
+            $scope.imgRemove = function (img) {
+                var idx = $scope.images.findIndex(function (item) {
+                    return item.id == img.id;
+                })
+
+                if(idx>-1){
+                    $scope.images.splice(idx,1)
+                }
+            }
+        })
+
+    </script>
+</head>
+<body>
+<div  ng-app = "image"  ng-controller="ImageCtrl" class="wrap">
+    <div class ="left_wrap">
+        <ul class="left_nav nav nav-pills nav-stacked">
+            <li class="left_nav_li active" role="presentation">
+                <a href="#">Personal</a>
+            </li>
+            <li class="left_nav_li" role="presentation">
+                <a href="#">Follow</a>
+            </li>
+            <li class="left_nav_li" role="presentation">
+                <a href="#">Pictures</a>
+            </li>
+
+        </ul>
+    </div>
+
+    <div class ="right_wrap">
+
+        <ul class="right_nav">
+            <li ng-repeat="img in images" class="right_nav_li">
+                <div class="card">
+                    <img class="card-img-top" src={{img.src}} alt="Card image cap">
+                    <input type="hidden" name="imgId" value={{img.id}}>
+                </div>
+
+                <div class="hover_card">
+                    <button type="button" class="btn btn-primary btn-sm card-btn btn-danger" ng-click="imgRemove(img)">Delete</button>
+
+                </div>
+
+            </li>
+
+
+        </ul>
+        <div class="container">
+            <ul class="pagination pagination-sm">
+                <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+                <li class="page-item"><a class="page-link" href="#">1</a></li>
+                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                <li class="page-item"><a class="page-link" href="#">Next</a></li>
+            </ul>
+        </div>
+    </div>
+
+</div>
+</body>
+</html>
