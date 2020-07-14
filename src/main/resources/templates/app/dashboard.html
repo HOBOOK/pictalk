@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout/layout_main">
+
+<th:block layout:fragment="title">픽톡(PicTalk) | 관리자</th:block>
+<th:block layout:fragment="js">
+    <!--추가 JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" type="text/css" href="/management/js/app.min.js">
+
+    <!--추가 JS 끝-->
+</th:block>
+<th:block layout:fragment="css">
+    <!--추가 CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="/management/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/management/css/app.min.css">
+
+    <!--추가 CSS 끝-->
+</th:block>
+
+<section layout:fragment="content" style="background-color: lightgray">
+
+    <div class="content">
+
+        <!-- Start Content-->
+        <div class="container-fluid">
+
+            <!-- start page title -->
+            <div class="row">
+                <div class="col-12">
+                    <div class="page-title-box d-flex align-items-center justify-content-between">
+                        <h2 class="page-title">대시보드</h2>
+
+                        <!-- 알림, 관리자 프로필-->
+                        <div>
+                            <ul class="list-inline topnav-menu float-right mb-0">
+
+                                <li class="dropdown notification-list list-inline-item">
+                                    <a class="dropdown-toggle waves-effect" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
+                                        <img src="/management/img/alarm_icon.png">
+                                        <span class="badge badge-danger rounded-circle noti-icon-badge" style="font-size: 80%;">5</span>
+                                    </a>
+                                    <div class="dropdown-menu dropdown-menu-right dropdown-lg" style="">
+
+                                        <!-- item-->
+                                        <div class="dropdown-item noti-title">
+                                            <h5 class="m-0">
+                                            <span class="float-right">
+                                                <a href="" class="text-dark">
+                                                    <small>지우기</small>
+                                                </a>
+                                            </span>알림
+                                            </h5>
+                                        </div>
+
+                                        <div class="slimScrollDiv" style="position: relative; overflow: hidden; width: auto; height: 511px;"><div class="slimscroll noti-scroll" style="overflow: hidden; width: auto; height: 511px;">
+
+                                            <!-- item-->
+                                            <a href="javascript:void(0);" class="dropdown-item notify-item">
+                                                <div class="notify-icon">
+                                                    <img src="/management/img/profile.png" class="img-fluid rounded-circle" alt=""> </div>
+                                                <p class="notify-details">박경호</p>
+                                                <p class="text-muted mb-0 user-msg">
+                                                    <small>최지은 Ban</small>
+                                                    <small class="text-muted">  1 hours ago</small>
+                                                </p>
+                                            </a>
+
+                                            <!-- item-->
+                                            <a href="javascript:void(0);" class="dropdown-item notify-item">
+                                                <div class="notify-icon">
+                                                    <img src="/management/img/profile.png" class="img-fluid rounded-circle" alt=""> </div>
+                                                <p class="notify-details">최지은</p>
+                                                <p class="text-muted mb-0 user-msg">
+                                                    <small>내용</small>
+                                                    <small class="text-muted">시간</small>
+                                                </p>
+                                            </a>
+
+                                            <!-- item-->
+                                            <a href="javascript:void(0);" class="dropdown-item notify-item">
+                                                <div class="notify-icon">
+                                                    <img src="/management/img/profile.png" class="img-fluid rounded-circle" alt=""> </div>
+                                                <p class="notify-details">송치민</p>
+                                                <p class="text-muted mb-0 user-msg">
+                                                    <small>내용</small>
+                                                    <small class="text-muted">시간</small>
+                                                </p>
+                                            </a>
+
+                                        </div><div class="slimScrollBar" style="background: rgb(158, 165, 171); width: 8px; position: absolute; top: 0px; opacity: 0.4; display: block; border-radius: 7px; z-index: 99; right: 1px;"></div><div class="slimScrollRail" style="width: 8px; height: 100%; position: absolute; top: 0px; display: none; border-radius: 7px; background: rgb(51, 51, 51); opacity: 0.2; z-index: 90; right: 1px;"></div></div>
+
+                                        <!-- All-->
+                                        <a href="javascript:void(0);" class="dropdown-item text-center text-primary notify-item notify-all">
+                                            더보기
+                                        </a>
+
+                                    </div>
+                                </li>
+
+                                <li class="dropdown notification-list list-inline-item">
+                                    <a class="nav-link dropdown-toggle nav-user mr-0 waves-effect" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
+                                        <img src="/management/img/profile.png" alt="user-image" class="rounded-circle">
+                                        <span class="pro-user-name ml-1">치민</span>
+                                    </a>
+                                    <div class="dropdown-menu dropdown-menu-right profile-dropdown ">
+                                        <!-- item-->
+                                        <div class="dropdown-header noti-title">
+                                            <h6 class="text-overflow m-0">관리자</h6>
+                                        </div>
+
+                                        <!-- item-->
+                                        <a href="javascript:void(0);" class="dropdown-item notify-item">
+                                            <i class="fe-user"></i>
+                                            <span>My Page</span>
+                                        </a>
+
+                                        <!-- item-->
+                                        <a href="javascript:void(0);" class="dropdown-item notify-item">
+                                            <i class="fe-settings"></i>
+                                            <span>Settings</span>
+                                        </a>
+
+
+                                        <div class="dropdown-divider"></div>
+
+                                        <!-- item-->
+                                        <a href="javascript:void(0);" class="dropdown-item notify-item">
+                                            <i class="fe-log-out"></i>
+                                            <span>Logout</span>
+                                        </a>
+
+                                    </div>
+                                </li>
+
+                            </ul>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <!-- end page title -->
+
+            <!-- start page title -->
+            <div class="row">
+                <div class="col-12">
+                    <div class="refresh breadcrumb m-0 float-right">
+                        <img src="/management/img/refresh-button.png" style="width: 20px; height: 20px;">
+                    </div>
+                </div>
+            </div>
+            <!-- end page title -->
+
+            <div class="row">
+
+                <div class="col-xl-3 col-md-6">
+                    <div class="card-box">
+                        <!--드롭박스 추가-->
+                        <h4 class="header-title mt-0 mb-4">Number of connections</h4>
+
+                        <div class="widget-box-1">
+                            <div class="widget-detail-2 text-left">
+                                <span class="badge badge-danger badge-pill float-right mt-3">15% </span>
+                                <h1 class="font-weight-normal mb-1"> 10000 </h1>
+                                <p class="text-muted mb-1">접속</p>
+                            </div>
+
+                        </div>
+                    </div>
+                </div><!-- end col -->
+
+                <div class="col-xl-3 col-md-6">
+                    <div class="card-box">
+                        <!--드롭박스 추가-->
+                        <h4 class="header-title mt-0 mb-4">Number of accounts</h4>
+
+                        <div class="widget-box-1">
+                            <div class="widget-detail-2 text-left">
+                                <span class="badge badge-success badge-pill float-right mt-3">30% </span>
+                                <h1 class="font-weight-normal mb-1"> 15000 </h1>
+                                <p class="text-muted mb-1">계정</p>
+                            </div>
+
+                        </div>
+                    </div>
+                </div><!-- end col -->
+
+                <div class="col-xl-3 col-md-6">
+                    <div class="card-box">
+                        <!--드롭박스 추가-->
+                        <h4 class="header-title mt-0 mb-4">Number of chat rooms</h4>
+
+                        <div class="widget-box-1">
+                            <div class="widget-detail-2 text-left">
+                                <span class="badge badge-success badge-pill float-right mt-3">32% </span>
+                                <h1 class="font-weight-normal mb-1"> 8451 </h1>
+                                <p class="text-muted mb-1">채팅방</p>
+                            </div>
+
+                        </div>
+                    </div>
+                </div><!-- end col -->
+
+                <div class="col-xl-3 col-md-6">
+                    <div class="card-box">
+                        <!--드롭박스 추가-->
+                        <h4 class="header-title mt-0 mb-4">Number of photos</h4>
+
+                        <div class="widget-box-1">
+                            <div class="widget-detail-2 text-left">
+                                <span class="badge badge-success badge-pill float-right mt-3">10% </span>
+                                <h1 class="font-weight-normal mb-1"> 50000 </h1>
+                                <p class="text-muted mb-1">사진</p>
+                            </div>
+
+                        </div>
+                    </div>
+                </div><!-- end col -->
+
+            </div>
+            <!-- end row -->
+
+            <div class="row">
+                <div class="col-xl-4">
+                    <div class="card-box">
+                        <h4 class="header-title mt-0">차트1</h4>
+
+                        <div class="widget-chart text-center">
+                            <div class="dashboard-chart" style="height: 250px;" >
+
+                            </div>
+                        </div>
+                    </div>
+                </div><!-- end col -->
+
+
+                <div class="col-xl-4">
+                    <div class="card-box">
+                        <h4 class="header-title mt-0">차트2</h4>
+
+                        <div class="widget-chart text-center">
+                            <div class="dashboard-chart" style="height: 250px;" >
+
+                            </div>
+                        </div>
+                    </div>
+                </div><!-- end col -->
+
+                <div class="col-xl-4">
+                    <div class="card-box">
+                        <h4 class="header-title mt-0">차트3</h4>
+
+                        <div class="widget-chart text-center">
+                            <div class="dashboard-chart" style="height: 250px;" >
+
+                            </div>
+                        </div>
+                    </div>
+                </div><!-- end col -->
+
+            </div>
+            <!-- end row -->
+
+
+        </div> <!-- container-fluid -->
+
+    </div>
+
+</section>
+
+
+<!--<ul class="list-inline chart-detail-list mb-0">-->
+<!--    <li class="list-inline-item">-->
+<!--        <h5 style="color: #ff8acc;"></i>남</h5>-->
+<!--    </li>-->
+<!--    <li class="list-inline-item">-->
+<!--        <h5 style="color: #5b69bc;"></i>여B</h5>-->
+<!--    </li>-->
+<!--</ul>-->

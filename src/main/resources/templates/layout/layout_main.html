@@ -7,20 +7,44 @@
         <th:block layout:fragment="title">픽톡(PicTalk) - 끝봄의 이미지 채팅</th:block>
     </title>
 
+    <!-- BootStrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+
+    <!-- Global Common CSS -->
     <link rel="stylesheet" href="css/main.css"/>
     <th:block layout:fragment="css"></th:block>
 
+    <!-- AngularJs JS -->
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.0/angular.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.0/angular-animate.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.0/angular-sanitize.min.js"></script>
+<<<<<<< HEAD
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
 
+=======
+    <script src="https://cdn.rawgit.com/angular-ui/bootstrap/gh-pages/ui-bootstrap-tpls-2.5.0.js"></script>
+
+    <!-- JQuery JS -->
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    <!-- BootStrap JS -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+
+    <!-- Global Common JS -->
+    <script src="js/main.js"></script>
+>>>>>>> 0afa3bcb1d250df4a22c41f3e9e4977129edf622
     <th:block layout:fragment="js"></th:block>
 </head>
 <body>
-    <header th:replace="fragment/header :: header"></header>
-    <div class="content">
-        <section layout:fragment="content"></section>
+    <div class="layout-main" ng-app="mainApp">
+<!--        <header th:replace="fragment/header :: header"></header>-->
+    <nav th:replace="~{fragment/nav :: nav}"></nav>
+        <div class="content">
+            <section layout:fragment="content"></section>
+        </div>
     </div>
+
+    <th:block layout:fragment="js-end"></th:block>
 </body>
 </html>

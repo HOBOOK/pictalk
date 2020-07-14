@@ -5,16 +5,141 @@
 
 <th:block layout:fragment="title">픽톡(PicTalk) | 채팅</th:block>
 <th:block layout:fragment="js">
-    <!--추가 JS -->
-
-    <!--추가 JS 끝-->
+    <!-- BootStrap JS -->
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 </th:block>
+<th:block layout:fragment="js-end">
+    <script src="/chat/js/chat.js"></script>
+    <script src="/chat/js/chat-modal.js"></script>
+</th:block>
+
 <th:block layout:fragment="css">
-    <!--추가 CSS -->
-
-    <!--추가 CSS 끝-->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.0/css/all.css">
+    <link rel="stylesheet" href="/chat/css/chat.css"/>
+    <link rel="stylesheet" href="/chat/css/chat-modal.css"/>
 </th:block>
 
-<section layout:fragment="content">
-    채팅
+<section layout:fragment="content" ng-controller="chatController" class="content-chat-container">
+    <div class="chat-sidebar-container">
+        <div class="chat-sidebar-header">
+            <h3>오픈 채팅방</h3>
+            <span class="chat-sidebar-button" ng-click="onClickAddChatRoom()"><i class="fas fa-plus"></i></span>
+            <div id="chat-room-search">
+                <input class="input-search" type="text" placeholder="방 검색..."/>
+                <div id="chat-room-tags">
+                    <span>인기 태그</span>
+                    <a>#tag1</a>
+                </div>
+            </div>
+        </div>
+        <div class="chat-sidebar-content-container">
+            <div id="chat-room" class="chat-sidebar-content ng-cloak" ng-repeat="room in rooms" ng-click="connect($event, room)">
+                <img ng-src="{{room.img}}" alt="thumbnail" class="img-circle"/>
+                <span id="chat-room-info">
+                    <h5 ng-bind="room.title"></h5><span>({{room.member}} / {{room.max}})</span>
+                    <p ng-bind="room.description"></p>
+                </span>
+
+                <div class="chat-room-detail">
+                    <p>입장하기</p>
+                </div>
+            </div>
+        </div>
+        <div class="chat-sidebar-footer">
+
+        </div>
+    </div>
+
+    <div id="chat-container">
+        <div id="chat-page" class="hidden">
+            <div class="chat-container">
+                <div class="chat-header">
+                    <img ng-src="{{currentRoom.img}}"/>
+                    <div class="chat-header-info">
+                        <h2>{{currentRoom.title}}</h2>
+                        <p>{{currentRoom.description}}</p>
+                    </div>
+
+                    <div class="chat-header-menu">
+                            <span ng-click="onClickToggleMenu()">
+                                <i class="fas fa-bars"></i>
+                            </span>
+                    </div>
+                </div>
+                <div class="connecting">
+                    연결중...
+                </div>
+                <ul id="messageArea">
+
+                </ul>
+                <form id="messageForm" name="messageForm">
+                    <div class="input-group clearfix">
+                        <input type="text" id="message" placeholder="메시지 입력..." autocomplete="off"/>
+
+                        <div class="form-buttons">
+                            <button type="button" ng-click="" class="circle">
+                                <i class="fas fa-paperclip"></i>
+                            </button>
+                            <button type="submit" ng-click="sendMessage($event)" class="circle">
+                                <i class="fas fa-paper-plane"></i>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="chat-sidebar-container" id="chat-menu">
+        <div class="chat-sidebar-header">
+            <h3>채팅방 정보</h3>
+        </div>
+        <div class="chat-sidebar-content-container">
+            <div class="chat-sidebar-content" id="chat-profile">
+
+                <img ng-src="{{currentRoom.img}}"/>
+                <h4 ng-bind="currentRoom.title"></h4>
+                <h6 ng-bind="currentRoom.description"></h6>
+                <ul class="chat-profile-tags">
+                    <li ng-repeat="category in currentRoom.category">
+                        <a href="#"># category</a>
+                    </li>
+                </ul>
+                <span class="chat-profile-create"><h6>생성일 | </h6> {{currentRoom.createDate}}</span>
+                <div class="chat-profile-manager-info">
+                    <h6>방장 | </h6>
+                    <img ng-src="{{manager.thumbnail}}"/>
+                    <span ng-bind="manager.nickname"></span>
+
+                </div>
+                <ul class="chat-profile-menu">
+                    <li><a href="#"><i class="fas fa-comment-dots"></i> 공지</a></li>
+                    <li><a href="#"><i class="fas fa-vote-yea"></i> 투표</a></li>
+                </ul>
+            </div>
+            <div class="chat-sidebar-content" id="chat-data-log">
+                <h6>사진 기록</h6><span class="btn-more">더보기</span>
+                <ul class="chat-data-image">
+                    <li ng-repeat="image in storage_image | limitTo: 4">
+                        <img ng-src="{{image.url}}"/>
+                    </li>
+                </ul>
+            </div>
+            <div class="chat-sidebar-content" id="chat-user-info">
+                <h6>참여자 정보 (300명)</h6>
+                <ul class="chat-user-profile">
+                    <li ng-repeat="participant in participants">
+                        <img ng-src="{{participant.thumbnail}}"/>
+                        <span ng-bind="participant.nickname"></span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="chat-sidebar-footer">
+                <button type="button" class="square" ng-click="onClickExitChatRoom()">
+                    <i class="fas fa-door-open"></i>
+                </button>
+        </div>
+    </div>
 </section>
