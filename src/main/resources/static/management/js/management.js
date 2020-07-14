@@ -1,6 +1,6 @@
 'use strict';
 
-app.controller('accountCtrl', function ($scope) {
+app.controller("accountCtrl", function ($scope) {
     $scope.accounts = [{
         no: "1",
         profile: "profile.png",
@@ -122,5 +122,74 @@ app.controller('accountCtrl', function ($scope) {
         joindate: "2020-07-09 20:00",
         reportnum: 0,
         state: 0
+    }];
+
+
+    $scope.logReports = [{
+        no: "1",
+        roomName: "채팅방",
+        content: "로그내역1",
+        logDate: "2020/07/13 24:00:00",
+        remark: ""
+    },{
+        no: "2",
+        roomName: "채팅방",
+        content: "로그내역2",
+        logDate: "2020/07/13 24:00:00",
+        remark: ""
+    },{
+        no: "3",
+        roomName: "채팅방",
+        content: "로그내역3",
+        logDate: "2020/07/13 24:00:00",
+        remark: ""
+    },{
+        no: "4",
+        roomName: "채팅방",
+        content: "로그내역4",
+        logDate: "2020/07/13 24:00:00",
+        remark: ""
+    },{
+        no: "5",
+        roomName: "채팅방",
+        content: "로그내역5",
+        logDate: "2020/07/13 24:00:00",
+        remark: ""
+    },{
+        no: "6",
+        roomName: "채팅방",
+        content: "로그내역6",
+        logDate: "2020/07/13 24:00:00",
+        remark: ""
+    },{
+        no: "7",
+        roomName: "채팅방",
+        content: "로그내역7",
+        logDate: "2020/07/13 24:00:00",
+        remark: ""
+    },{
+        no: "8",
+        roomName: "채팅방",
+        content: "로그내역8",
+        logDate: "2020/07/13 24:00:00",
+        remark: ""
+    },{
+        no: "9",
+        roomName: "채팅방",
+        content: "로그내역9",
+        logDate: "2020/07/13 24:00:00",
+        remark: ""
+    },{
+        no: "10",
+        roomName: "채팅방",
+        content: "로그내역10",
+        logDate: "2020/07/13 24:00:00",
+        remark: ""
+    },{
+        no: "11",
+        roomName: "채팅방",
+        content: "로그내역11",
+        logDate: "2020/07/13 24:00:00",
+        remark: ""
     }];
 });
