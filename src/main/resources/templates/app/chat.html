@@ -138,7 +138,9 @@
                     <h6>사진 기록</h6><span class="btn-more" ng-click="onClickOpenSidebar(2)">더보기</span>
                     <ul class="chat-data-image">
                         <li ng-repeat="image in storage_image | limitTo: 4">
-                            <img ng-src="{{image.url}}" onerror="this.src='/img/no-image.png'"/>
+                            <a class="spotlight" ng-href="{{image.url}}">
+                                <img ng-src="{{image.url}}" onerror="this.src='/img/no-image.png'"/>
+                            </a>
                         </li>
                     </ul>
                 </div>
@@ -175,11 +177,21 @@
             <div class="chat-sidebar-content-container">
                 <div class="chat-sidebar-content">
                     <div class="chat-album-grid spotlight-group">
-                        <div><a class="spotlight"><img ng-src="/img/no-image.png"/></a></div>
-                        <div><a class="spotlight"><img ng-src="/img/no-image.png"/></a></div>
-                        <div><a class="spotlight"><img ng-src="/img/no-image.png"/></a></div>
-                        <div><a class="spotlight"><img ng-src="/img/no-image.png"/></a></div>
-                        <div><a class="spotlight"><img ng-src="/img/no-image.png"/></a></div>
+                        <div>
+                            <a class="spotlight" href="/img/no-image.png">
+                                <img ng-src="/img/no-image.png"/>
+                            </a>
+                        </div>
+                        <div>
+                            <a class="spotlight" href="/img/no-image.png">
+                                <img ng-src="/img/no-image.png"/>
+                            </a>
+                        </div>
+                        <div>
+                            <a class="spotlight" href="/img/no-image.png">
+                                <img ng-src="/img/no-image.png"/>
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -195,7 +207,9 @@
                 <div class="chat-sidebar-content">
                     <div class="chat-album-grid spotlight-group">
                         <div ng-repeat="image in storage_image">
-                            <a class="spotlight"><img ng-src="{{image.url}}" onerror="this.src='/img/no-image.png'"/></a>
+                            <a class="spotlight" ng-href="{{image.url}}">
+                                <img ng-src="{{image.url}}" onerror="this.src='/img/no-image.png'"/>
+                            </a>
                         </div>
                     </div>
                 </div>
