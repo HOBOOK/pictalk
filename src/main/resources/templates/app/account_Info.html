@@ -47,51 +47,12 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr>
-                    <td>1</td>
-                    <td>픽톡</td>
-                    <td>photo_1</td>
-                    <td>2020-07-09 20:00</td>
-                    <td>버튼</td>
-                </tr>
-                <tr>
-                    <td>1</td>
-                    <td>픽톡</td>
-                    <td>photo_1</td>
-                    <td>2020-07-09 20:00</td>
-                    <td>버튼</td>
-                </tr>
-                <tr>
-                    <td>1</td>
-                    <td>픽톡</td>
-                    <td>photo_1</td>
-                    <td>2020-07-09 20:00</td>
-                    <td>버튼</td>
-                </tr><tr>
-                    <td>1</td>
-                    <td>픽톡</td>
-                    <td>photo_1</td>
-                    <td>2020-07-09 20:00</td>
-                    <td>버튼</td>
-                </tr>
-                <tr>
-                    <td>1</td>
-                    <td>픽톡</td>
-                    <td>photo_1</td>
-                    <td>2020-07-09 20:00</td>
-                    <td>버튼</td>
-                </tr><tr>
-                    <td>1</td>
-                    <td>픽톡</td>
-                    <td>photo_1</td>
-                    <td>2020-07-09 20:00</td>
-                    <td>버튼</td>
-                </tr><tr>
-                    <td>1</td>
-                    <td>픽톡</td>
-                    <td>photo_1</td>
-                    <td>2020-07-09 20:00</td>
-                    <td>버튼</td>
+                <tr ng-repeat="logReport in logReports">
+                    <td>{{logReport.no}}</td>
+                    <td>{{logReport.roomName}}</td>
+                    <td>{{logReport.content}}</td>
+                    <td>{{logReport.logDate}}</td>
+                    <td>{{logReport.remark}}</td>
                 </tr>
                 </tbody>
                 <!--            <tfoot>-->

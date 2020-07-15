@@ -5,9 +5,10 @@
 
 <th:block layout:fragment="title">픽톡(PicTalk) | 채팅</th:block>
 <th:block layout:fragment="js">
-    <!-- BootStrap JS -->
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <!-- BootStrap JS -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+
 </th:block>
 <th:block layout:fragment="js-end">
     <script src="/chat/js/chat.js"></script>
@@ -15,6 +16,10 @@
 </th:block>
 
 <th:block layout:fragment="css">
+    <!-- BootStrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.0/css/all.css">
     <link rel="stylesheet" href="/chat/css/chat.css"/>
     <link rel="stylesheet" href="/chat/css/chat-modal.css"/>
@@ -33,16 +38,16 @@
                 </div>
             </div>
         </div>
-        <div class="chat-sidebar-content-container">
+        <div class="chat-sidebar-content-container" id="chat-sidebar-room-content">
             <div id="chat-room" class="chat-sidebar-content ng-cloak" ng-repeat="room in rooms" ng-click="connect($event, room)">
-                <img ng-src="{{room.img}}" alt="thumbnail" class="img-circle"/>
+                <img ng-src="{{room.img}}" alt="thumbnail" class="img-circle" onerror="this.src='/img/no-image.png'"/>
                 <span id="chat-room-info">
-                    <h5 ng-bind="room.title"></h5><span>({{room.member}} / {{room.max}})</span>
+                    <h5 ng-bind="room.title"></h5> <span> <i class="fas fa-user-alt"></i> {{room.member}}/{{room.max}}</span>
                     <p ng-bind="room.description"></p>
                 </span>
 
                 <div class="chat-room-detail">
-                    <p>입장하기</p>
+                    <i class="far fa-comment-dots"></i>
                 </div>
             </div>
         </div>
@@ -55,7 +60,7 @@
         <div id="chat-page" class="hidden">
             <div class="chat-container">
                 <div class="chat-header">
-                    <img ng-src="{{currentRoom.img}}"/>
+                    <img ng-src="{{currentRoom.img}}" onerror="this.src='/img/no-image.png'"/>
                     <div class="chat-header-info">
                         <h2>{{currentRoom.title}}</h2>
                         <p>{{currentRoom.description}}</p>
@@ -75,10 +80,13 @@
                 </ul>
                 <form id="messageForm" name="messageForm">
                     <div class="input-group clearfix">
-                        <input type="text" id="message" placeholder="메시지 입력..." autocomplete="off"/>
+                        <input type="text" id="chat-message" placeholder="메시지 입력..." autocomplete="off"/>
 
                         <div class="form-buttons">
-                            <button type="button" ng-click="" class="circle">
+                            <button type="button" ng-click="onClickOpenSidebar(1)" class="circle">
+                                <i class="fas fa-images"></i>
+                            </button>
+                            <button type="button" ng-click="sendImageMessage($event, 'dd')" class="circle">
                                 <i class="fas fa-paperclip"></i>
                             </button>
                             <button type="submit" ng-click="sendMessage($event)" class="circle">
@@ -91,55 +99,135 @@
         </div>
     </div>
 
-    <div class="chat-sidebar-container" id="chat-menu">
-        <div class="chat-sidebar-header">
-            <h3>채팅방 정보</h3>
-        </div>
-        <div class="chat-sidebar-content-container">
-            <div class="chat-sidebar-content" id="chat-profile">
+    <div id="chat-tab">
+        <div class="chat-sidebar-container chat-sidebar-tab" id="chat-menu" ng-show="config_chat.ui.sidebarIndex===0">
+            <div class="chat-sidebar-header">
+                <h3>채팅방 정보</h3>
+                <span class="chat-sidebar-button" ng-click="onClickToggleMenu()"><i class="fas fa-times"></i></span>
+            </div>
+            <div class="chat-sidebar-content-container">
+                <div class="chat-sidebar-content" id="chat-profile" back-img="{{currentRoom.img}}">
 
-                <img ng-src="{{currentRoom.img}}"/>
-                <h4 ng-bind="currentRoom.title"></h4>
-                <h6 ng-bind="currentRoom.description"></h6>
-                <ul class="chat-profile-tags">
-                    <li ng-repeat="category in currentRoom.category">
-                        <a href="#"># category</a>
-                    </li>
-                </ul>
-                <span class="chat-profile-create"><h6>생성일 | </h6> {{currentRoom.createDate}}</span>
-                <div class="chat-profile-manager-info">
-                    <h6>방장 | </h6>
-                    <img ng-src="{{manager.thumbnail}}"/>
-                    <span ng-bind="manager.nickname"></span>
+                    <img ng-src="{{currentRoom.img}}" onerror="this.src='/img/no-image.png'"/>
+                    <h4 ng-bind="currentRoom.title"></h4>
+                    <h6 ng-bind="currentRoom.description"></h6>
+                    <ul class="chat-profile-tags">
+                        <li ng-repeat="category in currentRoom.category">
+                            <a href="#"># {{category}}</a>
+                        </li>
+                    </ul>
+                    <span class="chat-profile-create"><h6>생성일 | </h6> {{currentRoom.createDate}}</span>
+                    <div class="chat-profile-manager-info">
+                        <h6>방장 | </h6>
+                        <img ng-src="{{manager.thumbnail}}" onerror="this.src='/img/no-image.png'"/>
+                        <span ng-bind="manager.nickname"></span>
 
+                    </div>
+                    <ul class="chat-profile-menu">
+                        <li><a href="#"><i class="fas fa-comment-dots"></i> 공지</a></li>
+                        <li><a href="#"><i class="fas fa-vote-yea"></i> 투표</a></li>
+                    </ul>
                 </div>
-                <ul class="chat-profile-menu">
-                    <li><a href="#"><i class="fas fa-comment-dots"></i> 공지</a></li>
-                    <li><a href="#"><i class="fas fa-vote-yea"></i> 투표</a></li>
-                </ul>
+                <div class="chat-sidebar-content" id="chat-data-log">
+                    <h6>사진 기록</h6><span class="btn-more" ng-click="onClickOpenSidebar(2)">더보기</span>
+                    <ul class="chat-data-image">
+                        <li ng-repeat="image in storage_image | limitTo: 4">
+                            <img ng-src="{{image.url}}" onerror="this.src='/img/no-image.png'"/>
+                        </li>
+                    </ul>
+                </div>
+                <div class="chat-sidebar-content" id="chat-user-info">
+                    <h6>참여자 정보 (300명)</h6>
+                    <ul class="chat-user-profile">
+                        <li ng-repeat="participant in participants">
+                            <div class="chat-participant-info" ng-click="onClickParticipant(participant)">
+                                <img ng-src="{{participant.thumbnail}}"/>
+                                <span ng-bind="participant.nickname"></span>
+                            </div>
+                            <div class="chat-user-menu" ng-show="participant.id === config_chat.selectedParticipant.id">
+                                <ul>
+                                    <li><span><i class="far fa-comments"></i></span><br/> 1:1 대화</li>
+                                    <li><span><i class="fas fa-user-plus"></i></span><br/> 팔로우</li>
+                                    <li><span><i class="far fa-bell"></i></span><br/> 신고</li>
+                                </ul>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
             </div>
-            <div class="chat-sidebar-content" id="chat-data-log">
-                <h6>사진 기록</h6><span class="btn-more">더보기</span>
-                <ul class="chat-data-image">
-                    <li ng-repeat="image in storage_image | limitTo: 4">
-                        <img ng-src="{{image.url}}"/>
-                    </li>
-                </ul>
-            </div>
-            <div class="chat-sidebar-content" id="chat-user-info">
-                <h6>참여자 정보 (300명)</h6>
-                <ul class="chat-user-profile">
-                    <li ng-repeat="participant in participants">
-                        <img ng-src="{{participant.thumbnail}}"/>
-                        <span ng-bind="participant.nickname"></span>
-                    </li>
-                </ul>
-            </div>
-        </div>
-        <div class="chat-sidebar-footer">
-                <button type="button" class="square" ng-click="onClickExitChatRoom()">
+            <div class="chat-sidebar-footer">
+                <button type="button" class="sidebar" ng-click="onClickExitChatRoom()">
                     <i class="fas fa-door-open"></i>
                 </button>
+            </div>
+        </div>
+        <div class="chat-sidebar-container chat-sidebar-tab" id="#chat-album" ng-show="config_chat.ui.sidebarIndex===1">
+            <div class="chat-sidebar-header">
+                <h3>이미지 서랍</h3>
+                <span class="chat-sidebar-button" ng-click="onClickOpenSidebar(0)"><i class="fas fa-arrow-left"></i></span>
+            </div>
+            <div class="chat-sidebar-content-container">
+                <div class="chat-sidebar-content">
+                    <div class="chat-album-grid">
+                        <div><img ng-src="/img/no-image.png"/></div>
+                        <div><img ng-src="/img/no-image.png"/></div>
+                        <div><img ng-src="/img/no-image.png"/></div>
+                        <div><img ng-src="/img/no-image.png"/></div>
+                        <div><img ng-src="/img/no-image.png"/></div>
+                        <div><img ng-src="/img/no-image.png"/></div>
+                        <div><img ng-src="/img/no-image.png"/></div>
+                        <div><img ng-src="/img/no-image.png"/></div>
+                        <div><img ng-src="/img/no-image.png"/></div>
+                        <div><img ng-src="/img/no-image.png"/></div>
+                        <div><img ng-src="/img/no-image.png"/></div>
+                        <div><img ng-src="/img/no-image.png"/></div>
+                        <div><img ng-src="/img/no-image.png"/></div>
+                        <div><img ng-src="/img/no-image.png"/></div>
+                        <div><img ng-src="/img/no-image.png"/></div>
+                        <div><img ng-src="/img/no-image.png"/></div>
+                        <div><img ng-src="/img/no-image.png"/></div>
+                        <div><img ng-src="/img/no-image.png"/></div>
+                        <div><img ng-src="/img/no-image.png"/></div>
+                        <div><img ng-src="/img/no-image.png"/></div>
+                        <div><img ng-src="/img/no-image.png"/></div>
+                        <div><img ng-src="/img/no-image.png"/></div>
+                        <div><img ng-src="/img/no-image.png"/></div>
+                        <div><img ng-src="/img/no-image.png"/></div>
+                        <div><img ng-src="/img/no-image.png"/></div>
+                        <div><img ng-src="/img/no-image.png"/></div>
+                        <div><img ng-src="/img/no-image.png"/></div>
+                        <div><img ng-src="/img/no-image.png"/></div>
+                        <div><img ng-src="/img/no-image.png"/></div>
+                        <div><img ng-src="/img/no-image.png"/></div>
+                        <div><img ng-src="/img/no-image.png"/></div>
+                        <div><img ng-src="/img/no-image.png"/></div>
+                        <div><img ng-src="/img/no-image.png"/></div>
+                        <div><img ng-src="/img/no-image.png"/></div>
+                        <div><img ng-src="/img/no-image.png"/></div>
+                        <div><img ng-src="/img/no-image.png"/></div>
+                    </div>
+                </div>
+            </div>
+            <div class="chat-sidebar-footer">
+            </div>
+        </div>
+        <div class="chat-sidebar-container chat-sidebar-tab" id="#chat-image-log" ng-show="config_chat.ui.sidebarIndex===2">
+            <div class="chat-sidebar-header">
+                <h3>사진 기록</h3>
+                <span class="chat-sidebar-button" ng-click="onClickOpenSidebar(0)"><i class="fas fa-arrow-left"></i></span>
+            </div>
+            <div class="chat-sidebar-content-container">
+                <div class="chat-sidebar-content">
+                    <div class="chat-album-grid">
+                        <div ng-repeat="image in storage_image">
+                            <img ng-src="{{image.url}}" onerror="this.src='/img/no-image.png'"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="chat-sidebar-footer">
+            </div>
         </div>
     </div>
+
 </section>
