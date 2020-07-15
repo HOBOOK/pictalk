@@ -12,13 +12,11 @@ var chatSideMenu = document.querySelector('#chat-side-tab');
 var layout = document.querySelector('.layout-main');
 
 app.controller("chatController", function ($scope, $http, $uibModal, $filter) {
-    $scope.rooms = [];
-    $scope.myRooms = [];
     $scope.rooms = [{
         id: 1,
         type: 0,
-        title: "제목",
-        description: "채팅방 들어오세요~",
+        title: "방제목",
+        description: "대화하고 노실분들 입장하세용",
         category:["태그1","태그2"],
         img: "/img/no-image.png",
         max: 100,
@@ -26,91 +24,25 @@ app.controller("chatController", function ($scope, $http, $uibModal, $filter) {
         createDate: "2020.07.13",
         manager_id: 1,
         latestMessage: ""
-    },{
-        id: 2,
-        type: 1,
-        title: "제목제목제목",
-        description: "채팅방 채팅방 들어오세요~",
-        category:["태그1","태그2"],
-        img: "/img/no-image.png",
-        max: 50,
-        member: 25,
-        createDate: "2020.07.13",
-        manager_id: 1,
-        latestMessage: ""
-    },{
-        id: 3,
-        type: 0,
-        title: "제목제목",
-        description: "채팅방 들어오세요 들어오세요~",
-        category:["태그1","태그2"],
-        img: "/chat/img/thumbnail_example.png",
-        max: 500,
-        member: 500,
-        createDate: "2020.07.13",
-        manager_id: 1,
-        latestMessage: ""
-    },{
-        id: 4,
-        type: 1,
-        title: "제목제목제목제목제목제목제목제목제목",
-        description: "채팅방 들어오세요 들어오세요 들어오세요 들어오세요 들어오세요~",
-        category:["태그1","태그2"],
-        img: "/img/no-image.png",
-        max: 10,
-        member: 0,
-        createDate: "2020.07.13",
-        manager_id: 1,
-        latestMessage: ""
-    },{
-        id: 5,
-        type: 0,
-        title: "제목5",
-        description: "채팅방 들어오세요~",
-        category:["태그1","태그2"],
-        img: "/chat/img/thumbnail_example.png",
-        max: 10,
-        member: 0,
-        createDate: "2020.07.13",
-        manager_id: 1,
-        latestMessage: ""
-    },{
-        id: 6,
-        type: 1,
-        title: "제목6",
-        description: "채팅방 들어오세요~",
-        category:["태그1","태그2"],
-        img: "/img/no-image.png",
-        max: 10,
-        member: 0,
-        createDate: "2020.07.13",
-        manager_id: 1,
-        latestMessage: ""
-    },{
-        id: 7,
-        type: 0,
-        title: "제목7",
-        description: "채팅방 들어오세요~",
-        category:["태그1","태그2"],
-        img: "/chat/img/thumbnail_example.png",
-        max: 10,
-        member: 0,
-        createDate: "2020.07.13",
-        manager_id: 1,
-        latestMessage: ""
-    },{
-        id: 8,
-        type: 1,
-        title: "제목8",
-        description: "채팅방 들어오세요~",
-        category:["태그1","태그2"],
-        img: "/chat/img/thumbnail_example.png",
-        max: 10,
-        member: 0,
-        createDate: "2020.07.13",
-        manager_id: 1,
-        latestMessage: ""
     }];
+    $scope.myRooms = [];
+
+    var roomImages = ["/chat/img/thumbnail_example.png","/img/no-image.png"];
+    for(var i = 1; i < 100; i++){
+        $scope.rooms.push({
+            id: i,
+            type: 1,
+            title: "방제목 " + i,
+            description: "대화하고 노실분들 입장하세용",
+            category:["태그1","태그2"],
+            img: roomImages[(i%roomImages.length)],
+            max: 500,
+            member: 0,
+            createDate: "2020.07.13",
+            manager_id: 1,
+            latestMessage: ""
+        });
+    }
 
     $scope.initConfig = function(){
         $scope.config_chat = {
@@ -122,7 +54,13 @@ app.controller("chatController", function ($scope, $http, $uibModal, $filter) {
             },
             ui:{
                 mainBarIndex: 0,
-                sidebarIndex: 0
+                sidebarIndex: 0,
+                scrollLimit:[
+                    {limit: 18}, //채팅방 목록
+                    {limit: 18}, //채팅방 정보(참여자 수)
+                    {limit: 18}, //이미지 서랍
+                    {limit: 18} //채팅방 사진 저장소
+                ]
             }
         }
     }
@@ -131,104 +69,32 @@ app.controller("chatController", function ($scope, $http, $uibModal, $filter) {
     $scope.initDumpData = function(){
         $scope.storage_image = [
             {
-                id: 1,
+                id: 0,
                 url: "/chat/img/image_example.jpg"
-            },
-            {
-                id: 2,
-                url: "/chat/img/image_example.jpg"
-            },
-            {
-                id: 3,
-                url: "/chat/img/image_example.jpg"
-            },
-            {
-                id: 4,
-                url: "/chat/img/image_example.jpg"
-            },
-            {
-                id: 5,
-                url: "/chat/img/image_example.jpg"
-            },
-            {
-                id: 6,
-                url: "/chat/img/image_example.jpg"
-            }
-        ]
+            }]
+        for(var i = 1; i < 100; i++){
+            $scope.storage_image.push({
+               id: i,
+               url:  "/chat/img/image_example.jpg"
+            });
+        }
+
         $scope.participants = [
             {
                 id: 1,
-                nickname: "팍경호",
+                nickname: "방장님",
                 email: "park@naver.com",
                 thumbnail: "/chat/img/thumbnail_example.png"
-            },
-            {
-                id: 2,
-                nickname: "쏭치민",
-                email: "song@naver.com",
-                thumbnail: "/chat/img/thumbnail_example.png"
-            },
-            {
-                id: 3,
-                nickname: "쵸지은",
-                email: "choi@naver.com",
-                thumbnail: "/chat/img/thumbnail_example.png"
-            },
-            {
-                id: 4,
-                nickname: "팍경호",
+            }];
+        var nicknames = ["팍경호","쏭치민","쵸지은","호경봑","민지쏭","은지쵸"];
+        for(var i = 2; i < 200; i++){
+            $scope.participants.push({
+                id: i,
+                nickname: nicknames[(i%nicknames.length)],
                 email: "park@naver.com",
                 thumbnail: "/chat/img/thumbnail_example.png"
-            },
-            {
-                id: 5,
-                nickname: "쏭치민",
-                email: "song@naver.com",
-                thumbnail: "/chat/img/thumbnail_example.png"
-            },
-            {
-                id: 6,
-                nickname: "쵸지은",
-                email: "choi@naver.com",
-                thumbnail: "/chat/img/thumbnail_example.png"
-            },
-            {
-                id: 7,
-                nickname: "팍경호",
-                email: "park@naver.com",
-                thumbnail: "/chat/img/thumbnail_example.png"
-            },
-            {
-                id: 8,
-                nickname: "쏭치민",
-                email: "song@naver.com",
-                thumbnail: "/chat/img/thumbnail_example.png"
-            },
-            {
-                id: 9,
-                nickname: "쵸지은",
-                email: "choi@naver.com",
-                thumbnail: "/chat/img/thumbnail_example.png"
-            },
-            {
-                id: 10,
-                nickname: "팍경호",
-                email: "park@naver.com",
-                thumbnail: "/chat/img/thumbnail_example.png"
-            },
-            {
-                id: 11,
-                nickname: "쏭치민",
-                email: "song@naver.com",
-                thumbnail: "/chat/img/thumbnail_example.png"
-            },
-            {
-                id: 12,
-                nickname: "쵸지은",
-                email: "choi@naver.com",
-                thumbnail: "/chat/img/thumbnail_example.png"
-            }
-        ];
+            })
+        }
         $scope.manager = $filter('filter')($scope.participants, {id: currentRoom.manager_id}, true)[0];
     }
 
@@ -305,8 +171,12 @@ app.controller("chatController", function ($scope, $http, $uibModal, $filter) {
             }
         }
     }
+    $scope.scrollMore = function(limit){
+        limit.limit += 9;
+    }
 });
 
+// 채팅방 정보 배경 이미지 변경
 app.directive('backImg', function(){
     return function(scope, element, attrs){
         attrs.$observe('backImg', function(value) {
@@ -318,6 +188,7 @@ app.directive('backImg', function(){
     };
 });
 
+// 드래그 앤 드랍
 app.directive('dragItem', function() {
     return {
         restrict: 'A',
@@ -331,6 +202,7 @@ app.directive('dragItem', function() {
     }
 });
 
+// 드래그 앤 드랍
 app.directive('dropItem', function() {
     return {
         restrict: 'A',
@@ -354,6 +226,22 @@ app.directive('dropItem', function() {
                 var data = evt.dataTransfer.getData('src');
                 if(data !== '' && data !== null)
                     scope.sendImageMessage(evt, data);
+            });
+        }
+    }
+});
+
+// 스크롤 로드
+app.directive('whenScrolled', function () {
+    return {
+        restrict: 'A',
+        link: function(scope, elem, attr, controller) {
+            var raw = elem[0];
+            elem.bind("scroll", function(){
+                if(raw.scrollTop+raw.offsetHeight+5 >= raw.scrollHeight){
+                    scope.loading = true;
+                    scope.$apply(attr.whenScrolled);
+                }
             });
         }
     }

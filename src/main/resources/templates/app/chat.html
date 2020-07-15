@@ -47,8 +47,8 @@
                     </div>
                 </div>
             </div>
-            <div class="chat-sidebar-content-container height170">
-                <div class="chat-sidebar-content chat-room ng-cloak" ng-repeat="room in rooms" ng-click="connect($event, room)">
+            <div class="chat-sidebar-content-container height170" when-scrolled="scrollMore(config_chat.ui.scrollLimit[0])">
+                <div class="chat-sidebar-content chat-room ng-cloak" ng-repeat="room in rooms | limitTo: config_chat.ui.scrollLimit[0].limit" ng-click="connect($event, room)">
                     <img ng-src="{{room.img}}" alt="thumbnail" class="img-circle" onerror="this.src='/img/no-image.png'"/>
                     <span class="chat-room-info">
                     <h5 ng-bind="room.title"></h5> <span> <i class="fas fa-user-alt"></i> {{room.member}}/{{room.max}}</span>
@@ -65,8 +65,8 @@
             <div class="chat-sidebar-header">
                 <h3>나의 채팅방</h3>
             </div>
-            <div class="chat-sidebar-content-container height100">
-                <div class="chat-sidebar-content chat-room ng-cloak" ng-repeat="room in myRooms" ng-click="connect($event, room)">
+            <div class="chat-sidebar-content-container height100" when-scrolled="scrollMore(config_chat.ui.scrollLimit[0])">
+                <div class="chat-sidebar-content chat-room ng-cloak" ng-repeat="room in myRooms | limitTo: config_chat.ui.scrollLimit[0].limit" ng-click="connect($event, room)">
                     <img ng-src="{{room.img}}" alt="thumbnail" class="img-circle" onerror="this.src='/img/no-image.png'"/>
                     <span class="chat-room-info">
                         <h5 ng-bind="room.title"></h5> <span><i class="circle-count">17</i></span>
@@ -116,10 +116,10 @@
                         <input type="text" id="chat-message" placeholder="메시지 입력..." autocomplete="off"/>
 
                         <div class="form-buttons">
-                            <button type="button" ng-click="onClickOpenSidebar(1)" class="circle">
+                            <button type="button" ng-click="onClickOpenSidebar(1)" class="circleSub">
                                 <i class="fas fa-images"></i>
                             </button>
-                            <button type="button" ng-click="sendImageMessage($event, '/chat/img/image_example.jpg')" class="circle">
+                            <button type="button" ng-click="sendImageMessage($event, '/chat/img/image_example.jpg')" class="circleSub">
                                 <i class="fas fa-paperclip"></i>
                             </button>
                             <button type="submit" ng-click="sendMessage($event)" class="circle">
@@ -139,7 +139,7 @@
                 <h3>채팅방 정보</h3>
                 <span class="chat-sidebar-button" ng-click="onClickToggleMenu()"><i class="fas fa-times"></i></span>
             </div>
-            <div class="chat-sidebar-content-container height100">
+            <div class="chat-sidebar-content-container height100" when-scrolled="scrollMore(config_chat.ui.scrollLimit[1])">
                 <div class="chat-sidebar-content" id="chat-profile" back-img="{{currentRoom.img}}">
 
                     <img ng-src="{{currentRoom.img}}" onerror="this.src='/img/no-image.png'"/>
@@ -175,7 +175,7 @@
                 <div class="chat-sidebar-content" id="chat-user-info">
                     <h6>참여자 정보 (300명)</h6>
                     <ul class="chat-user-profile">
-                        <li ng-repeat="participant in participants">
+                        <li ng-repeat="participant in participants | limitTo: config_chat.ui.scrollLimit[1].limit">
                             <div class="chat-participant-info" ng-click="onClickParticipant(participant)">
                                 <img ng-src="{{participant.thumbnail}}"/>
                                 <span ng-bind="participant.nickname"></span>
@@ -205,12 +205,12 @@
                 <h3>이미지 서랍</h3>
                 <span class="chat-sidebar-button" ng-click="onClickOpenSidebar(0)"><i class="fas fa-arrow-left"></i></span>
             </div>
-            <div class="chat-sidebar-content-container height100">
+            <div class="chat-sidebar-content-container height100" when-scrolled="scrollMore(config_chat.ui.scrollLimit[2])">
                 <div class="chat-sidebar-content">
                     <div class="chat-album-grid spotlight-group">
-                        <div>
-                            <a class="spotlight" href="/img/no-image.png">
-                                <img draggable="true" drag-item id="/img/no-image.png" ng-src="/img/no-image.png"/>
+                        <div ng-repeat="image in storage_image | limitTo: config_chat.ui.scrollLimit[2].limit">
+                            <a class="spotlight" ng-href="{{image.url}}">
+                                <img draggable="true" drag-item id="{{image.url}}" ng-src="{{image.url}}"/>
                             </a>
                         </div>
                     </div>
@@ -224,10 +224,10 @@
                 <h3>사진 기록</h3>
                 <span class="chat-sidebar-button" ng-click="onClickOpenSidebar(0)"><i class="fas fa-arrow-left"></i></span>
             </div>
-            <div class="chat-sidebar-content-container height100">
+            <div class="chat-sidebar-content-container height100" when-scrolled="scrollMore(config_chat.ui.scrollLimit[3])">
                 <div class="chat-sidebar-content">
                     <div class="chat-album-grid spotlight-group">
-                        <div ng-repeat="image in storage_image">
+                        <div ng-repeat="image in storage_image | limitTo: config_chat.ui.scrollLimit[3].limit">
                             <a class="spotlight" ng-href="{{image.url}}">
                                 <img draggable="true" drag-item id="{{image.url}}" ng-src="{{image.url}}" onerror="this.src='/img/no-image.png'"/>
                             </a>

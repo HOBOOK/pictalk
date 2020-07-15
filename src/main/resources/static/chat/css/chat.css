@@ -118,6 +118,15 @@ button.circle:hover{
     background-color: #128ff2;
 }
 
+button.circleSub{
+    color: #fff;
+    border-radius: 50%;
+    background-color: #8090ff;
+}
+button.circleSub:hover{
+    background-color: #90a0ff;
+}
+
 button.sidebar{
     display: inline-block;
     color: #606060;
@@ -729,7 +738,7 @@ nav{
 
 #messageForm .input-group input {
     float: left;
-    width: calc(100% - 190px);
+    width: calc(100% - 150px);
     outline: none;
 }
 
@@ -737,7 +746,7 @@ nav{
     float: left;
     width: 38px;
     height: 38px;
-    margin-left: 15px;
+    margin-left: 10px;
     padding:0;
     border-radius: 50%;
     text-align: center;
