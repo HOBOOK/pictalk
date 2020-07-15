@@ -8,11 +8,12 @@ var chatPage = document.querySelector('#chat-page');
 var messageInput = document.querySelector('#chat-message');
 var messageArea = document.querySelector('#messageArea');
 var connectingElement = document.querySelector('.connecting');
-var chatMenu = document.querySelector('#chat-tab');
+var chatSideMenu = document.querySelector('#chat-side-tab');
 var layout = document.querySelector('.layout-main');
 
 app.controller("chatController", function ($scope, $http, $uibModal, $filter) {
     $scope.rooms = [];
+    $scope.myRooms = [];
     $scope.rooms = [{
         id: 1,
         type: 0,
@@ -23,7 +24,8 @@ app.controller("chatController", function ($scope, $http, $uibModal, $filter) {
         max: 100,
         member: 30,
         createDate: "2020.07.13",
-        manager_id: 1
+        manager_id: 1,
+        latestMessage: ""
     },{
         id: 2,
         type: 1,
@@ -34,7 +36,8 @@ app.controller("chatController", function ($scope, $http, $uibModal, $filter) {
         max: 50,
         member: 25,
         createDate: "2020.07.13",
-        manager_id: 1
+        manager_id: 1,
+        latestMessage: ""
     },{
         id: 3,
         type: 0,
@@ -45,7 +48,8 @@ app.controller("chatController", function ($scope, $http, $uibModal, $filter) {
         max: 500,
         member: 500,
         createDate: "2020.07.13",
-        manager_id: 1
+        manager_id: 1,
+        latestMessage: ""
     },{
         id: 4,
         type: 1,
@@ -56,7 +60,8 @@ app.controller("chatController", function ($scope, $http, $uibModal, $filter) {
         max: 10,
         member: 0,
         createDate: "2020.07.13",
-        manager_id: 1
+        manager_id: 1,
+        latestMessage: ""
     },{
         id: 5,
         type: 0,
@@ -67,7 +72,8 @@ app.controller("chatController", function ($scope, $http, $uibModal, $filter) {
         max: 10,
         member: 0,
         createDate: "2020.07.13",
-        manager_id: 1
+        manager_id: 1,
+        latestMessage: ""
     },{
         id: 6,
         type: 1,
@@ -78,7 +84,8 @@ app.controller("chatController", function ($scope, $http, $uibModal, $filter) {
         max: 10,
         member: 0,
         createDate: "2020.07.13",
-        manager_id: 1
+        manager_id: 1,
+        latestMessage: ""
     },{
         id: 7,
         type: 0,
@@ -89,7 +96,8 @@ app.controller("chatController", function ($scope, $http, $uibModal, $filter) {
         max: 10,
         member: 0,
         createDate: "2020.07.13",
-        manager_id: 1
+        manager_id: 1,
+        latestMessage: ""
     },{
         id: 8,
         type: 1,
@@ -100,8 +108,25 @@ app.controller("chatController", function ($scope, $http, $uibModal, $filter) {
         max: 10,
         member: 0,
         createDate: "2020.07.13",
-        manager_id: 1
+        manager_id: 1,
+        latestMessage: ""
     }];
+
+    $scope.initConfig = function(){
+        $scope.config_chat = {
+            selectedParticipant: {
+                id: -1,
+                nickname: null,
+                email: null,
+                thumbnail: null
+            },
+            ui:{
+                mainBarIndex: 0,
+                sidebarIndex: 0
+            }
+        }
+    }
+    $scope.initConfig();
 
     $scope.initDumpData = function(){
         $scope.storage_image = [
@@ -205,17 +230,6 @@ app.controller("chatController", function ($scope, $http, $uibModal, $filter) {
             }
         ];
         $scope.manager = $filter('filter')($scope.participants, {id: currentRoom.manager_id}, true)[0];
-        $scope.config_chat = {
-            selectedParticipant: {
-                id: -1,
-                nickname: null,
-                email: null,
-                thumbnail: null
-            },
-            ui:{
-                sidebarIndex: 0
-            }
-        }
     }
 
 
@@ -223,39 +237,48 @@ app.controller("chatController", function ($scope, $http, $uibModal, $filter) {
         connect($event, room);
         $scope.currentRoom = room;
         $scope.initDumpData();
+        if($scope.myRooms.indexOf($scope.currentRoom) === -1)
+            $scope.myRooms.push($scope.currentRoom);
     };
 
     $scope.sendMessage = function ($event) {
-        sendMessage($event);
+        var messageContent = messageInput.value.trim();
+        $scope.currentRoom.latestMessage = messageContent;
+        sendMessage(messageContent);
     };
 
     $scope.sendImageMessage = function($event, url){
+        $scope.currentRoom.latestMessage = '이미지';
         sendImageMessage($event, url);
     };
 
     $scope.onClickToggleMenu = function () {
 
-        var display = chatMenu.style.display;
+        var display = chatSideMenu.style.display;
         if(display === 'none' || display ===''){
-            chatMenu.style.display = 'inline-block';
+            chatSideMenu.style.display = 'inline-block';
         }else{
             $scope.config_chat.ui.sidebarIndex = 0;
-            chatMenu.style.display = 'none';
+            chatSideMenu.style.display = 'none';
         }
     };
 
     $scope.onClickExitChatRoom = function(){
-        chatMenu.style.display = 'none';
+        $scope.myRooms.splice($scope.myRooms.indexOf($scope.currentRoom), 1);
+        chatSideMenu.style.display = 'none';
         disConnect();
+    }
+
+    $scope.onClickOpenMainBar = function(index, $event){
+        $scope.config_chat.ui.mainBarIndex = index;
     }
 
     $scope.onClickOpenSidebar = function(index){
         $scope.config_chat.ui.sidebarIndex = index;
-        chatMenu.style.display = 'inline-block';
+        chatSideMenu.style.display = 'inline-block';
     }
 
     $scope.onClickAddChatRoom = function(){
-        console.log('대화방 추가 버튼 테스트');
         layout.style.filter = "blur(1px)";
         var modalInstance = $uibModal.open({
             templateUrl: 'modal/modal_chat',
@@ -318,8 +341,7 @@ function disConnect(){
     connectingElement.classList.remove('hidden');
 }
 
-function sendMessage(event) {
-    var messageContent = messageInput.value.trim();
+function sendMessage(messageContent) {
     if(messageContent.length<1){
         return;
     }
@@ -404,9 +426,12 @@ function sendImageMessage(event, url) {
     usernameElement.appendChild(usernameText);
     messageCoverElement.appendChild(usernameElement);
 
+    var imageCoverElement = document.createElement('a');
+    imageCoverElement.classList.add('spotlight');
+    imageCoverElement.href = message.content;
     var imageElement = document.createElement('img');
     imageElement.src = message.content;
-
+    imageCoverElement.appendChild(imageElement);
 
     var dateElement = document.createElement('h6');
     var dateText = document.createTextNode(parseDateString(message.date.substring(11)));
@@ -414,9 +439,9 @@ function sendImageMessage(event, url) {
 
     if(isMe){
         messageCoverElement.appendChild(dateElement);
-        messageCoverElement.appendChild(imageElement);
+        messageCoverElement.appendChild(imageCoverElement);
     }else{
-        messageCoverElement.appendChild(imageElement);
+        messageCoverElement.appendChild(imageCoverElement);
         messageCoverElement.appendChild(dateElement);
     }
 
