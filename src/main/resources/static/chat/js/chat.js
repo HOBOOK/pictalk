@@ -318,6 +318,47 @@ app.directive('backImg', function(){
     };
 });
 
+app.directive('dragItem', function() {
+    return {
+        restrict: 'A',
+        link: function(scope, elem, attr, controller) {
+            // Add drag event
+            elem.bind('dragstart', function(evt) {
+                var id = elem.attr('id');
+                evt.dataTransfer.setData('src', id);
+            });
+        }
+    }
+});
+
+app.directive('dropItem', function() {
+    return {
+        restrict: 'A',
+        link: function(scope, elem, attr, controller) {
+            // Drag over event
+            elem.bind('dragover', function(evt) {
+                if (evt.preventDefault) {
+                    evt.preventDefault(); // Necessary. Allows us to drop.
+                }
+                if(evt.stopPropagation) {
+                    evt.stopPropagation();
+                }
+
+                evt.dataTransfer.dropEffect = 'copy';
+                return false;
+            });
+
+            // Drop item
+            elem.bind('drop', function(evt) {
+                evt.preventDefault();
+                var data = evt.dataTransfer.getData('src');
+                if(data !== '' && data !== null)
+                    scope.sendImageMessage(evt, data);
+            });
+        }
+    }
+});
+
 var colors = [
     '#2196F3', '#32c787', '#00BCD4', '#ff5652',
     '#ffc107', '#ff85af', '#FF9800', '#39bbb0'
@@ -400,7 +441,7 @@ function sendMessage(messageContent) {
 function sendImageMessage(event, url) {
     var message = {
         type: 'IMAGE',
-        content: '/chat/img/image_example.jpg',
+        content: url,
         sender: username,
         date: getTimeStamp()
     };

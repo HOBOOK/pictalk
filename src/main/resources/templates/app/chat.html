@@ -108,7 +108,7 @@
                 <div class="connecting">
                     연결중...
                 </div>
-                <ul id="messageArea">
+                <ul id="messageArea" drop-item>
 
                 </ul>
                 <form id="messageForm" name="messageForm">
@@ -119,7 +119,7 @@
                             <button type="button" ng-click="onClickOpenSidebar(1)" class="circle">
                                 <i class="fas fa-images"></i>
                             </button>
-                            <button type="button" ng-click="sendImageMessage($event, 'dd')" class="circle">
+                            <button type="button" ng-click="sendImageMessage($event, '/chat/img/image_example.jpg')" class="circle">
                                 <i class="fas fa-paperclip"></i>
                             </button>
                             <button type="submit" ng-click="sendMessage($event)" class="circle">
@@ -210,17 +210,7 @@
                     <div class="chat-album-grid spotlight-group">
                         <div>
                             <a class="spotlight" href="/img/no-image.png">
-                                <img ng-src="/img/no-image.png"/>
-                            </a>
-                        </div>
-                        <div>
-                            <a class="spotlight" href="/img/no-image.png">
-                                <img ng-src="/img/no-image.png"/>
-                            </a>
-                        </div>
-                        <div>
-                            <a class="spotlight" href="/img/no-image.png">
-                                <img ng-src="/img/no-image.png"/>
+                                <img draggable="true" drag-item id="/img/no-image.png" ng-src="/img/no-image.png"/>
                             </a>
                         </div>
                     </div>
@@ -239,7 +229,7 @@
                     <div class="chat-album-grid spotlight-group">
                         <div ng-repeat="image in storage_image">
                             <a class="spotlight" ng-href="{{image.url}}">
-                                <img ng-src="{{image.url}}" onerror="this.src='/img/no-image.png'"/>
+                                <img draggable="true" drag-item id="{{image.url}}" ng-src="{{image.url}}" onerror="this.src='/img/no-image.png'"/>
                             </a>
                         </div>
                     </div>
