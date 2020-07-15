@@ -16,7 +16,27 @@ app.controller("chatController", function ($scope, $http, $uibModal, $filter) {
         id: 0,
         nickname: "나다",
         email: "me@naver.com",
-        thumbnail: "/chat/img/thumbnail_example.png"
+        thumbnail: "/chat/img/thumbnail_example.png",
+        album: [
+            {
+                url:"/chat/img/image_example.jpg"
+            },{
+                url:"/img/no-image.png"
+            },{
+                url:"/chat/img/thumbnail_example.png"
+            },{
+                url:"/img/logo/logo_endspring.png"
+            },{
+                url:"/chat/img/thumbnail_example.png"
+            },{
+                url:"/chat/img/thumbnail_example.png"
+            },{
+                url:"/chat/img/image_example.jpg"
+            },{
+                url:"/chat/img/image_example.jpg"
+            },{
+                url:"/chat/img/thumbnail_example.png"
+            }]
     }
     $scope.rooms = [{
         id: 1,
@@ -53,7 +73,14 @@ app.controller("chatController", function ($scope, $http, $uibModal, $filter) {
                 id: 1,
                 nickname: "방장님",
                 email: "park@naver.com",
-                thumbnail: "/chat/img/thumbnail_example.png"
+                thumbnail: "/chat/img/thumbnail_example.png",
+                album: [{
+                    url:"/chat/img/image_example.jpg"
+                },{
+                    url:"/img/no-image.png"
+                },{
+                    url:"/chat/img/thumbnail_example.png"
+                }]
             }];
         var nicknames = ["팍경호","쏭치민","쵸지은","호경봑","민지쏭","은지쵸"];
         for(var j = 2; j < 200; j++){
