@@ -12,6 +12,12 @@ var chatSideMenu = document.querySelector('#chat-side-tab');
 var layout = document.querySelector('.layout-main');
 
 app.controller("chatController", function ($scope, $http, $uibModal, $filter) {
+    $scope.me ={
+        id: 0,
+        nickname: "나다",
+        email: "me@naver.com",
+        thumbnail: "/chat/img/thumbnail_example.png"
+    }
     $scope.rooms = [{
         id: 1,
         type: 0,
@@ -20,10 +26,10 @@ app.controller("chatController", function ($scope, $http, $uibModal, $filter) {
         category:["태그1","태그2"],
         img: "/img/no-image.png",
         max: 100,
-        member: 30,
         createDate: "2020.07.13",
         manager_id: 1,
-        latestMessage: ""
+        latestMessage: "",
+        participants: []
     }];
     $scope.myRooms = [];
 
@@ -37,13 +43,30 @@ app.controller("chatController", function ($scope, $http, $uibModal, $filter) {
             category:["태그1","태그2"],
             img: roomImages[(i%roomImages.length)],
             max: 500,
-            member: 0,
             createDate: "2020.07.13",
             manager_id: 1,
-            latestMessage: ""
+            latestMessage: "",
+            participants: []
         });
+        $scope.rooms[i].participants = [
+            {
+                id: 1,
+                nickname: "방장님",
+                email: "park@naver.com",
+                thumbnail: "/chat/img/thumbnail_example.png"
+            }];
+        var nicknames = ["팍경호","쏭치민","쵸지은","호경봑","민지쏭","은지쵸"];
+        for(var j = 2; j < 200; j++){
+            $scope.rooms[i].participants.push({
+                id: j,
+                nickname: nicknames[(j%nicknames.length)],
+                email: "park@naver.com",
+                thumbnail: "/chat/img/thumbnail_example.png"
+            })
+        }
     }
 
+    // 채팅 모듈 설정 데이터
     $scope.initConfig = function(){
         $scope.config_chat = {
             selectedParticipant: {
@@ -66,7 +89,8 @@ app.controller("chatController", function ($scope, $http, $uibModal, $filter) {
     }
     $scope.initConfig();
 
-    $scope.initDumpData = function(){
+    // 채팅방 임시 데이터 생성
+    $scope.initChatRoomData = function(){
         $scope.storage_image = [
             {
                 id: 0,
@@ -78,46 +102,43 @@ app.controller("chatController", function ($scope, $http, $uibModal, $filter) {
                url:  "/chat/img/image_example.jpg"
             });
         }
-
-        $scope.participants = [
-            {
-                id: 1,
-                nickname: "방장님",
-                email: "park@naver.com",
-                thumbnail: "/chat/img/thumbnail_example.png"
-            }];
-        var nicknames = ["팍경호","쏭치민","쵸지은","호경봑","민지쏭","은지쵸"];
-        for(var i = 2; i < 200; i++){
-            $scope.participants.push({
-                id: i,
-                nickname: nicknames[(i%nicknames.length)],
-                email: "park@naver.com",
-                thumbnail: "/chat/img/thumbnail_example.png"
-            })
-        }
-        $scope.manager = $filter('filter')($scope.participants, {id: currentRoom.manager_id}, true)[0];
+        $scope.manager = $filter('filter')($scope.currentRoom.participants, {id: currentRoom.manager_id}, true)[0];
     }
 
+    // 이미 채팅방에 접속중인지
+    $scope.isAlreadyJoined = function(room){
+        return room.participants.indexOf($scope.me)!==-1;
+    }
 
+    // 채팅방 접속
     $scope.connect = function ($event, room) {
+        if($scope.isAlreadyJoined(room)){
+            return;
+        }
         connect($event, room);
         $scope.currentRoom = room;
-        $scope.initDumpData();
+        $scope.currentRoom.participants.push($scope.me);
+        if($scope.currentRoom.participants.length===1)
+            $scope.assignChatRoomManager();
+        $scope.initChatRoomData();
         if($scope.myRooms.indexOf($scope.currentRoom) === -1)
             $scope.myRooms.push($scope.currentRoom);
     };
 
+    // 메시지 전송
     $scope.sendMessage = function ($event) {
         var messageContent = messageInput.value.trim();
         $scope.currentRoom.latestMessage = messageContent;
         sendMessage(messageContent);
     };
 
+    // 이미지 메시지 전송
     $scope.sendImageMessage = function($event, url){
         $scope.currentRoom.latestMessage = '이미지';
         sendImageMessage($event, url);
     };
 
+    // 우측 상단 메뉴 토글 버튼
     $scope.onClickToggleMenu = function () {
 
         var display = chatSideMenu.style.display;
@@ -129,21 +150,48 @@ app.controller("chatController", function ($scope, $http, $uibModal, $filter) {
         }
     };
 
+    // 채팅방 나가기 버튼
     $scope.onClickExitChatRoom = function(){
         $scope.myRooms.splice($scope.myRooms.indexOf($scope.currentRoom), 1);
+        $scope.currentRoom.participants.splice($scope.currentRoom.participants.indexOf($scope.me), 1);
+        
+        if($scope.currentRoom.participants.length === 0){
+            // 채팅방 제거
+            $scope.deleteChatRoom();
+        }else{
+            // 방장 위임
+            if($scope.currentRoom.manager_id === $scope.me.id){
+                $scope.assignChatRoomManager();
+            }
+        }
         chatSideMenu.style.display = 'none';
         disConnect();
     }
+    
+    // 채팅방 제거
+    $scope.deleteChatRoom = function(){
+        console.log('채팅방 제거 : ' + $scope.currentRoom.id);
+        $scope.rooms.splice($scope.rooms.indexOf($scope.currentRoom),1);
+    }
+    
+    // 방장 위임
+    $scope.assignChatRoomManager = function(){
+        console.log('방장 위임 : ' + $scope.currentRoom.manager_id + ' -> ' + $scope.currentRoom.participants[0].id);
+        $scope.currentRoom.manager_id = $scope.currentRoom.participants[0].id;
+    }
 
+    // 좌측 메뉴바 탭 선택 이벤트
     $scope.onClickOpenMainBar = function(index, $event){
         $scope.config_chat.ui.mainBarIndex = index;
     }
 
+    // 우측 메뉴바 선택 이벤트
     $scope.onClickOpenSidebar = function(index){
         $scope.config_chat.ui.sidebarIndex = index;
         chatSideMenu.style.display = 'inline-block';
     }
 
+    // 채팅방 생성 버튼
     $scope.onClickAddChatRoom = function(){
         layout.style.filter = "blur(1px)";
         var modalInstance = $uibModal.open({
@@ -153,12 +201,15 @@ app.controller("chatController", function ($scope, $http, $uibModal, $filter) {
         modalInstance.result.then(function (newChatRoom) {
             console.log("modal click ok : " + newChatRoom);
             $scope.rooms.push(newChatRoom);
+            $scope.connect(null, newChatRoom);
             layout.style.filter = "";
         }, function () {
             console.log('modal에서 dismissed at: ' + new Date());
             layout.style.filter = "";
         });
     }
+    
+    // 채팅방 참여자 선택 버튼
     $scope.onClickParticipant = function(participant){
         if($scope.config_chat.selectedParticipant.id !== participant.id)
             $scope.config_chat.selectedParticipant = participant;
@@ -171,6 +222,8 @@ app.controller("chatController", function ($scope, $http, $uibModal, $filter) {
             }
         }
     }
+    
+    // 스크롤 이벤트
     $scope.scrollMore = function(limit){
         limit.limit += 9;
     }
@@ -261,7 +314,8 @@ function connect(event, room) {
         connectingElement.classList.add('hidden');
         clearChatText();
     }
-    event.preventDefault();
+    if(event)
+        event.preventDefault();
 }
 
 function disConnect(){

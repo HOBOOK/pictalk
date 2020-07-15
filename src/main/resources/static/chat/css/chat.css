@@ -258,6 +258,17 @@ nav{
     max-height: calc(100% - 175px) !important;
 }
 
+.chat-sidebar-no-content{
+    height: 100%;
+    width: 100%;
+    text-align: center;
+    display: flex;
+    align-items: center;
+
+}
+.chat-sidebar-no-content span{
+    margin: 0 auto;
+}
 
 .chat-sidebar-content{
     position: relative;

@@ -51,12 +51,14 @@
                 <div class="chat-sidebar-content chat-room ng-cloak" ng-repeat="room in rooms | limitTo: config_chat.ui.scrollLimit[0].limit" ng-click="connect($event, room)">
                     <img ng-src="{{room.img}}" alt="thumbnail" class="img-circle" onerror="this.src='/img/no-image.png'"/>
                     <span class="chat-room-info">
-                    <h5 ng-bind="room.title"></h5> <span> <i class="fas fa-user-alt"></i> {{room.member}}/{{room.max}}</span>
-                    <p ng-bind="room.description"></p>
-                </span>
-
+                        <h5 ng-bind="room.title"></h5> <span> <i class="fas fa-user-alt"></i> {{room.participants.length}}/{{room.max}}</span>
+                        <p ng-bind="room.description"></p>
+                    </span>
                     <div class="chat-room-detail">
                         <i class="far fa-comment-dots"></i>
+                    </div>
+                    <div ng-show="rooms.length===0" class="chat-sidebar-no-content">
+                        <span>개설된 오픈 채팅방이 없습니다.</span>
                     </div>
                 </div>
             </div>
@@ -76,6 +78,9 @@
                     <div class="chat-room-detail">
                         <i class="far fa-comment-dots"></i>
                     </div>
+                </div>
+                <div ng-show="myRooms.length===0" class="chat-sidebar-no-content">
+                    <span>참여중인 채팅방이 없습니다.</span>
                 </div>
             </div>
         </div>
@@ -163,7 +168,7 @@
                     </ul>
                 </div>
                 <div class="chat-sidebar-content" id="chat-data-log">
-                    <h6>사진 기록</h6><span class="btn-more" ng-click="onClickOpenSidebar(2)">더보기</span>
+                    <h6>사진 기록 ({{storage_image.length}})</h6><span class="btn-more" ng-click="onClickOpenSidebar(2)">더보기</span>
                     <ul class="chat-data-image">
                         <li ng-repeat="image in storage_image | limitTo: 4">
                             <a class="spotlight" ng-href="{{image.url}}">
@@ -173,9 +178,9 @@
                     </ul>
                 </div>
                 <div class="chat-sidebar-content" id="chat-user-info">
-                    <h6>참여자 정보 (300명)</h6>
+                    <h6>참여자 정보 ({{currentRoom.participants.length}})</h6>
                     <ul class="chat-user-profile">
-                        <li ng-repeat="participant in participants | limitTo: config_chat.ui.scrollLimit[1].limit">
+                        <li ng-repeat="participant in currentRoom.participants | limitTo: config_chat.ui.scrollLimit[1].limit">
                             <div class="chat-participant-info" ng-click="onClickParticipant(participant)">
                                 <img ng-src="{{participant.thumbnail}}"/>
                                 <span ng-bind="participant.nickname"></span>
