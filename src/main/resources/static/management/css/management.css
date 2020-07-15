@@ -20,3 +20,11 @@
     height: 25px;
 }
 
+
+.on {
+    background-color: #128ff2;
+}
+
+.off{
+    background-color: #9e9e9e;
+}

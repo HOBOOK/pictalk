@@ -20,31 +20,31 @@
         } );
 
         <!--tr에 담긴 값 가져오기 / 넘기기-->
-        $(document).on("click","#account-table tbody tr", function () {
-
-            // 현재 클릭된 Row(<tr>)
-            var tr = $(this);
-            var td = tr.children();
-
-            console.log("데이터 : "+tr.text());
-
-            //넘겨줄 값
-            var no = td.eq(0).text();
-            var email = td.eq(2).text();
-
-            $('#account-modal').modal('show');
-
-            $.ajax({
-                url : 'account_info',
-                type : 'GET',
-                success: function (data) {
-                    $('#account-info').html(data);
-                },
-                error: function () {
-                    $('#account-info').text('에러 발생');
-                }
-            });
-        });
+        // $(document).on("click","#account-table tbody tr", function () {
+        //
+        //     // 현재 클릭된 Row(<tr>)
+        //     var tr = $(this);
+        //     var td = tr.children();
+        //
+        //     console.log("데이터 : "+tr.text());
+        //
+        //     //넘겨줄 값
+        //     var no = td.eq(0).text();
+        //     var email = td.eq(2).text();
+        //
+        //     $('#account-modal').modal('show');
+        //
+        //     $.ajax({
+        //         url : 'account_info',
+        //         type : 'GET',
+        //         success: function (data) {
+        //             $('#account-info').html(data);
+        //         },
+        //         error: function () {
+        //             $('#account-info').text('에러 발생');
+        //         }
+        //     });
+        // });
 
     </script>
 
@@ -97,7 +97,7 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr ng-repeat="account in accounts">
+                            <tr ng-repeat="account in accounts" ng-click="accountInfo(account)">
                                 <td>{{account.no}}</td>
                                 <td><img class="rounded-circle" src="management/img/profile.png" style="width: 25px; height: 25px;"></td>
                                 <td>{{account.email}}</td>
@@ -107,7 +107,7 @@
                                 <td>{{account.birthday}}</td>
                                 <td>{{account.joindate}}</td>
                                 <td>{{account.reportnum}}</td>
-                                <td>{{account.state}}</td>
+                                <td class="{{account.state}}"></td>
                             </tr>
 
                             </tbody>
@@ -120,25 +120,26 @@
 
 
                 <!--로그, 신고 모달창-->
-                <div class="modal fade" id="account-modal" tabindex="-1" role="dialog" aria-labelledby="account-modalLabel" aria-hidden="true">
-                    <!-- Modal -->
-                        <div class="modal-dialog modal-dialog-centered modal-lg">
-                            <div class="modal-content" style="min-width:790px;">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="staticBackdropLabel">로그 / 신고내역</h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                                <div class="modal-body" id="account-info">
-                                    <!--account_Info.html 넣기-->
-                                </div>
-<!--                                <div class="modal-footer">-->
-<!--                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>-->
+<!--                <div class="modal fade" id="account-modal" tabindex="-1" role="dialog" aria-labelledby="account-modalLabel">-->
+<!--                    &lt;!&ndash; Modal &ndash;&gt;-->
+<!--                        <div class="modal-dialog modal-dialog-centered modal-lg">-->
+<!--                            <div class="modal-content" style="min-width:790px;">-->
+<!--                                <div class="modal-header">-->
+<!--                                    <h5 class="modal-title" id="staticBackdropLabel">로그 / 신고내역</h5>-->
+<!--                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">-->
+<!--                                        <span aria-hidden="true">&times;</span>-->
+<!--                                    </button>-->
 <!--                                </div>-->
-                            </div>
-                        </div>
-                </div>
+<!--                                <div class="modal-body" id="account-info">-->
+<!--                                    &lt;!&ndash;account_Info.html 넣기&ndash;&gt;-->
+<!--                                </div>-->
+<!--&lt;!&ndash;                                <div class="modal-footer">&ndash;&gt;-->
+<!--&lt;!&ndash;                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>&ndash;&gt;-->
+<!--&lt;!&ndash;                                </div>&ndash;&gt;-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                </div>-->
+
             </div>
         </div>
 <!--    </div>-->

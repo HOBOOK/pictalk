@@ -25,4 +25,9 @@ public class ManagementController {
     public String accountInfo(){
         return "app/account_Info";
     }
+
+    @GetMapping("/test")
+    public String accountInfo2(){
+        return "app/test";
+    }
 }

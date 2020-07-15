@@ -1,6 +1,7 @@
 'use strict';
 
-app.controller("accountCtrl", function ($scope) {
+app.controller("accountCtrl", function ($scope, $http, $uibModal) {
+    $scope.show="false";
     $scope.accounts = [{
         no: "1",
         profile: "profile.png",
@@ -11,7 +12,7 @@ app.controller("accountCtrl", function ($scope) {
         birthday: "",
         joindate: "2020-07-09 20:00",
         reportnum: 1,
-        state: 0
+        state: "on"
     },{
         no: "2",
         profile: "profile.png",
@@ -22,7 +23,7 @@ app.controller("accountCtrl", function ($scope) {
         birthday: "",
         joindate: "2020-07-09 20:00",
         reportnum: 10,
-        state: 0
+        state: "off"
     },{
         no: "3",
         profile: "profile.png",
@@ -192,4 +193,19 @@ app.controller("accountCtrl", function ($scope) {
         logDate: "2020/07/13 24:00:00",
         remark: ""
     }];
+
+    $scope.accountInfo = function(account){
+        console.log(account.no);
+        var modalInstance = $uibModal.open({
+            templateUrl: 'test',
+            backdrop: true
+            // controller: 'chatModalController'
+        });
+        // modalInstance.result.then(function (selectedItem) {
+        //     console.log("modal click ok : " + selectedItem);
+        // }, function () {
+        //     console.log('modal에서 dismissed at: ' + new Date());
+        // });
+    }
+
 });
