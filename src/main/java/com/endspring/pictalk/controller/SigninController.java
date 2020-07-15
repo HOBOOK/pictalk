@@ -36,9 +36,5 @@ public class SigninController {
         return "mypage_pictures";
     }
 
-    @RequestMapping("/mypage")
-    public String mypage(){
-        return "app/mypage";
-    }
 
 }
