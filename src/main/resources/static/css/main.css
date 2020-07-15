@@ -22,6 +22,7 @@ div.layout-main{
 /********** 네비게이션 영역 **********/
 div.layout-main nav{
     height: 100%;
+    display: inline-block;
     background-color: #fff;
 }
 
@@ -32,6 +33,16 @@ div.nav-group {
 div.nav-group ul{
     padding: 0;
     margin: 0;
+}
+
+div.nav-group li{
+    margin-top: 30px;
+}
+
+div.nav-group a{
+    text-decoration: none;
+    color: #808080;
+    font-size:14px;
 }
 
 

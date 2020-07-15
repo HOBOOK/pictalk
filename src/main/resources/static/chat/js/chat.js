@@ -5,10 +5,11 @@ var username = null;
 var rooms = null;
 var currentRoom  = null;
 var chatPage = document.querySelector('#chat-page');
-var messageInput = document.querySelector('#message');
+var messageInput = document.querySelector('#chat-message');
 var messageArea = document.querySelector('#messageArea');
 var connectingElement = document.querySelector('.connecting');
-var chatMenu = document.querySelector('#chat-menu');
+var chatMenu = document.querySelector('#chat-tab');
+var layout = document.querySelector('.layout-main');
 
 app.controller("chatController", function ($scope, $http, $uibModal, $filter) {
     $scope.rooms = [];
@@ -18,40 +19,40 @@ app.controller("chatController", function ($scope, $http, $uibModal, $filter) {
         title: "제목",
         description: "채팅방 들어오세요~",
         category:["태그1","태그2"],
-        img: "/chat/img/thumbnail_example.png",
-        max: 10,
-        member: 0,
+        img: "/img/no-image.png",
+        max: 100,
+        member: 30,
         createDate: "2020.07.13",
         manager_id: 1
     },{
         id: 2,
         type: 1,
-        title: "제목2",
-        description: "채팅방 들어오세요~",
+        title: "제목제목제목",
+        description: "채팅방 채팅방 들어오세요~",
         category:["태그1","태그2"],
-        img: "/chat/img/thumbnail_example.png",
-        max: 10,
-        member: 0,
+        img: "/img/no-image.png",
+        max: 50,
+        member: 25,
         createDate: "2020.07.13",
         manager_id: 1
     },{
         id: 3,
         type: 0,
-        title: "제목3",
-        description: "채팅방 들어오세요~",
+        title: "제목제목",
+        description: "채팅방 들어오세요 들어오세요~",
         category:["태그1","태그2"],
         img: "/chat/img/thumbnail_example.png",
-        max: 10,
-        member: 0,
+        max: 500,
+        member: 500,
         createDate: "2020.07.13",
         manager_id: 1
     },{
         id: 4,
         type: 1,
-        title: "제목4",
-        description: "채팅방 들어오세요~",
+        title: "제목제목제목제목제목제목제목제목제목",
+        description: "채팅방 들어오세요 들어오세요 들어오세요 들어오세요 들어오세요~",
         category:["태그1","태그2"],
-        img: "/chat/img/thumbnail_example.png",
+        img: "/img/no-image.png",
         max: 10,
         member: 0,
         createDate: "2020.07.13",
@@ -73,7 +74,7 @@ app.controller("chatController", function ($scope, $http, $uibModal, $filter) {
         title: "제목6",
         description: "채팅방 들어오세요~",
         category:["태그1","태그2"],
-        img: "/chat/img/thumbnail_example.png",
+        img: "/img/no-image.png",
         max: 10,
         member: 0,
         createDate: "2020.07.13",
@@ -204,6 +205,17 @@ app.controller("chatController", function ($scope, $http, $uibModal, $filter) {
             }
         ];
         $scope.manager = $filter('filter')($scope.participants, {id: currentRoom.manager_id}, true)[0];
+        $scope.config_chat = {
+            selectedParticipant: {
+                id: -1,
+                nickname: null,
+                email: null,
+                thumbnail: null
+            },
+            ui:{
+                sidebarIndex: 0
+            }
+        }
     }
 
 
@@ -217,11 +229,17 @@ app.controller("chatController", function ($scope, $http, $uibModal, $filter) {
         sendMessage($event);
     };
 
+    $scope.sendImageMessage = function($event, url){
+        sendImageMessage($event, url);
+    };
+
     $scope.onClickToggleMenu = function () {
+
         var display = chatMenu.style.display;
         if(display === 'none' || display ===''){
             chatMenu.style.display = 'inline-block';
         }else{
+            $scope.config_chat.ui.sidebarIndex = 0;
             chatMenu.style.display = 'none';
         }
     };
@@ -231,20 +249,51 @@ app.controller("chatController", function ($scope, $http, $uibModal, $filter) {
         disConnect();
     }
 
+    $scope.onClickOpenSidebar = function(index){
+        $scope.config_chat.ui.sidebarIndex = index;
+        chatMenu.style.display = 'inline-block';
+    }
+
     $scope.onClickAddChatRoom = function(){
         console.log('대화방 추가 버튼 테스트');
+        layout.style.filter = "blur(1px)";
         var modalInstance = $uibModal.open({
             templateUrl: 'modal/modal_chat',
             controller: 'chatModalController'
         });
-        modalInstance.result.then(function (selectedItem) {
-            console.log("modal click ok : " + selectedItem);
+        modalInstance.result.then(function (newChatRoom) {
+            console.log("modal click ok : " + newChatRoom);
+            $scope.rooms.push(newChatRoom);
+            layout.style.filter = "";
         }, function () {
             console.log('modal에서 dismissed at: ' + new Date());
+            layout.style.filter = "";
         });
+    }
+    $scope.onClickParticipant = function(participant){
+        if($scope.config_chat.selectedParticipant.id !== participant.id)
+            $scope.config_chat.selectedParticipant = participant;
+        else{
+            $scope.config_chat.selectedParticipant = {
+                id: -1,
+                nickname: null,
+                email: null,
+                thumbnail: null
+            }
+        }
     }
 });
 
+app.directive('backImg', function(){
+    return function(scope, element, attrs){
+        attrs.$observe('backImg', function(value) {
+            element.css({
+                'background':
+                        'linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(' + value + ') center center'
+            });
+        });
+    };
+});
 
 var colors = [
     '#2196F3', '#32c787', '#00BCD4', '#ff5652',
@@ -271,20 +320,23 @@ function disConnect(){
 
 function sendMessage(event) {
     var messageContent = messageInput.value.trim();
+    if(messageContent.length<1){
+        return;
+    }
     var message = {
         type: 'CHAT',
         content: messageContent,
-        sender: username
-
+        sender: username,
+        date: getTimeStamp()
     };
     messageInput.value = '';
-
+    var isMe = message.sender === username;
     var messageElement = document.createElement('li');
     var messageCoverElement = document.createElement('span');
 
     messageCoverElement.classList.add('chat-message-cover');
     messageElement.classList.add('chat-message');
-    if(message.sender === username){
+    if(isMe){
         messageCoverElement.classList.add('me');
         messageElement.classList.add('me');
     }
@@ -304,12 +356,77 @@ function sendMessage(event) {
     var messageText = document.createTextNode(message.content);
     textElement.appendChild(messageText);
 
-    messageCoverElement.appendChild(textElement);
 
+    var dateElement = document.createElement('h6');
+    var dateText = document.createTextNode(parseDateString(message.date.substring(11)));
+    dateElement.appendChild(dateText);
+
+    if(isMe){
+        messageCoverElement.appendChild(dateElement);
+        messageCoverElement.appendChild(textElement);
+    }else{
+        messageCoverElement.appendChild(textElement);
+        messageCoverElement.appendChild(dateElement);
+    }
     messageElement.appendChild(messageCoverElement);
 
     messageArea.appendChild(messageElement);
     messageArea.scrollTop = messageArea.scrollHeight;
+    event.preventDefault();
+}
+
+function sendImageMessage(event, url) {
+    var message = {
+        type: 'IMAGE',
+        content: '/chat/img/image_example.jpg',
+        sender: username,
+        date: getTimeStamp()
+    };
+    var isMe = message.sender === username;
+    var messageElement = document.createElement('li');
+    var messageCoverElement = document.createElement('span');
+
+    messageCoverElement.classList.add('chat-message-cover');
+    messageElement.classList.add('chat-message');
+    if(isMe){
+        messageCoverElement.classList.add('me');
+        messageElement.classList.add('me');
+    }
+    var avatarElement = document.createElement('i');
+    var avatarText = document.createTextNode(message.sender[0]);
+    avatarElement.appendChild(avatarText);
+    avatarElement.style['background-color'] = getAvatarColor(message.sender);
+
+    messageCoverElement.appendChild(avatarElement);
+
+    var usernameElement = document.createElement('span');
+    var usernameText = document.createTextNode(message.sender);
+    usernameElement.appendChild(usernameText);
+    messageCoverElement.appendChild(usernameElement);
+
+    var imageElement = document.createElement('img');
+    imageElement.src = message.content;
+
+
+    var dateElement = document.createElement('h6');
+    var dateText = document.createTextNode(parseDateString(message.date.substring(11)));
+    dateElement.appendChild(dateText);
+
+    if(isMe){
+        messageCoverElement.appendChild(dateElement);
+        messageCoverElement.appendChild(imageElement);
+    }else{
+        messageCoverElement.appendChild(imageElement);
+        messageCoverElement.appendChild(dateElement);
+    }
+
+    messageElement.appendChild(messageCoverElement);
+
+    messageArea.appendChild(messageElement);
+    setTimeout(function () {
+        messageArea.scrollTop = messageArea.scrollHeight;
+    },50);
+
     event.preventDefault();
 }
 
@@ -325,4 +442,49 @@ function getAvatarColor(messageSender) {
 
 function clearChatText() {
     $("#messageArea").empty();
+}
+
+/* 현재 시간 yyyy-mm-dd hh:mm:ss 포맷으로 가져오기 */
+function getTimeStamp() {
+    var d = new Date();
+    var s =
+        leadingZeros(d.getFullYear(), 4) + '-' +
+        leadingZeros(d.getMonth() + 1, 2) + '-' +
+        leadingZeros(d.getDate(), 2) + ' ' +
+
+        leadingZeros(d.getHours(), 2) + ':' +
+        leadingZeros(d.getMinutes(), 2) + ':' +
+        leadingZeros(d.getSeconds(), 2);
+    return s;
+}
+
+function leadingZeros(n, digits) {
+    var zero = '';
+    n = n.toString();
+
+    if (n.length < digits) {
+        for (var i = 0; i < digits - n.length; i++)
+            zero += '0';
+    }
+    return zero + n;
+}
+
+
+/* 날짜 변환 함수 ex) 오전 12:00 */
+function parseDateString(a) {
+    var time = a; // 'hh:mm' 형태로 값이 들어온다
+    var getTime = time.substring(0, 2);
+    var intTime = parseInt(getTime);
+    if (intTime < 12 ) {
+        var str = '오전 ';
+    } else {
+        var str = '오후 ';
+    }
+    if (intTime == 12) {
+        var cvHour = intTime;
+    } else {
+        var cvHour = intTime%12;
+    }
+    var res = str + ('0' + cvHour).slice(-2) + time.substring(2,5);
+    return res;
 }

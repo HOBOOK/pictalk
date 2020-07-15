@@ -1,3 +1,8 @@
+.modal{
+    background-color: rgba(0,0,0,0.4);
+
+}
+
 .modal-dialog{
     height: 100%;
     margin: 0 auto;
@@ -7,7 +12,6 @@
     border: none;
     display: inline-block;
     margin-top: 30px;
-    height: calc(100% - 60px);
     min-height: 500px;
     overflow-y: auto;
     text-align: left;
@@ -41,9 +45,207 @@
 
 .chat-modal-content-container{
     height: calc(100% - 120px);
+    width: 100%;
     display: inline-block;
+}
+.chat-add-info{
+    list-style: none;
+    padding: 0 20px 0 20px;
+}
+.chat-add-info li{
+    margin-bottom:24px;
+}
+.chat-add-info h5{
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+.chat-add-input-container{
+    border-bottom: 1px solid rgba(0,0,0,0.1);
+    width: calc(100% - 16px);
+    margin-left: 16px;
+}
+
+.chat-add-info input{
+    outline: none;
+    border: none;
+    padding:0;
+    width: calc(100% - 50px);
+    margin: 12px 6px 3px 3px;
+}
+
+.chat-add-config{
+    margin: 16px;
+}
+
+.chat-add-config h6{
+
+}
+
+.chat-add-tag-list{
+    margin:3px 16px 0 16px;
+    list-style: none;
+    padding: 0;
+}
+.chat-add-tag-list li{
+    display: inline-block;
+    border-radius: 3px;
+    background-color: rgba(0,0,0,0.07);
+    padding:2px 3px 2px 3px;
+    margin: 2px 3px 3px 3px;
+    box-shadow: 1px 1px 7px -3px rgba(0,0,0,0.05);
 }
 
 .chat-modal-footer{
     text-align: right;
+}
+
+#chat-add-button{
+    margin: 0 20px 20px 0;
+    padding: 0 20px 0 20px;
+}
+
+.glyphicon{
+    font-size:11px;
+    font-weight: normal;
+    color: #808080;
+    cursor: pointer;
+}
+
+
+/********** 이미지 업로드 ************/
+.avatar-upload {
+    position: relative;
+    max-width: 143px;
+    margin: 20px auto;
+}
+.avatar-upload .avatar-edit {
+    position: absolute;
+    right: 12px;
+    z-index: 1;
+    top: 10px;
+}
+.avatar-upload .avatar-edit input {
+    display: none;
+}
+.avatar-upload .avatar-edit input + label {
+    display: inline-block;
+    width: 34px;
+    height: 34px;
+    text-align: center;
+    line-height: 34px;
+    color: #808080;
+    margin-bottom: 0;
+    border-radius: 100%;
+    background: #FFFFFF;
+    border: 1px solid transparent;
+    box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.12);
+    cursor: pointer;
+    font-weight: normal;
+    transition: all 0.2s ease-in-out;
+}
+.avatar-upload .avatar-edit input + label:hover {
+    background: #f1f1f1;
+    border-color: #d6d6d6;
+}
+.avatar-upload .avatar-edit input + label:after {
+    content: "";
+    color: #757575;
+    position: absolute;
+    top: 10px;
+    left: 0;
+    right: 0;
+    text-align: center;
+    margin: auto;
+}
+.avatar-upload .avatar-preview {
+    width: 128px;
+    height: 128px;
+    position: relative;
+    border-radius: 100%;
+    border: 6px solid #F8F8F8;
+    box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.1);
+}
+.avatar-upload .avatar-preview > div {
+    width: 100%;
+    height: 100%;
+    border-radius: 100%;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+
+/********** IOS 스타일 토글 ************/
+.tgl {
+    display: none;
+}
+.tgl, .tgl:after, .tgl:before, .tgl *, .tgl *:after, .tgl *:before, .tgl + .tgl-btn {
+    box-sizing: border-box;
+}
+.tgl::-moz-selection, .tgl:after::-moz-selection, .tgl:before::-moz-selection, .tgl *::-moz-selection, .tgl *:after::-moz-selection, .tgl *:before::-moz-selection, .tgl + .tgl-btn::-moz-selection {
+    background: none;
+}
+.tgl::selection, .tgl:after::selection, .tgl:before::selection, .tgl *::selection, .tgl *:after::selection, .tgl *:before::selection, .tgl + .tgl-btn::selection {
+    background: none;
+}
+.tgl + .tgl-btn {
+    outline: 0;
+    display: block;
+    width: 2.5em;
+    height: 1.3em;
+    position: relative;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+.tgl + .tgl-btn:after, .tgl + .tgl-btn:before {
+    position: relative;
+    display: block;
+    content: "";
+    width: 50%;
+    height: 100%;
+}
+.tgl + .tgl-btn:after {
+    left: 0;
+}
+.tgl + .tgl-btn:before {
+    display: none;
+}
+.tgl:checked + .tgl-btn:after {
+    left: 50%;
+}
+.tgl-ios + .tgl-btn {
+    background: #fbfbfb;
+    border-radius: 3em;
+    padding: 2px;
+    -webkit-transition: all .4s ease;
+    transition: all .4s ease;
+    border: 1px solid #e8eae9;
+}
+.tgl-ios + .tgl-btn:after {
+    border-radius: 3em;
+    background: #fbfbfb;
+    -webkit-transition: left 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), padding 0.3s ease, margin 0.3s ease;
+    transition: left 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), padding 0.3s ease, margin 0.3s ease;
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1), 0 4px 0 rgba(0, 0, 0, 0.08);
+}
+.tgl-ios + .tgl-btn:hover:after {
+    will-change: padding;
+}
+.tgl-ios + .tgl-btn:active {
+    box-shadow: inset 0 0 0 3em #e8eae9;
+}
+.tgl-ios + .tgl-btn:active:after {
+    padding-right: .8em;
+}
+.tgl-ios:checked + .tgl-btn {
+    background: #86d993;
+}
+.tgl-ios:checked + .tgl-btn:active {
+    box-shadow: none;
+}
+.tgl-ios:checked + .tgl-btn:active:after {
+    margin-left: -.8em;
 }
