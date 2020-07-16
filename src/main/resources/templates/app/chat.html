@@ -126,7 +126,11 @@
                             <button type="button" ng-click="onClickOpenSidebar(1)" class="circleSub">
                                 <i class="fas fa-images"></i>
                             </button>
-                            <button type="button" ng-click="sendImageMessage($event, '/chat/img/image_example.jpg')" class="circleSub">
+                            <button class="circleSub" ng-model="file" type="file" name="file" id="imageUpload" accept=".png, .jpg, .jpeg"
+                                   ngf-select="sendImageFileMessage($event, this)"
+                                   ngf-pattern="'image/*'"
+                                   ngf-accept="'image/*'"
+                                   ngf-max-size="500KB">
                                 <i class="fas fa-paperclip"></i>
                             </button>
                             <button type="submit" ng-click="sendMessage($event)" class="circle">

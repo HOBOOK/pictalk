@@ -174,6 +174,16 @@ app.controller("chatController", function ($scope, $http, $uibModal, $filter, $t
         sendImageMessage($event, url);
     };
 
+    // 업로디 이미지 메시지 전송
+    $scope.sendImageFileMessage = function($event, element){
+        var reader = new FileReader();
+        reader.onload = function(e)
+        {
+            $scope.sendImageMessage($event, e.target.result);
+        };
+        reader.readAsDataURL(element.file);
+    }
+
     // 우측 상단 메뉴 토글 버튼
     $scope.onClickToggleMenu = function () {
 
