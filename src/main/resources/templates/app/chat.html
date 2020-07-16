@@ -123,6 +123,9 @@
                         <input type="text" id="chat-message" placeholder="메시지 입력..." autocomplete="off"/>
 
                         <div class="form-buttons">
+                            <button type="submit" ng-click="sendMessage($event)" class="circle">
+                                <i class="fas fa-paper-plane"></i>
+                            </button>
                             <button type="button" ng-click="onClickOpenSidebar(1)" class="circleSub">
                                 <i class="fas fa-images"></i>
                             </button>
@@ -132,9 +135,6 @@
                                    ngf-accept="'image/*'"
                                    ngf-max-size="500KB">
                                 <i class="fas fa-paperclip"></i>
-                            </button>
-                            <button type="submit" ng-click="sendMessage($event)" class="circle">
-                                <i class="fas fa-paper-plane"></i>
                             </button>
                         </div>
                     </div>
