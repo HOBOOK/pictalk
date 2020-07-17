@@ -59,12 +59,8 @@
             </div>
             <div class="chat-add-config">
                 <h6>최대 인원</h6>
-                <select name="account-table_length" aria-controls="account-table" class="custom-select custom-select-sm form-control form-control-sm">
-                    <option value="10">10</option>
-                    <option value="25">50</option>
-                    <option value="50">100</option>
-                    <option value="100">250</option>
-                    <option value="100">500</option>
+                <select ng-change="newChatRoom.max = selectedMaxChatRoomMemberCountOption.value" ng-model="selectedMaxChatRoomMemberCountOption" ng-options="data as data.name for data in maxChatRoomMemberCountOption" name="account-table_length" aria-controls="account-table" class="custom-select custom-select-sm form-control form-control-sm">
+
                 </select>
             </div>
         </li>

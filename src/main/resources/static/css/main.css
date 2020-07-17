@@ -45,6 +45,18 @@ div.nav-group a{
     font-size:14px;
 }
 
+div.loading {
+    position: absolute;
+    z-index: 9999;
+    margin:0 auto;
+    display: flex;
+    left: calc(50% - 32px);
+    top:50%;
+}
+div.loading img{
+
+}
+
 
 /********** 콘텐츠 영역 **********/
 div.content{

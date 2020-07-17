@@ -8,203 +8,99 @@ var chatPage = document.querySelector('#chat-page');
 var messageInput = document.querySelector('#chat-message');
 var messageArea = document.querySelector('#messageArea');
 var connectingElement = document.querySelector('.connecting');
-var chatMenu = document.querySelector('#chat-tab');
+var chatSideMenu = document.querySelector('#chat-side-tab');
 var layout = document.querySelector('.layout-main');
 
-app.controller("chatController", function ($scope, $http, $uibModal, $filter) {
-    $scope.rooms = [];
-    $scope.rooms = [{
-        id: 1,
-        type: 0,
-        title: "제목",
-        description: "채팅방 들어오세요~",
-        category:["태그1","태그2"],
-        img: "/img/no-image.png",
-        max: 100,
-        member: 30,
-        createDate: "2020.07.13",
-        manager_id: 1
-    },{
-        id: 2,
-        type: 1,
-        title: "제목제목제목",
-        description: "채팅방 채팅방 들어오세요~",
-        category:["태그1","태그2"],
-        img: "/img/no-image.png",
-        max: 50,
-        member: 25,
-        createDate: "2020.07.13",
-        manager_id: 1
-    },{
-        id: 3,
-        type: 0,
-        title: "제목제목",
-        description: "채팅방 들어오세요 들어오세요~",
-        category:["태그1","태그2"],
-        img: "/chat/img/thumbnail_example.png",
-        max: 500,
-        member: 500,
-        createDate: "2020.07.13",
-        manager_id: 1
-    },{
-        id: 4,
-        type: 1,
-        title: "제목제목제목제목제목제목제목제목제목",
-        description: "채팅방 들어오세요 들어오세요 들어오세요 들어오세요 들어오세요~",
-        category:["태그1","태그2"],
-        img: "/img/no-image.png",
-        max: 10,
-        member: 0,
-        createDate: "2020.07.13",
-        manager_id: 1
-    },{
-        id: 5,
-        type: 0,
-        title: "제목5",
-        description: "채팅방 들어오세요~",
-        category:["태그1","태그2"],
-        img: "/chat/img/thumbnail_example.png",
-        max: 10,
-        member: 0,
-        createDate: "2020.07.13",
-        manager_id: 1
-    },{
-        id: 6,
-        type: 1,
-        title: "제목6",
-        description: "채팅방 들어오세요~",
-        category:["태그1","태그2"],
-        img: "/img/no-image.png",
-        max: 10,
-        member: 0,
-        createDate: "2020.07.13",
-        manager_id: 1
-    },{
-        id: 7,
-        type: 0,
-        title: "제목7",
-        description: "채팅방 들어오세요~",
-        category:["태그1","태그2"],
-        img: "/chat/img/thumbnail_example.png",
-        max: 10,
-        member: 0,
-        createDate: "2020.07.13",
-        manager_id: 1
-    },{
-        id: 8,
-        type: 1,
-        title: "제목8",
-        description: "채팅방 들어오세요~",
-        category:["태그1","태그2"],
-        img: "/chat/img/thumbnail_example.png",
-        max: 10,
-        member: 0,
-        createDate: "2020.07.13",
-        manager_id: 1
-    }];
+app.controller("chatController", function ($scope, $http, $uibModal, $filter, $timeout) {
+    $scope.me ={
+        id: 0,
+        nickname: "나다",
+        email: "me@naver.com",
+        thumbnail: "/chat/img/thumbnail_example.png",
+        album: [
+            {
+                url:"/chat/img/image_example.jpg"
+            },{
+                url:"/img/no-image.png"
+            },{
+                url:"/chat/img/thumbnail_example.png"
+            },{
+                url:"/img/logo/logo_endspring.png"
+            },{
+                url:"/chat/img/thumbnail_example.png"
+            },{
+                url:"/chat/img/thumbnail_example.png"
+            },{
+                url:"/chat/img/image_example.jpg"
+            },{
+                url:"/chat/img/image_example.jpg"
+            },{
+                url:"/chat/img/thumbnail_example.png"
+            }]
+    }
 
-    $scope.initDumpData = function(){
-        $scope.storage_image = [
-            {
-                id: 1,
-                url: "/chat/img/image_example.jpg"
-            },
-            {
-                id: 2,
-                url: "/chat/img/image_example.jpg"
-            },
-            {
-                id: 3,
-                url: "/chat/img/image_example.jpg"
-            },
-            {
-                id: 4,
-                url: "/chat/img/image_example.jpg"
-            },
-            {
-                id: 5,
-                url: "/chat/img/image_example.jpg"
-            },
-            {
-                id: 6,
-                url: "/chat/img/image_example.jpg"
+    $timeout(function () {
+        $scope.rooms = [{
+            id: 1,
+            type: 0,
+            title: "방제목",
+            description: "대화하고 노실분들 입장하세용",
+            category:["태그1","태그2"],
+            img: "/img/no-image.png",
+            max: 100,
+            createDate: "2020.07.13",
+            manager_id: 1,
+            latestMessage: "",
+            participants: []
+        }];
+        $scope.myRooms = [];
+
+        var roomImages = ["/chat/img/thumbnail_example.png","/img/no-image.png"];
+        for(var i = 1; i < 100; i++){
+            $scope.rooms.push({
+                id: i,
+                type: 1,
+                title: "방제목 " + i,
+                description: "대화하고 노실분들 입장하세용",
+                category:["태그1","태그2"],
+                img: roomImages[(i%roomImages.length)],
+                max: 500,
+                createDate: "2020.07.13",
+                manager_id: 1,
+                latestMessage: "",
+                participants: []
+            });
+            $scope.rooms[i].participants = [
+                {
+                    id: 1,
+                    nickname: "방장님",
+                    email: "park@naver.com",
+                    thumbnail: "/chat/img/thumbnail_example.png",
+                    album: [{
+                        url:"/chat/img/image_example.jpg"
+                    },{
+                        url:"/img/no-image.png"
+                    },{
+                        url:"/chat/img/thumbnail_example.png"
+                    }]
+                }];
+            var nicknames = ["팍경호","쏭치민","쵸지은","호경봑","민지쏭","은지쵸"];
+            for(var j = 2; j < 200; j++){
+                $scope.rooms[i].participants.push({
+                    id: j,
+                    nickname: nicknames[(j%nicknames.length)],
+                    email: "park@naver.com",
+                    thumbnail: "/chat/img/thumbnail_example.png"
+                })
             }
-        ]
-        $scope.participants = [
-            {
-                id: 1,
-                nickname: "팍경호",
-                email: "park@naver.com",
-                thumbnail: "/chat/img/thumbnail_example.png"
-            },
-            {
-                id: 2,
-                nickname: "쏭치민",
-                email: "song@naver.com",
-                thumbnail: "/chat/img/thumbnail_example.png"
-            },
-            {
-                id: 3,
-                nickname: "쵸지은",
-                email: "choi@naver.com",
-                thumbnail: "/chat/img/thumbnail_example.png"
-            },
-            {
-                id: 4,
-                nickname: "팍경호",
-                email: "park@naver.com",
-                thumbnail: "/chat/img/thumbnail_example.png"
-            },
-            {
-                id: 5,
-                nickname: "쏭치민",
-                email: "song@naver.com",
-                thumbnail: "/chat/img/thumbnail_example.png"
-            },
-            {
-                id: 6,
-                nickname: "쵸지은",
-                email: "choi@naver.com",
-                thumbnail: "/chat/img/thumbnail_example.png"
-            },
-            {
-                id: 7,
-                nickname: "팍경호",
-                email: "park@naver.com",
-                thumbnail: "/chat/img/thumbnail_example.png"
-            },
-            {
-                id: 8,
-                nickname: "쏭치민",
-                email: "song@naver.com",
-                thumbnail: "/chat/img/thumbnail_example.png"
-            },
-            {
-                id: 9,
-                nickname: "쵸지은",
-                email: "choi@naver.com",
-                thumbnail: "/chat/img/thumbnail_example.png"
-            },
-            {
-                id: 10,
-                nickname: "팍경호",
-                email: "park@naver.com",
-                thumbnail: "/chat/img/thumbnail_example.png"
-            },
-            {
-                id: 11,
-                nickname: "쏭치민",
-                email: "song@naver.com",
-                thumbnail: "/chat/img/thumbnail_example.png"
-            },
-            {
-                id: 12,
-                nickname: "쵸지은",
-                email: "choi@naver.com",
-                thumbnail: "/chat/img/thumbnail_example.png"
-            }
-        ];
-        $scope.manager = $filter('filter')($scope.participants, {id: currentRoom.manager_id}, true)[0];
+
+        }
+        $scope.$apply();
+    },1000);
+
+
+    // 채팅 모듈 설정 데이터
+    $scope.initConfig = function(){
         $scope.config_chat = {
             selectedParticipant: {
                 id: -1,
@@ -213,49 +109,136 @@ app.controller("chatController", function ($scope, $http, $uibModal, $filter) {
                 thumbnail: null
             },
             ui:{
-                sidebarIndex: 0
+                mainBarIndex: 0,
+                sidebarIndex: 0,
+                scrollLimit:[
+                    {limit: 18}, //채팅방 목록
+                    {limit: 18}, //채팅방 정보(참여자 수)
+                    {limit: 18}, //이미지 서랍
+                    {limit: 18} //채팅방 사진 저장소
+                ]
             }
         }
     }
+    $scope.initConfig();
 
+    // 채팅방 임시 데이터 생성
+    $scope.initChatRoomData = function(){
+        $scope.storage_image = [
+            {
+                id: 0,
+                url: "/chat/img/image_example.jpg"
+            }]
+        for(var i = 1; i < 100; i++){
+            $scope.storage_image.push({
+               id: i,
+               url:  "/chat/img/image_example.jpg"
+            });
+        }
+        $scope.manager = $filter('filter')($scope.currentRoom.participants, {id: currentRoom.manager_id}, true)[0];
+    }
 
+    // 이미 채팅방에 접속중인지
+    $scope.isAlreadyJoined = function(room){
+        return room.participants.indexOf($scope.me)!==-1;
+    }
+
+    // 채팅방 접속
     $scope.connect = function ($event, room) {
         connect($event, room);
         $scope.currentRoom = room;
-        $scope.initDumpData();
+        $scope.initChatRoomData();
+        if($scope.isAlreadyJoined(room)){
+
+        }else{
+            $scope.currentRoom.participants.push($scope.me);
+            if($scope.currentRoom.participants.length===1)
+                $scope.assignChatRoomManager();
+            if($scope.myRooms.indexOf($scope.currentRoom) === -1)
+                $scope.myRooms.push($scope.currentRoom);
+        }
+
+
     };
 
+    // 메시지 전송
     $scope.sendMessage = function ($event) {
-        sendMessage($event);
+        var messageContent = messageInput.value.trim();
+        $scope.currentRoom.latestMessage = messageContent;
+        sendMessage(messageContent);
     };
 
+    // 이미지 메시지 전송
     $scope.sendImageMessage = function($event, url){
+        $scope.currentRoom.latestMessage = '이미지';
         sendImageMessage($event, url);
     };
 
+    // 업로디 이미지 메시지 전송
+    $scope.sendImageFileMessage = function($event, element){
+        var reader = new FileReader();
+        reader.onload = function(e)
+        {
+            $scope.sendImageMessage($event, e.target.result);
+        };
+        reader.readAsDataURL(element.file);
+    }
+
+    // 우측 상단 메뉴 토글 버튼
     $scope.onClickToggleMenu = function () {
 
-        var display = chatMenu.style.display;
+        var display = chatSideMenu.style.display;
         if(display === 'none' || display ===''){
-            chatMenu.style.display = 'inline-block';
+            chatSideMenu.style.display = 'inline-block';
         }else{
             $scope.config_chat.ui.sidebarIndex = 0;
-            chatMenu.style.display = 'none';
+            chatSideMenu.style.display = 'none';
         }
     };
 
+    // 채팅방 나가기 버튼
     $scope.onClickExitChatRoom = function(){
-        chatMenu.style.display = 'none';
+        $scope.myRooms.splice($scope.myRooms.indexOf($scope.currentRoom), 1);
+        $scope.currentRoom.participants.splice($scope.currentRoom.participants.indexOf($scope.me), 1);
+        
+        if($scope.currentRoom.participants.length === 0){
+            // 채팅방 제거
+            $scope.deleteChatRoom();
+        }else{
+            // 방장 위임
+            if($scope.currentRoom.manager_id === $scope.me.id){
+                $scope.assignChatRoomManager();
+            }
+        }
+        chatSideMenu.style.display = 'none';
         disConnect();
     }
-
-    $scope.onClickOpenSidebar = function(index){
-        $scope.config_chat.ui.sidebarIndex = index;
-        chatMenu.style.display = 'inline-block';
+    
+    // 채팅방 제거
+    $scope.deleteChatRoom = function(){
+        console.log('채팅방 제거 : ' + $scope.currentRoom.id);
+        $scope.rooms.splice($scope.rooms.indexOf($scope.currentRoom),1);
+    }
+    
+    // 방장 위임
+    $scope.assignChatRoomManager = function(){
+        console.log('방장 위임 : ' + $scope.currentRoom.manager_id + ' -> ' + $scope.currentRoom.participants[0].id);
+        $scope.currentRoom.manager_id = $scope.currentRoom.participants[0].id;
     }
 
+    // 좌측 메뉴바 탭 선택 이벤트
+    $scope.onClickOpenMainBar = function(index, $event){
+        $scope.config_chat.ui.mainBarIndex = index;
+    }
+
+    // 우측 메뉴바 선택 이벤트
+    $scope.onClickOpenSidebar = function(index){
+        $scope.config_chat.ui.sidebarIndex = index;
+        chatSideMenu.style.display = 'inline-block';
+    }
+
+    // 채팅방 생성 버튼
     $scope.onClickAddChatRoom = function(){
-        console.log('대화방 추가 버튼 테스트');
         layout.style.filter = "blur(1px)";
         var modalInstance = $uibModal.open({
             templateUrl: 'modal/modal_chat',
@@ -264,12 +247,15 @@ app.controller("chatController", function ($scope, $http, $uibModal, $filter) {
         modalInstance.result.then(function (newChatRoom) {
             console.log("modal click ok : " + newChatRoom);
             $scope.rooms.push(newChatRoom);
+            $scope.connect(null, newChatRoom);
             layout.style.filter = "";
         }, function () {
             console.log('modal에서 dismissed at: ' + new Date());
             layout.style.filter = "";
         });
     }
+    
+    // 채팅방 참여자 선택 버튼
     $scope.onClickParticipant = function(participant){
         if($scope.config_chat.selectedParticipant.id !== participant.id)
             $scope.config_chat.selectedParticipant = participant;
@@ -282,8 +268,14 @@ app.controller("chatController", function ($scope, $http, $uibModal, $filter) {
             }
         }
     }
+    
+    // 스크롤 이벤트
+    $scope.scrollMore = function(limit){
+        limit.limit += 9;
+    }
 });
 
+// 채팅방 정보 배경 이미지 변경
 app.directive('backImg', function(){
     return function(scope, element, attrs){
         attrs.$observe('backImg', function(value) {
@@ -293,6 +285,65 @@ app.directive('backImg', function(){
             });
         });
     };
+});
+
+// 드래그 앤 드랍
+app.directive('dragItem', function() {
+    return {
+        restrict: 'A',
+        link: function(scope, elem, attr, controller) {
+            // Add drag event
+            elem.bind('dragstart', function(evt) {
+                var id = elem.attr('id');
+                evt.dataTransfer.setData('src', id);
+            });
+        }
+    }
+});
+
+// 드래그 앤 드랍
+app.directive('dropItem', function() {
+    return {
+        restrict: 'A',
+        link: function(scope, elem, attr, controller) {
+            // Drag over event
+            elem.bind('dragover', function(evt) {
+                if (evt.preventDefault) {
+                    evt.preventDefault(); // Necessary. Allows us to drop.
+                }
+                if(evt.stopPropagation) {
+                    evt.stopPropagation();
+                }
+
+                evt.dataTransfer.dropEffect = 'copy';
+                return false;
+            });
+
+            // Drop item
+            elem.bind('drop', function(evt) {
+                evt.preventDefault();
+                var data = evt.dataTransfer.getData('src');
+                if(data !== '' && data !== null)
+                    scope.sendImageMessage(evt, data);
+            });
+        }
+    }
+});
+
+// 스크롤 로드
+app.directive('whenScrolled', function () {
+    return {
+        restrict: 'A',
+        link: function(scope, elem, attr, controller) {
+            var raw = elem[0];
+            elem.bind("scroll", function(){
+                if(raw.scrollTop+raw.offsetHeight+5 >= raw.scrollHeight){
+                    scope.loading = true;
+                    scope.$apply(attr.whenScrolled);
+                }
+            });
+        }
+    }
 });
 
 var colors = [
@@ -309,7 +360,8 @@ function connect(event, room) {
         connectingElement.classList.add('hidden');
         clearChatText();
     }
-    event.preventDefault();
+    if(event)
+        event.preventDefault();
 }
 
 function disConnect(){
@@ -318,8 +370,7 @@ function disConnect(){
     connectingElement.classList.remove('hidden');
 }
 
-function sendMessage(event) {
-    var messageContent = messageInput.value.trim();
+function sendMessage(messageContent) {
     if(messageContent.length<1){
         return;
     }
@@ -378,7 +429,7 @@ function sendMessage(event) {
 function sendImageMessage(event, url) {
     var message = {
         type: 'IMAGE',
-        content: '/chat/img/image_example.jpg',
+        content: url,
         sender: username,
         date: getTimeStamp()
     };
@@ -404,9 +455,12 @@ function sendImageMessage(event, url) {
     usernameElement.appendChild(usernameText);
     messageCoverElement.appendChild(usernameElement);
 
+    var imageCoverElement = document.createElement('a');
+    imageCoverElement.classList.add('spotlight');
+    imageCoverElement.href = message.content;
     var imageElement = document.createElement('img');
     imageElement.src = message.content;
-
+    imageCoverElement.appendChild(imageElement);
 
     var dateElement = document.createElement('h6');
     var dateText = document.createTextNode(parseDateString(message.date.substring(11)));
@@ -414,9 +468,9 @@ function sendImageMessage(event, url) {
 
     if(isMe){
         messageCoverElement.appendChild(dateElement);
-        messageCoverElement.appendChild(imageElement);
+        messageCoverElement.appendChild(imageCoverElement);
     }else{
-        messageCoverElement.appendChild(imageElement);
+        messageCoverElement.appendChild(imageCoverElement);
         messageCoverElement.appendChild(dateElement);
     }
 
