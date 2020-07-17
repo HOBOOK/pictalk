@@ -1,6 +1,7 @@
 'use strict';
 
-app.controller("accountCtrl", function ($scope) {
+app.controller("accountCtrl", function ($scope, $uibModal, $http, $document) {
+    $scope.show="false";
     $scope.accounts = [{
         no: "1",
         profile: "profile.png",
@@ -11,7 +12,7 @@ app.controller("accountCtrl", function ($scope) {
         birthday: "",
         joindate: "2020-07-09 20:00",
         reportnum: 1,
-        state: 0
+        state: "on"
     },{
         no: "2",
         profile: "profile.png",
@@ -22,7 +23,7 @@ app.controller("accountCtrl", function ($scope) {
         birthday: "",
         joindate: "2020-07-09 20:00",
         reportnum: 10,
-        state: 0
+        state: "off"
     },{
         no: "3",
         profile: "profile.png",
@@ -33,7 +34,7 @@ app.controller("accountCtrl", function ($scope) {
         birthday: "",
         joindate: "2020-07-09 20:00",
         reportnum: 112,
-        state: 0
+        state: "ban"
     },{
         no: "4",
         profile: "profile.png",
@@ -123,7 +124,6 @@ app.controller("accountCtrl", function ($scope) {
         reportnum: 0,
         state: 0
     }];
-
 
     $scope.logReports = [{
         no: "1",
@@ -192,4 +192,48 @@ app.controller("accountCtrl", function ($scope) {
         logDate: "2020/07/13 24:00:00",
         remark: ""
     }];
+
+
+    $scope.openModal = function(item) {
+
+        var modalInstance = $uibModal.open({
+            templateUrl: '/console/info',
+            controller: 'infoController',
+             size: 'lg',
+            resolve: {
+                no: function () {
+                    return item.no;
+                },
+                logs: function () {
+                    return $scope.logReports;
+                }
+            }
+        });
+        modalInstance.result.then(function (item) {
+
+        }, function () {
+
+        });
+    }
+
+    // $scope.click = function() {
+    //
+    //     console.log('dddd');
+    //     $('#account-modal').modal('show');
+    //
+    //     $http({
+    //         method: 'GET',
+    //         url: 'info'
+    //     }).then(function successCallback(response) {
+    //         $scope.myHTML = response.data;
+    //
+    //     }, function errorCallback(response) {
+    //
+    //     });
+    // }
+
 });
+
+// app.config(['$qProvider', function ($qProvider) {
+//     $qProvider.errorOnUnhandledRejections(false);
+// }]);
