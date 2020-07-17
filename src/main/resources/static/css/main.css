@@ -28,15 +28,23 @@ div.layout-main nav{
 
 div.nav-group {
     width:70px;
+    height: inherit;
 }
 
 div.nav-group ul{
+    height: inherit;
     padding: 0;
     margin: 0;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
 }
 
 div.nav-group li{
-    margin-top: 30px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding-top:15px;
+    padding-bottom:15px;
 }
 
 div.nav-group a{
