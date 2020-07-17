@@ -1,3 +1,7 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="app/mypage">
+
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
     <style>
 
@@ -60,27 +64,30 @@
         }
 
     </style>
-        <ul class="right_nav">
-            <li ng-repeat="img in images" class="right_nav_li">
-                <div class="card">
-                    <img class="card-img-top" src='profile/{{img.src}}' alt="Card image cap">
-                    <input type="hidden" name="imgId" value={{img.id}}>
-                </div>
 
-                <div class="hover_card">
-                    <button type="button" class="btn btn-primary btn-sm card-btn btn-danger" ng-click="imgRemove(img)">Delete</button>
+<section layout:fragment="content-mypage">
+    <ul class="right_nav">
+        <li ng-repeat="img in images" class="right_nav_li">
+            <div class="card">
+                <img class="card-img-top" src='profile/{{img.src}}' alt="Card image cap">
+                <input type="hidden" name="imgId" value={{img.id}}>
+            </div>
 
-                </div>
+            <div class="hover_card">
+                <button type="button" class="btn btn-primary btn-sm card-btn btn-danger" ng-click="imgRemove(img)">Delete</button>
 
-            </li>
+            </div>
+
+        </li>
 
 
+    </ul>
+    <div class="container">
+        <ul class="pagination pagination-sm">
+            <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+            <li class="page-item"><a class="page-link" href="#">1</a></li>
+            <li class="page-item"><a class="page-link" href="#">2</a></li>
+            <li class="p        </div></div>age-item"><a class="page-link" href="#">Next</a></li>
         </ul>
-        <div class="container">
-            <ul class="pagination pagination-sm">
-                <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                <li class="p        </div></div>age-item"><a class="page-link" href="#">Next</a></li>
-            </ul>
-        </div>
+    </div>
+</section>

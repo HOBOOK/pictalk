@@ -1,18 +1,4 @@
 'use strict';
-app.config(function($routeProvider, $locationProvider) {
-    $routeProvider
-        .when("/", {
-            templateUrl : "personal"
-        })
-        .when("/follow", {
-            templateUrl : "follow"
-        })
-        .when("/pictures", {
-            templateUrl : "pictures"
-        });
-});
-
-
 app.controller('mypageCtrl',function ($scope) {
     $scope.follows = [
         {

@@ -1,3 +1,7 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="app/mypage">
+
     <style>
 
         .right_nav{
@@ -68,29 +72,32 @@
 
     </style>
 
-    <ul class="right_nav">
-        <li  ng-repeat="follower in follows" class="right_nav_li">
-            <div class="card">
-                <img class="card-img-top img-circle" src={{follower.src}} alt="Card image cap">
-                <div class="card-body">
-                    <h5 class="card-title">{{follower.name}}</h5>
+    <section layout:fragment="content-mypage">
+        <ul class="right_nav">
+            <li  ng-repeat="follower in follows" class="right_nav_li">
+                <div class="card">
+                    <img class="card-img-top img-circle" src={{follower.src}} alt="Card image cap">
+                    <div class="card-body">
+                        <h5 class="card-title">{{follower.name}}</h5>
+                    </div>
+                    <div class="card-footer on">
+                        <small class="text-muted"></small>
+                    </div>
                 </div>
-                <div class="card-footer on">
-                    <small class="text-muted"></small>
+
+                <div class="hover_card">
+                    <button type="button" class="btn btn-primary btn-sm card-btn">1:1 chat</button>
+                    <button type="button" class="btn btn-primary btn-sm card-btn" ng-click="followerRemove(follower)">unFollow</button>
                 </div>
-            </div>
 
-            <div class="hover_card">
-                <button type="button" class="btn btn-primary btn-sm card-btn">1:1 chat</button>
-                <button type="button" class="btn btn-primary btn-sm card-btn" ng-click="followerRemove(follower)">unFollow</button>
-            </div>
-
-    </ul>
-    <div class="container">
-        <ul class="pagination pagination-sm">
-            <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-            <li class="page-item"><a class="page-link" href="#">1</a></li>
-            <li class="page-item"><a class="page-link" href="#">2</a></li>
-            <li class="page-item"><a class="page-link" href="#">Next</a></li>
         </ul>
-    </div>
+        <div class="container">
+            <ul class="pagination pagination-sm">
+                <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+                <li class="page-item"><a class="page-link" href="#">1</a></li>
+                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                <li class="page-item"><a class="page-link" href="#">Next</a></li>
+            </ul>
+        </div>
+    </section>
+

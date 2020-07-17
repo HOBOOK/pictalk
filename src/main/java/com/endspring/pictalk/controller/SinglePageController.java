@@ -19,7 +19,7 @@ public class SinglePageController {
 
     @GetMapping("/mypage")
     public String mypage(){
-        return "app/mypage";
+        return "personal";
     }
     @GetMapping("/personal")
     public String personal(){
