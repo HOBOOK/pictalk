@@ -185,6 +185,23 @@ nav{
 #chat-room-tags span{
     font-size: 12px;
 }
+.chat-tag{
+    display: inline-block;
+    background-color: rgba(65,105,225,0.4);
+    color:#fff;
+    margin-right:6px;
+    padding: 2px;
+    font-size: 11px;
+    cursor: pointer;
+    border-radius: 3px;
+    transition: background-color .3s ease-in-out;
+    -webkit-transition: background-color .3s ease-in-out;
+    -moz-transition: background-color .3s ease-in-out;
+    -o-transition: background-color .3s ease-in-out;
+}
+.chat-tag:hover{
+    background-color: rgba(65,105,225,0.55);
+}
 
 .chat-sidebar-container{
     position: relative;
@@ -376,6 +393,17 @@ nav{
     padding: 3px;
     display: flex;
 }
+
+#chat-current-room{
+    width: 2px;
+    position: absolute;
+    left: 0;
+    top:0;
+    height: 100%;
+    background-color: royalblue;
+    opacity: .4;
+}
+
 #chat-profile{
     position: relative;
     text-align: center;

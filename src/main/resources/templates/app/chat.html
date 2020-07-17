@@ -39,18 +39,21 @@
                 <span class="chat-sidebar-button circle-button" ng-click="onClickAddChatRoom()"><i class="fas fa-plus"></i></span>
                 <div id="chat-room-search">
                     <span class="search-container">
-                        <input class="input-search" type="text" placeholder="방 검색..."/>
-                        <span class="circle-button"><i class="fas fa-search"></i></span>
+                        <input class="input-search" type="text" placeholder="방 검색..." ng-model="search.room"/>
+                        <span class="circle-button" ng-click="onClickSearch(search.room)"><i class="fas fa-search"></i></span>
                     </span>
                     <div id="chat-room-tags">
                         <span>인기 태그</span>
-                        <a># tag1</a>
+                        <span class="chat-tag" ng-click="onClickTagSearch($event.srcElement.innerText)">#끝봄</span>
+                        <span class="chat-tag" ng-click="onClickTagSearch($event.srcElement.innerText)">#영화</span>
+                        <span class="chat-tag" ng-click="onClickTagSearch($event.srcElement.innerText)">#일상</span>
+                        <span class="chat-tag" ng-click="onClickSearch('')">전체</span>
                     </div>
                 </div>
             </div>
             <div class="chat-sidebar-content-container height170" when-scrolled="scrollMore(config_chat.ui.scrollLimit[0])">
-                <div class="loading" ng-show="!rooms"><img src="/img/loading.gif" height="36"/></div>
-                <div class="chat-sidebar-content chat-room ng-cloak" ng-repeat="room in rooms | limitTo: config_chat.ui.scrollLimit[0].limit" ng-click="connect($event, room)">
+                <div class="loading" ng-show="!filteredRooms"><img src="/img/loading.gif" height="36"/></div>
+                <div class="chat-sidebar-content chat-room ng-cloak" ng-repeat="room in filteredRooms | limitTo: config_chat.ui.scrollLimit[0].limit" ng-click="connect($event, room)">
                     <img ng-src="{{room.img}}" alt="thumbnail" class="img-circle" onerror="this.src='/img/no-image.png'"/>
                     <span class="chat-room-info">
                         <h5 ng-bind="room.title"></h5> <span> <i class="fas fa-user-alt"></i> {{room.participants.length}}/{{room.max}}</span>
@@ -59,9 +62,9 @@
                     <div class="chat-room-detail">
                         <i class="far fa-comment-dots"></i>
                     </div>
-                    <div ng-show="rooms.length===0" class="chat-sidebar-no-content">
-                        <span>개설된 오픈 채팅방이 없습니다.</span>
-                    </div>
+                </div>
+                <div ng-show="filteredRooms.length===0" class="chat-sidebar-no-content">
+                    <span>개설된 오픈 채팅방이 없습니다.</span>
                 </div>
             </div>
         </div>
@@ -79,6 +82,9 @@
 
                     <div class="chat-room-detail">
                         <i class="far fa-comment-dots"></i>
+                    </div>
+                    <div id="chat-current-room" ng-show="currentRoom.id===room.id">
+
                     </div>
                 </div>
                 <div ng-show="myRooms.length===0" class="chat-sidebar-no-content">

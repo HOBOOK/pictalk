@@ -4,8 +4,8 @@
 .ng-move,
 .ng-enter,
 .ng-leave {
-    -webkit-transition:all ease-in-out 0.5s;
-    transition:all ease-in-out 0.5s;
+    -webkit-transition:all ease-in-out 0.3s;
+    transition:all ease-in-out 0.3s;
 }
 
 .ng-leave.ng-leave-active,
