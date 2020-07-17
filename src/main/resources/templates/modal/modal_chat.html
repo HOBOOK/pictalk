@@ -24,7 +24,8 @@
         <li>
             <h5><i class="fas fa-heading"></i> 방이름</h5>
             <div class="chat-add-input-container">
-                <input type="text" ng-model="newChatRoom.title" maxlength="30"/>
+                <input type="text" id="input-title" ng-model="newChatRoom.title" maxlength="30" required/>
+                <label class="input-invalid"  for="input-title" ng-show="!newChatRoom.title">필수 입력입니다</label>
                 <span class="glyphicon glyphicon-remove" ng-show="newChatRoom.title.length > 0" ng-click="clearTitle()"></span>
             </div>
 
@@ -32,7 +33,7 @@
         <li>
             <h5><i class="fas fa-align-left"></i> 설명</h5>
             <div class="chat-add-input-container">
-                <input type="text" ng-model="newChatRoom.description" maxlength="50"/>
+                <input type="text" ng-model="newChatRoom.description" maxlength="50" required/>
                 <span class="glyphicon glyphicon-remove" ng-show="newChatRoom.description.length > 0" ng-click="clearDescription()"></span>
             </div>
         </li>
@@ -59,12 +60,8 @@
             </div>
             <div class="chat-add-config">
                 <h6>최대 인원</h6>
-                <select name="account-table_length" aria-controls="account-table" class="custom-select custom-select-sm form-control form-control-sm">
-                    <option value="10">10</option>
-                    <option value="25">50</option>
-                    <option value="50">100</option>
-                    <option value="100">250</option>
-                    <option value="100">500</option>
+                <select ng-change="newChatRoom.max = selectedMaxChatRoomMemberCountOption.value" ng-model="selectedMaxChatRoomMemberCountOption" ng-options="data as data.name for data in maxChatRoomMemberCountOption" name="account-table_length" aria-controls="account-table" class="custom-select custom-select-sm form-control form-control-sm">
+
                 </select>
             </div>
         </li>

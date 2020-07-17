@@ -1,32 +1,7 @@
-
-/* angular 데이터 로드 전 괄호 표시 막기 위함 */
-.ng-cloak { display:none; }
-
-/* angular 데이터 로드 애니메이션 */
-.ng-move,
-.ng-enter,
-.ng-leave {
-    -webkit-transition:all ease-in-out 0.5s;
-    transition:all ease-in-out 0.5s;
-}
-
-.ng-leave.ng-leave-active,
-.ng-move,
-.ng-enter {
-    opacity:0;
-}
-
-.ng-leave,
-.ng-move.ng-move-active,
-.ng-enter.ng-enter-active {
-    opacity:1;
-}
-
-
-
 .content-chat-container{
     width: 100%;
     height: 100%;
+    overflow: hidden;
     display: flex;
 }
 
@@ -39,7 +14,17 @@
 .hidden {
     display: none;
 }
-
+.circle-count{
+    border-radius: 50%;
+    background-color: darkseagreen;
+    width: 16px;
+    height: 16px;
+    line-height: 16px;
+    text-align: center;
+    font-size: 9px;
+    color: #fff;
+    display: inline-block;
+}
 
 
 input {
@@ -105,6 +90,15 @@ button.circle:hover{
     background-color: #128ff2;
 }
 
+button.circleSub{
+    color: #fff;
+    border-radius: 50%;
+    background-color: #8090ff;
+}
+button.circleSub:hover{
+    background-color: #90a0ff;
+}
+
 button.sidebar{
     display: inline-block;
     color: #606060;
@@ -159,19 +153,25 @@ nav{
     background-color: rgba(0,0,0,0.1);
 }
 
-#chat-tab{
+#chat-main-tab{
+
+}
+
+.chat-tab{
+    height: 100%;
+}
+
+#chat-side-tab{
     display: none;
 }
-#chat-room{
-    cursor: pointer;
-}
+
 #chat-room-search{
     margin-top: 20px;
     width: 100%;
 }
 
 #chat-room-tags{
-
+    margin-top:6px;
 }
 #chat-room-tags span{
     font-size: 12px;
@@ -217,13 +217,29 @@ nav{
 }
 
 .chat-sidebar-content-container{
-    height: calc(100% - 120px);
     overflow-y: scroll;
     overflow-y: overlay;
     overflow-x: hidden;
 }
-#chat-sidebar-room-content{
-    height: calc(100% - 180px) !important;
+.chat-sidebar-content-container.height100{
+    height: calc(100% - 100px) !important;
+    max-height: calc(100% - 100px) !important;
+}
+.chat-sidebar-content-container.height170{
+    height: calc(100% - 175px) !important;
+    max-height: calc(100% - 175px) !important;
+}
+
+.chat-sidebar-no-content{
+    height: 100%;
+    width: 100%;
+    text-align: center;
+    display: flex;
+    align-items: center;
+
+}
+.chat-sidebar-no-content span{
+    margin: 0 auto;
 }
 
 .chat-sidebar-content{
@@ -234,7 +250,7 @@ nav{
     padding:10px;
     width: 100%;
     background-color: white;
-    border-bottom:1px solid rgba(0,0,0,0.07);
+    border-top:1px solid rgba(0,0,0,0.07);
 }
 
 .chat-sidebar-content h6{
@@ -248,12 +264,29 @@ nav{
     width:100%;
     height:50px;
     line-height: 50px;
+    box-shadow: -2px 0 6px 0 rgba(0,0,0,0.07);
+}
+.chat-footer-tab{
+    display: flex;
+}
+.chat-footer-tab span{
+    flex: 1;
+    font-size: 16px;
+    text-align: center;
+    cursor: pointer;
+    background-color: #F8F8F8;
+}
+.chat-footer-tab span.selected{
+    background-color: #fff;
+}
+
+.chat-footer-buttons{
     padding: 0 10px 0 10px;
 }
 
 
 
-#chat-room-info{
+.chat-room-info{
     vertical-align: middle;
     margin-left:10px;
     width: calc(100% - 80px);
@@ -262,7 +295,7 @@ nav{
     font-size: 12px;
 }
 
-#chat-room-info h5{
+.chat-room-info h5{
     display: inline-block;
     width:160px;
     overflow:hidden;
@@ -271,7 +304,7 @@ nav{
     font-size: 14px;
 }
 
-#chat-room-info p{
+.chat-room-info p{
     width:200px;
     overflow:hidden;
     text-overflow:ellipsis;
@@ -279,22 +312,25 @@ nav{
     font-size: 12px;
     margin:0;
     padding: 0;
+    opacity: .7;
 }
-#chat-room-info span{
+.chat-room-info span{
     float: right;
     display: inline-block;
     font-size: 10px;
     color: #808080;
 }
 
-
-#chat-room img{
+.chat-room{
+    cursor: pointer;
+}
+.chat-room img{
     vertical-align: middle;
     width: 60px;
     height: 60px;
 }
 
-#chat-room:hover .chat-room-detail{
+.chat-room:hover .chat-room-detail{
     opacity: 1;
 }
 
@@ -685,7 +721,7 @@ nav{
 
 #messageForm .input-group input {
     float: left;
-    width: calc(100% - 190px);
+    width: calc(100% - 150px);
     outline: none;
 }
 
@@ -693,7 +729,7 @@ nav{
     float: left;
     width: 38px;
     height: 38px;
-    margin-left: 15px;
+    margin-left: 10px;
     padding:0;
     border-radius: 50%;
     text-align: center;
@@ -748,7 +784,7 @@ nav{
 }
 .chat-album-grid img{
     width: 100%;
-    height: 100%;
+    height: auto;
 }
 
 

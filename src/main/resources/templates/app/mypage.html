@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout/layout_main">
+
+<th:block layout:fragment="title">픽톡(PicTalk) | 마이페이</th:block>
+<th:block layout:fragment="js">
+    <!-- BootStrap JS -->
+<!--    <script src="http://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>-->
+<!--    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>-->
+<!--    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">-->
+    <script src="mypage/js/mypage.js"></script>
+<!--    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.0/angular.js"></script>-->
+
+<!--    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.0/angular-resource.js"></script>-->
+<!--    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>-->
+
+</th:block>
+<th:block layout:fragment="js-end">
+
+
+</th:block>
+
+<th:block layout:fragment="css">
+    <link rel="stylesheet" href="mypage/css/mypage.css"/>
+
+</th:block>
+
+<section layout:fragment="content" class="wrap">
+    <div class="wrap" ng-controller = "mypageCtrl">
+        <div class="left_wrap">
+            <div>
+                <ul class="nav nav-pills nav-stacked" >
+                    <li role="presentation" class="active"><a href="/personal">Personal</a></li>
+                    <li role="presentation"><a href="/follow">Follow</a></li>
+                    <li role="presentation"><a href="/pictures">Pictures</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="right_wrap" >
+            <section layout:fragment="content-mypage"></section>
+        </div>
+    </div>
+</section>
+
