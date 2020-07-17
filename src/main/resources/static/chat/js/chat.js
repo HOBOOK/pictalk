@@ -145,20 +145,31 @@ app.controller("chatController", function ($scope, $http, $uibModal, $filter, $t
 
     // 채팅방 접속
     $scope.connect = function ($event, room) {
-        connect($event, room);
-        $scope.currentRoom = room;
-        $scope.initChatRoomData();
-        if($scope.isAlreadyJoined(room)){
+        connectingElement.classList.remove('hidden');
+        username = Math.random().toString(36).substr(2, 5);
+        $timeout(function () {
+            if(username) {
+                disConnect();
+                currentRoom = room;
+                chatPage.classList.remove('hidden');
+                connectingElement.classList.add('hidden');
+                clearChatText();
 
-        }else{
-            $scope.currentRoom.participants.push($scope.me);
-            if($scope.currentRoom.participants.length===1)
-                $scope.assignChatRoomManager();
-            if($scope.myRooms.indexOf($scope.currentRoom) === -1)
-                $scope.myRooms.push($scope.currentRoom);
-        }
+                $scope.currentRoom = room;
+                $scope.initChatRoomData();
+                if($scope.isAlreadyJoined(room)){
 
-
+                }else{
+                    $scope.currentRoom.participants.push($scope.me);
+                    if($scope.currentRoom.participants.length===1)
+                        $scope.assignChatRoomManager();
+                    if($scope.myRooms.indexOf($scope.currentRoom) === -1)
+                        $scope.myRooms.push($scope.currentRoom);
+                }
+            }
+            if($event)
+                $event.preventDefault();
+        }, 2000);
     };
 
     // 메시지 전송
@@ -273,6 +284,7 @@ app.controller("chatController", function ($scope, $http, $uibModal, $filter, $t
     $scope.scrollMore = function(limit){
         limit.limit += 9;
     }
+
 });
 
 // 채팅방 정보 배경 이미지 변경
@@ -351,23 +363,10 @@ var colors = [
     '#ffc107', '#ff85af', '#FF9800', '#39bbb0'
 ];
 
-function connect(event, room) {
-    username = Math.random().toString(36).substr(2, 5);
-    if(username) {
-        disConnect();
-        currentRoom = room;
-        chatPage.classList.remove('hidden');
-        connectingElement.classList.add('hidden');
-        clearChatText();
-    }
-    if(event)
-        event.preventDefault();
-}
-
 function disConnect(){
     currentRoom = null;
     chatPage.classList.add('hidden');
-    connectingElement.classList.remove('hidden');
+    connectingElement.classList.add('hidden');
 }
 
 function sendMessage(messageContent) {

@@ -36,9 +36,12 @@
         <div class="chat-tab" ng-show="config_chat.ui.mainBarIndex===0">
             <div class="chat-sidebar-header">
                 <h3>오픈 채팅방</h3>
-                <span class="chat-sidebar-button" ng-click="onClickAddChatRoom()"><i class="fas fa-plus"></i></span>
+                <span class="chat-sidebar-button circle-button" ng-click="onClickAddChatRoom()"><i class="fas fa-plus"></i></span>
                 <div id="chat-room-search">
-                    <input class="input-search" type="text" placeholder="방 검색..."/>
+                    <span class="search-container">
+                        <input class="input-search" type="text" placeholder="방 검색..."/>
+                        <span class="circle-button"><i class="fas fa-search"></i></span>
+                    </span>
                     <div id="chat-room-tags">
                         <span>인기 태그</span>
                         <a># tag1</a>
@@ -94,6 +97,10 @@
 
     <!----------------------- 채팅방 컨테이너 ------------------------------>
     <div id="chat-container">
+        <div class="loading connecting hidden">
+            <img src="/img/loading.gif" height="36"/>
+            <p>채팅방에 입장중입니다...</p>
+        </div>
         <div id="chat-page" class="hidden">
             <div class="chat-container">
                 <div class="chat-header">
@@ -109,9 +116,6 @@
                             </span>
                     </div>
                 </div>
-                <div class="connecting">
-                    연결중...
-                </div>
                 <ul id="messageArea" drop-item>
 
                 </ul>
@@ -123,10 +127,10 @@
                             <button type="submit" ng-click="sendMessage($event)" class="circle">
                                 <i class="fas fa-paper-plane"></i>
                             </button>
-                            <button type="button" ng-click="onClickOpenSidebar(1)" class="circleSub">
+                            <button tooltip-top="이미지 서랍" type="button" ng-click="onClickOpenSidebar(1)" class="circleSub">
                                 <i class="fas fa-images"></i>
                             </button>
-                            <button class="circleSub" ng-model="file" type="file" name="file" id="imageUpload" accept=".png, .jpg, .jpeg"
+                            <button tooltip-top="이미지 첨부" class="circleSub" ng-model="file" type="file" name="file" id="imageUpload" accept=".png, .jpg, .jpeg"
                                    ngf-select="sendImageFileMessage($event, this)"
                                    ngf-pattern="'image/*'"
                                    ngf-accept="'image/*'"
@@ -145,7 +149,7 @@
         <div class="chat-sidebar-container chat-sidebar-tab slide-right" id="chat-menu" ng-show="config_chat.ui.sidebarIndex===0">
             <div class="chat-sidebar-header">
                 <h3>채팅방 정보</h3>
-                <span class="chat-sidebar-button" ng-click="onClickToggleMenu()"><i class="fas fa-times"></i></span>
+                <span class="chat-sidebar-button circle-button" ng-click="onClickToggleMenu()"><i class="fas fa-times"></i></span>
             </div>
             <div class="chat-sidebar-content-container height100" when-scrolled="scrollMore(config_chat.ui.scrollLimit[1])">
                 <div class="chat-sidebar-content" id="chat-profile" back-img="{{currentRoom.img}}">
@@ -211,7 +215,7 @@
         <div class="chat-sidebar-container chat-sidebar-tab slide-right" id="#chat-album" ng-show="config_chat.ui.sidebarIndex===1">
             <div class="chat-sidebar-header">
                 <h3>이미지 서랍</h3>
-                <span class="chat-sidebar-button" ng-click="onClickOpenSidebar(0)"><i class="fas fa-arrow-left"></i></span>
+                <span class="chat-sidebar-button circle-button" ng-click="onClickOpenSidebar(0)"><i class="fas fa-arrow-left"></i></span>
             </div>
             <div class="chat-sidebar-content-container height100" when-scrolled="scrollMore(config_chat.ui.scrollLimit[2])">
                 <div class="chat-sidebar-content">
@@ -230,7 +234,7 @@
         <div class="chat-sidebar-container chat-sidebar-tab slide-right" id="#chat-image-log" ng-show="config_chat.ui.sidebarIndex===2">
             <div class="chat-sidebar-header">
                 <h3>사진 기록</h3>
-                <span class="chat-sidebar-button" ng-click="onClickOpenSidebar(0)"><i class="fas fa-arrow-left"></i></span>
+                <span class="chat-sidebar-button circle-button" ng-click="onClickOpenSidebar(0)"><i class="fas fa-arrow-left"></i></span>
             </div>
             <div class="chat-sidebar-content-container height100" when-scrolled="scrollMore(config_chat.ui.scrollLimit[3])">
                 <div class="chat-sidebar-content">
