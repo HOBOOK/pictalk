@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorator="layout/layout_main">
+      layout:decorator="layout/layout_manager">
 
 <th:block layout:fragment="title">픽톡(PicTalk) | 관리자</th:block>
 <th:block layout:fragment="js">
@@ -21,7 +21,7 @@
     <!--추가 CSS 끝-->
 </th:block>
 
-<section layout:fragment="content" style="background-color: lightgray; width: 100%; height: 100%;">
+<section layout:fragment="content" style="background-color: lightgray;" class="content-management-content">
 
     <div class="content">
 

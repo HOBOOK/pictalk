@@ -197,7 +197,7 @@ app.controller("accountCtrl", function ($scope, $uibModal, $http, $document) {
     $scope.openModal = function(item) {
 
         var modalInstance = $uibModal.open({
-            templateUrl: 'info',
+            templateUrl: '/console/info',
             controller: 'infoController',
              size: 'lg',
             resolve: {

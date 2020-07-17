@@ -6,22 +6,22 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class ManagementController {
 
-    @GetMapping("/dashboard")
+    @GetMapping("/console")
     public String dashboard(){
         return "app/dashboard";
     }
 
-    @GetMapping("/file")
+    @GetMapping("/console/file")
     public String file(){
         return "app/file";
     }
 
-    @GetMapping("/account")
+    @GetMapping("/console/account")
     public String account(){
         return "app/account";
     }
 
-    @GetMapping("/info")
+    @GetMapping("/console/info")
     public String info(){
         return "app/info";
     }

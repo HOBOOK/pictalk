@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorator="layout/layout_main">
+      layout:decorator="layout/layout_manager">
 
 <th:block layout:fragment="title">픽톡(PicTalk) | 관리자</th:block>
 <th:block layout:fragment="js">
@@ -114,7 +114,7 @@
                             <tbody>
                             <tr ng-repeat="account in accounts" ng-click="openModal(account)">
                                 <td>{{account.no}}</td>
-                                <td><img class="rounded-circle rounded-circle-profile" src="management/img/profile.png"></td>
+                                <td><img class="rounded-circle rounded-circle-profile" src="../management/img/profile.png"></td>
                                 <td>{{account.email}}</td>
                                 <td>{{account.name}}</td>
                                 <td>{{account.nickname}}</td>
