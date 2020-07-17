@@ -106,21 +106,25 @@
 <body class="text-center" cz-shortcut-listen="true">
 <div ng-app class="wrap">
     <form class="form-signin" name="formSignin">
-        <h1 class="h3 mb-3 font-weight-normal">sign in</h1>
-        <label for="inputEmail" class="sr-only">Email address</label>
-        <input type="email" name="email" id="inputEmail" class="form-control" placeholder="Email address" ng-model="email" required />
-        <label for="inputPassword" class="sr-only">Password</label>
-        <input type="password" name="password" id="inputPassword" class="form-control" placeholder="Password" ng-model="password"required />
+        <h1 class="h3 mb-3 font-weight-normal">로그인</h1>
+        <label for="inputEmail" class="sr-only">Email </label>
+        <input type="email" name="email" id="inputEmail" class="form-control" placeholder="danbi@naver.com" ng-model="email" required />
+        <label for="inputPassword" class="sr-only">비밀번호</label>
+        <input type="password" name="password" id="inputPassword" class="form-control" placeholder="비밀번호를 입력하세요" ng-model="password"required />
         <div class="checkbox mb-3">
             <label>
-                <input type="checkbox" value="remember-me"> Remember me
+                <input type="checkbox" value="remember-me"> 아이디 저장
             </label>
         </div>
-        <button class="btn btn-lg btn-primary btn-block" type="submit"  ng-disabled="formSignin.$invalid" >Sign in</button>
+        <button class="btn btn-lg btn-primary btn-block" type="submit"  ng-disabled="formSignin.$invalid" >로그인</button>
 
     </form>
     <div>
-        <div class="explain">Signin with your social media account.</div>
+        <label><a href="/findPassword">비밀번호 찾기</a></label>
+
+    </div>
+    <div>
+        <div class="explain">소셜 계정으로 로그인하기</div>
         <ul class="list-inline">
             <li><a><img src="icon/facebook.png"/></a></li>
             <li><a><img src="icon/google.png"/></a></li>
@@ -131,8 +135,8 @@
 
     </div>
     <div>
-        <div class="explain">Don't have an account?</div>
-        <a class="btn btn-default" href="/" role="button">Register Now!</a>
+        <div class="explain">아직 계정이 없으신가요?</div>
+        <a class="btn btn-default" href="/" role="button">지금 등록하세요!</a>
 
     </div>
     <div>

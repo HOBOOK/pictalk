@@ -36,19 +36,20 @@ app.controller('mypageCtrl',function ($scope) {
             firstName: 'choi',
             lastName: 'jieun',
             nickName: 'danbi',
-            password: '1234'
+            password: '1234',
+            src:'choidanbi.jpeg'
 
         }
     $scope.showHide = false;
-    $scope.editText = "edit";
+    $scope.editText = "수정";
     $scope.editToggle = function () {
         if ($scope.showHide == true) {
             $scope.showHide = false;
             alert("변경사항이 저장됩니다.");
-            $scope.editText = "edit";
+            $scope.editText = "수정";
         } else {
             $scope.showHide = true;
-            $scope.editText = "save";
+            $scope.editText = "저장";
         }
     }
 
@@ -81,8 +82,16 @@ app.controller('mypageCtrl',function ($scope) {
         if(idx>-1){
             $scope.images.splice(idx,1)
         }
-    }
+    };
 
+    $scope.changeProfileImg = function(element){
+
+        var reader = new FileReader();
+
+        reader.onload = function (e) {
+            $scope.person.src = e.target.result;
+        }
+    }
 
 });
 // $scope.nav = function (name) {

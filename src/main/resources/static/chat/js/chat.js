@@ -177,9 +177,11 @@ app.controller("chatController", function ($scope, $http, $uibModal, $filter, $t
     // 업로디 이미지 메시지 전송
     $scope.sendImageFileMessage = function($event, element){
         var reader = new FileReader();
+
         reader.onload = function(e)
         {
             $scope.sendImageMessage($event, e.target.result);
+            alert(e.target.result)
         };
         reader.readAsDataURL(element.file);
     }
