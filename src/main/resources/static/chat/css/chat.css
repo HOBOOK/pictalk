@@ -109,6 +109,26 @@ button.sidebar:hover{
     background-color: rgba(0,0,0,0.07);
 }
 
+span.circle-button{
+    display: inline-block;
+    width: 32px;
+    height: 32px;
+    line-height: 32px;
+    border-radius: 50%;
+    text-align: center;
+    vertical-align: middle;
+    cursor:pointer;
+    background-color: transparent;
+    transition: .3s background-color ease-in-out;
+    -o-transition: .3s background-color ease-in-out;
+    -webkit-transition: .3s background-color ease-in-out;
+    -moz-transition: .3s background-color ease-in-out;
+}
+span.circle-button:hover{
+    background-color: rgba(0,0,0,0.1);
+}
+
+
 .btn-more{
     float: right;
     font-size: 10px;
@@ -140,19 +160,8 @@ nav{
 
 .chat-sidebar-button{
     float: right;
-    display: inline-block;
-    width: 32px;
-    height: 32px;
-    line-height: 32px;
-    border-radius: 50%;
-    text-align: center;
-    vertical-align: middle;
-    cursor:pointer;
-}
-.chat-sidebar-button:hover{
-    background-color: rgba(0,0,0,0.1);
-}
 
+}
 #chat-main-tab{
 
 }
@@ -175,6 +184,23 @@ nav{
 }
 #chat-room-tags span{
     font-size: 12px;
+}
+.chat-tag{
+    display: inline-block;
+    background-color: rgba(65,105,225,0.4);
+    color:#fff;
+    margin-right:6px;
+    padding: 2px;
+    font-size: 11px;
+    cursor: pointer;
+    border-radius: 3px;
+    transition: background-color .3s ease-in-out;
+    -webkit-transition: background-color .3s ease-in-out;
+    -moz-transition: background-color .3s ease-in-out;
+    -o-transition: background-color .3s ease-in-out;
+}
+.chat-tag:hover{
+    background-color: rgba(65,105,225,0.55);
 }
 
 .chat-sidebar-container{
@@ -367,6 +393,17 @@ nav{
     padding: 3px;
     display: flex;
 }
+
+#chat-current-room{
+    width: 2px;
+    position: absolute;
+    left: 0;
+    top:0;
+    height: 100%;
+    background-color: royalblue;
+    opacity: .4;
+}
+
 #chat-profile{
     position: relative;
     text-align: center;
@@ -440,14 +477,25 @@ nav{
     color:#fff;
     text-decoration: none;
 }
-.input-search{
-    padding: 10px 15px 10px 15px;
+.search-container{
+    padding: 3px 5px 3px 5px;
     background-color: #f1f1f1;
     border-radius: 5px;
     outline: none;
     border:none;
     width: 100%;
+    display: inline-block;
 }
+
+.input-search{
+    background-color: transparent;
+    border-radius: 5px;
+    outline: none;
+    border:none;
+    width: calc(100% - 40px);
+}
+
+
 
 #chat-user-info{
 
@@ -790,8 +838,9 @@ nav{
 
 
 .connecting {
-    padding-top: 5px;
     text-align: center;
     color: #777;
-    width: 100%;
+}
+.connecting p{
+    margin-top: 10px;
 }

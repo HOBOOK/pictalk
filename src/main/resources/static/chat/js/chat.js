@@ -41,7 +41,7 @@ app.controller("chatController", function ($scope, $http, $uibModal, $filter, $t
 
     $timeout(function () {
         $scope.rooms = [{
-            id: 1,
+            id: 0,
             type: 0,
             title: "방제목",
             description: "대화하고 노실분들 입장하세용",
@@ -95,6 +95,7 @@ app.controller("chatController", function ($scope, $http, $uibModal, $filter, $t
             }
 
         }
+        $scope.filteredRooms = $scope.rooms;
         $scope.$apply();
     },1000);
 
@@ -145,20 +146,31 @@ app.controller("chatController", function ($scope, $http, $uibModal, $filter, $t
 
     // 채팅방 접속
     $scope.connect = function ($event, room) {
-        connect($event, room);
-        $scope.currentRoom = room;
-        $scope.initChatRoomData();
-        if($scope.isAlreadyJoined(room)){
+        connectingElement.classList.remove('hidden');
+        username = Math.random().toString(36).substr(2, 5);
+        $timeout(function () {
+            if(username) {
+                disConnect();
+                currentRoom = room;
+                chatPage.classList.remove('hidden');
+                connectingElement.classList.add('hidden');
+                clearChatText();
 
-        }else{
-            $scope.currentRoom.participants.push($scope.me);
-            if($scope.currentRoom.participants.length===1)
-                $scope.assignChatRoomManager();
-            if($scope.myRooms.indexOf($scope.currentRoom) === -1)
-                $scope.myRooms.push($scope.currentRoom);
-        }
+                $scope.currentRoom = room;
+                $scope.initChatRoomData();
+                if($scope.isAlreadyJoined(room)){
 
-
+                }else{
+                    $scope.currentRoom.participants.push($scope.me);
+                    if($scope.currentRoom.participants.length===1)
+                        $scope.assignChatRoomManager();
+                    if($scope.myRooms.indexOf($scope.currentRoom) === -1)
+                        $scope.myRooms.push($scope.currentRoom);
+                }
+            }
+            if($event)
+                $event.preventDefault();
+        }, 2000);
     };
 
     // 메시지 전송
@@ -273,6 +285,38 @@ app.controller("chatController", function ($scope, $http, $uibModal, $filter, $t
     $scope.scrollMore = function(limit){
         limit.limit += 9;
     }
+
+    // 채팅방 검색
+    $scope.search ={
+        room: ""
+    }
+    $scope.onClickSearch = function(keyword){
+        $scope.filteredRooms = null;
+        $timeout(function () {
+            $scope.config_chat.ui.scrollLimit[0].limit = 18;
+            var tempRooms = $scope.rooms;
+            $scope.filteredRooms = $filter('filter')(tempRooms, function (room) {
+                return (room.title.indexOf(keyword) !== -1 || room.category.filter(function (category) {
+                    return category.indexOf(keyword)!==-1
+                })[0]);
+            });
+        }, 2000);
+    }
+    
+    // 태그 검색 이벤트
+    $scope.onClickTagSearch = function(tag){
+        tag = tag.substring(1);
+        $scope.filteredRooms = null;
+        $timeout(function () {
+            $scope.config_chat.ui.scrollLimit[0].limit = 18;
+            var tempRooms = $scope.rooms;
+            $scope.filteredRooms = $filter('filter')(tempRooms, function (room) {
+                return room.category.filter(function (category) {
+                    return category === tag;
+                })[0];
+            });
+        }, 2000);
+    }
 });
 
 // 채팅방 정보 배경 이미지 변경
@@ -351,23 +395,10 @@ var colors = [
     '#ffc107', '#ff85af', '#FF9800', '#39bbb0'
 ];
 
-function connect(event, room) {
-    username = Math.random().toString(36).substr(2, 5);
-    if(username) {
-        disConnect();
-        currentRoom = room;
-        chatPage.classList.remove('hidden');
-        connectingElement.classList.add('hidden');
-        clearChatText();
-    }
-    if(event)
-        event.preventDefault();
-}
-
 function disConnect(){
     currentRoom = null;
     chatPage.classList.add('hidden');
-    connectingElement.classList.remove('hidden');
+    connectingElement.classList.add('hidden');
 }
 
 function sendMessage(messageContent) {
