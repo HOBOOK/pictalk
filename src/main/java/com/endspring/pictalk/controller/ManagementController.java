@@ -21,13 +21,8 @@ public class ManagementController {
         return "app/account";
     }
 
-    @GetMapping("/account_info")
-    public String accountInfo(){
-        return "app/account_Info";
-    }
-
-    @GetMapping("/test")
-    public String accountInfo2(){
-        return "app/test";
+    @GetMapping("/info")
+    public String info(){
+        return "app/info";
     }
 }

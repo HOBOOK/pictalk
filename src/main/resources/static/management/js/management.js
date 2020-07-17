@@ -1,6 +1,6 @@
 'use strict';
 
-app.controller("accountCtrl", function ($scope, $http, $uibModal) {
+app.controller("accountCtrl", function ($scope, $uibModal, $http, $document) {
     $scope.show="false";
     $scope.accounts = [{
         no: "1",
@@ -34,7 +34,7 @@ app.controller("accountCtrl", function ($scope, $http, $uibModal) {
         birthday: "",
         joindate: "2020-07-09 20:00",
         reportnum: 112,
-        state: 0
+        state: "ban"
     },{
         no: "4",
         profile: "profile.png",
@@ -124,7 +124,6 @@ app.controller("accountCtrl", function ($scope, $http, $uibModal) {
         reportnum: 0,
         state: 0
     }];
-
 
     $scope.logReports = [{
         no: "1",
@@ -194,18 +193,47 @@ app.controller("accountCtrl", function ($scope, $http, $uibModal) {
         remark: ""
     }];
 
-    $scope.accountInfo = function(account){
-        console.log(account.no);
+
+    $scope.openModal = function(item) {
+
         var modalInstance = $uibModal.open({
-            templateUrl: 'test',
-            backdrop: true
-            // controller: 'chatModalController'
+            templateUrl: 'info',
+            controller: 'infoController',
+             size: 'lg',
+            resolve: {
+                no: function () {
+                    return item.no;
+                },
+                logs: function () {
+                    return $scope.logReports;
+                }
+            }
         });
-        // modalInstance.result.then(function (selectedItem) {
-        //     console.log("modal click ok : " + selectedItem);
-        // }, function () {
-        //     console.log('modal에서 dismissed at: ' + new Date());
-        // });
+        modalInstance.result.then(function (item) {
+
+        }, function () {
+
+        });
     }
 
+    // $scope.click = function() {
+    //
+    //     console.log('dddd');
+    //     $('#account-modal').modal('show');
+    //
+    //     $http({
+    //         method: 'GET',
+    //         url: 'info'
+    //     }).then(function successCallback(response) {
+    //         $scope.myHTML = response.data;
+    //
+    //     }, function errorCallback(response) {
+    //
+    //     });
+    // }
+
 });
+
+// app.config(['$qProvider', function ($qProvider) {
+//     $qProvider.errorOnUnhandledRejections(false);
+// }]);
