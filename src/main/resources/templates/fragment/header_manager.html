@@ -2,7 +2,21 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <th:header th:fragment="header">
     <header>
-        헤더
+        <div class="manager-header">
+            <a class="p-2 mr-md-3 text-dark" href="#">
+                <img src="/management/img/alarm_icon.png" class="rounded-circle-profile">
+            </a>
+            <a class="p-2 mr-md-3 text-dark dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <img src="/management/img/profile.png" class="rounded-circle-profile"> 치민
+            </a>
+
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" href="#">마이페이지</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="#">로그아웃</a>
+            </div>
+        </div>
+
     </header>
 </th:header>
 </html>

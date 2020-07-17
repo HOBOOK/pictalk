@@ -1,24 +1,7 @@
 <!--로그, 신고 모달창-->
 
-
-
-<style>
-    /*.nav-tabs .nav-link.active, .nav-tabs .nav-item.show .nav-link {*/
-    /*    color: #fff ;*/
-    /*    background-color: #58ccff;*/
-    /*    border-color: #dee2e6 #dee2e6 #fff;*/
-    /*}*/
-
-
-    /*.zoom img {*/
-    /*    width: 10%;*/
-    /*}*/
-
-</style>
-
-
     <div class="modal-header">
-        <h5 class="modal-title">Modal title</h5>
+        <h5 class="modal-title">상세 정보</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close" ng-click="close()">
             <span aria-hidden="true">&times;</span>
         </button>
@@ -26,15 +9,21 @@
     <div class="modal-body">
 
         <ul class="nav nav-tabs" id="myTab" role="tablist">
-            <li class="nav-item" role="presentation" style="width:50%;">
-                <a class="nav-link active" id="log-tab" data-toggle="tab" href="#log" role="tab" aria-controls="log" aria-selected="true" style="text-align: center;">Log</a>
+            <li class="nav-item" role="presentation" style="width:33%;">
+                <a class="nav-link active" id="info-tab" data-toggle="tab" href="#info" role="tab" aria-controls="info" aria-selected="true" style="text-align: center;">Info</a>
             </li>
-            <li class="nav-item" role="presentation" style="width:50%;">
+            <li class="nav-item" role="presentation" style="width:33%;">
+                <a class="nav-link" id="log-tab" data-toggle="tab" href="#log" role="tab" aria-controls="log" aria-selected="false" style="text-align: center;">Log</a>
+            </li>
+            <li class="nav-item" role="presentation" style="width:33%;">
                 <a class="nav-link" id="report-tab" data-toggle="tab" href="#report" role="tab" aria-controls="report" aria-selected="false" style="text-align: center;">Report</a>
             </li>
         </ul>
         <div class="tab-content" id="myTabContent">
-            <div class="tab-pane fade show active" id="log" role="tabpanel" aria-labelledby="log-tab">
+            <div class="tab-pane fade show active" id="info" role="tabpanel" aria-labelledby="info-tab">
+                정보수정, 정지, 삭제 등
+            </div>
+            <div class="tab-pane fade" id="log" role="tabpanel" aria-labelledby="log-tab">
 <!--                min-width: 750px; width: 780px;-->
                 <div style="background-color: white; border-radius: 10px; padding: 10px;">
                     <table id="table-info" class="table table-striped table-bordered table-hover text-center">
@@ -48,12 +37,12 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr ng-repeat="logReport in logReports">
-                            <td>{{logReport.no}}</td>
-                            <td>{{logReport.roomName}}</td>
-                            <td>{{logReport.content}}</td>
-                            <td>{{logReport.logDate}}</td>
-                            <td>{{logReport.remark}}</td>
+                        <tr ng-repeat="log in logs">
+                            <td>{{log.no}}</td>
+                            <td>{{log.roomName}}</td>
+                            <td>{{log.content}}</td>
+                            <td>{{log.logDate}}</td>
+                            <td>{{log.remark}}</td>
                         </tr>
                         </tbody>
                         <!--            <tfoot>-->
@@ -79,15 +68,15 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>픽톡</td>
+                        <tr ng-repeat="report in reports">
+                            <td>{{report.no}}</td>
+                            <td>{{report.roomName}}</td>
                             <td>
-                                <img class="zoom" src="../management/img/jieun.jpg">
+                                <img class="zoom" ng-src="{{report.content}}">
                             </td>
-                            <td></td>
-                            <td>송치민_1</td>
-                            <td>2020-07-09 20:00</td>
+                            <td>{{report.reportContent}}</td>
+                            <td>{{report.userNo}}</td>
+                            <td>{{report.reportDate}}</td>
                             <td>
                                 <button class="btn btn-outline-danger btn-sm">경고</button>
                             </td>
