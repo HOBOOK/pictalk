@@ -21,20 +21,5 @@ public class SigninController {
         return "findPassword";
     }
 
-    @RequestMapping("/personal")
-    public String personal(){
-        return "mypage_personal";
-    }
-
-    @RequestMapping("/follow")
-    public String follow(){
-        return "mypage_follow";
-    }
-
-    @RequestMapping("/pictures")
-    public String pictures(){
-        return "mypage_pictures";
-    }
-
 
 }

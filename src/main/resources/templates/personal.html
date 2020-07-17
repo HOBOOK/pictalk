@@ -1,34 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.0/angular.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.0/angular-animate.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.0/angular-sanitize.min.js"></script>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
     <style>
-        .wrap{
-            width: 800px;
-            min-height: 800px;
-            position: relative;
-        }
-        .left_wrap{
-            width: 20%;
-            height: 800px;
-            background-color: aliceblue;
-            position: relative;
-            margin-left: 15px;
-        }
-
-        .right_wrap{
-            width: 800px;
-            min-height: 100px;
-            top: 0px;
-            left: 200px;
-            position: absolute;
-
-        }
 
         li{
             width: 100%;
@@ -73,49 +44,8 @@
         }
 
     </style>
-    <script>
-        var app = angular.module('person',[]);
 
 
-        app.controller('personalCtrl',function ($scope) {
-            $scope.person=
-                {
-                    firstName: 'choi',
-                    lastName:'jieun',
-                    nickName: 'danbi',
-                    password: '1234'
-
-                }
-                $scope.showHide = false;
-                $scope.editText="edit"
-                $scope.editToggle = function () {
-                    if($scope.showHide==true){
-                        $scope.showHide=false;
-                        alert("변경사항이 저장됩니다.")
-                        $scope.editText="edit";
-                    }
-                    else{
-                        $scope.showHide=true;
-                        $scope.editText="save";
-                    }
-                }
-        })
-
-
-    </script>
-</head>
-<body>
-<div ng-app="person" ng-controller="personalCtrl" class="wrap">
-    <div class="left_wrap">
-        <div>
-            <ul class="nav nav-pills nav-stacked">
-                <li role="presentation" class="active"><a href="#">Personal</a></li>
-                <li role="presentation"><a href="#">Follow</a></li>
-                <li role="presentation"><a href="#">Pictures</a></li>
-            </ul>
-        </div>
-    </div>
-    <div class="right_wrap">
         <div class="row">
             <div class="col-md-8 order-md-1">
                 <div class="btnWrap">
@@ -202,7 +132,4 @@
 
         </div>
 
-    </div>
-</div>
-</body>
-</html>
+

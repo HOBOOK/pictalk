@@ -1,0 +1,27 @@
+.wrap{
+    width: 800px;
+    min-height: 800px;
+    position: relative;
+}
+.left_wrap{
+    width: 20%;
+    height: 800px;
+    background-color: aliceblue;
+    position: relative;
+    margin-left: 15px;
+}
+
+.right_wrap{
+    width: 800px;
+    min-height: 100px;
+    top: 0px;
+    left: 200px;
+    position: absolute;
+
+}
+.left_nav li{
+    width: 100%;
+}
+.left_wrap .nav li{
+    width: 100%;
+}

@@ -1,0 +1,96 @@
+    <style>
+
+        .right_nav{
+            overflow: hidden;
+        }
+        .right_nav_li{
+            list-style: none;
+            float: left;
+            display: inline;
+            margin-right: 10px;
+            width: 170px;
+            height: 220px;
+            margin-bottom: 10px;
+        }
+        .card{
+            /* height: 100%; */
+            width:170px;
+            height:220px;
+            position:absolute;
+        }
+
+        li div.card:hover + .hover_card {
+            display:block;
+
+        }
+        .img-circle{
+            border-radius: 50%;
+            width: 60%;
+            margin: auto;
+            margin-top: 30px;
+        }
+        .card-body{
+            text-align: center;
+
+        }
+        .on{
+            background-color: forestgreen;
+        }
+        .card-footer{
+            padding-top: 3px;
+        }
+
+        .hover_card{
+            background-color:RGBA(0,0,0,0.5) ;
+            width:170px;
+            height:203px;
+            position:absolute;
+            z-index:10;
+            display: none;
+
+
+        }
+        ul li:hover .hover_card{display: inline;}
+
+        .card-btn{
+            width:100px;
+            display:block;
+            margin-left:35px;
+            margin-top:40px;
+            top:10px;
+            opacity:1.0;
+            curser:pointer;
+        }
+        .container{
+            position: absolute;
+            margin-left:205px;
+        }
+
+    </style>
+
+    <ul class="right_nav">
+        <li  ng-repeat="follower in follows" class="right_nav_li">
+            <div class="card">
+                <img class="card-img-top img-circle" src={{follower.src}} alt="Card image cap">
+                <div class="card-body">
+                    <h5 class="card-title">{{follower.name}}</h5>
+                </div>
+                <div class="card-footer on">
+                    <small class="text-muted"></small>
+                </div>
+            </div>
+
+            <div class="hover_card">
+                <button type="button" class="btn btn-primary btn-sm card-btn">1:1 chat</button>
+                <button type="button" class="btn btn-primary btn-sm card-btn" ng-click="followerRemove(follower)">unFollow</button>
+            </div>
+
+    </ul>
+    <div class="container">
+        <ul class="pagination pagination-sm">
+            <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+            <li class="page-item"><a class="page-link" href="#">1</a></li>
+            <li class="page-item"><a class="page-link" href="#">2</a></li>
+            <li class="page-item"><a class="page-link" href="#">Next</a></li>
+        </ul>
+    </div>
