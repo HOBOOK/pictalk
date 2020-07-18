@@ -36,11 +36,11 @@
         <div class="chat-tab" ng-show="config_chat.ui.mainBarIndex===0">
             <div class="chat-sidebar-header">
                 <h3>오픈 채팅방</h3>
-                <span class="chat-sidebar-button circle-button" ng-click="onClickAddChatRoom()"><i class="fas fa-plus"></i></span>
+                <span tooltip-bottom="방 생성" class="chat-sidebar-button circle-button" ng-click="onClickAddChatRoom()"><i class="fas fa-plus"></i></span>
                 <div id="chat-room-search">
                     <span class="search-container">
-                        <input class="input-search" type="text" placeholder="방 검색..." ng-model="search.room"/>
-                        <span class="circle-button" ng-click="onClickSearch(search.room)"><i class="fas fa-search"></i></span>
+                        <input class="input-search" ng-keydown="onKeyDownSearch($event,search.room)" type="text" placeholder="방 검색..." ng-model="search.room"/>
+                        <span class="circle-button"  ng-click="onClickSearch(search.room)"><i class="fas fa-search"></i></span>
                     </span>
                     <div id="chat-room-tags">
                         <span>인기 태그</span>
@@ -73,11 +73,11 @@
                 <h3>나의 채팅방</h3>
             </div>
             <div class="chat-sidebar-content-container height100" when-scrolled="scrollMore(config_chat.ui.scrollLimit[0])">
-                <div class="chat-sidebar-content chat-room ng-cloak" ng-repeat="room in myRooms | limitTo: config_chat.ui.scrollLimit[0].limit" ng-click="connect($event, room)">
+                <div class="chat-sidebar-content chat-room ng-cloak" ng-repeat="room in me.myRooms | limitTo: config_chat.ui.scrollLimit[0].limit" ng-click="connect($event, room)">
                     <img ng-src="{{room.img}}" alt="thumbnail" class="img-circle" onerror="this.src='/img/no-image.png'"/>
                     <span class="chat-room-info">
-                        <h5 ng-bind="room.title"></h5> <span><i class="circle-count">17</i></span>
-                        <p ng-bind="room.latestMessage ? room.latestMessage : '&nbsp;&nbsp;'"></p>
+                        <h5 ng-bind="room.title"></h5> <span ng-show="getUnreadMessageCount(room)"><i class="circle-count" ng-bind="getUnreadMessageCount(room)"></i></span>
+                        <p ng-bind="getLatestMessage(room) ? getLatestMessage(room) : '&nbsp;&nbsp;'"></p>
                     </span>
 
                     <div class="chat-room-detail">
@@ -87,7 +87,7 @@
 
                     </div>
                 </div>
-                <div ng-show="myRooms.length===0" class="chat-sidebar-no-content">
+                <div ng-show="me.myRooms.length===0" class="chat-sidebar-no-content">
                     <span>참여중인 채팅방이 없습니다.</span>
                 </div>
             </div>
