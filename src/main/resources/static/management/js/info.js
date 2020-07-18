@@ -1,8 +1,12 @@
-app.controller('infoController', function ($scope, $uibModalInstance, no) {
+// var account = null;
+
+app.controller('infoController', function ($scope, $uibModalInstance, account_info) {
 
     $scope.close = function() {
         $uibModalInstance.dismiss('cancel');
     }
+
+    $scope.account = account_info;
 
     $scope.logs = [{
         no: "1",
@@ -98,6 +102,12 @@ app.controller('infoController', function ($scope, $uibModalInstance, no) {
         dTable2 = $('#report-info');
         dTable2.DataTable();
     });
+
+
+    // 프로필사진 초기화
+    $scope.profile_default = function() {
+        $scope.account.profile = "/management/img/profile.png";
+    };
 
 
 });

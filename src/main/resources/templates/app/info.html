@@ -1,7 +1,7 @@
 <!--로그, 신고 모달창-->
 
     <div class="modal-header">
-        <h5 class="modal-title">상세 정보</h5>
+        <h4 class="modal-title"> 상세 정보 </h4>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close" ng-click="close()">
             <span aria-hidden="true">&times;</span>
         </button>
@@ -20,11 +20,63 @@
             </li>
         </ul>
         <div class="tab-content" id="myTabContent">
+
             <div class="tab-pane fade show active" id="info" role="tabpanel" aria-labelledby="info-tab">
-                정보수정, 정지, 삭제 등
+
+                <ul class="info-content">
+
+                    <div style="position: absolute;">
+                        상태 : <i class="fas fa-circle {{account.state}}"></i>
+                        <h5 ng-show="'{{account.state}}'=='ban'">(정지기간)</h5>
+                    </div>
+
+                    <li>
+                        <div class="info-profile zoom-effect">
+                            <div class="profile-preview">
+                                <div class="btn" id="profile" style="background-image: url({{account.profile}});">
+                                </div>
+
+                                <div class="profile-manu">
+                                    <button type="button" class="btn btn-primary" ng-click="profile_default()">초기화</button>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <h4><i class="far fa-envelope"></i> 이메일</h4>
+                        {{account.email}}
+                    </li>
+                    <li>
+                        <h4><i class="far fa-id-card"></i> 이름</h4>
+                        {{account.name}}
+                    </li>
+                    <li>
+                        <h4><i class="fas fa-id-badge"></i> 닉네임</h4>
+                        {{account.nickname}}
+                    </li>
+                </ul>
+
+                <div style="text-align: right;">
+
+                    <select class="form-control" style=" width: auto; display: inline;" ng-hide="'{{account.state}}'=='ban'">
+                        <option selected>1</option>
+                        <option>3</option>
+                        <option>7</option>
+                        <option>14</option>
+                        <option>30</option>
+                    </select>
+
+                    <button type="button" class="btn btn-warning" ng-hide="'{{account.state}}'=='ban'">정지</button>
+                    <button type="button" class="btn btn-success" ng-hide="'{{account.state}}'!='ban'">해제</button>
+                    <button type="button" class="btn btn-danger">삭제</button>
+
+                </div>
+
             </div>
+
+
+
             <div class="tab-pane fade" id="log" role="tabpanel" aria-labelledby="log-tab">
-<!--                min-width: 750px; width: 780px;-->
                 <div style="background-color: white; border-radius: 10px; padding: 10px;">
                     <table id="table-info" class="table table-striped table-bordered table-hover text-center">
                         <thead>
@@ -49,7 +101,6 @@
                         <!--            </tfoot>-->
                     </table>
                 </div>
-
             </div>
 
             <div class="tab-pane fade" id="report" role="tabpanel" aria-labelledby="report-tab">
