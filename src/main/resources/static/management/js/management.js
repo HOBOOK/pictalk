@@ -5,7 +5,7 @@ app.controller("accountCtrl", function ($scope, $uibModal, $http, $document) {
     $scope.accounts = [{
         no: "1",
         profile: "/management/img/profile.png",
-        email: "",
+        email: "park@gmail.com",
         name: "박경호",
         nickname: "호북이",
         gender: "남",
@@ -26,8 +26,8 @@ app.controller("accountCtrl", function ($scope, $uibModal, $http, $document) {
         state: "off"
     },{
         no: "3",
-        profile: "/management/img/profile.png",
-        email: "",
+        profile: "/profile/choidanbi.jpeg",
+        email: "choi@gmail.com",
         name: "최지은",
         nickname: "최단비",
         gender: "여",
@@ -126,15 +126,17 @@ app.controller("accountCtrl", function ($scope, $uibModal, $http, $document) {
     }];
 
 
-    $scope.openModal = function(item) {
+    $scope.openModal = function(account_info) {
+
+        // console.log(account_info);
 
         var modalInstance = $uibModal.open({
             templateUrl: '/console/info',
             controller: 'infoController',
              size: 'lg',
             resolve: {
-                no: function () {
-                    return item.no;
+                account_info: function () {
+                    return account_info;
                 },
             }
         });
