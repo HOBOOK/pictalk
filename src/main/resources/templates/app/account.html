@@ -16,11 +16,11 @@
     <!-- BootStrap JS -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 
-    <script type="text/javascript">
-        $(document).ready(function() {
-            $('#account-table').DataTable();
-        } );
-    </script>
+<!--    <script type="text/javascript">-->
+<!--        $(document).ready(function() {-->
+<!--            $('#account-table').DataTable();-->
+<!--        } );-->
+<!--    </script>-->
 
     <style>
 
@@ -52,60 +52,55 @@
 
 <section layout:fragment="content" ng-controller="accountCtrl" class="manager-layout">
 
-        <!-- Start Content-->
-        <div class="manager">
+    <!-- Start Content-->
+    <div class="manager">
 
-            <div class="manager-title">
-                <div id="title-font">계정관리</div>
-            </div>
-
-            <div class="manager-content">
-
-                    <div class="account-table">
-                        <table id="account-table" class="table table-striped table-bordered table-hover text-center" style="width: 100%;">
-                            <thead>
-                            <tr>
-                                <th>No</th>
-                                <th>이메일</th>
-                                <th>이름</th>
-                                <th>닉네임</th>
-                                <th>성별</th>
-                                <th>생일</th>
-                                <th>가입일</th>
-                                <th>신고횟수</th>
-                                <th>상태</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr ng-repeat="account in accounts" ng-click="openModal(account)">
-                                <td>{{account.no}}</td>
-                                <td>{{account.email}}</td>
-                                <td>{{account.name}}</td>
-                                <td>{{account.nickname}}</td>
-                                <td>{{account.gender}}</td>
-                                <td>{{account.birthday}}</td>
-                                <td>{{account.joinDate}}</td>
-                                <td>{{account.reportCount}}</td>
-                                <td>
-                                    <i class="fas fa-circle {{account.state}}"></i>
-                                </td>
-                            </tr>
-
-                            </tbody>
-                            <th>No</th>
-                            <th>이메일</th>
-                            <th>이름</th>
-                            <th>닉네임</th>
-                            <th>성별</th>
-                            <th>생일</th>
-                            <th>가입일</th>
-                            <th>신고횟수</th>
-                            <th>상태</th>
-                        </table>
-                    </div>
-
-            </div>
+        <div class="manager-title">
+            <div id="title-font">계정관리</div>
         </div>
+
+        <div class="manager-content">
+
+            <div class="account-table">
+                <table id="account-table" class="table table-striped table-bordered table-hover text-center" style="width: 100%;">
+                    <thead>
+                    <tr>
+                        <th>No</th>
+                        <th>이메일</th>
+                        <th>이름</th>
+                        <th>닉네임</th>
+                        <th>성별</th>
+                        <th>가입일</th>
+                        <th>신고횟수</th>
+                        <th>상태</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="account in accounts" ng-click="openModal(account)">
+                        <td>{{account.no}}</td>
+                        <td>{{account.email}}</td>
+                        <td>{{account.name}}</td>
+                        <td>{{account.nickname}}</td>
+                        <td>{{account.gender}}</td>
+                        <td>{{account.joinDate}}</td>
+                        <td>{{account.reportCount}}</td>
+                        <td><i class="fas fa-circle {{account.connect}}"></i></td>
+                    </tr>
+
+                    </tbody>
+                    <th>No</th>
+                    <th>이메일</th>
+                    <th>이름</th>
+                    <th>닉네임</th>
+                    <th>성별</th>
+                    <th>가입일</th>
+                    <th>신고횟수</th>
+                    <th>상태</th>
+                </table>
+            </div>
+
+        </div>
+    </div>
 
 
 </section>

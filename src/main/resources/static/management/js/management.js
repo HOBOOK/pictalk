@@ -4,126 +4,47 @@ app.controller("accountCtrl", function ($scope, $uibModal, $http, $document) {
     $scope.show="false";
     $scope.accounts = [{
         no: "1",
-        profile: "/management/img/profile.png",
         email: "park@gmail.com",
         name: "박경호",
         nickname: "호북이",
         gender: "남",
-        birthday: "",
+        profile: "/management/img/profile.png",
+        ban: "",
+        authority: 0,
+        connect: "on",
         joinDate: "2020-07-09 20:00",
-        reportCount: 1,
-        state: "on"
+        reportCount: 1
     },{
         no: "2",
-        profile: "/management/img/profile.png",
         email: "vzcxds@gamil.com",
         name: "송치민",
         nickname: "송치킨",
         gender: "남",
-        birthday: "",
+        profile: "/management/img/profile.png",
+        ban: "",
+        authority: 1,
+        connect: "off",
         joinDate: "2020-07-09 20:00",
-        reportCount: 10,
-        state: "off"
+        reportCount: 10
     },{
         no: "3",
-        profile: "/profile/choidanbi.jpeg",
         email: "choi@gmail.com",
         name: "최지은",
         nickname: "최단비",
-        gender: "여",
-        birthday: "",
+        gender: "남",
+        profile: "/profile/choidanbi.jpeg",
+        ban: "날짜",
+        authority: 1,
+        connect: "ban",
         joinDate: "2020-07-09 20:00",
-        reportCount: 112,
-        state: "ban"
-    },{
-        no: "4",
-        profile: "/management/img/profile.png",
-        email: "",
-        name: "",
-        nickname: "",
-        gender: "",
-        birthday: "",
-        joinDate: "2020-07-09 20:00",
-        reportCount: 0,
-        state: 0
-    },{
-        no: "5",
-        profile: "/management/img/profile.png",
-        email: "",
-        name: "",
-        nickname: "",
-        gender: "",
-        birthday: "",
-        joinDate: "2020-07-09 20:00",
-        reportCount: 0,
-        state: 0
-    },{
-        no: "6",
-        profile: "/management/img/profile.png",
-        email: "",
-        name: "",
-        nickname: "",
-        gender: "",
-        birthday: "",
-        joinDate: "2020-07-09 20:00",
-        reportCount: 0,
-        state: 0
-    },{
-        no: "7",
-        profile: "/management/img/profile.png",
-        email: "",
-        name: "",
-        nickname: "",
-        gender: "",
-        birthday: "",
-        joinDate: "2020-07-09 20:00",
-        reportCount: 0,
-        state: 0
-    },{
-        no: "8",
-        profile: "/management/img/profile.png",
-        email: "",
-        name: "",
-        nickname: "",
-        gender: "",
-        birthday: "",
-        joinDate: "2020-07-09 20:00",
-        reportCount: 0,
-        state: 0
-    },{
-        no: "9",
-        profile: "/management/img/profile.png",
-        email: "",
-        name: "",
-        nickname: "",
-        gender: "",
-        birthday: "",
-        joinDate: "2020-07-09 20:00",
-        reportCount: 0,
-        state: 0
-    },{
-        no: "10",
-        profile: "/management/img/profile.png",
-        email: "",
-        name: "",
-        nickname: "",
-        gender: "",
-        birthday: "",
-        joinDate: "2020-07-09 20:00",
-        reportCount: 0,
-        state: 0
-    },{
-        no: "11",
-        profile: "/management/img/profile.png",
-        email: "",
-        name: "",
-        nickname: "",
-        gender: "",
-        birthday: "",
-        joinDate: "2020-07-09 20:00",
-        reportCount: 0,
-        state: 0
+        reportCount: 112
     }];
+
+
+    angular.element(document).ready( function () {
+        $('#account-table').dataTable();
+    });
+
 
 
     $scope.openModal = function(account_info) {
@@ -133,7 +54,7 @@ app.controller("accountCtrl", function ($scope, $uibModal, $http, $document) {
         var modalInstance = $uibModal.open({
             templateUrl: '/console/info',
             controller: 'infoController',
-             size: 'lg',
+            size: 'lg',
             resolve: {
                 account_info: function () {
                     return account_info;

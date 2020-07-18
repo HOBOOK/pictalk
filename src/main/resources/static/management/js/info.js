@@ -1,4 +1,3 @@
-// var account = null;
 
 app.controller('infoController', function ($scope, $uibModalInstance, account_info) {
 
@@ -101,12 +100,44 @@ app.controller('infoController', function ($scope, $uibModalInstance, account_in
 
         dTable2 = $('#report-info');
         dTable2.DataTable();
+
+        if($scope.account.connect=='ban'){
+            $('#a').css('display','none');
+            $('#b').css('display','none');
+            $('#c').css('display','inline');
+        }else{
+            $('#a').css('display','inline');
+            $('#b').css('display','inline');
+            $('#c').css('display','none');
+        }
     });
 
 
     // 프로필사진 초기화
     $scope.profile_default = function() {
         $scope.account.profile = "/management/img/profile.png";
+    };
+
+    // 계정 정지
+    $scope.account_ban= function() {
+        $scope.account.connect = "ban";
+        $('#a').css('display','none');
+        $('#b').css('display','none');
+        $('#c').css('display','inline');
+    };
+
+    // 계정 정지 해제
+    $scope.account_unban = function() {
+        $scope.account.ban = "오늘날짜";
+        $scope.account.connect = "off";
+        $('#a').css('display','inline');
+        $('#b').css('display','inline');
+        $('#c').css('display','none');
+    };
+
+    // 계정 삭제
+    $scope.account_delete = function() {
+
     };
 
 

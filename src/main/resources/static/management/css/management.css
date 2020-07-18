@@ -135,7 +135,6 @@
     transform: scale(1.2);
 }
 
-
 .profile-manu{
     background-color:RGBA(0,0,0,0.5) ;
     position:absolute;
@@ -146,6 +145,7 @@
 }
 
 .info-profile:hover .profile-manu{display: inline;}
+
 
 /*Report*/
 .zoom {
