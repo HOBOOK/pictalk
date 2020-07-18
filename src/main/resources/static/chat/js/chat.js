@@ -35,7 +35,9 @@ app.controller("chatController", function ($scope, $http, $uibModal, $filter, $t
                 url:"/chat/img/image_example.jpg"
             },{
                 url:"/chat/img/thumbnail_example.png"
-            }]
+            }],
+        myRooms: [],
+        myRoomsMeta: []
     }
 
     $timeout(function () {
@@ -52,7 +54,6 @@ app.controller("chatController", function ($scope, $http, $uibModal, $filter, $t
             participants: [],
             messages:[]
         }];
-        $scope.myRooms = [];
 
         var roomImages = ["/chat/img/thumbnail_example.png","/img/no-image.png"];
         for(var i = 1; i < 100; i++){
@@ -163,9 +164,11 @@ app.controller("chatController", function ($scope, $http, $uibModal, $filter, $t
                     $scope.currentRoom.participants.push($scope.me);
                     if($scope.currentRoom.participants.length===1)
                         $scope.assignChatRoomManager();
-                    if($scope.myRooms.indexOf($scope.currentRoom) === -1)
-                        $scope.myRooms.push($scope.currentRoom);
+                    if($scope.me.myRooms.indexOf($scope.currentRoom) === -1){
+                        $scope.me.myRooms.push($scope.currentRoom);
+                    }
                 }
+                $scope.setChatRoomMessageIndex($scope.currentRoom);
             }
             if($event)
                 $event.preventDefault();
@@ -186,8 +189,23 @@ app.controller("chatController", function ($scope, $http, $uibModal, $filter, $t
             index: $scope.currentRoom.messages.length > 0 ? $scope.currentRoom.messages[$scope.currentRoom.messages.length-1].index + 1 : 0
         };
         $scope.currentRoom.messages.push(message);
+        $scope.setChatRoomMessageIndex($scope.currentRoom);
         renderMessage(message);
         $event.preventDefault();
+    };
+
+    // 메시지 전송 (읽지 않은 메시지 카운트 테스트)
+    $scope.sendTestMessage = function()  {
+        var room = $scope.me.myRooms[0];
+        var message = {
+            type: 'CHAT',
+            content: '테스트',
+            sender: $scope.me.nickname,
+            date: getTimeStamp(),
+            index: room.messages.length > 0 ? room.messages[room.messages.length-1].index + 1 : 0
+        };
+        room.messages.push(message);
+        $scope.$apply();
     };
     
     // 이미지 메시지 전송
@@ -200,6 +218,7 @@ app.controller("chatController", function ($scope, $http, $uibModal, $filter, $t
             index: $scope.currentRoom.messages.length > 0 ? $scope.currentRoom.messages[$scope.currentRoom.messages.length-1].index + 1 : 0
         };
         $scope.currentRoom.messages.push(message);
+        $scope.setChatRoomMessageIndex($scope.currentRoom);
         renderImageMessage(message);
         $event.preventDefault();
     };
@@ -212,6 +231,22 @@ app.controller("chatController", function ($scope, $http, $uibModal, $filter, $t
             $scope.sendImageMessage($event, e.target.result);
         };
         reader.readAsDataURL(element.file);
+    }
+    $scope.setChatRoomMessageIndex = function(room){
+        $scope.me.myRoomsMeta[room.id] = $scope.getChatRoomMessageIndex(room);
+        console.log($scope.me.myRoomsMeta[room.id]);
+    }
+
+    $scope.getChatRoomMessageIndex = function(room){
+        return room.messages.length > 0 ? room.messages[room.messages.length-1].index : 0;
+    }
+
+    $scope.getUnreadMessageCount = function(room){
+        var count = ($scope.getChatRoomMessageIndex(room) - $scope.me.myRoomsMeta[room.id]);
+        if(count === 0)
+            return null;
+        else
+            return count;
     }
 
     // 이미 참여한 대화방에 연결시 기존의 대화내용들을 불러온다
@@ -255,7 +290,7 @@ app.controller("chatController", function ($scope, $http, $uibModal, $filter, $t
 
     // 채팅방 나가기 버튼
     $scope.onClickExitChatRoom = function(){
-        $scope.myRooms.splice($scope.myRooms.indexOf($scope.currentRoom), 1);
+        $scope.me.myRooms.splice($scope.me.myRooms.indexOf($scope.currentRoom), 1);
         $scope.currentRoom.participants.splice($scope.currentRoom.participants.indexOf($scope.me), 1);
         
         if($scope.currentRoom.participants.length === 0){
