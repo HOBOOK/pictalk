@@ -39,8 +39,8 @@
                 <span class="chat-sidebar-button circle-button" ng-click="onClickAddChatRoom()"><i class="fas fa-plus"></i></span>
                 <div id="chat-room-search">
                     <span class="search-container">
-                        <input class="input-search" type="text" placeholder="방 검색..." ng-model="search.room"/>
-                        <span class="circle-button" ng-click="onClickSearch(search.room)"><i class="fas fa-search"></i></span>
+                        <input class="input-search" ng-keydown="onKeyDownSearch($event,search.room)" type="text" placeholder="방 검색..." ng-model="search.room"/>
+                        <span class="circle-button"  ng-click="onClickSearch(search.room)"><i class="fas fa-search"></i></span>
                     </span>
                     <div id="chat-room-tags">
                         <span>인기 태그</span>
@@ -77,7 +77,7 @@
                     <img ng-src="{{room.img}}" alt="thumbnail" class="img-circle" onerror="this.src='/img/no-image.png'"/>
                     <span class="chat-room-info">
                         <h5 ng-bind="room.title"></h5> <span><i class="circle-count">17</i></span>
-                        <p ng-bind="room.latestMessage ? room.latestMessage : '&nbsp;&nbsp;'"></p>
+                        <p ng-bind="getLatestMessage(room) ? getLatestMessage(room) : '&nbsp;&nbsp;'"></p>
                     </span>
 
                     <div class="chat-room-detail">

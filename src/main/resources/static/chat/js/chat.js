@@ -1,7 +1,6 @@
 'use strict';
 
 var stompClient = null;
-var username = null;
 var rooms = null;
 var currentRoom  = null;
 var chatPage = document.querySelector('#chat-page');
@@ -50,8 +49,8 @@ app.controller("chatController", function ($scope, $http, $uibModal, $filter, $t
             max: 100,
             createDate: "2020.07.13",
             manager_id: 1,
-            latestMessage: "",
-            participants: []
+            participants: [],
+            messages:[]
         }];
         $scope.myRooms = [];
 
@@ -67,8 +66,8 @@ app.controller("chatController", function ($scope, $http, $uibModal, $filter, $t
                 max: 500,
                 createDate: "2020.07.13",
                 manager_id: 1,
-                latestMessage: "",
-                participants: []
+                participants: [],
+                messages:[]
             });
             $scope.rooms[i].participants = [
                 {
@@ -103,6 +102,7 @@ app.controller("chatController", function ($scope, $http, $uibModal, $filter, $t
     // 채팅 모듈 설정 데이터
     $scope.initConfig = function(){
         $scope.config_chat = {
+            // 채팅방 내 유저선택시 들어오는 모델
             selectedParticipant: {
                 id: -1,
                 nickname: null,
@@ -147,9 +147,8 @@ app.controller("chatController", function ($scope, $http, $uibModal, $filter, $t
     // 채팅방 접속
     $scope.connect = function ($event, room) {
         connectingElement.classList.remove('hidden');
-        username = Math.random().toString(36).substr(2, 5);
         $timeout(function () {
-            if(username) {
+            if($scope.me) {
                 disConnect();
                 currentRoom = room;
                 chatPage.classList.remove('hidden');
@@ -159,7 +158,7 @@ app.controller("chatController", function ($scope, $http, $uibModal, $filter, $t
                 $scope.currentRoom = room;
                 $scope.initChatRoomData();
                 if($scope.isAlreadyJoined(room)){
-
+                    $scope.getChatRoomMessages(room);
                 }else{
                     $scope.currentRoom.participants.push($scope.me);
                     if($scope.currentRoom.participants.length===1)
@@ -176,17 +175,36 @@ app.controller("chatController", function ($scope, $http, $uibModal, $filter, $t
     // 메시지 전송
     $scope.sendMessage = function ($event) {
         var messageContent = messageInput.value.trim();
-        $scope.currentRoom.latestMessage = messageContent;
-        sendMessage(messageContent);
+        if(messageContent.length<1){
+            return;
+        }
+        var message = {
+            type: 'CHAT',
+            content: messageContent,
+            sender: $scope.me.nickname,
+            date: getTimeStamp(),
+            index: $scope.currentRoom.messages.length > 0 ? $scope.currentRoom.messages[$scope.currentRoom.messages.length-1].index + 1 : 0
+        };
+        $scope.currentRoom.messages.push(message);
+        renderMessage(message);
+        $event.preventDefault();
     };
-
+    
     // 이미지 메시지 전송
     $scope.sendImageMessage = function($event, url){
-        $scope.currentRoom.latestMessage = '이미지';
-        sendImageMessage($event, url);
+        var message = {
+            type: 'IMAGE',
+            content: url,
+            sender: $scope.me.nickname,
+            date: getTimeStamp(),
+            index: $scope.currentRoom.messages.length > 0 ? $scope.currentRoom.messages[$scope.currentRoom.messages.length-1].index + 1 : 0
+        };
+        $scope.currentRoom.messages.push(message);
+        renderImageMessage(message);
+        $event.preventDefault();
     };
 
-    // 업로디 이미지 메시지 전송
+    // 업로드 이미지 메시지 전송
     $scope.sendImageFileMessage = function($event, element){
         var reader = new FileReader();
         reader.onload = function(e)
@@ -194,6 +212,33 @@ app.controller("chatController", function ($scope, $http, $uibModal, $filter, $t
             $scope.sendImageMessage($event, e.target.result);
         };
         reader.readAsDataURL(element.file);
+    }
+
+    // 이미 참여한 대화방에 연결시 기존의 대화내용들을 불러온다
+    $scope.getChatRoomMessages = function(room){
+        for(var i = 0 ; i < room.messages.length; i++){
+            if(room.messages[i].type==='CHAT'){
+                renderMessage(room.messages[i]);
+            }else if(room.messages[i].type==='IMAGE'){
+                renderImageMessage(room.messages[i]);
+            }
+        }
+    }
+
+    // 채팅방의 가장 최근 메시지 정보를 가져오는 함수
+    $scope.getLatestMessage = function(room){
+        if(room.messages.length > 0){
+            var msg = room.messages[room.messages.length-1];
+            if(msg.type==='CHAT'){
+                return msg.content;
+            }else if(msg.type==='IMAGE'){
+                return '사진';
+            }else{
+                return '';
+            }
+        }else{
+            return null;
+        }
     }
 
     // 우측 상단 메뉴 토글 버튼
@@ -291,6 +336,7 @@ app.controller("chatController", function ($scope, $http, $uibModal, $filter, $t
         room: ""
     }
     $scope.onClickSearch = function(keyword){
+        $scope.search.room = "";
         $scope.filteredRooms = null;
         $timeout(function () {
             $scope.config_chat.ui.scrollLimit[0].limit = 18;
@@ -301,6 +347,11 @@ app.controller("chatController", function ($scope, $http, $uibModal, $filter, $t
                 })[0]);
             });
         }, 2000);
+    }
+    $scope.onKeyDownSearch = function($event,keyword){
+        if($event.which === 13){
+            $scope.onClickSearch(keyword);
+        }
     }
     
     // 태그 검색 이벤트
@@ -316,6 +367,125 @@ app.controller("chatController", function ($scope, $http, $uibModal, $filter, $t
                 })[0];
             });
         }, 2000);
+    }
+    function disConnect(){
+        currentRoom = null;
+        chatPage.classList.add('hidden');
+        connectingElement.classList.add('hidden');
+    }
+
+    // 텍스트 메시지를 그리는 함수
+    function renderMessage(message) {
+        messageInput.value = '';
+        var isMe = message.sender === $scope.me.nickname;
+        var messageElement = document.createElement('li');
+        var messageCoverElement = document.createElement('span');
+
+        messageCoverElement.classList.add('chat-message-cover');
+        messageElement.classList.add('chat-message');
+        if(isMe){
+            messageCoverElement.classList.add('me');
+            messageElement.classList.add('me');
+        }
+        var avatarElement = document.createElement('i');
+        var avatarText = document.createTextNode(message.sender[0]);
+        avatarElement.appendChild(avatarText);
+        avatarElement.style['background-color'] = getAvatarColor(message.sender);
+
+        messageCoverElement.appendChild(avatarElement);
+
+        var usernameElement = document.createElement('span');
+        var usernameText = document.createTextNode(message.sender);
+        usernameElement.appendChild(usernameText);
+        messageCoverElement.appendChild(usernameElement);
+
+        var textElement = document.createElement('p');
+        var messageText = document.createTextNode(message.content);
+        textElement.appendChild(messageText);
+
+
+        var dateElement = document.createElement('h6');
+        var dateText = document.createTextNode(parseDateString(message.date.substring(11)));
+        dateElement.appendChild(dateText);
+
+        if(isMe){
+            messageCoverElement.appendChild(dateElement);
+            messageCoverElement.appendChild(textElement);
+        }else{
+            messageCoverElement.appendChild(textElement);
+            messageCoverElement.appendChild(dateElement);
+        }
+        messageElement.appendChild(messageCoverElement);
+
+        messageArea.appendChild(messageElement);
+        messageArea.scrollTop = messageArea.scrollHeight;
+    }
+
+    // 이미지 메시지를 그리는 함수
+    function renderImageMessage(message) {
+
+        var isMe = message.sender === $scope.me.nickname;
+        var messageElement = document.createElement('li');
+        var messageCoverElement = document.createElement('span');
+
+        messageCoverElement.classList.add('chat-message-cover');
+        messageElement.classList.add('chat-message');
+        if(isMe){
+            messageCoverElement.classList.add('me');
+            messageElement.classList.add('me');
+        }
+        var avatarElement = document.createElement('i');
+        var avatarText = document.createTextNode(message.sender[0]);
+        avatarElement.appendChild(avatarText);
+        avatarElement.style['background-color'] = getAvatarColor(message.sender);
+
+        messageCoverElement.appendChild(avatarElement);
+
+        var usernameElement = document.createElement('span');
+        var usernameText = document.createTextNode(message.sender);
+        usernameElement.appendChild(usernameText);
+        messageCoverElement.appendChild(usernameElement);
+
+        var imageCoverElement = document.createElement('a');
+        imageCoverElement.classList.add('spotlight');
+        imageCoverElement.href = message.content;
+        var imageElement = document.createElement('img');
+        imageElement.src = message.content;
+        imageCoverElement.appendChild(imageElement);
+
+        var dateElement = document.createElement('h6');
+        var dateText = document.createTextNode(parseDateString(message.date.substring(11)));
+        dateElement.appendChild(dateText);
+
+        if(isMe){
+            messageCoverElement.appendChild(dateElement);
+            messageCoverElement.appendChild(imageCoverElement);
+        }else{
+            messageCoverElement.appendChild(imageCoverElement);
+            messageCoverElement.appendChild(dateElement);
+        }
+
+        messageElement.appendChild(messageCoverElement);
+
+        messageArea.appendChild(messageElement);
+        setTimeout(function () {
+            messageArea.scrollTop = messageArea.scrollHeight;
+        },50);
+    }
+
+
+    // 임의의 아바타 그리기
+    function getAvatarColor(messageSender) {
+        var hash = 0;
+        for (var i = 0; i < messageSender.length; i++) {
+            hash = 31 * hash + messageSender.charCodeAt(i);
+        }
+        var index = Math.abs(hash % colors.length);
+        return colors[index];
+    }
+
+    function clearChatText() {
+        $("#messageArea").empty();
     }
 });
 
@@ -367,8 +537,10 @@ app.directive('dropItem', function() {
             elem.bind('drop', function(evt) {
                 evt.preventDefault();
                 var data = evt.dataTransfer.getData('src');
-                if(data !== '' && data !== null)
+                if(data !== '' && data !== null){
                     scope.sendImageMessage(evt, data);
+                }
+
             });
         }
     }
@@ -394,140 +566,6 @@ var colors = [
     '#2196F3', '#32c787', '#00BCD4', '#ff5652',
     '#ffc107', '#ff85af', '#FF9800', '#39bbb0'
 ];
-
-function disConnect(){
-    currentRoom = null;
-    chatPage.classList.add('hidden');
-    connectingElement.classList.add('hidden');
-}
-
-function sendMessage(messageContent) {
-    if(messageContent.length<1){
-        return;
-    }
-    var message = {
-        type: 'CHAT',
-        content: messageContent,
-        sender: username,
-        date: getTimeStamp()
-    };
-    messageInput.value = '';
-    var isMe = message.sender === username;
-    var messageElement = document.createElement('li');
-    var messageCoverElement = document.createElement('span');
-
-    messageCoverElement.classList.add('chat-message-cover');
-    messageElement.classList.add('chat-message');
-    if(isMe){
-        messageCoverElement.classList.add('me');
-        messageElement.classList.add('me');
-    }
-    var avatarElement = document.createElement('i');
-    var avatarText = document.createTextNode(message.sender[0]);
-    avatarElement.appendChild(avatarText);
-    avatarElement.style['background-color'] = getAvatarColor(message.sender);
-
-    messageCoverElement.appendChild(avatarElement);
-
-    var usernameElement = document.createElement('span');
-    var usernameText = document.createTextNode(message.sender);
-    usernameElement.appendChild(usernameText);
-    messageCoverElement.appendChild(usernameElement);
-
-    var textElement = document.createElement('p');
-    var messageText = document.createTextNode(message.content);
-    textElement.appendChild(messageText);
-
-
-    var dateElement = document.createElement('h6');
-    var dateText = document.createTextNode(parseDateString(message.date.substring(11)));
-    dateElement.appendChild(dateText);
-
-    if(isMe){
-        messageCoverElement.appendChild(dateElement);
-        messageCoverElement.appendChild(textElement);
-    }else{
-        messageCoverElement.appendChild(textElement);
-        messageCoverElement.appendChild(dateElement);
-    }
-    messageElement.appendChild(messageCoverElement);
-
-    messageArea.appendChild(messageElement);
-    messageArea.scrollTop = messageArea.scrollHeight;
-    event.preventDefault();
-}
-
-function sendImageMessage(event, url) {
-    var message = {
-        type: 'IMAGE',
-        content: url,
-        sender: username,
-        date: getTimeStamp()
-    };
-    var isMe = message.sender === username;
-    var messageElement = document.createElement('li');
-    var messageCoverElement = document.createElement('span');
-
-    messageCoverElement.classList.add('chat-message-cover');
-    messageElement.classList.add('chat-message');
-    if(isMe){
-        messageCoverElement.classList.add('me');
-        messageElement.classList.add('me');
-    }
-    var avatarElement = document.createElement('i');
-    var avatarText = document.createTextNode(message.sender[0]);
-    avatarElement.appendChild(avatarText);
-    avatarElement.style['background-color'] = getAvatarColor(message.sender);
-
-    messageCoverElement.appendChild(avatarElement);
-
-    var usernameElement = document.createElement('span');
-    var usernameText = document.createTextNode(message.sender);
-    usernameElement.appendChild(usernameText);
-    messageCoverElement.appendChild(usernameElement);
-
-    var imageCoverElement = document.createElement('a');
-    imageCoverElement.classList.add('spotlight');
-    imageCoverElement.href = message.content;
-    var imageElement = document.createElement('img');
-    imageElement.src = message.content;
-    imageCoverElement.appendChild(imageElement);
-
-    var dateElement = document.createElement('h6');
-    var dateText = document.createTextNode(parseDateString(message.date.substring(11)));
-    dateElement.appendChild(dateText);
-
-    if(isMe){
-        messageCoverElement.appendChild(dateElement);
-        messageCoverElement.appendChild(imageCoverElement);
-    }else{
-        messageCoverElement.appendChild(imageCoverElement);
-        messageCoverElement.appendChild(dateElement);
-    }
-
-    messageElement.appendChild(messageCoverElement);
-
-    messageArea.appendChild(messageElement);
-    setTimeout(function () {
-        messageArea.scrollTop = messageArea.scrollHeight;
-    },50);
-
-    event.preventDefault();
-}
-
-
-function getAvatarColor(messageSender) {
-    var hash = 0;
-    for (var i = 0; i < messageSender.length; i++) {
-        hash = 31 * hash + messageSender.charCodeAt(i);
-    }
-    var index = Math.abs(hash % colors.length);
-    return colors[index];
-}
-
-function clearChatText() {
-    $("#messageArea").empty();
-}
 
 /* 현재 시간 yyyy-mm-dd hh:mm:ss 포맷으로 가져오기 */
 function getTimeStamp() {
