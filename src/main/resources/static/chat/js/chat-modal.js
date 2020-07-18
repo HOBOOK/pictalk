@@ -2,12 +2,18 @@ app.controller('chatModalController', function ($scope, $uibModalInstance) {
 
     // 모달 생성 이벤트
     $scope.ok = function() {
-        $uibModalInstance.close($scope.newChatRoom);
+        if($scope.validationAddChatRoom()){
+            $uibModalInstance.close($scope.newChatRoom);
+        }
     }
 
     // 모달 취소 이벤트
     $scope.cancel = function() {
         $uibModalInstance.dismiss('cancel');
+    }
+    $scope.config = {
+        isPrivate: false,
+        isImageChat: false
     }
 
     // 채팅방 최대인원 선택옵션
@@ -25,17 +31,19 @@ app.controller('chatModalController', function ($scope, $uibModalInstance) {
     // 새로운 채팅방 모델
     $scope.newChatRoom={
         id: null,
-        type: 0,
+        type: $scope.isImageChat ? 1 : 0,
         title: "",
         description: "",
         category:[],
         img: "/img/no-image.png",
         max: $scope.selectedMaxChatRoomMemberCountOption.value,
         createDate: "2020.07.13",
-        private: false,
+        private: $scope.config.isPrivate,
         manager_id: 0,
         latestMessage: "",
-        participants: []
+        participants: [],
+        messages: [],
+        accessKey: ""
     }
 
     // 제목 인풋 초기화
@@ -46,6 +54,9 @@ app.controller('chatModalController', function ($scope, $uibModalInstance) {
     // 설명 인풋 초기화
     $scope.clearDescription = function(){
         $scope.newChatRoom.description = "";
+    }
+    $scope.clearAccessKey = function(){
+        $scope.newChatRoom.accessKey = "";
     }
 
     // 태그 제거
@@ -78,5 +89,21 @@ app.controller('chatModalController', function ($scope, $uibModalInstance) {
             });
         };
         reader.readAsDataURL(element.file);
+    }
+
+    // 새로운 대화방 데이터 검증(추가중..)
+    $scope.validationAddChatRoom = function(){
+        if($scope.newChatRoom.title.length === 0){
+            alert('대화방 제목을 입력해주세요');
+            return false;
+        }else if($scope.newChatRoom.description.length === 0){
+            alert('대화방 설명을 입력해주세요');
+            return false;
+        }else if($scope.newChatRoom.private && $scope.newChatRoom.accessKey.length ===0){
+            alert('암호를 입력해주세요');
+            return false;
+        }else{
+            return  true;
+        }
     }
 })

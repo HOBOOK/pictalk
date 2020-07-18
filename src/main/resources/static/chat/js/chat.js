@@ -52,7 +52,8 @@ app.controller("chatController", function ($scope, $http, $uibModal, $filter, $t
             createDate: "2020.07.13",
             manager_id: 1,
             participants: [],
-            messages:[]
+            messages:[],
+            accessKey: ""
         }];
 
         var roomImages = ["/chat/img/thumbnail_example.png","/img/no-image.png"];
@@ -68,7 +69,8 @@ app.controller("chatController", function ($scope, $http, $uibModal, $filter, $t
                 createDate: "2020.07.13",
                 manager_id: 1,
                 participants: [],
-                messages:[]
+                messages:[],
+                accessKey: ""
             });
             $scope.rooms[i].participants = [
                 {

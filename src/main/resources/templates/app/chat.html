@@ -36,7 +36,7 @@
         <div class="chat-tab" ng-show="config_chat.ui.mainBarIndex===0">
             <div class="chat-sidebar-header">
                 <h3>오픈 채팅방</h3>
-                <span class="chat-sidebar-button circle-button" ng-click="onClickAddChatRoom()"><i class="fas fa-plus"></i></span>
+                <span tooltip-bottom="방 생성" class="chat-sidebar-button circle-button" ng-click="onClickAddChatRoom()"><i class="fas fa-plus"></i></span>
                 <div id="chat-room-search">
                     <span class="search-container">
                         <input class="input-search" ng-keydown="onKeyDownSearch($event,search.room)" type="text" placeholder="방 검색..." ng-model="search.room"/>

@@ -99,10 +99,12 @@ div.content{
     font-size: 12px;
     padding: 7px 12px;
     position: absolute;
-    width: auto;
-    min-width: 50px;
-    max-width: 300px;
-    word-wrap: break-word;
+    line-height: initial !important;
+    width: auto !important;
+    min-width: 50px !important;
+    max-width: 300px !important;
+    word-wrap: break-word !important;
+    white-space:nowrap;
 
     z-index: 9999;
 
@@ -141,10 +143,12 @@ div.content{
     font-size: 12px;
     padding: 7px 12px;
     position: absolute;
-    width: auto;
-    min-width: 50px;
-    max-width: 300px;
-    word-wrap: break-word;
+    line-height: initial !important;
+    width: auto !important;
+    min-width: 50px !important;;
+    max-width: 300px !important;
+    word-wrap: break-word !important;
+    white-space:nowrap;
 
     z-index: 9999;
 
