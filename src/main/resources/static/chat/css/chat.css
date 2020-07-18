@@ -187,7 +187,7 @@ nav{
 }
 .chat-tag{
     display: inline-block;
-    background-color: rgba(65,105,225,0.4);
+    background-color: rgba(65,105,225,0.55);
     color:#fff;
     margin-right:6px;
     padding: 2px;
@@ -200,7 +200,7 @@ nav{
     -o-transition: background-color .3s ease-in-out;
 }
 .chat-tag:hover{
-    background-color: rgba(65,105,225,0.55);
+    background-color: rgba(65,105,225,0.75);
 }
 
 .chat-sidebar-container{
@@ -313,6 +313,7 @@ nav{
 
 
 .chat-room-info{
+    position: relative;
     vertical-align: middle;
     margin-left:10px;
     width: calc(100% - 80px);
@@ -323,7 +324,7 @@ nav{
 
 .chat-room-info h5{
     display: inline-block;
-    width:160px;
+    width:140px;
     overflow:hidden;
     text-overflow:ellipsis;
     white-space:nowrap;
@@ -331,6 +332,7 @@ nav{
 }
 
 .chat-room-info p{
+    position: absolute;
     width:200px;
     overflow:hidden;
     text-overflow:ellipsis;
@@ -338,6 +340,7 @@ nav{
     font-size: 12px;
     margin:0;
     padding: 0;
+    z-index: 10;
     opacity: .7;
 }
 .chat-room-info span{
@@ -355,36 +358,61 @@ nav{
     width: 60px;
     height: 60px;
 }
-
 .chat-room:hover .chat-room-detail{
+    height: 150px;
+    max-height: 150px;
     opacity: 1;
+}
+.chat-room:hover .chat-room-info p{
+    overflow:auto;
+    text-overflow:unset;
+    white-space:unset;
 }
 
 .chat-room-detail{
     opacity: 0;
-    position: absolute;
-    top:0;
-    right:0;
-    z-index: 10;
-    width: 30px;
+    width: 100%;
+    height: 0;
+    max-height: 0;
     margin-top:12px;
-    height: calc(100% - 24px);
     display: flex;
     font-size:20px;
-    color:#808080;
-    background-color: #fff;
-    box-shadow: -8px 1px 10px 5px #fff;
-    transition: opacity 0.2s ease-in-out;
-    -o-transition: opacity 0.2s ease-in-out;
-    -moz-transition: opacity 0.2s ease-in-out;
-    -webkit-transition: opacity 0.2s ease-in-out;
-    border-bottom-left-radius: 50%;
-    border-top-left-radius: 50%;
+    color:#fff;
+    /*background: linear-gradient(to top, rgba(0,0,0,0.4) 30%,*/
+    /*rgba(255,255,255,1)), url(/chat/img/image_example.jpg) center center;*/
+    transition: all .5s ease-in-out;
+    -o-transition: all .5s ease-in-out;
+    -moz-transition: all .5s ease-in-out;
+    -webkit-transition: all .5s ease-in-out;
+    position: relative;
 }
 
-.chat-room-detail:hover{
-    opacity: 1;
-}
+/*.chat-room:hover .chat-room-detail{*/
+/*    opacity: 1;*/
+/*}*/
+
+/*.chat-room-detail{*/
+/*    opacity: 0;*/
+/*    position: absolute;*/
+/*    top:0;*/
+/*    right:0;*/
+/*    z-index: 10;*/
+/*    width: 30px;*/
+/*    margin-top:12px;*/
+/*    height: calc(100% - 24px);*/
+/*    display: flex;*/
+/*    font-size:20px;*/
+/*    color:#808080;*/
+/*    background-color: #fff;*/
+/*    box-shadow: -8px 1px 10px 5px #fff;*/
+/*    transition: all .3s ease-in-out;*/
+/*    -o-transition: all .3s ease-in-out;*/
+/*    -moz-transition: all .3s ease-in-out;*/
+/*    -webkit-transition: all .3s ease-in-out;*/
+/*    border-bottom-left-radius: 50%;*/
+/*    border-top-left-radius: 50%;*/
+/*}*/
+
 .chat-room-detail p{
     font-size: 13px;
 }
@@ -393,6 +421,29 @@ nav{
     padding: 3px;
     display: flex;
 }
+
+.chat-detail-tags{
+    position: absolute;
+    bottom: 0;
+    margin-left:10px;
+    margin-bottom:10px;
+    width: auto;
+}
+.chat-detail-tag{
+    display: inline-block !important;
+    background-color: transparent;
+    color:#fff;
+    margin-right:2px;
+    padding: 2px !important;
+    font-size: 12px;
+    font-weight: 600;
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.1);
+    transition: background-color .3s ease-in-out;
+    -webkit-transition: background-color .3s ease-in-out;
+    -moz-transition: background-color .3s ease-in-out;
+    -o-transition: background-color .3s ease-in-out;
+}
+
 
 #chat-current-room{
     width: 2px;
@@ -800,6 +851,7 @@ nav{
     margin: 0;
     display: inline-block;
     vertical-align: middle;
+    max-widows: calc(100% - 120px);
 }
 .chat-header-info h2{
     margin: 0;
@@ -843,4 +895,278 @@ nav{
 }
 .connecting p{
     margin-top: 10px;
+}
+
+
+
+
+
+/* 하트 버튼 */
+.heart{
+    position: absolute;
+    z-index: 10;
+    bottom: 0;
+    right:0;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    cursor: pointer;
+}
+.heart p{
+    margin-top: -5px !important;
+}
+svg {
+    cursor: pointer;
+    overflow: visible;
+    width: 36px;
+}
+
+svg #heart {
+    transform-origin: center;
+    animation: animateHeartOut .3s linear forwards
+}
+
+svg #main-circ {
+    transform-origin: 29.5px 29.5px
+}
+
+.heartBox {
+    display: none;
+}
+
+.heartBox:checked+label svg #heart {
+    transform: scale(0.2);
+    fill: #E2264D;
+    animation: animateHeart .3s linear forwards .25s
+}
+
+.heartBox:checked+label svg #main-circ {
+    transition: all 2s;
+    animation: animateCircle .3s linear forwards;
+    opacity: 1
+}
+
+.heartBox:checked+label svg #heartgroup1 {
+    opacity: 1;
+    transition: .1s all .3s
+}
+
+.heartBox:checked+label svg #heartgroup1 #heart1 {
+    transform: scale(0) translate(0, -30px);
+    transform-origin: 0 0 0;
+    transition: .5s transform .3s
+}
+
+.heartBox:checked+label svg #heartgroup1 #heart2 {
+    transform: scale(0) translate(10px, -50px);
+    transform-origin: 0 0 0;
+    transition: 1.5s transform .3s
+}
+
+.heartBox:checked+label svg #heartgroup2 {
+    opacity: 1;
+    transition: .1s all .3s
+}
+
+.heartBox:checked+label svg #heartgroup2 #heart1 {
+    transform: scale(0) translate(30px, -15px);
+    transform-origin: 0 0 0;
+    transition: .5s transform .3s
+}
+
+.heartBox:checked+label svg #heartgroup2 #heart2 {
+    transform: scale(0) translate(60px, -15px);
+    transform-origin: 0 0 0;
+    transition: 1.5s transform .3s
+}
+
+.heartBox:checked+label svg #heartgroup3 {
+    opacity: 1;
+    transition: .1s all .3s
+}
+
+.heartBox:checked+label svg #heartgroup3 #heart1 {
+    transform: scale(0) translate(30px, 0px);
+    transform-origin: 0 0 0;
+    transition: .5s transform .3s
+}
+
+.heartBox:checked+label svg #heartgroup3 #heart2 {
+    transform: scale(0) translate(60px, 10px);
+    transform-origin: 0 0 0;
+    transition: 1.5s transform .3s
+}
+
+.heartBox:checked+label svg #heartgroup4 {
+    opacity: 1;
+    transition: .1s all .3s
+}
+
+.heartBox:checked+label svg #heartgroup4 #heart1 {
+    transform: scale(0) translate(30px, 15px);
+    transform-origin: 0 0 0;
+    transition: .5s transform .3s
+}
+
+.heartBox:checked+label svg #heartgroup4 #heart2 {
+    transform: scale(0) translate(40px, 50px);
+    transform-origin: 0 0 0;
+    transition: 1.5s transform .3s
+}
+
+.heartBox:checked+label svg #heartgroup5 {
+    opacity: 1;
+    transition: .1s all .3s
+}
+
+.heartBox:checked+label svg #heartgroup5 #heart1 {
+    transform: scale(0) translate(-10px, 20px);
+    transform-origin: 0 0 0;
+    transition: .5s transform .3s
+}
+
+.heartBox:checked+label svg #heartgroup5 #heart2 {
+    transform: scale(0) translate(-60px, 30px);
+    transform-origin: 0 0 0;
+    transition: 1.5s transform .3s
+}
+
+.heartBox:checked+label svg #heartgroup6 {
+    opacity: 1;
+    transition: .1s all .3s
+}
+
+.heartBox:checked+label svg #heartgroup6 #heart1 {
+    transform: scale(0) translate(-30px, 0px);
+    transform-origin: 0 0 0;
+    transition: .5s transform .3s
+}
+
+.heartBox:checked+label svg #heartgroup6 #heart2 {
+    transform: scale(0) translate(-60px, -5px);
+    transform-origin: 0 0 0;
+    transition: 1.5s transform .3s
+}
+
+.heartBox:checked+label svg #heartgroup7 {
+    opacity: 1;
+    transition: .1s all .3s
+}
+
+.heartBox:checked+label svg #heartgroup7 #heart1 {
+    transform: scale(0) translate(-30px, -15px);
+    transform-origin: 0 0 0;
+    transition: .5s transform .3s
+}
+
+.heartBox:checked+label svg #heartgroup7 #heart2 {
+    transform: scale(0) translate(-55px, -30px);
+    transform-origin: 0 0 0;
+    transition: 1.5s transform .3s
+}
+
+.heartBox:checked+label svg #heartgroup2 {
+    opacity: 1;
+    transition: .1s opacity .3s
+}
+
+.heartBox:checked+label svg #heartgroup3 {
+    opacity: 1;
+    transition: .1s opacity .3s
+}
+
+.heartBox:checked+label svg #heartgroup4 {
+    opacity: 1;
+    transition: .1s opacity .3s
+}
+
+.heartBox:checked+label svg #heartgroup5 {
+    opacity: 1;
+    transition: .1s opacity .3s
+}
+
+.heartBox:checked+label svg #heartgroup6 {
+    opacity: 1;
+    transition: .1s opacity .3s
+}
+
+.heartBox:checked+label svg #heartgroup7 {
+    opacity: 1;
+    transition: .1s opacity .3s
+}
+
+@keyframes animateCircle {
+    40% {
+        transform: scale(10);
+        opacity: 1;
+        fill: #DD4688
+    }
+
+    55% {
+        transform: scale(11);
+        opacity: 1;
+        fill: #D46ABF
+    }
+
+    65% {
+        transform: scale(12);
+        opacity: 1;
+        fill: #CC8EF5
+    }
+
+    75% {
+        transform: scale(13);
+        opacity: 1;
+        fill: transparent;
+        stroke: #CC8EF5;
+        stroke-width: .5
+    }
+
+    85% {
+        transform: scale(17);
+        opacity: 1;
+        fill: transparent;
+        stroke: #CC8EF5;
+        stroke-width: .2
+    }
+
+    95% {
+        transform: scale(18);
+        opacity: 1;
+        fill: transparent;
+        stroke: #CC8EF5;
+        stroke-width: .1
+    }
+
+    100% {
+        transform: scale(19);
+        opacity: 1;
+        fill: transparent;
+        stroke: #CC8EF5;
+        stroke-width: 0
+    }
+}
+
+@keyframes animateHeart {
+    0% {
+        transform: scale(0.2)
+    }
+
+    40% {
+        transform: scale(1.2)
+    }
+
+    100% {
+        transform: scale(1)
+    }
+}
+
+@keyframes animateHeartOut {
+    0% {
+        transform: scale(1.4)
+    }
+
+    100% {
+        transform: scale(1)
+    }
 }

@@ -52,6 +52,7 @@ app.controller("chatController", function ($scope, $http, $uibModal, $filter, $t
             createDate: "2020.07.13",
             manager_id: 1,
             participants: [],
+            like: [],
             messages:[],
             accessKey: ""
         }];
@@ -62,13 +63,14 @@ app.controller("chatController", function ($scope, $http, $uibModal, $filter, $t
                 id: i,
                 type: 1,
                 title: "방제목 " + i,
-                description: "대화하고 노실분들 입장하세용",
+                description: "대화하고 노실분들 입장하세요 (대화방에 대한 설명이 긴 경우 ... 으로 표시됩니다)",
                 category:["태그1","태그2"],
                 img: roomImages[(i%roomImages.length)],
                 max: 500,
                 createDate: "2020.07.13",
                 manager_id: 1,
                 participants: [],
+                like: [],
                 messages:[],
                 accessKey: ""
             });
@@ -236,7 +238,6 @@ app.controller("chatController", function ($scope, $http, $uibModal, $filter, $t
     }
     $scope.setChatRoomMessageIndex = function(room){
         $scope.me.myRoomsMeta[room.id] = $scope.getChatRoomMessageIndex(room);
-        console.log($scope.me.myRoomsMeta[room.id]);
     }
 
     $scope.getChatRoomMessageIndex = function(room){
@@ -405,6 +406,29 @@ app.controller("chatController", function ($scope, $http, $uibModal, $filter, $t
             });
         }, 2000);
     }
+    // 부모 클릭 이벤트 막기
+    $scope.onClickPreventParentEvent = function($event){
+        $event.stopPropagation();
+    }
+    
+    // 좋아요 버튼
+    $scope.onClickLikeChatRoom = function (room) {
+        if($scope.isAlreadyLikeChatRoom(room)){
+            room.like.splice(room.like.indexOf($scope.me.id),1);
+        }else{
+            room.like.push($scope.me.id);
+        }
+    }
+    // 이미 좋아요를 눌렀는지 확인
+    $scope.isAlreadyLikeChatRoom = function (room) {
+        if(room.like.indexOf($scope.me.id)===-1){
+            return false;
+        }else{
+            return true;
+        }
+    }
+    
+    
     function disConnect(){
         currentRoom = null;
         chatPage.classList.add('hidden');
@@ -533,6 +557,18 @@ app.directive('backImg', function(){
             element.css({
                 'background':
                         'linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(' + value + ') center center'
+            });
+        });
+    };
+});
+
+// 채팅방 썸네일 배경 이미지 변경
+app.directive('thumbnailImg', function(){
+    return function(scope, element, attrs){
+        attrs.$observe('thumbnailImg', function(value) {
+            element.css({
+                'background':
+                    'linear-gradient(to top, rgba(30,30,30,0.5) 20%,rgba(255,255,255,0.7) 70% , rgba(255,255,255,1)), url(' + value + ') center center'
             });
         });
     };
