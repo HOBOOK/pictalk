@@ -94,7 +94,7 @@
                 <div class="mb-3">
 
                     <div class="input-group">
-                        <img src='profile/{{person.src}}' alt="choidanbi.jpeg" class="img-circle" name="profileimg"/>
+                        <img ng-src='profile/{{person.src}}' alt="choidanbi.jpeg" class="img-circle" name="profileimg"/>
                         <div class="custom-file" ng-show="showHide">
                             <input type="file" ng-model="file" class="custom-file-input" id="inputGroupFile04" accept=".png, .jpg, .jpeg"
                                    ngf-select="changeProfileImg(this)"

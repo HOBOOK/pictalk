@@ -57,13 +57,13 @@
             </ul>
 
             <div style="text-align: right;">
-                <div style="display: inline">
-                    <select class="form-control" style=" width: auto;" ng-show="account.connect !== 'ban'" id="ban_days">
-                        <option selected>1</option>
-                        <option>3</option>
-                        <option>7</option>
-                        <option>14</option>
-                        <option>30</option>
+                <div style="display: inline" ng-show="account.connect !== 'delete'">
+                    <select class="form-control" style=" width: auto; display: inline;" ng-show="account.connect !== 'ban'" id="ban_days">
+                        <option selected>1일</option>
+                        <option>3일</option>
+                        <option>7일</option>
+                        <option>14일</option>
+                        <option>30일</option>
                     </select>
                     <button type="button" class="btn btn-warning" ng-click="account_ban()" ng-show="account.connect !== 'ban'">정지</button>
                     <button type="button" class="btn btn-success" ng-click="account_unban()" ng-show="account.connect === 'ban'">정지해제</button>
