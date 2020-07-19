@@ -19,23 +19,32 @@ app.controller("chatController", function ($scope, $http, $uibModal, $filter, $t
         thumbnail: "/chat/img/thumbnail_example.png",
         album: [
             {
-                url:"/chat/img/image_example.jpg"
+                url:"/chat/img/image_example.jpg",
+                date:1595174296810
             },{
-                url:"/img/no-image.png"
+                url:"/img/no-image.png",
+                date:1595174296820
             },{
-                url:"/chat/img/thumbnail_example.png"
+                url:"/chat/img/thumbnail_example.png",
+                date:1595174296842
             },{
-                url:"/img/logo/logo_endspring.png"
+                url:"/img/logo/logo_endspring.png",
+                date:1595174296845
             },{
-                url:"/chat/img/thumbnail_example.png"
+                url:"/chat/img/thumbnail_example.png",
+                date:1595174296852
             },{
-                url:"/chat/img/thumbnail_example.png"
+                url:"/chat/img/thumbnail_example.png",
+                date:1595174296854
             },{
-                url:"/chat/img/image_example.jpg"
+                url:"/chat/img/image_example.jpg",
+                date:1595174296855
             },{
-                url:"/chat/img/image_example.jpg"
+                url:"/chat/img/image_example.jpg",
+                date:1595174296860
             },{
-                url:"/chat/img/thumbnail_example.png"
+                url:"/chat/img/thumbnail_example.png",
+                date:159517429688
             }],
         myRooms: [],
         myRoomsMeta: []
@@ -106,7 +115,6 @@ app.controller("chatController", function ($scope, $http, $uibModal, $filter, $t
             // 채팅방 사진 저장소 인풋
             for(var j = 1; j < 10; j++){
                 var image = {
-                    id: i,
                     url:  "/chat/img/image_example.jpg",
                     date: Date.now().toString()
                 };
@@ -149,7 +157,13 @@ app.controller("chatController", function ($scope, $http, $uibModal, $filter, $t
 
     // 채팅방의 사진 저장소에 사진 추가
     $scope.addImageToChatStorage = function(room, image){
-        room.storageImage.push(image);
+        // 중복된 이미지가 저장소에 있는지 확인
+        if($filter('filter')(room.storageImage, {url: image.url}, true)[0] != null){
+
+        }else{
+            room.storageImage.push(image);
+        }
+
     }
 
     // 이미 채팅방에 접속중인지
@@ -232,6 +246,11 @@ app.controller("chatController", function ($scope, $http, $uibModal, $filter, $t
         $scope.currentRoom.messages.push(message);
         $scope.setChatRoomMessageIndex($scope.currentRoom);
         renderImageMessage(message);
+        var image = {
+            url: url,
+            date: Date.now().toString()
+        }
+        $scope.addImageToChatStorage($scope.currentRoom, image);
         $event.preventDefault();
     };
 
@@ -241,14 +260,9 @@ app.controller("chatController", function ($scope, $http, $uibModal, $filter, $t
         reader.onload = function(e)
         {
             $scope.sendImageMessage($event, e.target.result);
-            var image = {
-                id: 0,
-                url: e.target.result,
-                date: Date.now().toString()
-            }
-            $scope.addImageToChatStorage($scope.currentRoom, image);
         };
-        reader.readAsDataURL(element.file);
+        if(element.file)
+            reader.readAsDataURL(element.file);
     }
 
     // 메시지 인덱스 설정

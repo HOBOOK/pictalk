@@ -223,7 +223,7 @@
                 <div class="chat-sidebar-content" id="chat-data-log">
                     <h6>사진 기록 ({{currentRoom.storageImage.length}})</h6><span class="btn-more" ng-click="onClickOpenSidebar(2)">더보기</span>
                     <ul class="chat-data-image">
-                        <li ng-repeat="image in currentRoom.storageImage | limitTo: 4">
+                        <li ng-repeat="image in currentRoom.storageImage | limitTo: 4 | orderBy: '-date'">
                             <a class="spotlight" ng-href="{{image.url}}">
                                 <img ng-src="{{image.url}}" onerror="this.src='/img/no-image.png'"/>
                             </a>
@@ -266,7 +266,7 @@
             <div class="chat-sidebar-content-container height100" when-scrolled="scrollMore(config_chat.ui.scrollLimit[2])">
                 <div class="chat-sidebar-content">
                     <div class="chat-album-grid spotlight-group">
-                        <div ng-repeat="image in me.album | limitTo: config_chat.ui.scrollLimit[2].limit">
+                        <div ng-repeat="image in me.album | limitTo: config_chat.ui.scrollLimit[2].limit | orderBy: '-date'">
                             <a class="spotlight" ng-href="{{image.url}}">
                                 <img draggable="true" drag-item id="{{image.url}}" ng-src="{{image.url}}"/>
                             </a>
@@ -285,7 +285,7 @@
             <div class="chat-sidebar-content-container height100" when-scrolled="scrollMore(config_chat.ui.scrollLimit[3])">
                 <div class="chat-sidebar-content">
                     <div class="chat-album-grid spotlight-group">
-                        <div ng-repeat="image in currentRoom.storageImage | limitTo: config_chat.ui.scrollLimit[3].limit">
+                        <div ng-repeat="image in currentRoom.storageImage | limitTo: config_chat.ui.scrollLimit[3].limit | orderBy: '-date'">
                             <a class="spotlight" ng-href="{{image.url}}">
                                 <img draggable="true" drag-item id="{{image.url}}" ng-src="{{image.url}}" onerror="this.src='/img/no-image.png'"/>
                             </a>
