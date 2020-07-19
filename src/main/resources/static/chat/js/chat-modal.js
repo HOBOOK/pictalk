@@ -43,7 +43,8 @@ app.controller('chatModalController', function ($scope, $uibModalInstance) {
         latestMessage: "",
         participants: [],
         messages: [],
-        accessKey: ""
+        accessKey: "",
+        storageImage:[]
     }
 
     // 제목 인풋 초기화

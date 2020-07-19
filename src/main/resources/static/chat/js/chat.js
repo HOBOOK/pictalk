@@ -55,7 +55,8 @@ app.controller("chatController", function ($scope, $http, $uibModal, $filter, $t
             participants: [],
             like: [],
             messages:[],
-            accessKey: ""
+            accessKey: "",
+            storageImage:[]
         }];
 
         var roomImages = ["/chat/img/thumbnail_example.png","/chat/img/image_example.jpg"];
@@ -73,8 +74,11 @@ app.controller("chatController", function ($scope, $http, $uibModal, $filter, $t
                 participants: [],
                 like: [],
                 messages:[],
-                accessKey: ""
+                accessKey: "",
+                storageImage:[]
             });
+
+            // 채팅방 참여자 인풋
             $scope.rooms[i].participants = [
                 {
                     id: 1,
@@ -99,6 +103,15 @@ app.controller("chatController", function ($scope, $http, $uibModal, $filter, $t
                 })
             }
 
+            // 채팅방 사진 저장소 인풋
+            for(var j = 1; j < 10; j++){
+                var image = {
+                    id: i,
+                    url:  "/chat/img/image_example.jpg",
+                    date: Date.now().toString()
+                };
+                $scope.addImageToChatStorage($scope.rooms[i], image);
+            }
         }
         $scope.filteredRooms = $scope.rooms;
         $scope.$apply();
@@ -131,18 +144,12 @@ app.controller("chatController", function ($scope, $http, $uibModal, $filter, $t
 
     // 채팅방 임시 데이터 생성
     $scope.initChatRoomData = function(){
-        $scope.storage_image = [
-            {
-                id: 0,
-                url: "/chat/img/image_example.jpg"
-            }]
-        for(var i = 1; i < 100; i++){
-            $scope.storage_image.push({
-               id: i,
-               url:  "/chat/img/image_example.jpg"
-            });
-        }
         $scope.manager = $filter('filter')($scope.currentRoom.participants, {id: currentRoom.manager_id}, true)[0];
+    }
+
+    // 채팅방의 사진 저장소에 사진 추가
+    $scope.addImageToChatStorage = function(room, image){
+        room.storageImage.push(image);
     }
 
     // 이미 채팅방에 접속중인지
@@ -234,6 +241,12 @@ app.controller("chatController", function ($scope, $http, $uibModal, $filter, $t
         reader.onload = function(e)
         {
             $scope.sendImageMessage($event, e.target.result);
+            var image = {
+                id: 0,
+                url: e.target.result,
+                date: Date.now().toString()
+            }
+            $scope.addImageToChatStorage($scope.currentRoom, image);
         };
         reader.readAsDataURL(element.file);
     }

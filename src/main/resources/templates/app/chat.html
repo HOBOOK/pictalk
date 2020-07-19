@@ -180,7 +180,7 @@
                                    ngf-select="sendImageFileMessage($event, this)"
                                    ngf-pattern="'image/*'"
                                    ngf-accept="'image/*'"
-                                   ngf-max-size="500KB">
+                                   ngf-max-size="5000KB">
                                 <i class="fas fa-paperclip"></i>
                             </button>
                         </div>
@@ -221,9 +221,9 @@
                     </ul>
                 </div>
                 <div class="chat-sidebar-content" id="chat-data-log">
-                    <h6>사진 기록 ({{storage_image.length}})</h6><span class="btn-more" ng-click="onClickOpenSidebar(2)">더보기</span>
+                    <h6>사진 기록 ({{currentRoom.storageImage.length}})</h6><span class="btn-more" ng-click="onClickOpenSidebar(2)">더보기</span>
                     <ul class="chat-data-image">
-                        <li ng-repeat="image in storage_image | limitTo: 4">
+                        <li ng-repeat="image in currentRoom.storageImage | limitTo: 4">
                             <a class="spotlight" ng-href="{{image.url}}">
                                 <img ng-src="{{image.url}}" onerror="this.src='/img/no-image.png'"/>
                             </a>
@@ -285,7 +285,7 @@
             <div class="chat-sidebar-content-container height100" when-scrolled="scrollMore(config_chat.ui.scrollLimit[3])">
                 <div class="chat-sidebar-content">
                     <div class="chat-album-grid spotlight-group">
-                        <div ng-repeat="image in storage_image | limitTo: config_chat.ui.scrollLimit[3].limit">
+                        <div ng-repeat="image in currentRoom.storageImage | limitTo: config_chat.ui.scrollLimit[3].limit">
                             <a class="spotlight" ng-href="{{image.url}}">
                                 <img draggable="true" drag-item id="{{image.url}}" ng-src="{{image.url}}" onerror="this.src='/img/no-image.png'"/>
                             </a>
