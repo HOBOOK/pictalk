@@ -57,22 +57,21 @@
             </ul>
 
             <div style="text-align: right;">
-                <div style="display: inline" ng-style="account_delete_cancle_style">
-
-                    <select class="form-control" style=" width: auto;" ng-style="account_ban_style" id="ban_days">
+                <div style="display: inline">
+                    <select class="form-control" style=" width: auto;" ng-show="account.connect !== 'ban'" id="ban_days">
                         <option selected>1</option>
                         <option>3</option>
                         <option>7</option>
                         <option>14</option>
                         <option>30</option>
                     </select>
-                    <button type="button" class="btn btn-warning" ng-click="account_ban()" ng-style="account_ban_style">정지</button>
-                    <button type="button" class="btn btn-success" ng-click="account_unban()" ng-style="account_ban_cancle_style" >정지해제</button>
+                    <button type="button" class="btn btn-warning" ng-click="account_ban()" ng-show="account.connect !== 'ban'">정지</button>
+                    <button type="button" class="btn btn-success" ng-click="account_unban()" ng-show="account.connect === 'ban'">정지해제</button>
                 </div>
 
                 <div style="display: inline">
-                    <button type="button" class="btn btn-danger" ng-click="account_delete()" ng-style="account_delete_style" >삭제</button>
-                    <button type="button" class="btn btn-danger" ng-click="account_delete_cancle()" ng-style="account_delete_cancle_style" >삭제취소</button>
+                    <button type="button" class="btn btn-danger" ng-click="account_delete()" ng-show="account.connect !== 'delete'">삭제</button>
+                    <button type="button" class="btn btn-danger" ng-click="account_delete_cancle()" ng-show="account.connect === 'delete'">삭제취소</button>
                 </div>
             </div>
 
