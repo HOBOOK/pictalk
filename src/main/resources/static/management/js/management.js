@@ -38,6 +38,18 @@ app.controller("accountCtrl", function ($scope, $uibModal, $http, $document) {
         connect: "ban",
         joinDate: "2020-07-09 20:00",
         reportCount: 112
+    },{
+        no: "4",
+        email: "kim@gmail.com",
+        name: "송아리",
+        nickname: "송알",
+        gender: "여",
+        profile: "/management/img/profile.png",
+        ban: "날짜",
+        authority: 1,
+        connect: "delete",
+        joinDate: "2020-07-09 20:00",
+        reportCount: 112
     }];
 
 
@@ -67,6 +79,8 @@ app.controller("accountCtrl", function ($scope, $uibModal, $http, $document) {
 
         });
     }
+
+
 
     // $scope.click = function() {
     //

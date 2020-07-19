@@ -101,17 +101,27 @@ app.controller('infoController', function ($scope, $uibModalInstance, account_in
         dTable2 = $('#report-info');
         dTable2.DataTable();
 
-        if($scope.account.connect=='ban'){
-            $('#a').css('display','none');
-            $('#b').css('display','none');
-            $('#c').css('display','inline');
-        }else{
-            $('#a').css('display','inline');
-            $('#b').css('display','inline');
-            $('#c').css('display','none');
-        }
+        info_button_set();
     });
 
+
+    function info_button_set() {
+        if($scope.account.connect=="delete"){
+            $scope.account_delete_style = {'display' : 'none'};
+            $scope.account_delete_cancle_style = {'display' : 'inline'};
+        }else{
+            $scope.account_delete_style = {'display' : 'inline'};
+            $scope.account_delete_cancle_style = {'display' : 'none'};
+
+            if($scope.account.connect=="ban"){
+                $scope.account_ban_style = {'display' : 'none'};
+                $scope.account_ban_cancle_style = {'display' : 'inline'}
+            }else{
+                $scope.account_ban_style = {'display' : 'inline'};
+                $scope.account_ban_cancle_style = {'display' : 'none'}
+            }
+        }
+    };
 
     // 프로필사진 초기화
     $scope.profile_default = function() {
@@ -120,24 +130,29 @@ app.controller('infoController', function ($scope, $uibModalInstance, account_in
 
     // 계정 정지
     $scope.account_ban= function() {
+        var ban_days = $("#ban_days option:selected").val();
+        console.log(ban_days);
+
         $scope.account.connect = "ban";
-        $('#a').css('display','none');
-        $('#b').css('display','none');
-        $('#c').css('display','inline');
+        info_button_set();
     };
 
     // 계정 정지 해제
     $scope.account_unban = function() {
         $scope.account.ban = "오늘날짜";
         $scope.account.connect = "off";
-        $('#a').css('display','inline');
-        $('#b').css('display','inline');
-        $('#c').css('display','none');
+        info_button_set();
     };
 
     // 계정 삭제
     $scope.account_delete = function() {
-
+        $scope.account.connect = "delete";
+        info_button_set();
+    };
+    // 계정 삭제 취소
+    $scope.account_delete_cancle = function() {
+        $scope.account.connect = "off";
+        info_button_set();
     };
 
 
