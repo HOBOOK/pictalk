@@ -8,11 +8,11 @@
             <div class="avatar-upload">
                 <div class="avatar-edit">
 <!--                    <input type='file' id="imageUpload" accept=".png, .jpg, .jpeg"/>-->
-                    <input ng-model="file" type="file" name="file" id="imageUpload" accept=".png, .jpg, .jpeg"
+                    <input ng-model="file" type="file" name="file" id="imageUpload" accept=".png, .jpg, .jpeg, .gif"
                            ngf-select="readImageURL(this)"
                            ngf-pattern="'image/*'"
                            ngf-accept="'image/*'"
-                           ngf-max-size="500KB"/>
+                           ngf-max-size="2000KB"/>
                     <label for="imageUpload"><i class="fas fa-pencil-alt"></i></label>
                 </div>
                 <div class="avatar-preview">
