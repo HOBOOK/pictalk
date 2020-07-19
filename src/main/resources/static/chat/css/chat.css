@@ -624,6 +624,8 @@ nav{
 #chat-data-log .chat-data-image img{
     width: 60px;
     height: 60px;
+    object-fit: cover;
+    border-radius: 2px;
     margin-right:2px;
     vertical-align: middle;
 }
