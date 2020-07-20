@@ -20,14 +20,14 @@ div.layout-main{
 }
 
 /*********** 헤더 영역 ***********/
-div.layout-main header{
-    position: absolute;
-    background: transparent;
-    top:0;
-    left: 70px;
-    display: flex;
-    height: 50px;
-}
+/*div.layout-main header{*/
+/*    position: absolute;*/
+/*    background: transparent;*/
+/*    top:0;*/
+/*    left: 70px;*/
+/*    display: flex;*/
+/*    height: 50px;*/
+/*}*/
 
 /********** 네비게이션 영역 **********/
 div.layout-main nav{

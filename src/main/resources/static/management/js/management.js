@@ -1,7 +1,7 @@
 'use strict';
 
 app.controller("accountCtrl", function ($scope, $uibModal, $http, $document) {
-    $scope.show="false";
+    // $scope.show="false";
     $scope.accounts = [{
         no: "1",
         email: "park@gmail.com",
