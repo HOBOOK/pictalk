@@ -69,7 +69,7 @@
     <ul class="right_nav">
         <li ng-repeat="img in images" class="right_nav_li">
             <div class="card">
-                <img class="card-img-top" src='profile/{{img.src}}' alt="Card image cap">
+                <img class="card-img-top" ng-src='profile/{{img.src}}' alt="Card image cap">
                 <input type="hidden" name="imgId" value={{img.id}}>
             </div>
 
