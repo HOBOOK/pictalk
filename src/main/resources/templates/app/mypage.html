@@ -27,13 +27,14 @@
 </th:block>
 
 <section layout:fragment="content" class="wrap">
+<!--    <div class="chat-sidebar-container"></div>-->
     <div class="wrap" ng-controller = "mypageCtrl">
-        <div class="left_wrap">
+        <div class="left_wrap mypage-sidebar-container">
             <div>
-                <ul class="nav nav-pills nav-stacked" >
-                    <li role="presentation" class="active"><a href="/personal">정보</a></li>
-                    <li role="presentation"><a href="/follow">팔로우</a></li>
-                    <li role="presentation"><a href="/pictures">사진 보관함</a></li>
+                <ul class="nav nav-pills nav-stacked">
+                    <li role="presentation" id="personal" class=""  ng-class="{active: selected=='mypage'}"><a href="/mypage" ng-click="selected='personal'">정보</a></li>
+                    <li role="presentation" id="follow" class=""  ng-class="{active: selected=='follow'}" ><a href="/follow" ng-click="selected='follow'">팔로우</a></li>
+                    <li role="presentation" id="pictures" class=""  ng-class="{active: selected=='pictures'}" ><a href="/pictures" ng-click="selected='pictures'">사진 보관함</a></li>
                 </ul>
             </div>
         </div>

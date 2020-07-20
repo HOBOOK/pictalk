@@ -31,6 +31,7 @@
             width:200px;
             height:200px;
             position:absolute;
+            overflow: hidden;
         }
 
         li div.card:hover + .hover_card {
@@ -62,14 +63,18 @@
             position: absolute;
             margin-left:235px;
         }
+        img{
+            width: 200px;
+            height: 200px;
+        }
 
     </style>
 
 
     <ul class="right_nav">
-        <li ng-repeat="img in images" class="right_nav_li">
+        <li ng-repeat="img in person.album" class="right_nav_li">
             <div class="card">
-                <img class="card-img-top" ng-src='profile/{{img.src}}' alt="Card image cap">
+                <img class="card-img-top" ng-src='{{img.url}}' alt="Card image cap">
                 <input type="hidden" name="imgId" value={{img.id}}>
             </div>
 
