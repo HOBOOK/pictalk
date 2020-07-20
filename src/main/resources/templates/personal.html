@@ -35,7 +35,7 @@
             float: left;
         }
 
-        .nickName{
+        .nickname{
             clear: both;
         }
         .mb-3 .ng-valid{
@@ -47,17 +47,22 @@
         .warning{
             color: red;
         }
-
+        .mb-3{
+            margin-bottom: 30px;
+        }
+        .col-md-8 .order-md-1{
+            width: 800px;
+        }
     </style>
 
 
     <div class="row">
-        <div class="col-md-8 order-md-1">
+        <div class="col-md-8 order-md-1 infoWrap">
             <div class="btnWrap">
                 <button type="button" class="btn btn-primary btn-lg btn-sm active" ng-click="editToggle()">{{editText}}</button>
             </div>
             <form class="has-success" name="personForm" >
-                <div class="row">
+                <div class="row mb-3">
                     <div class="col-md-6 mb-3">
                         <label for="firstName">이름</label>
                         <input type="text" class="form-control" id="firstName" name="firstName" placeholder="" ng-model="person.firstName"  ng-show="showHide" required>
@@ -80,23 +85,23 @@
                     </div>
                 </div>
 
-                <div class="mb-3 nickName">
-                    <label for="nickName">닉네임</label>
+                <div class="mb-3 nickname">
+                    <label for="nickname">닉네임</label>
                     <div class="input-group">
-                        <input type="text" class="form-control" id="nickName" name="nickName" ng-model="person.nickName"  ng-show="showHide" required>
+                        <input type="text" class="form-control" id="nickname" name="nickname" ng-model="person.nickname"  ng-show="showHide" required>
                         <div>
-                            <label class="explain" ng-show="!showHide">{{person.nickName}}</label>
+                            <label class="explain" ng-show="!showHide">{{person.nickname}}</label>
                         </div>
-                        <div class="warning" ng-show="personForm.nickName.$error.required" style="width: 100%">
+                        <div class="warning" ng-show="personForm.nickname.$error.required" style="width: 100%">
                             한 글자 이상 입력해주세요.
                         </div>
                     </div>
                 </div>
                 <div class="mb-3">
-
+                    <label>프로필</label>
                     <div class="input-group">
 
-                        <img ng-src="{{person.src}}" alt="choidanbi.jpeg" class="img-circle" name="profileimg"/>
+                        <img ng-src="{{person.avatar}}" alt="choidanbi.jpeg" class="img-circle" name="profileimg"/>
                         <div class="custom-file" ng-show="showHide">
                             <input type="file" ng-model="file" name="file" class="custom-file-input" id="inputGroupFile04" accept=".png, .jpg, .jpeg"
                                    ngf-select="changeProfileImg($event, this)"
