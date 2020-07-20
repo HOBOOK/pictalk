@@ -37,7 +37,7 @@ app.controller('mypageCtrl',function ($scope) {
             lastName: 'jieun',
             nickName: 'danbi',
             password: '1234',
-            src:'choidanbi.jpeg'
+            src:'profile/choidanbi.jpeg'
 
         }
     $scope.showHide = false;
@@ -84,13 +84,19 @@ app.controller('mypageCtrl',function ($scope) {
         }
     };
 
-    $scope.changeProfileImg = function(element){
+    $scope.changeProfileImg = function($event,element) {
 
         var reader = new FileReader();
+        alert("fd");
+        reader.readAsDataURL(element.file);
 
         reader.onload = function (e) {
+            alert("ㅎㄷ");
             $scope.person.src = e.target.result;
+            $scope.$apply();
+
         }
+
     }
 
 });

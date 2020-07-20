@@ -211,7 +211,7 @@
                     <span class="chat-profile-create"><h6>생성일 | </h6> {{currentRoom.createDate}}</span>
                     <div class="chat-profile-manager-info">
                         <h6>방장 | </h6>
-                        <img ng-src="{{manager.thumbnail}}" onerror="this.src='/img/no-image.png'"/>
+                        <img ng-src="{{manager.avatar}}" onerror="this.src='/img/no-image.png'"/>
                         <span ng-bind="manager.nickname"></span>
 
                     </div>
@@ -235,7 +235,7 @@
                     <ul class="chat-user-profile">
                         <li ng-repeat="participant in currentRoom.participants | limitTo: config_chat.ui.scrollLimit[1].limit">
                             <div class="chat-participant-info" ng-click="onClickParticipant(participant)">
-                                <img ng-src="{{participant.thumbnail}}"/>
+                                <img ng-src="{{participant.avatar}}"/>
                                 <span ng-bind="participant.nickname"></span>
                             </div>
                             <div class="chat-user-menu" ng-show="participant.id === config_chat.selectedParticipant.id">

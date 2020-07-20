@@ -76,7 +76,7 @@
         <ul class="right_nav">
             <li  ng-repeat="follower in follows" class="right_nav_li">
                 <div class="card">
-                    <img class="card-img-top img-circle" src='profile/{{follower.src}}' alt="Card image cap">
+                    <img class="card-img-top img-circle" ng-src='profile/{{follower.src}}' alt="Card image cap">
                     <div class="card-body">
                         <h5 class="card-title">{{follower.name}}</h5>
                     </div>

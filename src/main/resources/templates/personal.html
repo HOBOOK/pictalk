@@ -21,6 +21,7 @@
         .img-circle{
             border-radius: 50%;
             width: 100px;
+            height: 100px;
         }
         .custom-file{
             margin-top: 30px;
@@ -94,13 +95,13 @@
                 <div class="mb-3">
 
                     <div class="input-group">
-                        <img ng-src='profile/{{person.src}}' alt="choidanbi.jpeg" class="img-circle" name="profileimg"/>
+
+                        <img ng-src="{{person.src}}" alt="choidanbi.jpeg" class="img-circle" name="profileimg"/>
                         <div class="custom-file" ng-show="showHide">
-                            <input type="file" ng-model="file" class="custom-file-input" id="inputGroupFile04" accept=".png, .jpg, .jpeg"
-                                   ngf-select="changeProfileImg(this)"
-                                   ngf-pattern="'profile/*'"
-                                   ngf-accept="'profile/*'"
-                                   ngf-max-size="500KB">
+                            <input type="file" ng-model="file" name="file" class="custom-file-input" id="inputGroupFile04" accept=".png, .jpg, .jpeg"
+                                   ngf-select="changeProfileImg($event, this)"
+                                   ngf-pattern="'image/*'"
+                                   ngf-accept="'image/*'">
                             <label class="custom-file-label" for="inputGroupFile04">파일 찾기</label>
                         </div>
                     </div>
