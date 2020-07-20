@@ -446,14 +446,8 @@ app.controller("chatController", function ($scope, $http, $uibModal, $filter, $t
     // 메시지의 컨텍스트 메뉴를 보여준다
     $scope.onLoadContextMenu = function(messageId){
         console.log(messageId);
-        if($scope.config_chat.ui.visibleContextMenu){
-            $scope.selectedMessage = null;
-            $scope.config_chat.ui.visibleContextMenu = false;
-        }else{
-            $scope.selectedMessage = $filter('filter')($scope.currentRoom.messages, {id: messageId}, true)[0];
-            $scope.config_chat.ui.visibleContextMenu = true;
-        }
-
+        $scope.selectedMessage = $filter('filter')($scope.currentRoom.messages, {id: messageId}, true)[0];
+        $scope.config_chat.ui.visibleContextMenu = true;
     }
 
     function disConnect(){
@@ -612,6 +606,16 @@ app.controller("chatController", function ($scope, $http, $uibModal, $filter, $t
     function clearChatText() {
         $("#messageArea").empty();
     }
+
+
+    // 우측마우스 외부 클릭
+    document.addEventListener('click', function(e){
+        var inside = e.target.closest('.chat-context-menu-container');
+        if(!inside){
+            $scope.config_chat.ui.visibleContextMenu = false;
+            $scope.$apply();
+        }
+    });
 });
 
 // 채팅방 정보 배경 이미지 변경
@@ -711,10 +715,12 @@ app.directive('ngLongClick', function($timeout, $document) {
                 $timeout(function() {
                     if ($scope.longClicking) {
                         $scope.longClick = true;
+                        var pos = setContextMenuPosition(evt, contextMenu);
+                        contextMenu.style.left = pos.x + 'px';
+                        contextMenu.style.top = pos.y + 'px';
                         $scope.$apply(function() {
-                            $scope.$eval($attrs.ngLongClick)
+                            $scope.$eval($attrs.ngLongClick);
                         });
-
                     }
                 }, 600);
             });
@@ -728,6 +734,9 @@ app.directive('ngRightClick', function($parse) {
         restrict: 'A',
         link: function($scope, $elm, $attrs) {
             $elm.bind('contextmenu', function(evt) {
+                var pos = setContextMenuPosition(evt, contextMenu);
+                contextMenu.style.left = pos.x + 'px';
+                contextMenu.style.top = pos.y + 'px';
                 $scope.$apply(function() {
                     evt.preventDefault();
                 });
@@ -736,10 +745,30 @@ app.directive('ngRightClick', function($parse) {
     };
 });
 
+
 var colors = [
     '#2196F3', '#32c787', '#00BCD4', '#ff5652',
     '#ffc107', '#ff85af', '#FF9800', '#39bbb0'
 ];
+
+
+/* 마우스 포지션 가져오기 */
+function setContextMenuPosition(event, contextMenu) {
+
+    var mousePosition = {};
+    var menuPosition = {};
+    var menuDimension = {};
+
+    menuDimension.x = contextMenu.offsetWidth;
+    menuDimension.y = contextMenu.offsetHeight;
+    mousePosition.x = event.pageX;
+    mousePosition.y = event.pageY;
+
+    menuPosition.x = mousePosition.x - menuDimension.x;
+    menuPosition.y = mousePosition.y+30;
+
+    return menuPosition;
+}
 
 /* 현재 시간 yyyy-mm-dd hh:mm:ss 포맷으로 가져오기 */
 function getTimeStamp() {
