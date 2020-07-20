@@ -235,7 +235,7 @@
                     <ul class="chat-user-profile">
                         <li ng-repeat="participant in currentRoom.participants | limitTo: config_chat.ui.scrollLimit[1].limit">
                             <div class="chat-participant-info" ng-click="onClickParticipant(participant)">
-                                <img ng-src="{{participant.thumbnail}}"/>
+                                <img ng-src="{{participant.avatar}}"/>
                                 <span ng-bind="participant.nickname"></span>
                             </div>
                             <div class="chat-user-menu" ng-show="participant.id === config_chat.selectedParticipant.id">

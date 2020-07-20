@@ -11,44 +11,9 @@ var connectingElement = document.querySelector('.connecting');
 var chatSideMenu = document.querySelector('#chat-side-tab');
 var layout = document.querySelector('.layout-main');
 
-app.controller("chatController", function ($scope, $http, $uibModal, $filter, $timeout) {
-    $scope.me ={
-        id: 0,
-        nickname: "나다",
-        email: "me@naver.com",
-        thumbnail: "/chat/img/thumbnail_example.png",
-        album: [
-            {
-                url:"/chat/img/image_example.jpg",
-                date:1595174296810
-            },{
-                url:"/img/no-image.png",
-                date:1595174296820
-            },{
-                url:"/chat/img/thumbnail_example.png",
-                date:1595174296842
-            },{
-                url:"/img/logo/logo_endspring.png",
-                date:1595174296845
-            },{
-                url:"/chat/img/thumbnail_example.png",
-                date:1595174296852
-            },{
-                url:"/chat/img/thumbnail_example.png",
-                date:1595174296854
-            },{
-                url:"/chat/img/image_example.jpg",
-                date:1595174296855
-            },{
-                url:"/chat/img/image_example.jpg",
-                date:1595174296860
-            },{
-                url:"/chat/img/thumbnail_example.png",
-                date:159517429688
-            }],
-        myRooms: [],
-        myRoomsMeta: []
-    }
+app.controller("chatController", function ($scope, $http, $uibModal, $filter, $timeout, UserService) {
+    console.log(UserService.user);
+    $scope.me = UserService.user;
 
     $timeout(function () {
         $scope.rooms = [{
@@ -93,7 +58,7 @@ app.controller("chatController", function ($scope, $http, $uibModal, $filter, $t
                     id: 1,
                     nickname: "방장님",
                     email: "park@naver.com",
-                    thumbnail: "/chat/img/thumbnail_example.png",
+                    avatar: "/chat/img/thumbnail_example.png",
                     album: [{
                         url:"/chat/img/image_example.jpg"
                     },{
@@ -108,7 +73,7 @@ app.controller("chatController", function ($scope, $http, $uibModal, $filter, $t
                     id: j,
                     nickname: nicknames[(j%nicknames.length)],
                     email: "park@naver.com",
-                    thumbnail: "/chat/img/thumbnail_example.png"
+                    avatar: "/chat/img/thumbnail_example.png"
                 })
             }
 
