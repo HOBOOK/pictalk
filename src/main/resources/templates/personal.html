@@ -21,6 +21,7 @@
         .img-circle{
             border-radius: 50%;
             width: 100px;
+            height: 100px;
         }
         .custom-file{
             margin-top: 30px;
@@ -94,11 +95,8 @@
                 <div class="mb-3">
 
                     <div class="input-group">
-<<<<<<< HEAD
 
                         <img ng-src="{{person.src}}" alt="choidanbi.jpeg" class="img-circle" name="profileimg"/>
-=======
->>>>>>> 736512f9a0806d0498863352df32a61d7228b802
                         <div class="custom-file" ng-show="showHide">
                             <input type="file" ng-model="file" name="file" class="custom-file-input" id="inputGroupFile04" accept=".png, .jpg, .jpeg"
                                    ngf-select="changeProfileImg($event, this)"

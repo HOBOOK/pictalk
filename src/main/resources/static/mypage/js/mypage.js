@@ -88,12 +88,14 @@ app.controller('mypageCtrl',function ($scope) {
 
         var reader = new FileReader();
         alert("fd");
+        reader.readAsDataURL(element.file);
 
         reader.onload = function (e) {
-            alert("fd");
-            $scope.person.src = "profile/danbi2.jpg";
-        }
+            alert("ㅎㄷ");
+            $scope.person.src = e.target.result;
+            $scope.$apply();
 
+        }
 
     }
 
