@@ -779,6 +779,7 @@ nav{
     background-color: #fff;
     margin-right:auto;
     margin-left:40px;
+    cursor: pointer;
 }
 #chat-page .chat-message.me p{
     margin-left:auto;
@@ -799,6 +800,7 @@ nav{
     border-radius: 5px;
     margin-right: auto;
     margin-left: 40px;
+    cursor: pointer;
 }
 #messageArea .chat-message.me img{
     margin-right: 40px;
@@ -909,6 +911,21 @@ nav{
 }
 
 
+/*** 컨텍스트 메뉴 ***/
+
+.chat-context-menu-container{
+    position: absolute;
+    top:0;
+    left:0;
+    display: inline-block;
+    width: 200px;
+    height: 100px;
+}
+.chat-context-menu-item{
+    width: 100%;
+    display: inline-block;
+    height:30px;
+}
 
 
 
