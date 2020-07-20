@@ -42,6 +42,7 @@ app.controller('chatModalController', function ($scope, $uibModalInstance) {
         manager_id: 0,
         latestMessage: "",
         participants: [],
+        like: [],
         messages: [],
         accessKey: "",
         storageImage:[]
