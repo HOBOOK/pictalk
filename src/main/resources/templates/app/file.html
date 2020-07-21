@@ -6,11 +6,35 @@
 <th:block layout:fragment="title">픽톡(PicTalk) | 관리자</th:block>
 <th:block layout:fragment="js">
     <script src="/management/js/file.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
+
+    <script type="text/javascript">
+
+        $(document).ready(function(){
+
+            $(".detail>a").click(function(){
+                var submenu = $(this).next("ul");
+
+                if( submenu.is(":visible") ){
+                    submenu.slideUp();
+                    $("#tab").text("▼");
+                }else{
+                    submenu.slideDown();
+                    $("#tab").text("▲");
+                }
+            });
+        });
+    </script>
+
 </th:block>
 <th:block layout:fragment="css">
     <!--추가 CSS -->
     <link rel="stylesheet" href="/management/css/management.css"/>
 
+    <style>
+        .detail a{cursor:pointer;}
+        .detail .hide{display:none;}
+    </style>
     <!--추가 CSS 끝-->
 </th:block>
 
@@ -31,11 +55,8 @@
                         <a class="nav-link" id="v-pills-trash-tab" data-toggle="pill" href="#v-pills-trash" role="tab" aria-controls="v-pills-trash" aria-selected="false" style="font-size: 20px;">Trash</a>
                     </div>
 
-                <!--테스트-->
-<!--                <div style="position: absolute; margin-top: 20px; width: 230px;" ng-show="state !== 'groups'">-->
-<!--                    <h5 class="file-title-hidden" style="height: 30px;"><a href="#" ng-click="images_button()">Images</a> > <a>{{state}}</a></h5>-->
-<!--                </div>-->
             </div>
+
 
             <div class="manager-side-container">
 
@@ -56,7 +77,6 @@
                                         <i class="fas fa-bars" style="float: right;" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
 
                                         <div class="dropdown-menu" style="min-width: 7rem;">
-                                            <a class="dropdown-item" href="#">상세정보</a>
                                             <a class="dropdown-item" href="#">etc</a>
                                             <div class="dropdown-divider"></div>
                                             <a class="dropdown-item" href="#">삭제</a>
@@ -71,6 +91,19 @@
                                         <h4 class="font-weight-normal mb-1" id="file-title-hidden"> {{room.title}} </h4>
                                         <p class="text-muted mb-1">타입/용량</p>
                                     </div>
+
+
+                                    <!--앵귤러로 바꾸기-->
+                                    <div class="detail" style="list-style: none; text-align: center;">
+                                        <a type="button" id="tab">▼</a>
+                                        <ul class="hide" style="list-style: none; text-align: left; padding:0; margin: 0;">
+                                            <li>
+                                                세부정보
+                                            </li>
+                                        </ul>
+                                    </div>
+
+
                                 </div>
                             </div>
                         </div>
