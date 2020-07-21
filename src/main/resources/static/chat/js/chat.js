@@ -484,8 +484,9 @@ app.controller("chatController", function ($scope, $http, $uibModal, $filter, $t
         messageInput.value = '';
         var isMe = message.sender === $scope.me.nickname;
 
-        if($scope.isEqualLastMessageSender(message)){
-            renderInMessage(message);
+        var isEqualSender = $scope.isEqualLastMessageSender(message);
+        if(isEqualSender){
+            renderInMessage(message, isEqualSender);
             messageArea.scrollTop = messageArea.scrollHeight;
             return;
         }
@@ -513,7 +514,7 @@ app.controller("chatController", function ($scope, $http, $uibModal, $filter, $t
         var coverElement = document.createElement('div');
         coverElement.classList.add('chat-equal-cover');
         tempMessageCover = coverElement;
-        renderInMessage(message);
+        renderInMessage(message, isEqualSender);
 
         var dateElement = document.createElement('h6');
         var dateText = document.createTextNode(parseDateString(message.date.substring(11)));
@@ -534,9 +535,11 @@ app.controller("chatController", function ($scope, $http, $uibModal, $filter, $t
     }
 
     // 메시지 커버 내부에 말풍선 그리는 함수
-    function renderInMessage(message){
+    function renderInMessage(message, isEqualSender){
         var textElement = document.createElement('p');
         var messageText = document.createTextNode(message.content);
+        if(!isEqualSender)
+            textElement.classList.add('start');
         textElement.appendChild(messageText);
         textElement.setAttribute( 'ng-right-click', 'onLoadContextMenu(' + message.id +')');
         textElement.setAttribute('context', 'chat-message-context');
@@ -562,7 +565,6 @@ app.controller("chatController", function ($scope, $http, $uibModal, $filter, $t
 
     // 이미지 메시지를 그리는 함수
     function renderImageMessage(message) {
-
         var isMe = message.sender === $scope.me.nickname;
 
         if($scope.isEqualLastMessageSender(message)){
@@ -758,25 +760,6 @@ var colors = [
     '#ffc107', '#ff85af', '#FF9800', '#39bbb0'
 ];
 
-
-/* 마우스 포지션 가져오기 */
-function setContextMenuPosition(event, contextMenu) {
-
-    var mousePosition = {};
-    var menuPosition = {};
-    var menuDimension = {};
-
-    menuDimension.x = contextMenu.offsetWidth;
-    menuDimension.y = contextMenu.offsetHeight;
-    mousePosition.x = event.pageX;
-    mousePosition.y = event.pageY;
-
-    menuPosition.x = mousePosition.x - menuDimension.x;
-    menuPosition.y = mousePosition.y+30;
-
-    return menuPosition;
-}
-
 /* 현재 시간 yyyy-mm-dd hh:mm:ss 포맷으로 가져오기 */
 function getTimeStamp() {
     var d = new Date();
@@ -805,7 +788,7 @@ function leadingZeros(n, digits) {
 
 /* 날짜 변환 함수 ex) 오전 12:00 */
 function parseDateString(a) {
-    var time = a; // 'hh:mm' 형태로 값이 들어온다
+    var time = a;
     var getTime = time.substring(0, 2);
     var intTime = parseInt(getTime);
     if (intTime < 12 ) {

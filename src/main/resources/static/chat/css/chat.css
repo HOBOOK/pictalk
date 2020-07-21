@@ -771,6 +771,7 @@ nav{
 
 #chat-page .chat-message p {
     display: inline-block;
+    position: relative;
     font-size: 14px;
     color: #43464b;
     border-radius: 5px;
@@ -786,6 +787,33 @@ nav{
     margin-right:40px;
     background-color: #efd;
 }
+
+#chat-page .start:after{
+    content: ' ';
+    position: absolute;
+    width: 0;
+    height: 0;
+    left: -8px;
+    right: auto;
+    top: 7px;
+    bottom: auto;
+    border: 5px solid;
+    border-color: #fff #fff transparent transparent;
+}
+
+#chat-page .me .start:after{
+    content: ' ';
+    position: absolute;
+    width: 0;
+    height: 0;
+    left: auto;
+    right: -8px;
+    top: 7px;
+    bottom: auto;
+    border: 5px solid;
+    border-color: #efd transparent transparent #efd;
+}
+
 
 #chat-page .chat-equal-cover{
     display: flex;
