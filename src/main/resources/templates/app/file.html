@@ -6,11 +6,35 @@
 <th:block layout:fragment="title">픽톡(PicTalk) | 관리자</th:block>
 <th:block layout:fragment="js">
     <script src="/management/js/file.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
+
+    <script type="text/javascript">
+
+        $(document).ready(function(){
+
+            $(".detail>a").click(function(){
+                var submenu = $(this).next("ul");
+
+                if( submenu.is(":visible") ){
+                    submenu.slideUp();
+                    $("#tab").text("▼");
+                }else{
+                    submenu.slideDown();
+                    $("#tab").text("▲");
+                }
+            });
+        });
+    </script>
+
 </th:block>
 <th:block layout:fragment="css">
     <!--추가 CSS -->
     <link rel="stylesheet" href="/management/css/management.css"/>
 
+    <style>
+        .detail a{cursor:pointer;}
+        .detail .hide{display:none;}
+    </style>
     <!--추가 CSS 끝-->
 </th:block>
 
@@ -33,30 +57,76 @@
 
             </div>
 
+
             <div class="manager-side-container">
 
                 <div class="tab-content" id="v-pills-tabContent">
 
                     <!--사진 Images Tab-->
                     <div class="tab-pane fade show active" id="v-pills-images" role="tabpanel" aria-labelledby="v-pills-images-tab">
+                        <!--테스트-->
+                        <div style="width: 270px; height: 40px;">
+                            <h5 class="file-title-hidden" style="height: 30px;" ng-show="images_state !== 'groups'"><a href="#" ng-click="images_button()">Images</a> > <a>{{images_state}}</a></h5>
+                        </div>
 
-                        <div class="row">
-                            <div class="col-xl-3 col-md-6" ng-repeat="room in rooms">
+                        <div class="row" ng-show="images_state === 'groups'">
+                            <div class="cxl-3 cmd-6" ng-repeat="room in rooms">
                                 <div class="group-card-box file-zoom-effect">
                                     <div>
                                         <input type="checkbox" class="checkbox-size">
+                                        <i class="fas fa-bars" style="float: right;" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
+
+                                        <div class="dropdown-menu" style="min-width: 7rem;">
+                                            <a class="dropdown-item" href="#">etc</a>
+                                            <div class="dropdown-divider"></div>
+                                            <a class="dropdown-item" href="#">삭제</a>
+                                        </div>
                                     </div>
 
-                                    <div class="photo-group" style="text-align: center;">
-                                        <img src="/chat/img/image_example.jpg" class="group-profile-preview">
+                                    <div class="photo-group" style="text-align: center;" ng-click="chat_group_content(room)">
+                                        <img ng-src="{{room.imagePath}}" class="group-profile-preview"/>
                                     </div>
 
                                     <div class="photo-group-detail text-center">
                                         <h4 class="font-weight-normal mb-1" id="file-title-hidden"> {{room.title}} </h4>
                                         <p class="text-muted mb-1">타입/용량</p>
                                     </div>
+
+
+                                    <!--앵귤러로 바꾸기-->
+                                    <div class="detail" style="list-style: none; text-align: center;">
+                                        <a type="button" id="tab">▼</a>
+                                        <ul class="hide" style="list-style: none; text-align: left; padding:0; margin: 0;">
+                                            <li>
+                                                세부정보
+                                            </li>
+                                        </ul>
+                                    </div>
+
+
                                 </div>
                             </div>
+                        </div>
+
+                        <div class="row" ng-show="images_state !== 'groups'">
+                            <div class="cxl-3 cmd-6" ng-repeat="image in images">
+                                <div class="group-card-box file-zoom-effect">
+                                    <div>
+                                        <input type="checkbox" class="checkbox-size">
+                                        <i class="fas fa-bars" style="float: right;"></i>
+                                    </div>
+
+                                    <div class="photo-group" style="text-align: center;">
+                                        <img ng-src="{{image.imagePath}}" class="group-profile-preview"/>
+                                    </div>
+
+                                    <div class="photo-group-detail text-center">
+                                        <h5 class="font-weight-normal mb-1" id="file-title-hidden"> {{image.title}} </h5>
+                                        <p class="text-muted mb-1">사용자아이디<br/>신고횟수</p>
+                                    </div>
+                                </div>
+                            </div>
+
                         </div>
 
                         <foot aria-label="Page navigation example">
@@ -77,22 +147,50 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
                     <!--휴지통 Trash Tab-->
                     <div class="tab-pane fade" id="v-pills-trash" role="tabpanel" aria-labelledby="v-pills-trash-tab">
+                        <!--테스트-->
+                        <div style="width: 270px; height: 40px;">
+                            <h5 class="file-title-hidden" style="height: 30px;" ng-show="trash_state !== 'groups'"><a href="#" ng-click="">Trash</a> > <a>{{images_state}}</a></h5>
+                        </div>
+
+                        <div class="row">
+                            <div class="cxl-3 cmd-6" ng-repeat="trash in rooms_trash">
+                                <div class="group-card-box file-zoom-effect">
+                                    <div>
+                                        <input type="checkbox" class="checkbox-size">
+                                        <i class="fas fa-bars" style="float: right;"></i>
+                                    </div>
+
+                                    <div class="photo-group" style="text-align: center;">
+                                        <img ng-src="/chat/img/image_example.jpg" class="group-profile-preview">
+                                    </div>
+
+                                    <div class="photo-group-detail text-center">
+                                        <h4 class="font-weight-normal mb-1" id="file-title-hidden"> {{trash.title}} </h4>
+                                        <p class="text-muted mb-1">타입/용량</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <foot aria-label="Page navigation example">
+                            <ul class="pagination justify-content-center">
+                                <li class="page-item disabled">
+                                    <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
+                                </li>
+                                <li class="page-item"><a class="page-link" href="#">1</a></li>
+                                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                <li class="page-item">
+                                    <a class="page-link" href="#">Next</a>
+                                </li>
+                            </ul>
+                        </foot>
+
 
                     </div>
+
                 </div>
 
             </div>

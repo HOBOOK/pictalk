@@ -36,6 +36,25 @@ div.layout-main nav{
     background-color: #fff;
 }
 
+div.layout-main #logo-main{
+    display: flex;
+    border-radius: 50%;
+    margin:0 auto;
+    padding: 15px 0 15px 0;
+}
+div.layout-main #logo-main a{
+    margin:0 auto;
+    text-align: center;
+}
+div.layout-main #logo-main img{
+    transition: filter 0.3s ease-in-out;
+    transition: filter 0.3s ease-in-out, -webkit-filter 0.3s ease-in-out;
+}
+div.layout-main #logo-main a:hover img{
+    filter: brightness(150%);
+    -webkit-filter: brightness(150%);
+}
+
 div.nav-group {
     width:70px;
     height: inherit;
@@ -53,14 +72,17 @@ div.nav-group ul{
 div.nav-group li{
     margin-top: 10px;
     margin-bottom: 10px;
-    padding-top:15px;
-    padding-bottom:15px;
 }
 
 div.nav-group a{
     text-decoration: none;
     color: #808080;
     font-size:14px;
+    display: inline-block;
+    margin:0 auto;
+    width: 48px;
+    height: 48px;
+    line-height: 48px;
 }
 
 div.loading {

@@ -16,6 +16,7 @@
 <th:block layout:fragment="js-end">
     <script src="/chat/js/chat.js"></script>
     <script src="/chat/js/chat-modal.js"></script>
+    <script src="/chat/js/chat-context.js"></script>
 </th:block>
 
 <th:block layout:fragment="css">
@@ -299,9 +300,9 @@
     </div>
 
     <!----------------------- 채팅방 컨텍스트 메뉴 ------------------------------>
-    <div ng-show="config_chat.ui.visibleContextMenu" class="chat-context-menu-container">
-        <div class="chat-context-menu-item">메시지 신고</div>
-        <div class="chat-context-menu-item">숨기기</div>
-    </div>
+    <ul id="chat-message-context" class="dropdown-menu chat-context-menu" role='menu'>
+        <li><a href="#" ng-click="onClickReportMessage()">내용 신고</a></li>
+        <li><a href="#" ng-click="onClickHideMessage()">삭제</a></li>
+    </ul>
 
 </section>

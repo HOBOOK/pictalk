@@ -176,6 +176,8 @@ app.controller("chatController", function ($scope, $http, $uibModal, $filter, $t
         var message = {
             id: $scope.currentRoom.messages.length > 0 ? $scope.currentRoom.messages[$scope.currentRoom.messages.length-1].index + 1 : 0,
             type: 'CHAT',
+            state: 0,
+            element : null,
             content: messageContent,
             sender: $scope.me.nickname,
             date: getTimeStamp(),
@@ -194,6 +196,8 @@ app.controller("chatController", function ($scope, $http, $uibModal, $filter, $t
             id: $scope.currentRoom.messages.length > 0 ? $scope.currentRoom.messages[$scope.currentRoom.messages.length-1].index + 1 : 0,
             type: 'CHAT',
             content: '테스트',
+            state: 0,
+            element : null,
             sender: $scope.me.nickname,
             date: getTimeStamp(),
             index: room.messages.length > 0 ? room.messages[room.messages.length-1].index + 1 : 0
@@ -208,6 +212,8 @@ app.controller("chatController", function ($scope, $http, $uibModal, $filter, $t
             id: $scope.currentRoom.messages.length > 0 ? $scope.currentRoom.messages[$scope.currentRoom.messages.length-1].index + 1 : 0,
             type: 'IMAGE',
             content: url,
+            state: 0,
+            element : null,
             sender: $scope.me.nickname,
             date: getTimeStamp(),
             index: $scope.currentRoom.messages.length > 0 ? $scope.currentRoom.messages[$scope.currentRoom.messages.length-1].index + 1 : 0
@@ -445,9 +451,26 @@ app.controller("chatController", function ($scope, $http, $uibModal, $filter, $t
 
     // 메시지의 컨텍스트 메뉴를 보여준다
     $scope.onLoadContextMenu = function(messageId){
-        console.log(messageId);
         $scope.selectedMessage = $filter('filter')($scope.currentRoom.messages, {id: messageId}, true)[0];
-        $scope.config_chat.ui.visibleContextMenu = true;
+    }
+
+    // 메시지 신고
+    $scope.onClickReportMessage = function () {
+        if($scope.selectedMessage){
+            console.log($scope.selectedMessage.content + '신고됨');
+        }
+    }
+
+    // 메시지 숨기기
+    $scope.onClickHideMessage = function () {
+        if($scope.selectedMessage){
+            var elem = $scope.selectedMessage.element;
+            if(elem){
+                var textElement = document.createElement('p');
+                textElement.innerHTML = '메시지가 삭제되었습니다.';
+                elem.parentNode.replaceChild(textElement, elem);
+            }
+        }
     }
 
     function disConnect(){
@@ -461,8 +484,9 @@ app.controller("chatController", function ($scope, $http, $uibModal, $filter, $t
         messageInput.value = '';
         var isMe = message.sender === $scope.me.nickname;
 
-        if($scope.isEqualLastMessageSender(message)){
-            renderInMessage(message);
+        var isEqualSender = $scope.isEqualLastMessageSender(message);
+        if(isEqualSender){
+            renderInMessage(message, isEqualSender);
             messageArea.scrollTop = messageArea.scrollHeight;
             return;
         }
@@ -490,7 +514,7 @@ app.controller("chatController", function ($scope, $http, $uibModal, $filter, $t
         var coverElement = document.createElement('div');
         coverElement.classList.add('chat-equal-cover');
         tempMessageCover = coverElement;
-        renderInMessage(message);
+        renderInMessage(message, isEqualSender);
 
         var dateElement = document.createElement('h6');
         var dateText = document.createTextNode(parseDateString(message.date.substring(11)));
@@ -511,12 +535,15 @@ app.controller("chatController", function ($scope, $http, $uibModal, $filter, $t
     }
 
     // 메시지 커버 내부에 말풍선 그리는 함수
-    function renderInMessage(message){
+    function renderInMessage(message, isEqualSender){
         var textElement = document.createElement('p');
         var messageText = document.createTextNode(message.content);
+        if(!isEqualSender)
+            textElement.classList.add('start');
         textElement.appendChild(messageText);
-        textElement.setAttribute( 'ng-long-click', 'onLoadContextMenu(' + message.id +')');
         textElement.setAttribute( 'ng-right-click', 'onLoadContextMenu(' + message.id +')');
+        textElement.setAttribute('context', 'chat-message-context');
+        message.element = textElement;
         $compile(textElement)($scope);
         tempMessageCover.appendChild(textElement);
     }
@@ -529,15 +556,15 @@ app.controller("chatController", function ($scope, $http, $uibModal, $filter, $t
         var imageElement = document.createElement('img');
         imageElement.src = message.content;
         imageCoverElement.appendChild(imageElement);
-        imageCoverElement.setAttribute( 'ng-long-click', 'onLoadContextMenu(' + message.id +')');
         imageCoverElement.setAttribute( 'ng-right-click', 'onLoadContextMenu(' + message.id +')');
+        imageCoverElement.setAttribute('context', 'chat-message-context');
+        message.element = imageCoverElement;
         $compile(imageCoverElement)($scope);
         tempMessageCover.appendChild(imageCoverElement);
     }
 
     // 이미지 메시지를 그리는 함수
     function renderImageMessage(message) {
-
         var isMe = message.sender === $scope.me.nickname;
 
         if($scope.isEqualLastMessageSender(message)){
@@ -606,16 +633,6 @@ app.controller("chatController", function ($scope, $http, $uibModal, $filter, $t
     function clearChatText() {
         $("#messageArea").empty();
     }
-
-
-    // 우측마우스 외부 클릭
-    document.addEventListener('click', function(e){
-        var inside = e.target.closest('.chat-context-menu-container');
-        if(!inside){
-            $scope.config_chat.ui.visibleContextMenu = false;
-            $scope.$apply();
-        }
-    });
 });
 
 // 채팅방 정보 배경 이미지 변경
@@ -705,7 +722,7 @@ app.directive('whenScrolled', function () {
 });
 
 
-// 롱 클릭 이벤트
+// 롱 클릭 이벤트 -> 화면 렌더링 문제있어서 일시적으로 주석처리
 app.directive('ngLongClick', function($timeout, $document) {
     return {
         restrict: 'A',
@@ -714,10 +731,6 @@ app.directive('ngLongClick', function($timeout, $document) {
                 $scope.longClicking = true;
                 $timeout(function() {
                     if ($scope.longClicking) {
-                        $scope.longClick = true;
-                        var pos = setContextMenuPosition(evt, contextMenu);
-                        contextMenu.style.left = pos.x + 'px';
-                        contextMenu.style.top = pos.y + 'px';
                         $scope.$apply(function() {
                             $scope.$eval($attrs.ngLongClick);
                         });
@@ -728,20 +741,16 @@ app.directive('ngLongClick', function($timeout, $document) {
     };
 });
 
-// 우측 마우스 클릭
+//우측 마우스 클릭시 컨텍스트 메뉴 세팅
 app.directive('ngRightClick', function($parse) {
-    return {
-        restrict: 'A',
-        link: function($scope, $elm, $attrs) {
-            $elm.bind('contextmenu', function(evt) {
-                var pos = setContextMenuPosition(evt, contextMenu);
-                contextMenu.style.left = pos.x + 'px';
-                contextMenu.style.top = pos.y + 'px';
-                $scope.$apply(function() {
-                    evt.preventDefault();
-                });
+    return function(scope, element, attrs) {
+        var fn = $parse(attrs.ngRightClick);
+        element.bind('contextmenu', function(event) {
+            scope.$apply(function() {
+                event.preventDefault();
+                fn(scope, {$event:event});
             });
-        }
+        });
     };
 });
 
@@ -750,25 +759,6 @@ var colors = [
     '#2196F3', '#32c787', '#00BCD4', '#ff5652',
     '#ffc107', '#ff85af', '#FF9800', '#39bbb0'
 ];
-
-
-/* 마우스 포지션 가져오기 */
-function setContextMenuPosition(event, contextMenu) {
-
-    var mousePosition = {};
-    var menuPosition = {};
-    var menuDimension = {};
-
-    menuDimension.x = contextMenu.offsetWidth;
-    menuDimension.y = contextMenu.offsetHeight;
-    mousePosition.x = event.pageX;
-    mousePosition.y = event.pageY;
-
-    menuPosition.x = mousePosition.x - menuDimension.x;
-    menuPosition.y = mousePosition.y+30;
-
-    return menuPosition;
-}
 
 /* 현재 시간 yyyy-mm-dd hh:mm:ss 포맷으로 가져오기 */
 function getTimeStamp() {
@@ -798,7 +788,7 @@ function leadingZeros(n, digits) {
 
 /* 날짜 변환 함수 ex) 오전 12:00 */
 function parseDateString(a) {
-    var time = a; // 'hh:mm' 형태로 값이 들어온다
+    var time = a;
     var getTime = time.substring(0, 2);
     var intTime = parseInt(getTime);
     if (intTime < 12 ) {
