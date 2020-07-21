@@ -176,6 +176,8 @@ app.controller("chatController", function ($scope, $http, $uibModal, $filter, $t
         var message = {
             id: $scope.currentRoom.messages.length > 0 ? $scope.currentRoom.messages[$scope.currentRoom.messages.length-1].index + 1 : 0,
             type: 'CHAT',
+            state: 0,
+            element : null,
             content: messageContent,
             sender: $scope.me.nickname,
             date: getTimeStamp(),
@@ -194,6 +196,8 @@ app.controller("chatController", function ($scope, $http, $uibModal, $filter, $t
             id: $scope.currentRoom.messages.length > 0 ? $scope.currentRoom.messages[$scope.currentRoom.messages.length-1].index + 1 : 0,
             type: 'CHAT',
             content: '테스트',
+            state: 0,
+            element : null,
             sender: $scope.me.nickname,
             date: getTimeStamp(),
             index: room.messages.length > 0 ? room.messages[room.messages.length-1].index + 1 : 0
@@ -208,6 +212,8 @@ app.controller("chatController", function ($scope, $http, $uibModal, $filter, $t
             id: $scope.currentRoom.messages.length > 0 ? $scope.currentRoom.messages[$scope.currentRoom.messages.length-1].index + 1 : 0,
             type: 'IMAGE',
             content: url,
+            state: 0,
+            element : null,
             sender: $scope.me.nickname,
             date: getTimeStamp(),
             index: $scope.currentRoom.messages.length > 0 ? $scope.currentRoom.messages[$scope.currentRoom.messages.length-1].index + 1 : 0
@@ -445,9 +451,26 @@ app.controller("chatController", function ($scope, $http, $uibModal, $filter, $t
 
     // 메시지의 컨텍스트 메뉴를 보여준다
     $scope.onLoadContextMenu = function(messageId){
-        console.log(messageId);
         $scope.selectedMessage = $filter('filter')($scope.currentRoom.messages, {id: messageId}, true)[0];
-        $scope.config_chat.ui.visibleContextMenu = true;
+    }
+
+    // 메시지 신고
+    $scope.onClickReportMessage = function () {
+        if($scope.selectedMessage){
+            console.log($scope.selectedMessage.content + '신고됨');
+        }
+    }
+
+    // 메시지 숨기기
+    $scope.onClickHideMessage = function () {
+        if($scope.selectedMessage){
+            var elem = $scope.selectedMessage.element;
+            if(elem){
+                var textElement = document.createElement('p');
+                textElement.innerHTML = '메시지가 삭제되었습니다.';
+                elem.parentNode.replaceChild(textElement, elem);
+            }
+        }
     }
 
     function disConnect(){
@@ -515,8 +538,9 @@ app.controller("chatController", function ($scope, $http, $uibModal, $filter, $t
         var textElement = document.createElement('p');
         var messageText = document.createTextNode(message.content);
         textElement.appendChild(messageText);
-        textElement.setAttribute( 'ng-long-click', 'onLoadContextMenu(' + message.id +')');
         textElement.setAttribute( 'ng-right-click', 'onLoadContextMenu(' + message.id +')');
+        textElement.setAttribute('context', 'chat-message-context');
+        message.element = textElement;
         $compile(textElement)($scope);
         tempMessageCover.appendChild(textElement);
     }
@@ -529,8 +553,9 @@ app.controller("chatController", function ($scope, $http, $uibModal, $filter, $t
         var imageElement = document.createElement('img');
         imageElement.src = message.content;
         imageCoverElement.appendChild(imageElement);
-        imageCoverElement.setAttribute( 'ng-long-click', 'onLoadContextMenu(' + message.id +')');
         imageCoverElement.setAttribute( 'ng-right-click', 'onLoadContextMenu(' + message.id +')');
+        imageCoverElement.setAttribute('context', 'chat-message-context');
+        message.element = imageCoverElement;
         $compile(imageCoverElement)($scope);
         tempMessageCover.appendChild(imageCoverElement);
     }
@@ -606,16 +631,6 @@ app.controller("chatController", function ($scope, $http, $uibModal, $filter, $t
     function clearChatText() {
         $("#messageArea").empty();
     }
-
-
-    // 우측마우스 외부 클릭
-    document.addEventListener('click', function(e){
-        var inside = e.target.closest('.chat-context-menu-container');
-        if(!inside){
-            $scope.config_chat.ui.visibleContextMenu = false;
-            $scope.$apply();
-        }
-    });
 });
 
 // 채팅방 정보 배경 이미지 변경
@@ -705,7 +720,7 @@ app.directive('whenScrolled', function () {
 });
 
 
-// 롱 클릭 이벤트
+// 롱 클릭 이벤트 -> 화면 렌더링 문제있어서 일시적으로 주석처리
 app.directive('ngLongClick', function($timeout, $document) {
     return {
         restrict: 'A',
@@ -714,10 +729,6 @@ app.directive('ngLongClick', function($timeout, $document) {
                 $scope.longClicking = true;
                 $timeout(function() {
                     if ($scope.longClicking) {
-                        $scope.longClick = true;
-                        var pos = setContextMenuPosition(evt, contextMenu);
-                        contextMenu.style.left = pos.x + 'px';
-                        contextMenu.style.top = pos.y + 'px';
                         $scope.$apply(function() {
                             $scope.$eval($attrs.ngLongClick);
                         });
@@ -728,20 +739,16 @@ app.directive('ngLongClick', function($timeout, $document) {
     };
 });
 
-// 우측 마우스 클릭
+//우측 마우스 클릭시 컨텍스트 메뉴 세팅
 app.directive('ngRightClick', function($parse) {
-    return {
-        restrict: 'A',
-        link: function($scope, $elm, $attrs) {
-            $elm.bind('contextmenu', function(evt) {
-                var pos = setContextMenuPosition(evt, contextMenu);
-                contextMenu.style.left = pos.x + 'px';
-                contextMenu.style.top = pos.y + 'px';
-                $scope.$apply(function() {
-                    evt.preventDefault();
-                });
+    return function(scope, element, attrs) {
+        var fn = $parse(attrs.ngRightClick);
+        element.bind('contextmenu', function(event) {
+            scope.$apply(function() {
+                event.preventDefault();
+                fn(scope, {$event:event});
             });
-        }
+        });
     };
 });
 
