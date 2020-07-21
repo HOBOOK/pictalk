@@ -31,6 +31,10 @@
                         <a class="nav-link" id="v-pills-trash-tab" data-toggle="pill" href="#v-pills-trash" role="tab" aria-controls="v-pills-trash" aria-selected="false" style="font-size: 20px;">Trash</a>
                     </div>
 
+                <!--테스트-->
+<!--                <div style="position: absolute; margin-top: 20px; width: 230px;" ng-show="state !== 'groups'">-->
+<!--                    <h5 class="file-title-hidden" style="height: 30px;"><a href="#" ng-click="images_button()">Images</a> > <a>{{state}}</a></h5>-->
+<!--                </div>-->
             </div>
 
             <div class="manager-side-container">
@@ -39,16 +43,28 @@
 
                     <!--사진 Images Tab-->
                     <div class="tab-pane fade show active" id="v-pills-images" role="tabpanel" aria-labelledby="v-pills-images-tab">
+                        <!--테스트-->
+                        <div style="width: 270px; height: 40px;">
+                            <h5 class="file-title-hidden" style="height: 30px;" ng-show="images_state !== 'groups'"><a href="#" ng-click="images_button()">Images</a> > <a>{{images_state}}</a></h5>
+                        </div>
 
-                        <div class="row">
-                            <div class="col-xl-3 col-md-6" ng-repeat="room in rooms">
+                        <div class="row" ng-show="images_state === 'groups'">
+                            <div class="cxl-3 cmd-6" ng-repeat="room in rooms">
                                 <div class="group-card-box file-zoom-effect">
                                     <div>
                                         <input type="checkbox" class="checkbox-size">
+                                        <i class="fas fa-bars" style="float: right;" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
+
+                                        <div class="dropdown-menu" style="min-width: 7rem;">
+                                            <a class="dropdown-item" href="#">상세정보</a>
+                                            <a class="dropdown-item" href="#">etc</a>
+                                            <div class="dropdown-divider"></div>
+                                            <a class="dropdown-item" href="#">삭제</a>
+                                        </div>
                                     </div>
 
-                                    <div class="photo-group" style="text-align: center;">
-                                        <img src="/chat/img/image_example.jpg" class="group-profile-preview">
+                                    <div class="photo-group" style="text-align: center;" ng-click="chat_group_content(room)">
+                                        <img ng-src="{{room.imagePath}}" class="group-profile-preview"/>
                                     </div>
 
                                     <div class="photo-group-detail text-center">
@@ -57,6 +73,27 @@
                                     </div>
                                 </div>
                             </div>
+                        </div>
+
+                        <div class="row" ng-show="images_state !== 'groups'">
+                            <div class="cxl-3 cmd-6" ng-repeat="image in images">
+                                <div class="group-card-box file-zoom-effect">
+                                    <div>
+                                        <input type="checkbox" class="checkbox-size">
+                                        <i class="fas fa-bars" style="float: right;"></i>
+                                    </div>
+
+                                    <div class="photo-group" style="text-align: center;">
+                                        <img ng-src="{{image.imagePath}}" class="group-profile-preview"/>
+                                    </div>
+
+                                    <div class="photo-group-detail text-center">
+                                        <h5 class="font-weight-normal mb-1" id="file-title-hidden"> {{image.title}} </h5>
+                                        <p class="text-muted mb-1">사용자아이디<br/>신고횟수<br/>타입/용량</p>
+                                    </div>
+                                </div>
+                            </div>
+
                         </div>
 
                         <foot aria-label="Page navigation example">
@@ -77,22 +114,50 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
                     <!--휴지통 Trash Tab-->
                     <div class="tab-pane fade" id="v-pills-trash" role="tabpanel" aria-labelledby="v-pills-trash-tab">
+                        <!--테스트-->
+                        <div style="width: 270px; height: 40px;">
+                            <h5 class="file-title-hidden" style="height: 30px;" ng-show="trash_state !== 'groups'"><a href="#" ng-click="">Trash</a> > <a>{{images_state}}</a></h5>
+                        </div>
+
+                        <div class="row">
+                            <div class="cxl-3 cmd-6" ng-repeat="trash in rooms_trash">
+                                <div class="group-card-box file-zoom-effect">
+                                    <div>
+                                        <input type="checkbox" class="checkbox-size">
+                                        <i class="fas fa-bars" style="float: right;"></i>
+                                    </div>
+
+                                    <div class="photo-group" style="text-align: center;">
+                                        <img ng-src="/chat/img/image_example.jpg" class="group-profile-preview">
+                                    </div>
+
+                                    <div class="photo-group-detail text-center">
+                                        <h4 class="font-weight-normal mb-1" id="file-title-hidden"> {{trash.title}} </h4>
+                                        <p class="text-muted mb-1">타입/용량</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <foot aria-label="Page navigation example">
+                            <ul class="pagination justify-content-center">
+                                <li class="page-item disabled">
+                                    <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
+                                </li>
+                                <li class="page-item"><a class="page-link" href="#">1</a></li>
+                                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                <li class="page-item">
+                                    <a class="page-link" href="#">Next</a>
+                                </li>
+                            </ul>
+                        </foot>
+
 
                     </div>
+
                 </div>
 
             </div>

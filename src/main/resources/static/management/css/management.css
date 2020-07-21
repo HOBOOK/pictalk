@@ -10,7 +10,8 @@
 
 .manager-header{
     margin-top: 15px;
-    padding-right: 15px;
+    padding-right: 85px;
+    margin-left: 70px;
     width: 100%;
     position: absolute;
     z-index: 1;
@@ -27,8 +28,7 @@
 }
 
 .manager-content{
-    /*width: 100%;*/
-    min-width: 1000px;
+    /*min-width: 1000px;*/
  }
 
 /*row 꽉차면 밀려남*/
@@ -189,7 +189,7 @@
     position: relative;
     display: inline-block;
     height: calc(100%);
-    /*margin-top:30px;*/
+    margin-top:40px;
     margin-left: 10px;
     margin-right: 10px;
     width: 250px;
@@ -241,21 +241,21 @@
 
 /*채팅방 그룹 정렬*/
 @media (min-width: 800px){
-    .col-md-6 {
+    .cmd-6 {
         flex: 0 0 50%;
         max-width: 50%;
     }
 }
 
 @media (min-width: 1200px){
-    .col-xl-3 {
+    .cxl-3 {
         -ms-flex: 0 0 20%;
         flex: 0 0 20%;
         max-width: 20%;
     }
 }
 
-.col-md-6, .col-xl-3{
+.cmd-6, .cxl-3{
     position: relative;
     width: 50%;
     padding-right: 15px;
@@ -264,12 +264,15 @@
 
 
 .file-zoom-effect:hover {
-    -ms-transform: scale(1.05);
-    -webkit-transform: scale(1.05);
-    transform: scale(1.05);
+    /*-ms-transform: scale(1.05);*/
+    /*-webkit-transform: scale(1.05);*/
+    /*transform: scale(1.05);*/
+    -webkit-box-shadow: 0px 0px 14px 3px rgba(0,0,0,0.75);
+    -moz-box-shadow: 0px 0px 14px 3px rgba(0,0,0,0.75);
+    box-shadow: 0px 0px 14px 3px rgba(0,0,0,0.75);
 }
 
-#file-title-hidden{
+#file-title-hidden, .file-title-hidden{
     text-overflow:ellipsis;
     white-space:nowrap;
     overflow:hidden;
