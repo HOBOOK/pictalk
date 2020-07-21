@@ -67,3 +67,20 @@
 .active{
     background-color: #eeeeee;
 }
+.noneMessage{
+    width: 100%;
+    text-align: center;
+    display: table;
+    height: 700px;
+
+}
+.noneMessage #message,i{
+    display: table-cell;
+    vertical-align: middle;
+    color: #bdbdbd;
+    font-size: 1.3em;
+}
+.noneMessage i{
+    display: block;
+    font-size: 3em;
+}

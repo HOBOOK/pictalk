@@ -69,12 +69,28 @@
             position: absolute;
             margin-left:205px;
         }
+        /*.container ul{*/
+        /*    display: inline-block;*/
+        /*}*/
+        /*.container ul li {display: inline;}*/
+
+        /*.container ul li a {*/
+        /*    color: black;*/
+        /*    float: left;*/
+        /*    padding: 8px 16px;*/
+        /*    text-decoration: none;*/
+        /*}*/
+        /*.container ul li a:hover{*/
+        /*    background-color: #d6d6d6;*/
+        /*}*/
+
 
     </style>
+<!--    <link data-require="bootstrap-css@2.3.2" data-semver="2.3.2" rel="stylesheet" href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" />-->
 
 
         <ul class="right_nav">
-            <li  ng-repeat="follower in person.follows" class="right_nav_li">
+            <li  ng-repeat="follower in follows" class="right_nav_li">
                 <div class="card">
                     <img class="card-img-top img-circle" ng-src='profile/{{follower.avatar}}' alt="Card image cap">
                     <div class="card-body">
@@ -91,13 +107,20 @@
                 </div>
 
         </ul>
-        <div class="container">
+        <div class="container" ng-show="follows.length!==0">
+<!--            <ul uib-pagination total-items="bigTotalItems" ng-model="bigCurrentPage" max-size="maxSize" class="pagination-sm" boundary-links="true" num-pages="numPages"></ul>-->
+
             <ul class="pagination pagination-sm">
                 <li class="page-item"><a class="page-link" href="#">이전</a></li>
                 <li class="page-item"><a class="page-link" href="#">1</a></li>
                 <li class="page-item"><a class="page-link" href="#">2</a></li>
-                <li class="page-item"><a class="page-link" href="#">다음</a></li>
+                <li class="p        </div></div>age-item"><a class="page-link" href="#">다음</a></li>
             </ul>
         </div>
+    <div ng-show="follows.length===0" class="noneMessage">
+
+        <span id="message"><i class="fas fa-users"></i>팔로우한 친구가 없습니다.</span>
+
+    </div>
     </section>
 

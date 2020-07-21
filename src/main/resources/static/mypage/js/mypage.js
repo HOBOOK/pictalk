@@ -7,6 +7,13 @@ app.controller('mypageCtrl',function ($scope, $location,UserService) {
 
     $scope.selected = $location.absUrl().split("http://localhost:8080/")[1];
 
+    $scope.currentPage = 1
+    ,$scope.numPerPage = 1
+    ,$scope.maxSize = 5;
+
+    $scope.follows = [];
+    // $scope.follows = $scope.person.follows;
+
     // 팔로워 삭제
     $scope.followerRemove = function (follow) {
         var idx = $scope.person.follows.findIndex(function (item) {
@@ -60,8 +67,31 @@ app.controller('mypageCtrl',function ($scope, $location,UserService) {
         }
     };
 
+    // $scope.numPages = function (objects) {
+    //     return Math.ceil(objects.length / $scope.numPerPage);
+    // };
+    //
+    // $scope.$watch('currentPage + numPerPage', function() {
+    //     var begin = (($scope.currentPage - 1) * $scope.numPerPage)
+    //         , end = begin + $scope.numPerPage;
+    //
+    //     $scope.follows = $scope.person.follows.slice(begin, end);
+    // });
 
+    $scope.totalItems = 64;
+    $scope.currentPage = 4;
 
+    $scope.setPage = function (pageNo) {
+        $scope.currentPage = pageNo;
+    };
+
+    $scope.pageChanged = function() {
+        $log.log('Page changed to: ' + $scope.currentPage);
+    };
+
+    $scope.maxSize = 5;
+    $scope.bigTotalItems = 175;
+    $scope.bigCurrentPage = 1;
 
 });
 
