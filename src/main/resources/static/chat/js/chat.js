@@ -10,9 +10,9 @@ var tempMessageCover = document.createElement('div');
 var connectingElement = document.querySelector('.connecting');
 var chatSideMenu = document.querySelector('#chat-side-tab');
 var layout = document.querySelector('.layout-main');
+var contextMenu = document.querySelector('.chat-context-menu-container');
 
-app.controller("chatController", function ($scope, $http, $uibModal, $filter, $timeout, UserService) {
-    console.log(UserService.user);
+app.controller("chatController", function ($scope, $http, $uibModal, $filter, $timeout, $compile, UserService) {
     $scope.me = UserService.user;
 
     $timeout(function () {
@@ -109,7 +109,8 @@ app.controller("chatController", function ($scope, $http, $uibModal, $filter, $t
                     {limit: 18}, //채팅방 정보(참여자 수)
                     {limit: 18}, //이미지 서랍
                     {limit: 18} //채팅방 사진 저장소
-                ]
+                ],
+                visibleContextMenu: false
             }
         }
     }
@@ -173,7 +174,10 @@ app.controller("chatController", function ($scope, $http, $uibModal, $filter, $t
             return;
         }
         var message = {
+            id: $scope.currentRoom.messages.length > 0 ? $scope.currentRoom.messages[$scope.currentRoom.messages.length-1].index + 1 : 0,
             type: 'CHAT',
+            state: 0,
+            element : null,
             content: messageContent,
             sender: $scope.me.nickname,
             date: getTimeStamp(),
@@ -189,8 +193,11 @@ app.controller("chatController", function ($scope, $http, $uibModal, $filter, $t
     $scope.sendTestMessage = function()  {
         var room = $scope.me.myRooms[0];
         var message = {
+            id: $scope.currentRoom.messages.length > 0 ? $scope.currentRoom.messages[$scope.currentRoom.messages.length-1].index + 1 : 0,
             type: 'CHAT',
             content: '테스트',
+            state: 0,
+            element : null,
             sender: $scope.me.nickname,
             date: getTimeStamp(),
             index: room.messages.length > 0 ? room.messages[room.messages.length-1].index + 1 : 0
@@ -202,8 +209,11 @@ app.controller("chatController", function ($scope, $http, $uibModal, $filter, $t
     // 이미지 메시지 전송
     $scope.sendImageMessage = function($event, url){
         var message = {
+            id: $scope.currentRoom.messages.length > 0 ? $scope.currentRoom.messages[$scope.currentRoom.messages.length-1].index + 1 : 0,
             type: 'IMAGE',
             content: url,
+            state: 0,
+            element : null,
             sender: $scope.me.nickname,
             date: getTimeStamp(),
             index: $scope.currentRoom.messages.length > 0 ? $scope.currentRoom.messages[$scope.currentRoom.messages.length-1].index + 1 : 0
@@ -439,6 +449,30 @@ app.controller("chatController", function ($scope, $http, $uibModal, $filter, $t
         , message.date.length-8));
     }
 
+    // 메시지의 컨텍스트 메뉴를 보여준다
+    $scope.onLoadContextMenu = function(messageId){
+        $scope.selectedMessage = $filter('filter')($scope.currentRoom.messages, {id: messageId}, true)[0];
+    }
+
+    // 메시지 신고
+    $scope.onClickReportMessage = function () {
+        if($scope.selectedMessage){
+            console.log($scope.selectedMessage.content + '신고됨');
+        }
+    }
+
+    // 메시지 숨기기
+    $scope.onClickHideMessage = function () {
+        if($scope.selectedMessage){
+            var elem = $scope.selectedMessage.element;
+            if(elem){
+                var textElement = document.createElement('p');
+                textElement.innerHTML = '메시지가 삭제되었습니다.';
+                elem.parentNode.replaceChild(textElement, elem);
+            }
+        }
+    }
+
     function disConnect(){
         currentRoom = null;
         chatPage.classList.add('hidden');
@@ -450,8 +484,9 @@ app.controller("chatController", function ($scope, $http, $uibModal, $filter, $t
         messageInput.value = '';
         var isMe = message.sender === $scope.me.nickname;
 
-        if($scope.isEqualLastMessageSender(message)){
-            renderInMessage(message);
+        var isEqualSender = $scope.isEqualLastMessageSender(message);
+        if(isEqualSender){
+            renderInMessage(message, isEqualSender);
             messageArea.scrollTop = messageArea.scrollHeight;
             return;
         }
@@ -479,7 +514,7 @@ app.controller("chatController", function ($scope, $http, $uibModal, $filter, $t
         var coverElement = document.createElement('div');
         coverElement.classList.add('chat-equal-cover');
         tempMessageCover = coverElement;
-        renderInMessage(message);
+        renderInMessage(message, isEqualSender);
 
         var dateElement = document.createElement('h6');
         var dateText = document.createTextNode(parseDateString(message.date.substring(11)));
@@ -500,10 +535,16 @@ app.controller("chatController", function ($scope, $http, $uibModal, $filter, $t
     }
 
     // 메시지 커버 내부에 말풍선 그리는 함수
-    function renderInMessage(message){
+    function renderInMessage(message, isEqualSender){
         var textElement = document.createElement('p');
         var messageText = document.createTextNode(message.content);
+        if(!isEqualSender)
+            textElement.classList.add('start');
         textElement.appendChild(messageText);
+        textElement.setAttribute( 'ng-right-click', 'onLoadContextMenu(' + message.id +')');
+        textElement.setAttribute('context', 'chat-message-context');
+        message.element = textElement;
+        $compile(textElement)($scope);
         tempMessageCover.appendChild(textElement);
     }
 
@@ -515,12 +556,15 @@ app.controller("chatController", function ($scope, $http, $uibModal, $filter, $t
         var imageElement = document.createElement('img');
         imageElement.src = message.content;
         imageCoverElement.appendChild(imageElement);
+        imageCoverElement.setAttribute( 'ng-right-click', 'onLoadContextMenu(' + message.id +')');
+        imageCoverElement.setAttribute('context', 'chat-message-context');
+        message.element = imageCoverElement;
+        $compile(imageCoverElement)($scope);
         tempMessageCover.appendChild(imageCoverElement);
     }
 
     // 이미지 메시지를 그리는 함수
     function renderImageMessage(message) {
-
         var isMe = message.sender === $scope.me.nickname;
 
         if($scope.isEqualLastMessageSender(message)){
@@ -677,6 +721,40 @@ app.directive('whenScrolled', function () {
     }
 });
 
+
+// 롱 클릭 이벤트 -> 화면 렌더링 문제있어서 일시적으로 주석처리
+app.directive('ngLongClick', function($timeout, $document) {
+    return {
+        restrict: 'A',
+        link: function($scope, $elm, $attrs) {
+            $elm.bind('mousedown', function(evt) {
+                $scope.longClicking = true;
+                $timeout(function() {
+                    if ($scope.longClicking) {
+                        $scope.$apply(function() {
+                            $scope.$eval($attrs.ngLongClick);
+                        });
+                    }
+                }, 600);
+            });
+        }
+    };
+});
+
+//우측 마우스 클릭시 컨텍스트 메뉴 세팅
+app.directive('ngRightClick', function($parse) {
+    return function(scope, element, attrs) {
+        var fn = $parse(attrs.ngRightClick);
+        element.bind('contextmenu', function(event) {
+            scope.$apply(function() {
+                event.preventDefault();
+                fn(scope, {$event:event});
+            });
+        });
+    };
+});
+
+
 var colors = [
     '#2196F3', '#32c787', '#00BCD4', '#ff5652',
     '#ffc107', '#ff85af', '#FF9800', '#39bbb0'
@@ -710,7 +788,7 @@ function leadingZeros(n, digits) {
 
 /* 날짜 변환 함수 ex) 오전 12:00 */
 function parseDateString(a) {
-    var time = a; // 'hh:mm' 형태로 값이 들어온다
+    var time = a;
     var getTime = time.substring(0, 2);
     var intTime = parseInt(getTime);
     if (intTime < 12 ) {
