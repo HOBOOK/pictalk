@@ -5,16 +5,16 @@
     display: flex;
 }
 
-.clearfix:after {
+.content-chat-container .clearfix:after {
     display: block;
     content: "";
     clear: both;
 }
 
-.hidden {
+.content-chat-container .hidden {
     display: none;
 }
-.circle-count{
+.content-chat-container .circle-count{
     border-radius: 50%;
     background-color: darkseagreen;
     width: 16px;
@@ -27,22 +27,18 @@
 }
 
 
-input {
+.content-chat-container input {
     padding-left: 10px;
     outline: none;
 }
 
-h1, h2, h3, h4, h5, h6 {
+.content-chat-container h1,.content-chat-container h2,.content-chat-container h3,.content-chat-container h4,.content-chat-container h5,.content-chat-container h6 {
     margin-top:3px;
     margin-bottom:3px;
 }
 
-h1 {
+.content-chat-container h1 {
     font-size: 1.7em;
-}
-
-a {
-    color: #128ff2;
 }
 
 button {
@@ -187,7 +183,7 @@ nav{
 }
 .chat-tag{
     display: inline-block;
-    background-color: rgba(65,105,225,0.55);
+    background-color: rgba(65,105,225,0.6);
     color:#fff;
     margin-right:6px;
     padding: 2px;

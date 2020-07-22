@@ -78,15 +78,27 @@ div.nav-group li{
     margin-bottom: 10px;
 }
 
-div.nav-group a{
+div.nav-group .nav-button{
     text-decoration: none;
-    color: #808080;
-    font-size:14px;
     display: inline-block;
-    margin:0 auto;
     width: 48px;
     height: 48px;
-    line-height: 48px;
+    border-radius: 50%;
+    transition: background-color .3s ease-in-out;
+    -webkit-transition: background-color .3s ease-in-out;
+    position: relative;
+}
+div.nav-group .nav-button:hover{
+    background-color: rgba(65,105,225,0.1);
+}
+div.nav-group .selected{
+    background-color: rgba(65,105,225,0.1);
+}
+
+div.nav-group .nav-button i{
+    margin: 15px 0 0 0 !important;
+    color: lightseagreen !important;
+    font-size:18px !important;
 }
 
 div.loading {
@@ -117,9 +129,9 @@ div.content{
  }
 
 [tooltip-top]:after {
-    -webkit-transition: top .3s ease-in-out, opacity .3s ease-in-out;
-    -moz-transition: top .3s ease-in-out, opacity .3s ease-in-out;
-    transition: top .3s ease-in-out, opacity .3s ease-in-out;
+    -webkit-transition: top .5s ease-in-out, opacity .3s ease-in-out;
+    -moz-transition: top .5s ease-in-out, opacity .3s ease-in-out;
+    transition: top .5s ease-in-out, opacity .3s ease-in-out;
 
     background-color: royalblue;
 
@@ -141,6 +153,7 @@ div.content{
     max-width: 300px !important;
     word-wrap: break-word !important;
     white-space:nowrap;
+    margin:0 auto !important;
 
     z-index: 9999;
 
@@ -152,7 +165,7 @@ div.content{
 
 [tooltip-top]:hover:after {
     top: -120%;
-    left: -50%;
+    left: 0;
     opacity: .7;
 }
 
@@ -161,9 +174,9 @@ div.content{
 }
 
 [tooltip-bottom]:after {
-    -webkit-transition: top .3s ease-in-out, opacity .3s ease-in-out;
-    -moz-transition: top .3s ease-in-out, opacity .3s ease-in-out;
-    transition: top .3s ease-in-out, opacity .3s ease-in-out;
+    -webkit-transition: top .5s ease-in-out, opacity .3s ease-in-out;
+    -moz-transition: top .5s ease-in-out, opacity .3s ease-in-out;
+    transition: top .5s ease-in-out, opacity .3s ease-in-out;
 
     background-color: royalblue;
 
@@ -184,6 +197,7 @@ div.content{
     min-width: 50px !important;;
     max-width: 300px !important;
     word-wrap: break-word !important;
+    margin:0 auto !important;
     white-space:nowrap;
 
     z-index: 9999;
@@ -196,6 +210,52 @@ div.content{
 
 [tooltip-bottom]:hover:after {
     top: 120%;
-    left: -50%;
+    left: 0;
+    opacity: .7;
+}
+
+
+[tooltip-right]:hover {
+    position: relative;
+}
+
+[tooltip-right]:after {
+    -webkit-transition: left .5s ease-in-out, opacity .3s ease-in-out;
+    -moz-transition: left .5s ease-in-out, opacity .3s ease-in-out;
+    transition: left .5s ease-in-out, opacity .3s ease-in-out;
+
+    background-color: royalblue;
+
+    -webkit-box-shadow: 0px 0px 3px 1px rgba(50, 50, 50, 0.1);
+    -moz-box-shadow: 0px 0px 3px 1px rgba(50, 50, 50, 0.1);
+    box-shadow: 0px 0px 3px 1px rgba(50, 50, 50, 0.1);
+
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+
+    color: #FFFFFF;
+    font-size: 12px;
+    padding: 7px 12px;
+    position: absolute;
+    line-height: initial !important;
+    width: auto !important;
+    min-width: 50px !important;;
+    max-width: 300px !important;
+    word-wrap: break-word !important;
+    margin:0 auto !important;
+    white-space:nowrap;
+
+    z-index: 9999;
+
+    opacity: 0;
+    top: 9999px;
+    left: 90%;
+    content: attr(tooltip-right);
+}
+
+[tooltip-right]:hover:after {
+    top: 0;
+    left: 120%;
     opacity: .7;
 }

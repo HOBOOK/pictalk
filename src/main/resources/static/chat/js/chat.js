@@ -336,6 +336,11 @@ app.controller("chatController", function ($scope, $http, $uibModal, $filter, $t
         $scope.config_chat.ui.mainBarIndex = index;
     }
 
+    // 좌측 메뉴바 현재 탭인지 확인
+    $scope.isSelectedMainBar = function(index){
+        return $scope.config_chat.ui.mainBarIndex === index;
+    }
+
     // 우측 메뉴바 선택 이벤트
     $scope.onClickOpenSidebar = function(index){
         $scope.config_chat.ui.sidebarIndex = index;
@@ -343,6 +348,11 @@ app.controller("chatController", function ($scope, $http, $uibModal, $filter, $t
         if(display === 'none' || display ===''){
             chatSideMenu.style.display = 'inline-block';
         }
+    }
+
+    // 우측 메뉴바 현재 탭인지 확인
+    $scope.isSelectedSidebar = function(index){
+        return $scope.config_chat.ui.sidebarIndex === index;
     }
 
     // 채팅방 생성 버튼

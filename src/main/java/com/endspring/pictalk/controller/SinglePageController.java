@@ -7,6 +7,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
 public class SinglePageController {
+    @GetMapping("/")
+    public String test(){
+        return "app/chat";
+    }
     @GetMapping("/chat")
     public String chat(){
         return "app/chat";

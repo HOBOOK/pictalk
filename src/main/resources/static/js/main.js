@@ -76,8 +76,6 @@ var tempUserModel = {
 
         }]
 }
-
-
 app.factory('UserService', function() {
     return {
         user : tempUserModel
