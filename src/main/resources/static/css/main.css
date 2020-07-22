@@ -1,5 +1,5 @@
 /** 폰트 영역 **/
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300&display=swap'); /* Noto Sans KR */
+@import url('https://fonts.googleapis.com/css2?family=Lato&family=Nanum+Gothic+Coding&display=swap'); /* Lato & Nanum Gothic Coding*/
 
 /********** 공통 영역 **********/
 html,body {
@@ -20,7 +20,7 @@ div.layout-main{
     display: -webkit-flex;
     height: 100%;
     background-color: rgb(231, 236, 241);
-    font-family: 'Noto Sans KR', sans-serif !important;
+    font-family: 'Lato', 'Nanum Gothic Coding', sans-serif !important;
 }
 
 /*********** 헤더 영역 ***********/

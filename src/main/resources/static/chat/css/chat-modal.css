@@ -1,6 +1,5 @@
 .modal{
     background-color: rgba(0,0,0,0.4);
-
 }
 
 .modal-dialog{
@@ -9,6 +8,7 @@
     text-align: center;
 }
 .modal-content{
+    font-family: 'Lato', 'Nanum Gothic Coding', sans-serif !important;
     border: none;
     display: inline-block;
     margin-top: 30px;
