@@ -651,6 +651,9 @@ nav{
 
 #chat-page ul::-webkit-scrollbar {
     display:none;
+    position: absolute;
+    width: 3px;
+    background-color: transparent;
 }
 #chat-page ul:hover::-webkit-scrollbar{
     display: inline-block;
@@ -661,12 +664,6 @@ nav{
     background-color: transparent;
 }
 
-#chat-page ul::-webkit-scrollbar
-{
-    position: absolute;
-    width: 3px;
-    background-color: transparent;
-}
 #chat-page ul::-webkit-scrollbar-thumb
 {
     border-radius: 3px;
