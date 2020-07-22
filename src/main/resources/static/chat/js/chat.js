@@ -161,10 +161,11 @@ app.controller("chatController", function ($scope, $http, $uibModal, $filter, $t
                     }
                 }
                 $scope.setChatRoomMessageIndex($scope.currentRoom);
+                $scope.onClickOpenMainBar(1);
             }
             if($event)
                 $event.preventDefault();
-        }, 2000);
+        }, 1000);
     };
 
     // 메시지 전송
@@ -396,7 +397,7 @@ app.controller("chatController", function ($scope, $http, $uibModal, $filter, $t
                     return category.indexOf(keyword)!==-1
                 })[0]);
             });
-        }, 2000);
+        }, 1000);
     }
     $scope.onKeyDownSearch = function($event,keyword){
         if($event.which === 13){

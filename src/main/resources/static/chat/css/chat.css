@@ -218,6 +218,7 @@ nav{
     box-shadow: 0 0 38px -12px rgba(0,0,0,.15);
 }
 
+
 .chat-sidebar-content-container::-webkit-scrollbar {
     display:none;
 }
@@ -273,7 +274,7 @@ nav{
     display: inline-block;
     margin-left: auto;
     margin-right: auto;
-    padding:15px 10px 0px 10px;
+    padding:12px 10px 12px 10px;
     width: 100%;
     background-color: white;
     border-top:1px solid rgba(0,0,0,0.07);
@@ -327,7 +328,6 @@ nav{
     overflow:hidden;
     text-overflow:ellipsis;
     white-space:nowrap;
-    font-size: 1.2em;
 }
 
 .chat-room-info p{
