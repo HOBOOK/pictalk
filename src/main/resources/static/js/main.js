@@ -82,3 +82,7 @@ app.factory('UserService', function() {
 
     };
 });
+
+app.controller('navController', function ($scope, UserService) {
+    $scope.me = UserService.user;
+});

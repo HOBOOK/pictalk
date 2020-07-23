@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <th:nav th:fragment="nav">
-    <nav>
+    <nav ng-controller="navController">
         <div class="nav-group">
             <ul>
                 <span id="logo-main">
@@ -11,7 +11,15 @@
                 <li><a tooltip-right="마이페이지" class="nav-button" th:classappend="${#httpServletRequest.requestURI.contains('mypage')} ? 'selected' : ''" th:href="@{/mypage}"><i class="fas fa-user-edit"></i></a></li>
                 <li style="flex:1;"></li>
                 <li><a tooltip-right="설정" class="nav-button" th:classappend="${#httpServletRequest.requestURI.contains('config')} ? 'selected' : ''" th:href="@{/config}"><i class="fas fa-cog"></i></a></li>
-                <li><a tooltip-right="로그인" class="nav-button" th:classappend="${#httpServletRequest.requestURI.contains('signin')} ? 'selected' : ''" th:href="@{/signin}"><i class="fas fa-power-off"></i></a></li>
+                <li>
+                    <a ng-show="!me" tooltip-right="로그인" class="nav-button" th:classappend="${#httpServletRequest.requestURI.contains('signin')} ? 'selected' : ''" th:href="@{/signin}">
+                        <i  class="fas fa-power-off"></i>
+                    </a>
+                    <a ng-show="me" class="nav-button" th:href="@{/signin}">
+                        <img id="nav-user-avatar" ng-show="me" ng-src="{{me.avatar}}" alt="user_avatar"/>
+                    </a>
+                </li>
+                <li></li>
             </ul>
         </div>
     </nav>
