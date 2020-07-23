@@ -1,7 +1,8 @@
 .wrap{
     width: 100%;
     min-height: 800px;
-    position: relative;
+    /*position: relative;*/
+    display: flex;
 }
 .left_wrap{
     width: 20%;
@@ -14,14 +15,15 @@
 }
 
 .right_wrap{
-    /*width: 100%;*/
-    top: 0px;
-    min-width: 800px;
-    position: absolute;
+    width: 100%;
+    /*top: 0px;*/
+    /*min-width: 800px;*/
+    /*position: absolute;*/
     margin-top: 30px;
     min-height: calc(100% - 30px);
     padding-left: 15px;
-    margin-left: 250px;
+    padding-right: 15px;
+    /*margin-left: 250px;*/
 }
 .left_nav li{
     width: 100%;
