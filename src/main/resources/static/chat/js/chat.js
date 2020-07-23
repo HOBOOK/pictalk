@@ -12,8 +12,11 @@ var chatSideMenu = document.querySelector('#chat-side-tab');
 var layout = document.querySelector('.layout-main');
 var contextMenu = document.querySelector('.chat-context-menu-container');
 
-app.controller("chatController", function ($scope, $http, $uibModal, $filter, $timeout, $compile, UserService) {
+app.controller("chatController", function ($scope, $http, $uibModal, $filter, $timeout, $compile, $localStorage, $sessionStorage, UserService) {
+    // 사용자 모델
     $scope.me = UserService.user;
+    // 현재 채팅방의 사용자 모델
+    $scope.currentMe = angular.copy($scope.me);
 
     $timeout(function () {
         $scope.rooms = [{
@@ -134,35 +137,42 @@ app.controller("chatController", function ($scope, $http, $uibModal, $filter, $t
 
     // 이미 채팅방에 접속중인지
     $scope.isAlreadyJoined = function(room){
-        return room.participants.indexOf($scope.me)!==-1;
+        // return room.participants.indexOf($scope.me)!==-1;
+        return !!$filter('filter')(room.participants, {id: $scope.me.id}, true)[0];
+    }
+    $scope.tryConnect = function($event, room){
+        if($scope.isAlreadyJoined(room)){
+            $scope.connect($event, room);
+        }else{
+            $scope.openModalJoinNewChatRoom($event, room);
+        }
     }
 
     // 채팅방 접속
     $scope.connect = function ($event, room) {
         connectingElement.classList.remove('hidden');
         $timeout(function () {
-            if($scope.me) {
-                disConnect();
-                currentRoom = room;
-                chatPage.classList.remove('hidden');
-                connectingElement.classList.add('hidden');
-                clearChatText();
-
-                $scope.currentRoom = room;
-                $scope.initChatRoomData();
-                if($scope.isAlreadyJoined(room)){
-                    $scope.getChatRoomMessages(room);
-                }else{
-                    $scope.currentRoom.participants.push($scope.me);
-                    if($scope.currentRoom.participants.length===1)
-                        $scope.assignChatRoomManager();
-                    if($scope.me.myRooms.indexOf($scope.currentRoom) === -1){
-                        $scope.me.myRooms.push($scope.currentRoom);
-                    }
+            currentRoom = room;
+            chatPage.classList.remove('hidden');
+            connectingElement.classList.add('hidden');
+            clearChatText();
+            $scope.currentRoom = room;
+            $scope.initChatRoomData();
+            if($scope.isAlreadyJoined(room)){
+                $scope.currentMe = $filter('filter')($scope.currentRoom.participants, {id: $scope.me.id}, true)[0];
+                $scope.getChatRoomMessages(room);
+            }else{
+                /* 채팅방 프로필 설정창 오픈*/
+                $scope.currentRoom.participants.push(angular.copy($scope.currentMe));
+                if($scope.currentRoom.participants.length===1)
+                    $scope.assignChatRoomManager();
+                if($scope.me.myRooms.indexOf($scope.currentRoom) === -1){
+                    $scope.me.myRooms.push($scope.currentRoom);
                 }
-                $scope.setChatRoomMessageIndex($scope.currentRoom);
-                $scope.onClickOpenMainBar(1);
             }
+            $scope.setChatRoomMessageIndex($scope.currentRoom);
+            $scope.onClickOpenMainBar(1);
+
             if($event)
                 $event.preventDefault();
         }, 1000);
@@ -180,7 +190,7 @@ app.controller("chatController", function ($scope, $http, $uibModal, $filter, $t
             state: 0,
             element : null,
             content: messageContent,
-            sender: $scope.me.nickname,
+            sender: $scope.currentMe.nickname,
             date: getTimeStamp(),
             index: $scope.currentRoom.messages.length > 0 ? $scope.currentRoom.messages[$scope.currentRoom.messages.length-1].index + 1 : 0
         };
@@ -190,23 +200,6 @@ app.controller("chatController", function ($scope, $http, $uibModal, $filter, $t
         $event.preventDefault();
     };
 
-    // 메시지 전송 (읽지 않은 메시지 카운트 테스트)
-    $scope.sendTestMessage = function()  {
-        var room = $scope.me.myRooms[0];
-        var message = {
-            id: $scope.currentRoom.messages.length > 0 ? $scope.currentRoom.messages[$scope.currentRoom.messages.length-1].index + 1 : 0,
-            type: 'CHAT',
-            content: '테스트',
-            state: 0,
-            element : null,
-            sender: $scope.me.nickname,
-            date: getTimeStamp(),
-            index: room.messages.length > 0 ? room.messages[room.messages.length-1].index + 1 : 0
-        };
-        room.messages.push(message);
-        $scope.$apply();
-    };
-    
     // 이미지 메시지 전송
     $scope.sendImageMessage = function($event, url){
         var message = {
@@ -215,7 +208,7 @@ app.controller("chatController", function ($scope, $http, $uibModal, $filter, $t
             content: url,
             state: 0,
             element : null,
-            sender: $scope.me.nickname,
+            sender: $scope.currentMe.nickname,
             date: getTimeStamp(),
             index: $scope.currentRoom.messages.length > 0 ? $scope.currentRoom.messages[$scope.currentRoom.messages.length-1].index + 1 : 0
         };
@@ -353,6 +346,30 @@ app.controller("chatController", function ($scope, $http, $uibModal, $filter, $t
     // 우측 메뉴바 현재 탭인지 확인
     $scope.isSelectedSidebar = function(index){
         return $scope.config_chat.ui.sidebarIndex === index;
+    }
+
+    // 채팅방 프로필 설정 모달창 오픈
+    $scope.openModalJoinNewChatRoom = function($event, room){
+        layout.style.filter = "blur(1px)";
+        var modalInstance = $uibModal.open({
+            templateUrl: 'modal/modal_chat_profile',
+            controller: 'chatProfileModalController',
+            resolve: {
+                nickname: function () {
+                    return $scope.me.nickname;
+                }
+            }
+        });
+        modalInstance.result.then(function (nickname) {
+            console.log("modal click ok : " + nickname);
+            $scope.currentMe = angular.copy($scope.me);
+            $scope.currentMe.nickname = nickname;
+            layout.style.filter = "";
+            $scope.connect($event, room);
+        }, function () {
+            layout.style.filter = "";
+        });
+
     }
 
     // 채팅방 생성 버튼
@@ -493,7 +510,7 @@ app.controller("chatController", function ($scope, $http, $uibModal, $filter, $t
     // 텍스트 메시지를 그리는 함수
     function renderMessage(message) {
         messageInput.value = '';
-        var isMe = message.sender === $scope.me.nickname;
+        var isMe = message.sender === $scope.currentMe.nickname;
 
         var isEqualSender = $scope.isEqualLastMessageSender(message);
         if(isEqualSender){
@@ -576,7 +593,7 @@ app.controller("chatController", function ($scope, $http, $uibModal, $filter, $t
 
     // 이미지 메시지를 그리는 함수
     function renderImageMessage(message) {
-        var isMe = message.sender === $scope.me.nickname;
+        var isMe = message.sender === $scope.currentMe.nickname;
 
         if($scope.isEqualLastMessageSender(message)){
             renderInImageMessage(message);

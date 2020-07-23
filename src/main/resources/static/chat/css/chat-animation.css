@@ -92,3 +92,10 @@
     -webkit-transform: translateX(0);
     opacity: 1;
 }
+
+
+@keyframes scaleUp {
+    0%   {transform: scale(0.0)}
+    30%   {transform: scale(0.0)}
+    100% {transform: scale(1)}
+}

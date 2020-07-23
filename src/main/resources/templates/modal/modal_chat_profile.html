@@ -1,0 +1,19 @@
+<div class="chat-modal-header">
+    <h3><i class="far fa-comment-dots"></i> 대화방 프로필 설정</h3>
+    <span class="chat-modal-button" ng-click="cancel()"><i class="fas fa-times"></i></span>
+</div>
+<div class="chat-modal-content-container">
+    <ul class="chat-add-info">
+        <li>
+            <h5><i class="fas fa-signature"></i> 닉네임</h5>
+            <div class="chat-add-input-container">
+                <input type="text" id="input-title" ng-model="nickname" maxlength="16"/>
+                <span class="glyphicon glyphicon-remove" ng-show="nickname.length > 0" ng-click="clearNickname()"></span>
+            </div>
+
+        </li>
+    </ul>
+</div>
+<div class="chat-modal-footer">
+    <button id="chat-add-button" class="primary" type="submit" ng-click="ok()">입장</button>
+</div>

@@ -21,6 +21,11 @@ public class SinglePageController {
         return "modal/modal_chat";
     }
 
+    @RequestMapping(value = "modal/modal_chat_profile", method = RequestMethod.GET)
+    public String chatModalProfile(){
+        return "modal/modal_chat_profile";
+    }
+
     @GetMapping("/mypage")
     public String mypage(){
         return "personal";
