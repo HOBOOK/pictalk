@@ -45,29 +45,29 @@ app.controller("dashboardCtrl", function ($scope) {
                 {
                     data: [10,15,21,40],
                     label: "접속",
-                    backgroundColor: 'rgba(255, 99, 132, 0.2)',
-                    borderColor: 'rgba(255,99,132,1)',
+                    backgroundColor: 'rgb(255, 99, 132)',
+                    borderColor: 'rgb(255,99,132,1)',
                     borderWidth: 1
                 },
                 {
                     data: [27,13,34,37],
                     label: "계정",
-                    backgroundColor: 'rgba(54, 162, 235, 0.2)',
-                    borderColor: 'rgba(54, 162, 235, 1)',
+                    backgroundColor: 'rgb(54, 162, 235)',
+                    borderColor: 'rgb(54, 162, 235, 1)',
                     borderWidth: 1
                 },
                 {
                     data: [19,25,44,60],
                     label: "채팅방",
-                    backgroundColor: 'rgba(255, 206, 86, 0.2)',
-                    borderColor: 'rgba(255, 206, 86, 1)',
+                    backgroundColor: 'rgb(255, 206, 86)',
+                    borderColor: 'rgb(255, 206, 86, 1)',
                     borderWidth: 1
                 },
                 {
                     data: [19,25,44,60],
                     label: "사진",
-                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                    borderColor: 'rgba(75, 192, 192, 1)',
+                    backgroundColor: 'rgb(75, 192, 192)',
+                    borderColor: 'rgb(75, 192, 192, 1)',
                     borderWidth: 1
                 }
             ]
@@ -125,12 +125,12 @@ app.controller("dashboardCtrl", function ($scope) {
                 // 퍼센트로 바꾸기
                 data: [50, 50],
                 backgroundColor: [
-                    'rgba(75, 192, 192, 0.2)',
-                    'rgba(153, 102, 255, 0.2)',
+                    'rgb(75, 192, 192)',
+                    'rgb(153, 102, 255)',
                 ],
                 borderColor: [
-                    'rgba(75, 192, 192, 1)',
-                    'rgba(153, 102, 255, 1)',
+                    'rgb(75, 192, 192, 1)',
+                    'rgb(153, 102, 255, 1)',
                 ],
                 borderWidth: 1
             }],
@@ -158,14 +158,14 @@ app.controller("dashboardCtrl", function ($scope) {
                 // 퍼센트로 바꾸기
                 data: [10, 20, 30],
                 backgroundColor: [
-                    'rgba(255, 99, 132, 0.2)',
-                    'rgba(54, 162, 235, 0.2)',
-                    'rgba(255, 206, 86, 0.2)',
+                    'rgb(255, 99, 132)',
+                    'rgb(54, 162, 235)',
+                    'rgb(255, 206, 86)',
                 ],
                 borderColor: [
-                    'rgba(255, 99, 132, 1)',
-                    'rgba(54, 162, 235, 1)',
-                    'rgba(255, 206, 86, 1)',
+                    'rgb(255, 99, 132, 1)',
+                    'rgb(54, 162, 235, 1)',
+                    'rgb(255, 206, 86, 1)',
                 ],
                 borderWidth: 1
             }],

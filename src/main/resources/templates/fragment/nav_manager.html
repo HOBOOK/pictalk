@@ -5,11 +5,22 @@
         <div class="nav-group">
             <ul>
                 <span id="logo-main">
-                    <a href="/"><img src="/img/logo/logo.png" alt="logo_pictalk" width="48" height="48"/></a>
+                    <a th:href="@{/}"><img src="/img/logo/logo.png" alt="logo_pictalk" width="48" height="48"/></a>
                 </span>
-                <li><a href="/console">대시</a></li>
-                <li><a href="/console/account">계정</a></li>
-                <li><a href="/console/file">파일</a></li>
+                <li><a tooltip-right="대시" class="nav-button" th:classappend="${#httpServletRequest.requestURI.contains('console')} ? 'selected' : ''" th:href="@{/console}"><i class="fas fa-chart-bar"></i></a></li>
+                <li><a tooltip-right="계정" class="nav-button" th:classappend="${#httpServletRequest.requestURI.contains('console/account')} ? 'selected' : ''" th:href="@{/console/account}"><i class="far fa-address-card"></i></a></li>
+                <li><a tooltip-right="파일" class="nav-button" th:classappend="${#httpServletRequest.requestURI.contains('console/file')} ? 'selected' : ''" th:href="@{/console/file}"><i class="far fa-images"></i></a></li>
+                <li style="flex:1;"></li>
+                <li>
+                    <a ng-show="!me" tooltip-right="로그인" class="nav-button" th:classappend="${#httpServletRequest.requestURI.contains('signin')} ? 'selected' : ''" th:href="@{/signin}">
+                        <i  class="fas fa-power-off"></i>
+                    </a>
+                    <a ng-show="me" class="nav-button" th:href="@{/signin}">
+                        <img id="nav-user-avatar" ng-show="me" ng-src="{{me.avatar}}" alt="user_avatar"/>
+                    </a>
+                </li>
+                <li></li>
+
             </ul>
         </div>
     </nav>
