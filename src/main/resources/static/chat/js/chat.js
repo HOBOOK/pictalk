@@ -12,7 +12,7 @@ var chatSideMenu = document.querySelector('#chat-side-tab');
 var layout = document.querySelector('.layout-main');
 var contextMenu = document.querySelector('.chat-context-menu-container');
 
-app.controller("chatController", function ($scope, $http, $uibModal, $filter, $timeout, $compile, UserService) {
+app.controller("chatController", function ($scope, $http, $uibModal, $filter, $timeout, $compile, $localStorage, $sessionStorage, UserService) {
     $scope.me = UserService.user;
 
     $timeout(function () {

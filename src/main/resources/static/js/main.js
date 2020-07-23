@@ -1,4 +1,4 @@
-var app = angular.module("mainApp", ['ngAnimate', 'ngSanitize', 'ui.bootstrap','ngFileUpload']);
+var app = angular.module("mainApp", ['ngAnimate', 'ngSanitize', 'ui.bootstrap','ngFileUpload','ngStorage']);
 
 var tempUserModel = {
     id: 0,
