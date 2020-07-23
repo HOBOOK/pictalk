@@ -1,9 +1,29 @@
 <div class="chat-modal-header">
-    <h3><i class="far fa-comment-dots"></i> 대화방 프로필 설정</h3>
-    <span class="chat-modal-button" ng-click="cancel()"><i class="fas fa-times"></i></span>
+    <i class="far fa-comment-dots"></i><h3>대화방 프로필 설정</h3>
+    <span class="circle-button chat-modal-button" ng-click="cancel()"><i class="fas fa-times"></i></span>
 </div>
 <div class="chat-modal-content-container">
     <ul class="chat-add-info">
+        <li>
+            <div class="avatar-upload">
+                <div class="avatar-edit">
+                    <!--                    <input type='file' id="imageUpload" accept=".png, .jpg, .jpeg"/>-->
+                    <input ng-model="file" type="file" name="file" id="imageUpload" accept=".png, .jpg, .jpeg, .gif"
+                           ngf-select="readImageURL(this)"
+                           ngf-pattern="'image/*'"
+                           ngf-accept="'image/*'"
+                           ngf-max-size="5000KB"/>
+                    <label for="imageUpload"><i class="fas fa-pencil-alt"></i></label>
+                </div>
+                <div class="avatar-preview">
+                    <div id="imagePreview" ng-init="renderAvatarImage()">
+                    </div>
+                </div>
+            </div>
+            <div class="avatar-selector">
+                <span ng-repeat="avatar in defaultAvatars" ng-click="onClickSelectAvatar(avatar)"><img ng-src="{{avatar}}" alt="avatar"/></span>
+            </div>
+        </li>
         <li>
             <h5><i class="fas fa-signature"></i> 닉네임</h5>
             <div class="chat-add-input-container">

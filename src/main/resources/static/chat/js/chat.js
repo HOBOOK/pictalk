@@ -191,6 +191,7 @@ app.controller("chatController", function ($scope, $http, $uibModal, $filter, $t
             element : null,
             content: messageContent,
             sender: $scope.currentMe.nickname,
+            senderModel: $scope.currentMe,
             date: getTimeStamp(),
             index: $scope.currentRoom.messages.length > 0 ? $scope.currentRoom.messages[$scope.currentRoom.messages.length-1].index + 1 : 0
         };
@@ -209,6 +210,7 @@ app.controller("chatController", function ($scope, $http, $uibModal, $filter, $t
             state: 0,
             element : null,
             sender: $scope.currentMe.nickname,
+            senderModel: $scope.currentMe,
             date: getTimeStamp(),
             index: $scope.currentRoom.messages.length > 0 ? $scope.currentRoom.messages[$scope.currentRoom.messages.length-1].index + 1 : 0
         };
@@ -355,15 +357,16 @@ app.controller("chatController", function ($scope, $http, $uibModal, $filter, $t
             templateUrl: 'modal/modal_chat_profile',
             controller: 'chatProfileModalController',
             resolve: {
-                nickname: function () {
-                    return $scope.me.nickname;
+                user: function () {
+                    return $scope.me;
                 }
             }
         });
-        modalInstance.result.then(function (nickname) {
-            console.log("modal click ok : " + nickname);
+        modalInstance.result.then(function (profile) {
             $scope.currentMe = angular.copy($scope.me);
-            $scope.currentMe.nickname = nickname;
+            $scope.currentMe.nickname = profile.nickname;
+            $scope.currentMe.avatar = profile.avatar;
+
             layout.style.filter = "";
             $scope.connect($event, room);
         }, function () {
@@ -528,9 +531,20 @@ app.controller("chatController", function ($scope, $http, $uibModal, $filter, $t
             messageElement.classList.add('me');
         }
         var avatarElement = document.createElement('i');
-        var avatarText = document.createTextNode(message.sender[0]);
-        avatarElement.appendChild(avatarText);
-        avatarElement.style['background-color'] = getAvatarColor(message.sender);
+        if(!message.senderModel.avatar){
+            var avatarText = document.createTextNode(message.sender[0]);
+            avatarElement.appendChild(avatarText);
+            avatarElement.style['background-color'] = getAvatarColor(message.sender);
+        }else{
+            var avatarImage = document.createElement('img');
+            avatarImage.src = $scope.currentMe.avatar;
+            avatarImage.style.width='42px';
+            avatarImage.style.maxWidth='42px';
+            avatarImage.style.height='42px';
+            avatarImage.style.margin='0 auto';
+            avatarElement.appendChild(avatarImage);
+        }
+
 
         messageCoverElement.appendChild(avatarElement);
 
@@ -610,10 +624,21 @@ app.controller("chatController", function ($scope, $http, $uibModal, $filter, $t
             messageCoverElement.classList.add('me');
             messageElement.classList.add('me');
         }
+
         var avatarElement = document.createElement('i');
-        var avatarText = document.createTextNode(message.sender[0]);
-        avatarElement.appendChild(avatarText);
-        avatarElement.style['background-color'] = getAvatarColor(message.sender);
+        if(!message.senderModel.avatar){
+            var avatarText = document.createTextNode(message.sender[0]);
+            avatarElement.appendChild(avatarText);
+            avatarElement.style['background-color'] = getAvatarColor(message.sender);
+        }else{
+            var avatarImage = document.createElement('img');
+            avatarImage.src = $scope.currentMe.avatar;
+            avatarImage.style.width='42px';
+            avatarImage.style.maxWidth='42px';
+            avatarImage.style.height='42px';
+            avatarImage.style.margin='0 auto';
+            avatarElement.appendChild(avatarImage);
+        }
 
         messageCoverElement.appendChild(avatarElement);
 

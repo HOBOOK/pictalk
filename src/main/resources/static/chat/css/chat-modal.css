@@ -9,13 +9,16 @@
     display: flex;
     align-items: center;
 }
+.modal-backdrop.in{
+    opacity: .15;
+}
 .modal-content{
     top:30px;
-    bottom:30px;
+    margin:30px auto;
     font-family: 'Lato', 'Nanum Gothic Coding', sans-serif !important;
     border: none;
     display: inline-block;
-    overflow-y: auto;
+    overflow-y: hidden;
     text-align: left;
     width: 400px;
     background-color: #fff;
@@ -32,25 +35,16 @@
     padding: 15px;
     display: inline-block;
     width: 100%;
+    background-color: rgba(65,105,225,0.05);
 }
-.chat-modal-header i{
-    margin-right: 6px;
-}
+
 .chat-modal-header h3{
-    margin: 3px 0 10px 3px;
     display: inline-block;
+    margin: 0 10px 0 10px;
 }
 
 .chat-modal-button{
     float: right;
-    display: inline-block;
-    width: 32px;
-    height: 32px;
-    line-height: 32px;
-    border-radius: 50%;
-    text-align: center;
-    vertical-align: middle;
-    cursor:pointer;
 }
 .chat-modal-button:hover{
     background-color: rgba(0,0,0,0.1);
@@ -185,6 +179,60 @@
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
+}
+
+.avatar-selector {
+    margin:-150px 0 -150px 140px;
+    max-width: 100%;
+    width: 84px;
+    height: 380px;
+    max-height: 380px;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    overflow-y: scroll;
+    overflow-y: overlay;
+    overflow-x: hidden;
+    transform: rotate(-90deg);
+}
+.avatar-selector > span{
+    border: 2px solid #B85B14;
+    background-color: #FC7307;
+    border-radius: 50%;
+    width:64px;
+    height: 64px;
+    flex: 0 0 auto;
+    cursor: pointer;
+    margin: 10px;
+    transform: rotate(90deg);
+}
+.avatar-selector > span img{
+    width: 64px;
+    height: 64px;
+    vertical-align: center;
+}
+.avatar-selector::-webkit-scrollbar {
+    display:none;
+}
+.avatar-selector:hover::-webkit-scrollbar{
+    display: inline-block;
+}
+.avatar-selector::-webkit-scrollbar-track
+{
+    border-radius:3px;
+    background-color: transparent;
+}
+
+.avatar-selector::-webkit-scrollbar
+{
+    position: absolute;
+    width: 3px;
+    background-color: transparent;
+}
+.avatar-selector::-webkit-scrollbar-thumb
+{
+    border-radius: 3px;
+    background-color: rgba(0,0,0,0.15);
 }
 
 
