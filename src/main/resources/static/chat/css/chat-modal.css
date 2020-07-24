@@ -1,4 +1,23 @@
+.modal-open .modal::-webkit-scrollbar {
+    display:none;
+    position: absolute;
+    width: 3px;
+    background-color: transparent;
+}
+.modal-open .modal:hover::-webkit-scrollbar{
+    display: inline-block;
+}
+.modal-open .modal::-webkit-scrollbar-track
+{
+    border-radius:3px;
+    background-color: transparent;
+}
 
+.modal-open .modal::-webkit-scrollbar-thumb
+{
+    border-radius: 3px;
+    background-color: rgba(0,0,0,0.15);
+}
 
 .modal-dialog{
     height: 100%;
