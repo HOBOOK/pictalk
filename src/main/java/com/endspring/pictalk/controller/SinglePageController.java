@@ -26,6 +26,11 @@ public class SinglePageController {
         return "modal/modal_chat_profile";
     }
 
+    @GetMapping("/configuration")
+    public String configuration(){
+        return "app/configuration";
+    }
+
     @GetMapping("/mypage")
     public String mypage(){
         return "personal";

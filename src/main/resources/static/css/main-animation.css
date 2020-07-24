@@ -1,0 +1,33 @@
+/*******애니메이션 **********/
+[ng-cloak] {
+
+    opacity: 0;
+}
+
+[ng-cloak],
+.ng-binding {
+    transition: opacity .3s ease-in-out;
+}
+
+.ng-binding {
+    opacity: 1;
+}
+
+.ng-move,
+.ng-enter,
+.ng-leave {
+    -webkit-transition:all ease-in-out 0.3s;
+    transition:all ease-in-out 0.3s;
+}
+
+.ng-leave.ng-leave-active,
+.ng-move,
+.ng-enter {
+    opacity:0;
+}
+
+.ng-leave,
+.ng-move.ng-move-active,
+.ng-enter.ng-enter-active {
+    opacity:1;
+}
