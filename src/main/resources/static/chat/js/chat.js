@@ -138,7 +138,7 @@ app.controller("chatController", function ($scope, $http, $uibModal, $filter, $t
     // 이미 채팅방에 접속중인지
     $scope.isAlreadyJoined = function(room){
         // return room.participants.indexOf($scope.me)!==-1;
-        return !!$filter('filter')(room.participants, {id: $scope.me.id}, true)[0];
+        return !!$filter('filter')($scope.me.myRooms, {id: room.id}, true)[0];
     }
     $scope.tryConnect = function($event, room){
         if($scope.isAlreadyJoined(room)){
