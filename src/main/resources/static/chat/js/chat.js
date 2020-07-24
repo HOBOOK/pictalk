@@ -531,13 +531,14 @@ app.controller("chatController", function ($scope, $http, $uibModal, $filter, $t
             messageElement.classList.add('me');
         }
         var avatarElement = document.createElement('i');
+        avatarElement.style['background-color'] = getAvatarColor(message.sender);
         if(!message.senderModel.avatar){
             var avatarText = document.createTextNode(message.sender[0]);
             avatarElement.appendChild(avatarText);
-            avatarElement.style['background-color'] = getAvatarColor(message.sender);
         }else{
             var avatarImage = document.createElement('img');
             avatarImage.src = $scope.currentMe.avatar;
+            avatarImage.style.objectFit="cover";
             avatarImage.style.width='42px';
             avatarImage.style.maxWidth='42px';
             avatarImage.style.height='42px';

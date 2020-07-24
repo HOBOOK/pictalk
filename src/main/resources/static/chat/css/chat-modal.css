@@ -22,6 +22,8 @@
     text-align: left;
     width: 400px;
     background-color: #fff;
+    box-shadow: 0 5px 15px rgba(65,105,225,0.3);
+    -webkit-box-shadow: 0 5px 20px rgba(65,105,225,0.2);
 }
 
 .modal.fade .modal-dialog, .modal.in .modal-dialog  .modal-content{

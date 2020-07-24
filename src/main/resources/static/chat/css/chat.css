@@ -545,6 +545,7 @@ nav{
 }
 
 #chat-user-info .chat-user-profile img{
+    object-fit: cover;
     width: 32px;
     height: 32px;
     margin-right:8px;
@@ -558,6 +559,7 @@ nav{
 
 .chat-user-menu{
     padding:5px 10px 5px 10px;
+    margin: 10px 0 10px 0;
     border-top: 1px solid rgba(0,0,0,0.1);
     border-bottom: 1px solid rgba(0,0,0,0.1);
 }

@@ -25,18 +25,23 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
 
+    <!-- FontAwesome CSS -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.0/css/all.css">
+
+    <!-- Chat Module CSS -->
     <link rel="stylesheet" href="/chat/css/chat-animation.css"/>
     <link rel="stylesheet" href="/chat/css/chat.css"/>
     <link rel="stylesheet" href="/chat/css/chat-modal.css"/>
-    <link rel="stylesheet" href="/chat/css/util.css"/>
+
+    <!-- Common CSS -->
+    <link rel="stylesheet" href="/common/css/util.css"/>
 </th:block>
 
 <section layout:fragment="content" ng-controller="chatController" class="content-chat-container">
 
     <!----------------------- 채팅방 목록 컨테이너 ------------------------------>
     <div class="chat-sidebar-container">
-        <div class="chat-tab" ng-show="isSelectedMainBar(0)">
+        <div ng-cloak class="chat-tab" ng-show="isSelectedMainBar(0)">
             <div class="chat-sidebar-header">
                 <h3>오픈 채팅방</h3>
                 <span tooltip-bottom="방 생성" class="chat-sidebar-button circle-button" ng-click="onClickAddChatRoom()"><i class="fas fa-plus"></i></span>
@@ -114,7 +119,7 @@
                 </div>
             </div>
         </div>
-        <div class="chat-tab" ng-show="isSelectedMainBar(1)">
+        <div ng-cloak class="chat-tab" ng-show="isSelectedMainBar(1)">
             <div class="chat-sidebar-header">
                 <h3>나의 채팅방</h3>
             </div>
