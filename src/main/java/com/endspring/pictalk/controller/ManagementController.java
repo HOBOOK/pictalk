@@ -7,6 +7,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class ManagementController {
 
     @GetMapping("/console")
+    public String console(){
+        return "app/dashboard";
+    }
+
+    @GetMapping("/console/dashboard")
     public String dashboard(){
         return "app/dashboard";
     }
