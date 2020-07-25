@@ -62,56 +62,71 @@
             <div class="chat-sidebar-content-container height170" when-scrolled="scrollMore(config_chat.ui.scrollLimit[0])">
                 <div class="loading" ng-show="!filteredRooms"><img src="/img/loading.gif" height="36"/></div>
                 <div class="chat-sidebar-content chat-room ng-cloak p-b-0" ng-repeat="room in filteredRooms | limitTo: config_chat.ui.scrollLimit[0].limit" ng-click="tryConnect($event, room)">
-                    <img ng-src="{{room.img}}" alt="thumbnail" class="img-circle" onerror="this.src='/img/no-image.png'"/>
+                    <span class="chat-room-thumbnail">
+                        <img ng-cloak ng-src="{{room.img}}" alt="thumbnail" class="img-circle" onerror="this.src='/img/no-image.png'"/>
+                    </span>
                     <span class="chat-room-info">
-                        <h5 ng-bind="room.title"></h5> <span> <i class="fas fa-user-alt"></i> {{room.participants.length}}명 대화중</span>
+                        <h5 ng-bind="room.title"></h5>
+                        <span class="chat-room-state">
+                            <span ng-cloak ng-show="room.private" class="chat-room-state-item">
+                                <i class="fas fa-key"></i>
+                            </span>
+                            <span class="chat-room-state-item">
+                                <i class="fas fa-user-alt"></i>
+                                {{room.participants.length}}
+                            </span>
+
+                        </span>
+
                         <p ng-bind="room.description"></p>
                     </span>
                     <div class="chat-room-detail" thumbnail-img="{{room.img}}">
                         <div class="chat-detail-tags">
                             <span class="chat-detail-tag" ng-repeat="tag in room.category">#{{tag}}</span>
                         </div>
-                        <span class="heart" ng-click="onClickPreventParentEvent($event)">
-                            <input type="checkbox" class="heartBox" id="heart-{{room.id}}" ng-value="isAlreadyLikeChatRoom(room)" ng-click="onClickLikeChatRoom(room)"/>
-                            <label for="heart-{{room.id}}" >
-                                <svg id="heart-svg" viewBox="467 392 58 57" xmlns="http://www.w3.org/2000/svg">
-                                    <g id="Group" fill="none" fill-rule="evenodd" transform="translate(467 392)">
-                                        <path d="M29.144 20.773c-.063-.13-4.227-8.67-11.44-2.59C7.63 28.795 28.94 43.256 29.143 43.394c.204-.138 21.513-14.6 11.44-25.213-7.214-6.08-11.377 2.46-11.44 2.59z" id="heart" fill="#AAB8C2" />
-                                        <circle id="main-circ" fill="#E2264D" opacity="0" cx="29.5" cy="29.5" r="1.5" />
-                                        <g id="heartgroup7" opacity="0" transform="translate(7 6)">
-                                            <circle id="heart1" fill="#9CD8C3" cx="2" cy="6" r="2" />
-                                            <circle id="heart2" fill="#8CE8C3" cx="5" cy="2" r="2" />
+                        <div class="chat-detail-sub">
+                            <span class="heart" ng-click="onClickPreventParentEvent($event)">
+                                <input type="checkbox" class="heartBox" id="heart-{{room.id}}" ng-value="isAlreadyLikeChatRoom(room)" ng-click="onClickLikeChatRoom(room)"/>
+                                <label for="heart-{{room.id}}" >
+                                    <svg id="heart-svg" viewBox="467 392 58 57" xmlns="http://www.w3.org/2000/svg">
+                                        <g id="Group" fill="none" fill-rule="evenodd" transform="translate(467 392)">
+                                            <path d="M29.144 20.773c-.063-.13-4.227-8.67-11.44-2.59C7.63 28.795 28.94 43.256 29.143 43.394c.204-.138 21.513-14.6 11.44-25.213-7.214-6.08-11.377 2.46-11.44 2.59z" id="heart" fill="#AAB8C2" />
+                                            <circle id="main-circ" fill="#E2264D" opacity="0" cx="29.5" cy="29.5" r="1.5" />
+                                            <g id="heartgroup7" opacity="0" transform="translate(7 6)">
+                                                <circle id="heart1" fill="#9CD8C3" cx="2" cy="6" r="2" />
+                                                <circle id="heart2" fill="#8CE8C3" cx="5" cy="2" r="2" />
+                                            </g>
+                                            <g id="heartgroup6" opacity="0" transform="translate(0 28)">
+                                                <circle id="heart1" fill="#CC8EF5" cx="2" cy="7" r="2" />
+                                                <circle id="heart2" fill="#91D2FA" cx="3" cy="2" r="2" />
+                                            </g>
+                                            <g id="heartgroup3" opacity="0" transform="translate(52 28)">
+                                                <circle id="heart2" fill="#9CD8C3" cx="2" cy="7" r="2" />
+                                                <circle id="heart1" fill="#8CE8C3" cx="4" cy="2" r="2" />
+                                            </g>
+                                            <g id="heartgroup2" opacity="0" transform="translate(44 6)">
+                                                <circle id="heart2" fill="#CC8EF5" cx="5" cy="6" r="2" />
+                                                <circle id="heart1" fill="#CC8EF5" cx="2" cy="2" r="2" />
+                                            </g>
+                                            <g id="heartgroup5" opacity="0" transform="translate(14 50)">
+                                                <circle id="heart1" fill="#91D2FA" cx="6" cy="5" r="2" />
+                                                <circle id="heart2" fill="#91D2FA" cx="2" cy="2" r="2" />
+                                            </g>
+                                            <g id="heartgroup4" opacity="0" transform="translate(35 50)">
+                                                <circle id="heart1" fill="#F48EA7" cx="6" cy="5" r="2" />
+                                                <circle id="heart2" fill="#F48EA7" cx="2" cy="2" r="2" />
+                                            </g>
+                                            <g id="heartgroup1" opacity="0" transform="translate(24)">
+                                                <circle id="heart1" fill="#9FC7FA" cx="2.5" cy="3" r="2" />
+                                                <circle id="heart2" fill="#9FC7FA" cx="7.5" cy="2" r="2" />
+                                            </g>
                                         </g>
-                                        <g id="heartgroup6" opacity="0" transform="translate(0 28)">
-                                            <circle id="heart1" fill="#CC8EF5" cx="2" cy="7" r="2" />
-                                            <circle id="heart2" fill="#91D2FA" cx="3" cy="2" r="2" />
-                                        </g>
-                                        <g id="heartgroup3" opacity="0" transform="translate(52 28)">
-                                            <circle id="heart2" fill="#9CD8C3" cx="2" cy="7" r="2" />
-                                            <circle id="heart1" fill="#8CE8C3" cx="4" cy="2" r="2" />
-                                        </g>
-                                        <g id="heartgroup2" opacity="0" transform="translate(44 6)">
-                                            <circle id="heart2" fill="#CC8EF5" cx="5" cy="6" r="2" />
-                                            <circle id="heart1" fill="#CC8EF5" cx="2" cy="2" r="2" />
-                                        </g>
-                                        <g id="heartgroup5" opacity="0" transform="translate(14 50)">
-                                            <circle id="heart1" fill="#91D2FA" cx="6" cy="5" r="2" />
-                                            <circle id="heart2" fill="#91D2FA" cx="2" cy="2" r="2" />
-                                        </g>
-                                        <g id="heartgroup4" opacity="0" transform="translate(35 50)">
-                                            <circle id="heart1" fill="#F48EA7" cx="6" cy="5" r="2" />
-                                            <circle id="heart2" fill="#F48EA7" cx="2" cy="2" r="2" />
-                                        </g>
-                                        <g id="heartgroup1" opacity="0" transform="translate(24)">
-                                            <circle id="heart1" fill="#9FC7FA" cx="2.5" cy="3" r="2" />
-                                            <circle id="heart2" fill="#9FC7FA" cx="7.5" cy="2" r="2" />
-                                        </g>
-                                    </g>
-                                </svg>
-                                <p ng-bind="room.like.length"></p>
-                            </label>
+                                    </svg>
+                                    <p ng-bind="room.like.length"></p>
+                                </label>
+                            </span>
+                        </div>
 
-                        </span>
                     </div>
                 </div>
                 <div ng-show="filteredRooms.length===0" class="chat-sidebar-no-content">
@@ -125,7 +140,9 @@
             </div>
             <div class="chat-sidebar-content-container height100" when-scrolled="scrollMore(config_chat.ui.scrollLimit[0])">
                 <div class="chat-sidebar-content chat-room ng-cloak" ng-repeat="room in me.myRooms | limitTo: config_chat.ui.scrollLimit[0].limit" ng-click="connect($event, room)">
-                    <img ng-src="{{room.img}}" alt="thumbnail" class="img-circle" onerror="this.src='/img/no-image.png'"/>
+                    <span class="chat-room-thumbnail">
+                        <img ng-cloak ng-src="{{room.img}}" alt="thumbnail" class="img-circle" onerror="this.src='/img/no-image.png'"/>
+                    </span>
                     <span class="chat-room-info">
                         <h5 ng-bind="room.title"></h5> <span ng-show="getUnreadMessageCount(room)"><i class="circle-count" ng-bind="getUnreadMessageCount(room)"></i></span>
                         <p ng-bind="getLatestMessage(room) ? getLatestMessage(room) : '&nbsp;&nbsp;'"></p>

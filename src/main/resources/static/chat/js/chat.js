@@ -28,11 +28,12 @@ app.controller("chatController", function ($scope, $http, $uibModal, $filter, $t
             img: "/chat/img/thumbnail_gif_example.gif",
             max: 100,
             createDate: "2020.07.13",
+            private: true,
             manager_id: 1,
             participants: [],
             like: [],
             messages:[],
-            accessKey: "",
+            accessKey: "1234",
             storageImage:[]
         }];
 
@@ -47,6 +48,7 @@ app.controller("chatController", function ($scope, $http, $uibModal, $filter, $t
                 img: roomImages[(i%roomImages.length)],
                 max: 500,
                 createDate: "2020.07.13",
+                private: false,
                 manager_id: 1,
                 participants: [],
                 like: [],
@@ -359,7 +361,8 @@ app.controller("chatController", function ($scope, $http, $uibModal, $filter, $t
             resolve: {
                 user: function () {
                     return $scope.me;
-                }
+                },
+                room: room
             }
         });
         modalInstance.result.then(function (profile) {

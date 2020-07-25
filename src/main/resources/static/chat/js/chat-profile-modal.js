@@ -1,6 +1,8 @@
-app.controller('chatProfileModalController', function ($scope, $uibModalInstance, user) {
+app.controller('chatProfileModalController', function ($scope, $uibModalInstance, user, room) {
+    $scope.room = room;
     $scope.nickname= user.nickname;
     $scope.avatar = user.avatar;
+    $scope.accessKey = "";
     $scope.defaultAvatars = ["/img/avatar/default/avatar_default-001.png",
         "/img/avatar/default/avatar_default-002.png",
         "/img/avatar/default/avatar_default-003.png",
@@ -46,11 +48,19 @@ app.controller('chatProfileModalController', function ($scope, $uibModalInstance
         $scope.nickname = "";
     }
 
+    // 접근 코드 초기화
+    $scope.clearAccessKey = function(){
+        $scope.accessKey = "";
+    }
+
     // 프로필 검증
     $scope.validationSetProfile = function(){
         if($scope.nickname.length <= 1){
             alert('닉네임은 2글자 이상으로 정해주세요.');
             return false;
+        }else if($scope.room.private && $scope.accessKey !== $scope.room.accessKey){
+            $scope.accessKey = '';
+            alert('접근코드가 일치하지 않습니다.');
         }else{
             return  true;
         }

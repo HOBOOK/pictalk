@@ -304,11 +304,25 @@ nav{
     padding: 0 10px 0 10px;
 }
 
-
+.chat-room-thumbnail{
+    position: relative;
+    display: inline-block;
+    width:60px;
+    height: 60px;
+    background-color: rgba(0,0,0,0.1);
+    border-radius: 50%;
+}
+.chat-room-thumbnail img{
+    vertical-align: middle;
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+}
 
 .chat-room-info{
+    vertical-align: top;
     position: relative;
-    margin-left:10px;
+    margin:7px 0 0 10px;
     width: calc(100% - 80px);
     height: 100%;
     display: inline-block;
@@ -316,6 +330,7 @@ nav{
 }
 
 .chat-room-info h5{
+    margin:0;
     display: inline-block;
     width:140px;
     overflow:hidden;
@@ -335,22 +350,23 @@ nav{
     z-index: 10;
     opacity: .7;
 }
-.chat-room-info span{
+.chat-room-info .chat-room-state{
     float: right;
     display: inline-block;
-    font-size: 10px;
-    color: #808080;
 }
-
+.chat-room-info .chat-room-state-item{
+    border-radius: 3px;
+    padding:2px;
+    background-color: rgba(65,105,225,0.6);
+    font-size: 8px;
+    color: white;
+    vertical-align: top;
+    margin: 0 0 0 5px;
+}
 .chat-room{
     cursor: pointer;
 }
-.chat-room img{
-    vertical-align: middle;
-    width: 60px;
-    height: 60px;
-    object-fit: cover;
-}
+
 .chat-room:hover .chat-room-detail{
     height: 150px;
     max-height: 150px;
@@ -382,13 +398,15 @@ nav{
     display: flex;
     font-size:20px;
     color:#fff;
+    position: relative;
+    border-radius: 3px;
+
     /*background: linear-gradient(to top, rgba(0,0,0,0.4) 30%,*/
     /*rgba(255,255,255,1)), url(/chat/img/image_example.jpg) center center;*/
     transition: all .5s ease-in-out;
     -o-transition: all .5s ease-in-out;
     -moz-transition: all .5s ease-in-out;
     -webkit-transition: all .5s ease-in-out;
-    position: relative;
 }
 
 
@@ -421,6 +439,12 @@ nav{
     -webkit-transition: background-color .3s ease-in-out;
     -moz-transition: background-color .3s ease-in-out;
     -o-transition: background-color .3s ease-in-out;
+}
+.chat-detail-sub{
+    position: absolute;
+    right: 0;
+    bottom:0;
+    width:100%;
 }
 
 
