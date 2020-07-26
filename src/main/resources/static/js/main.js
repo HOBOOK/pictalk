@@ -8,7 +8,7 @@ var tempUserModel = {
     nickname: "나다",
     email: "me@naver.com",
     avatar: "/chat/img/thumbnail_example.png",
-    gender: "Female",
+    gender: "Male",
     album: [
         {
             id:0,
