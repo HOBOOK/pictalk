@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout/layout_main">
+
+<th:block layout:fragment="title">픽톡(PicTalk) | 채팅</th:block>
+<th:block layout:fragment="js">
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <!-- BootStrap JS -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+
+</th:block>
+<th:block layout:fragment="js-end">
+    <script src="/configuration/js/configuration.js"></script>
+</th:block>
+
+<th:block layout:fragment="css">
+    <!-- BootStrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+
+    <!-- FontAwesome CSS -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.0/css/all.css">
+
+    <!-- Config Module CSS -->
+    <link rel="stylesheet" href="/configuration/css/configuration.css"/>
+
+    <!-- Common CSS -->
+    <link rel="stylesheet" href="/common/css/util.css"/>
+</th:block>
+
+<section layout:fragment="content" ng-controller="configController" class="content-config-container">
+
+
+</section>

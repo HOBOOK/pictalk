@@ -3,6 +3,7 @@ app.controller('chatModalController', function ($scope, $uibModalInstance) {
     // 모달 생성 이벤트
     $scope.ok = function() {
         if($scope.validationAddChatRoom()){
+            $scope.saveConfig();
             $uibModalInstance.close($scope.newChatRoom);
         }
     }
@@ -14,6 +15,13 @@ app.controller('chatModalController', function ($scope, $uibModalInstance) {
     $scope.config = {
         isPrivate: false,
         isImageChat: false
+    }
+
+    $scope.saveConfig = function(){
+        var config = $scope.config;
+        $scope.newChatRoom.private = config.isPrivate;
+        $scope.newChatRoom.type = config.isImageChat ? 1 : 0;
+
     }
 
     // 채팅방 최대인원 선택옵션
@@ -31,14 +39,14 @@ app.controller('chatModalController', function ($scope, $uibModalInstance) {
     // 새로운 채팅방 모델
     $scope.newChatRoom={
         id: null,
-        type: $scope.isImageChat ? 1 : 0,
+        type: 0,
         title: "",
         description: "",
         category:[],
         img: "/img/no-image.png",
         max: $scope.selectedMaxChatRoomMemberCountOption.value,
         createDate: "2020.07.13",
-        private: $scope.config.isPrivate,
+        private: false,
         manager_id: 0,
         latestMessage: "",
         participants: [],
@@ -101,8 +109,8 @@ app.controller('chatModalController', function ($scope, $uibModalInstance) {
         }else if($scope.newChatRoom.description.length === 0){
             alert('대화방 설명을 입력해주세요');
             return false;
-        }else if($scope.newChatRoom.private && $scope.newChatRoom.accessKey.length ===0){
-            alert('암호를 입력해주세요');
+        }else if($scope.newChatRoom.private && $scope.newChatRoom.accessKey.length <=3){
+            alert('접근코드는 4자리 이상이여야 합니다.');
             return false;
         }else{
             return  true;

@@ -7,14 +7,27 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
 public class SinglePageController {
+    @GetMapping("/")
+    public String test(){
+        return "app/chat/chat";
+    }
     @GetMapping("/chat")
     public String chat(){
-        return "app/chat";
+        return "app/chat/chat";
     }
-
     @RequestMapping(value = "modal/modal_chat", method = RequestMethod.GET)
     public String chatModal(){
-        return "modal/modal_chat";
+        return "app/chat/modal/modal_chat";
+    }
+
+    @RequestMapping(value = "modal/modal_chat_profile", method = RequestMethod.GET)
+    public String chatModalProfile(){
+        return "app/chat/modal/modal_chat_profile";
+    }
+
+    @GetMapping("/configuration")
+    public String configuration(){
+        return "app/chat/configuration";
     }
 
     @GetMapping("/mypage")

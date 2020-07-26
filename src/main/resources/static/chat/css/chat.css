@@ -5,16 +5,16 @@
     display: flex;
 }
 
-.clearfix:after {
+.content-chat-container .clearfix:after {
     display: block;
     content: "";
     clear: both;
 }
 
-.hidden {
+.content-chat-container .hidden {
     display: none;
 }
-.circle-count{
+.content-chat-container .circle-count{
     border-radius: 50%;
     background-color: darkseagreen;
     width: 16px;
@@ -27,22 +27,18 @@
 }
 
 
-input {
+.content-chat-container input {
     padding-left: 10px;
     outline: none;
 }
 
-h1, h2, h3, h4, h5, h6 {
+.content-chat-container h1,.content-chat-container h2,.content-chat-container h3,.content-chat-container h4,.content-chat-container h5,.content-chat-container h6 {
     margin-top:3px;
     margin-bottom:3px;
 }
 
-h1 {
+.content-chat-container h1 {
     font-size: 1.7em;
-}
-
-a {
-    color: #128ff2;
 }
 
 button {
@@ -187,7 +183,7 @@ nav{
 }
 .chat-tag{
     display: inline-block;
-    background-color: rgba(65,105,225,0.55);
+    background-color: rgba(65,105,225,0.6);
     color:#fff;
     margin-right:6px;
     padding: 2px;
@@ -218,8 +214,12 @@ nav{
     box-shadow: 0 0 38px -12px rgba(0,0,0,.15);
 }
 
+
 .chat-sidebar-content-container::-webkit-scrollbar {
     display:none;
+    position: absolute;
+    width: 3px;
+    background-color: transparent;
 }
 .chat-sidebar-content-container:hover::-webkit-scrollbar{
     display: inline-block;
@@ -230,12 +230,6 @@ nav{
     background-color: transparent;
 }
 
-.chat-sidebar-content-container::-webkit-scrollbar
-{
-    position: absolute;
-    width: 3px;
-    background-color: transparent;
-}
 .chat-sidebar-content-container::-webkit-scrollbar-thumb
 {
     border-radius: 3px;
@@ -273,7 +267,7 @@ nav{
     display: inline-block;
     margin-left: auto;
     margin-right: auto;
-    padding:15px 10px 0px 10px;
+    padding:12px 10px 12px 10px;
     width: 100%;
     background-color: white;
     border-top:1px solid rgba(0,0,0,0.07);
@@ -310,11 +304,25 @@ nav{
     padding: 0 10px 0 10px;
 }
 
-
+.chat-room-thumbnail{
+    position: relative;
+    display: inline-block;
+    width:60px;
+    height: 60px;
+    background-color: rgba(0,0,0,0.1);
+    border-radius: 50%;
+}
+.chat-room-thumbnail img{
+    vertical-align: middle;
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+}
 
 .chat-room-info{
+    vertical-align: top;
     position: relative;
-    margin-left:10px;
+    margin:7px 0 0 10px;
     width: calc(100% - 80px);
     height: 100%;
     display: inline-block;
@@ -322,12 +330,12 @@ nav{
 }
 
 .chat-room-info h5{
+    margin:0;
     display: inline-block;
     width:140px;
     overflow:hidden;
     text-overflow:ellipsis;
     white-space:nowrap;
-    font-size: 1.2em;
 }
 
 .chat-room-info p{
@@ -342,28 +350,40 @@ nav{
     z-index: 10;
     opacity: .7;
 }
-.chat-room-info span{
+.chat-room-info .chat-room-state{
     float: right;
     display: inline-block;
-    font-size: 10px;
-    color: #808080;
 }
-
+.chat-room-info .chat-room-state-item{
+    border-radius: 3px;
+    padding:2px;
+    background-color: rgba(65,105,225,0.6);
+    font-size: 8px;
+    color: white;
+    vertical-align: top;
+    margin: 0 0 0 5px;
+}
 .chat-room{
     cursor: pointer;
 }
-.chat-room img{
-    vertical-align: middle;
-    width: 60px;
-    height: 60px;
-    object-fit: cover;
-}
+
 .chat-room:hover .chat-room-detail{
     height: 150px;
     max-height: 150px;
     opacity: 1;
 }
 .chat-room:hover .chat-room-info p{
+    overflow:auto;
+    text-overflow:unset;
+    white-space:unset;
+}
+
+.chat-room:focus .chat-room-detail{
+    height: 150px;
+    max-height: 150px;
+    opacity: 1;
+}
+.chat-room:focus .chat-room-info p{
     overflow:auto;
     text-overflow:unset;
     white-space:unset;
@@ -378,40 +398,17 @@ nav{
     display: flex;
     font-size:20px;
     color:#fff;
+    position: relative;
+    border-radius: 3px;
+
     /*background: linear-gradient(to top, rgba(0,0,0,0.4) 30%,*/
     /*rgba(255,255,255,1)), url(/chat/img/image_example.jpg) center center;*/
     transition: all .5s ease-in-out;
     -o-transition: all .5s ease-in-out;
     -moz-transition: all .5s ease-in-out;
     -webkit-transition: all .5s ease-in-out;
-    position: relative;
 }
 
-/*.chat-room:hover .chat-room-detail{*/
-/*    opacity: 1;*/
-/*}*/
-
-/*.chat-room-detail{*/
-/*    opacity: 0;*/
-/*    position: absolute;*/
-/*    top:0;*/
-/*    right:0;*/
-/*    z-index: 10;*/
-/*    width: 30px;*/
-/*    margin-top:12px;*/
-/*    height: calc(100% - 24px);*/
-/*    display: flex;*/
-/*    font-size:20px;*/
-/*    color:#808080;*/
-/*    background-color: #fff;*/
-/*    box-shadow: -8px 1px 10px 5px #fff;*/
-/*    transition: all .3s ease-in-out;*/
-/*    -o-transition: all .3s ease-in-out;*/
-/*    -moz-transition: all .3s ease-in-out;*/
-/*    -webkit-transition: all .3s ease-in-out;*/
-/*    border-bottom-left-radius: 50%;*/
-/*    border-top-left-radius: 50%;*/
-/*}*/
 
 .chat-room-detail p{
     font-size: 13px;
@@ -442,6 +439,12 @@ nav{
     -webkit-transition: background-color .3s ease-in-out;
     -moz-transition: background-color .3s ease-in-out;
     -o-transition: background-color .3s ease-in-out;
+}
+.chat-detail-sub{
+    position: absolute;
+    right: 0;
+    bottom:0;
+    width:100%;
 }
 
 
@@ -563,6 +566,7 @@ nav{
 }
 
 #chat-user-info .chat-user-profile img{
+    object-fit: cover;
     width: 32px;
     height: 32px;
     margin-right:8px;
@@ -576,6 +580,7 @@ nav{
 
 .chat-user-menu{
     padding:5px 10px 5px 10px;
+    margin: 10px 0 10px 0;
     border-top: 1px solid rgba(0,0,0,0.1);
     border-bottom: 1px solid rgba(0,0,0,0.1);
 }
@@ -638,6 +643,8 @@ nav{
     margin-right: 10px;
     height: calc(100% - 60px);
     min-width: 400px;
+    border-radius: 5px;
+    background-color: transparent;
 }
 .chat-container {
     display: inline-block;
@@ -672,13 +679,12 @@ nav{
 
 #chat-page ul {
     list-style-type: none;
-    margin: 0;
     overflow: auto;
     overflow-y: scroll;
     overflow-y: overlay;
-    padding: 0 20px 0px 20px;
     height: calc(100% - 170px);
-    width:100%;
+    width: calc(100% - 20px);
+    margin-left:10px;
     max-height: calc(100% - 170px);
     border-top: 1px solid rgba(0,0,0,0.15);
     border-bottom: 1px solid rgba(0,0,0,0.15);

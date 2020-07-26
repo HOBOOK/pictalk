@@ -59,10 +59,10 @@
             opacity:1.0;
             curser:pointer;
         }
-        .container{
-            position: absolute;
-            margin-left:235px;
-        }
+        /*.container{*/
+        /*    position: absolute;*/
+        /*    margin-left:235px;*/
+        /*}*/
         .right_nav_li .card img{
             width: 200px;
             height: 200px;
@@ -70,24 +70,23 @@
 
     </style>
 
+    <div class="right_nav" style="display: flex;">
+        <ul>
+            <li ng-repeat="img in person.album" class="right_nav_li">
+                <div class="card">
+                    <img class="card-img-top" ng-src='{{img.url}}' alt="Card image cap">
+                    <input type="hidden" name="imgId" value={{img.id}}>
+                </div>
 
-    <ul class="right_nav">
-        <li ng-repeat="img in person.album" class="right_nav_li">
-            <div class="card">
-                <img class="card-img-top" ng-src='{{img.url}}' alt="Card image cap">
-                <input type="hidden" name="imgId" value={{img.id}}>
-            </div>
+                <div class="hover_card">
+                    <button type="button" class="btn btn-primary btn-sm card-btn btn-danger" ng-click="imgRemove(img)">삭제</button>
 
-            <div class="hover_card">
-                <button type="button" class="btn btn-primary btn-sm card-btn btn-danger" ng-click="imgRemove(img)">삭제</button>
+                </div>
+            </li>
+        </ul>
+    </div>
 
-            </div>
-
-        </li>
-
-
-    </ul>
-    <div class="container" ng-show="person.album.length!==0">
+    <div class="pagination justify-content-center" ng-show="person.album.length!==0">
         <ul class="pagination pagination-sm">
             <li class="page-item"><a class="page-link" href="#">이전</a></li>
             <li class="page-item"><a class="page-link" href="#">1</a></li>
@@ -100,4 +99,6 @@
         <span id="message"><i class="far fa-images"></i>저장된 사진이 없습니다.</span>
 
     </div>
+
+
 </section>

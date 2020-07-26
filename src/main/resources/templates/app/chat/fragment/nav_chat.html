@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<th:nav th:fragment="nav">
+    <nav>
+        <div class="nav-group">
+            <ul>
+                <span id="logo-main">
+                    <a th:href="@{/}"><img src="/img/logo/logo.png" alt="logo_pictalk" width="48" height="48"/></a>
+                </span>
+                <li><a ng-class="{selected: isSelectedMainBar(0)}" ng-click="onClickOpenMainBar(0, $event)" tooltip-right="오픈채팅" class="nav-button"><i class="fab fa-rocketchat"></i></a></li>
+                <li><a ng-class="{selected: isSelectedMainBar(1)}" ng-click="onClickOpenMainBar(1, $event)" tooltip-right="내채팅" class="nav-button"><i class="far fa-comment-dots"></i></a></li>
+                <li><a tooltip-right="마이페이지" class="nav-button" th:href="@{/mypage}"><i class="fas fa-user-edit"></i></a></li>
+                <li style="flex:1;"></li>
+                <li><a tooltip-right="설정" class="nav-button" th:href="@{/configuration}"><i class="fas fa-cog"></i></a></li>
+                <li>
+                    <a ng-show="!me" tooltip-right="로그인" class="nav-button" th:href="@{/signin}">
+                        <i  class="fas fa-power-off"></i>
+                    </a>
+                    <a ng-cloak ng-show="me" class="nav-button" th:href="@{/signin}">
+                        <span id="nav-user-avatar-cover">
+                            <img ng-cloak id="nav-user-avatar" ng-show="me" ng-src="{{me.avatar}}" onerror="this.style.display='none'" alt="user_avatar"/>
+                        </span>
+                    </a>
+                </li>
+                <li></li>
+            </ul>
+        </div>
+    </nav>
+</th:nav>
+</html>

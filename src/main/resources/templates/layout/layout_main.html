@@ -10,6 +10,7 @@
         <!-- Global Common CSS -->
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
         <link rel="stylesheet" href="/css/main.css"/>
+        <link rel="stylesheet" href="/css/main-animation.css"/>
         <th:block layout:fragment="css"></th:block>
 
         <!-- AngularJs JS -->
@@ -17,6 +18,7 @@
         <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.0/angular.min.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.0/angular-animate.min.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.0/angular-sanitize.min.js"></script>
+        <script src="https://rawgithub.com/gsklee/ngStorage/master/ngStorage.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/2.5.6/ui-bootstrap-tpls.js"></script>
 
         <script src="/js/ng-file-upload-shim.min.js"></script>
@@ -42,12 +44,14 @@
     <body>
         <div class="layout-main" ng-app="mainApp">
             <!--        <header th:replace="fragment/header :: header"></header>-->
-            <nav th:replace="~{fragment/nav :: nav}"></nav>
+
             <div class="content">
                 <section layout:fragment="content"></section>
             </div>
         </div>
-
         <th:block layout:fragment="js-end"></th:block>
+        <div class="common-alert">
+            <span><i class="far fa-check-circle"></i> 변경사항이 저장되었습니다.</span>
+        </div>
     </body>
 </html>

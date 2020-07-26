@@ -7,6 +7,7 @@
 <th:block layout:fragment="js">
     <!--추가 JS -->
     <script src="/management/js/dashboard.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
     <!--추가 JS 끝-->
 </th:block>
 <th:block layout:fragment="css">
@@ -100,42 +101,47 @@
 
 
                 <div class="manager-box-content">
-                    <div class="col-xl-4">
+                    <div class="col-xl-8">
                         <div class="card-box">
-                            <h4 class="header-title mt-0">차트1</h4>
+<!--                            <h4 class="header-title mt-0">차트1</h4>-->
 
                             <div class="widget-chart text-center">
-                                <div class="dashboard-chart" style="height: 250px;" >
+                                <div class="dashboard-chart" style="" >
+
+                                    <canvas id="myChart"></canvas>
 
                                 </div>
                             </div>
                         </div>
                     </div><!-- end col -->
 
-
                     <div class="col-xl-4">
                         <div class="card-box">
-                            <h4 class="header-title mt-0">차트2</h4>
+<!--                            <h4 class="header-title mt-0">차트2</h4>-->
 
                             <div class="widget-chart text-center">
-                                <div class="dashboard-chart" style="height: 250px;" >
+                                <div class="dashboard-chart" style="" >
+
+                                    <canvas id="myPieChart" style="margin-bottom: 35px;"></canvas>
+
+                                    <canvas id="myPieChart2"></canvas>
 
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    <div class="col-xl-4">
-                        <div class="card-box">
-                            <h4 class="header-title mt-0">차트3</h4>
+<!--                    <div class="col-xl-4">-->
+<!--                        <div class="card-box">-->
+<!--                            <h4 class="header-title mt-0">차트3</h4>-->
 
-                            <div class="widget-chart text-center">
-                                <div class="dashboard-chart" style="height: 250px;" >
+<!--                            <div class="widget-chart text-center">-->
+<!--                                <div class="dashboard-chart" style="" >-->
 
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
 
                 </div>
 
