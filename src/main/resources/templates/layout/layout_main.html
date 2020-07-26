@@ -44,12 +44,14 @@
     <body>
         <div class="layout-main" ng-app="mainApp">
             <!--        <header th:replace="fragment/header :: header"></header>-->
-            <nav th:replace="~{fragment/nav :: nav}"></nav>
+
             <div class="content">
                 <section layout:fragment="content"></section>
             </div>
         </div>
-
         <th:block layout:fragment="js-end"></th:block>
+        <div class="common-alert">
+            <span><i class="far fa-check-circle"></i> 변경사항이 저장되었습니다.</span>
+        </div>
     </body>
 </html>

@@ -20,8 +20,7 @@
 }
 
 .modal-dialog{
-    height: 100%;
-    margin: 0 auto;
+    margin:0 auto;
     text-align: center;
     animation-name: scaleUp;
     animation-duration: 0.5s;
@@ -32,7 +31,6 @@
     opacity: .15;
 }
 .modal-content{
-    top:30px;
     margin:30px auto;
     font-family: 'Lato', 'Nanum Gothic Coding', sans-serif !important;
     border: none;
@@ -45,11 +43,7 @@
     -webkit-box-shadow: 0 5px 20px rgba(65,105,225,0.2);
 }
 
-.modal.fade .modal-dialog, .modal.in .modal-dialog  .modal-content{
-    -webkit-transform: translate(0, 0);
-    -ms-transform: translate(0, 0);
-    transform: translate(0, 0);
-}
+
 
 
 .chat-modal-header{
@@ -91,6 +85,7 @@
     border-bottom: 1px solid rgba(0,0,0,0.1);
     width: calc(100% - 16px);
     margin-left: 16px;
+    position: relative;
 }
 
 .chat-add-info input{
@@ -100,6 +95,21 @@
     width: calc(100% - 50px);
     margin: 12px 6px 3px 3px;
 }
+.chat-add-info  input ~ .input-border{
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    width: 0;
+    height: 1px;
+}
+
+.chat-add-info  input:focus ~ .input-border  {
+    width: 100%;
+    border-bottom: 1px solid royalblue !important;
+    transition: 0.5s;
+}
+
+
 
 .chat-add-config{
     margin: 16px;
@@ -203,9 +213,9 @@
 }
 
 .avatar-selector {
-    margin:-150px 0 -150px 140px;
+    margin:-150px 0 -300px 120px;
     max-width: 100%;
-    width: 84px;
+    width: 120px;
     height: 380px;
     max-height: 380px;
     display: flex;
@@ -215,6 +225,34 @@
     overflow-y: overlay;
     overflow-x: hidden;
     transform: rotate(-90deg);
+    position: relative;
+}
+.avatar-selector-cover{
+    position: relative;
+    display: inline-block;
+    width: 100%;
+    top:-100px;
+}
+.avatar-selector-cover:before{
+    content: '';
+    position: absolute;
+    top:0;
+    left:-20px;
+    width: 60px;
+    height: 120px;
+    background: linear-gradient(to right, #fff 30%, transparent);
+    z-index: 10;
+}
+
+.avatar-selector-cover:after{
+    content: '';
+    position: absolute;
+    top:0;
+    right:-20px;
+    width: 60px;
+    height: 120px;
+    background: linear-gradient(to left, #fff 30%, transparent);
+    z-index: 10;
 }
 .avatar-selector > span{
     border: 2px solid #B85B14;
@@ -224,7 +262,7 @@
     height: 64px;
     flex: 0 0 auto;
     cursor: pointer;
-    margin: 10px;
+    margin: 10px 28px 10px 28px;
     transform: rotate(90deg);
 }
 .avatar-selector > span img{

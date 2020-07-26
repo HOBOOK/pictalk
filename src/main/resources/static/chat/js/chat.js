@@ -18,83 +18,86 @@ app.controller("chatController", function ($scope, $http, $uibModal, $filter, $t
     // 현재 채팅방의 사용자 모델
     $scope.currentMe = angular.copy($scope.me);
 
-    $timeout(function () {
-        $scope.rooms = [{
-            id: 0,
-            type: 0,
-            title: "방제목",
-            description: "대화하고 노실분들 입장하세용",
-            category:["태그1","태그2"],
-            img: "/chat/img/thumbnail_gif_example.gif",
-            max: 100,
-            createDate: "2020.07.13",
-            private: true,
-            manager_id: 1,
-            participants: [],
-            like: [],
-            messages:[],
-            accessKey: "1234",
-            storageImage:[]
-        }];
-
-        var roomImages = ["/chat/img/thumbnail_example.png","/chat/img/image_example.jpg"];
-        for(var i = 1; i < 100; i++){
-            $scope.rooms.push({
-                id: i,
-                type: 1,
-                title: "방제목 " + i,
-                description: "대화하고 노실분들 입장하세요 (대화방에 대한 설명이 긴 경우 ... 으로 표시됩니다)",
+    $scope.loadChatList = function(){
+        $scope.filteredRooms = null;
+        $timeout(function () {
+            $scope.rooms = [{
+                id: 0,
+                type: 0,
+                title: "방제목",
+                description: "대화하고 노실분들 입장하세용",
                 category:["태그1","태그2"],
-                img: roomImages[(i%roomImages.length)],
-                max: 500,
+                img: "/chat/img/thumbnail_gif_example.gif",
+                max: 100,
                 createDate: "2020.07.13",
-                private: false,
+                private: true,
                 manager_id: 1,
                 participants: [],
                 like: [],
                 messages:[],
-                accessKey: "",
+                accessKey: "1234",
                 storageImage:[]
-            });
+            }];
 
-            // 채팅방 참여자 인풋
-            $scope.rooms[i].participants = [
-                {
-                    id: 1,
-                    nickname: "방장님",
-                    email: "park@naver.com",
-                    avatar: "/chat/img/thumbnail_example.png",
-                    album: [{
-                        url:"/chat/img/image_example.jpg"
-                    },{
-                        url:"/img/no-image.png"
-                    },{
-                        url:"/chat/img/thumbnail_example.png"
-                    }]
-                }];
-            var nicknames = ["팍경호","쏭치민","쵸지은","호경봑","민지쏭","은지쵸"];
-            for(var j = 2; j < 200; j++){
-                $scope.rooms[i].participants.push({
-                    id: j,
-                    nickname: nicknames[(j%nicknames.length)],
-                    email: "park@naver.com",
-                    avatar: "/chat/img/thumbnail_example.png"
-                })
+            var roomImages = ["/chat/img/thumbnail_example.png","/chat/img/image_example.jpg"];
+            for(var i = 1; i < 100; i++){
+                $scope.rooms.push({
+                    id: i,
+                    type: 1,
+                    title: "방제목 " + i,
+                    description: "대화하고 노실분들 입장하세요 (대화방에 대한 설명이 긴 경우 ... 으로 표시됩니다)",
+                    category:["태그1","태그2"],
+                    img: roomImages[(i%roomImages.length)],
+                    max: 500,
+                    createDate: "2020.07.13",
+                    private: false,
+                    manager_id: 1,
+                    participants: [],
+                    like: [],
+                    messages:[],
+                    accessKey: "",
+                    storageImage:[]
+                });
+
+                // 채팅방 참여자 인풋
+                $scope.rooms[i].participants = [
+                    {
+                        id: 1,
+                        nickname: "방장님",
+                        email: "park@naver.com",
+                        avatar: "/chat/img/thumbnail_example.png",
+                        album: [{
+                            url:"/chat/img/image_example.jpg"
+                        },{
+                            url:"/img/no-image.png"
+                        },{
+                            url:"/chat/img/thumbnail_example.png"
+                        }]
+                    }];
+                var nicknames = ["팍경호","쏭치민","쵸지은","호경봑","민지쏭","은지쵸"];
+                for(var j = 2; j < 200; j++){
+                    $scope.rooms[i].participants.push({
+                        id: j,
+                        nickname: nicknames[(j%nicknames.length)],
+                        email: "park@naver.com",
+                        avatar: "/chat/img/thumbnail_example.png"
+                    })
+                }
+
+                // 채팅방 사진 저장소 인풋
+                for(var j = 1; j < 10; j++){
+                    var image = {
+                        url:  "/chat/img/image_example.jpg",
+                        date: Date.now().toString()
+                    };
+                    $scope.addImageToChatStorage($scope.rooms[i], image);
+                }
             }
-
-            // 채팅방 사진 저장소 인풋
-            for(var j = 1; j < 10; j++){
-                var image = {
-                    url:  "/chat/img/image_example.jpg",
-                    date: Date.now().toString()
-                };
-                $scope.addImageToChatStorage($scope.rooms[i], image);
-            }
-        }
-        $scope.filteredRooms = $scope.rooms;
-        $scope.$apply();
-    },1000);
-
+            $scope.filteredRooms = $scope.rooms;
+            $scope.$apply();
+        },1000);
+    }
+    $scope.loadChatList();
 
     // 채팅 모듈 설정 데이터
     $scope.initConfig = function(){
@@ -149,6 +152,7 @@ app.controller("chatController", function ($scope, $http, $uibModal, $filter, $t
             $scope.openModalJoinNewChatRoom($event, room);
         }
     }
+
 
     // 채팅방 접속
     $scope.connect = function ($event, room) {

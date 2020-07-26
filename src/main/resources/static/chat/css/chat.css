@@ -643,6 +643,8 @@ nav{
     margin-right: 10px;
     height: calc(100% - 60px);
     min-width: 400px;
+    border-radius: 5px;
+    background-color: transparent;
 }
 .chat-container {
     display: inline-block;
@@ -677,13 +679,12 @@ nav{
 
 #chat-page ul {
     list-style-type: none;
-    margin: 0;
     overflow: auto;
     overflow-y: scroll;
     overflow-y: overlay;
-    padding: 0 20px 0px 20px;
     height: calc(100% - 170px);
-    width:100%;
+    width: calc(100% - 20px);
+    margin-left:10px;
     max-height: calc(100% - 170px);
     border-top: 1px solid rgba(0,0,0,0.15);
     border-bottom: 1px solid rgba(0,0,0,0.15);

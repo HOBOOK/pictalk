@@ -20,15 +20,19 @@
                     </div>
                 </div>
             </div>
-            <div class="avatar-selector">
-                <span ng-repeat="avatar in defaultAvatars" ng-click="onClickSelectAvatar(avatar)"><img ng-src="{{avatar}}" alt="avatar"/></span>
+            <div class="avatar-selector-cover">
+                <div class="avatar-selector">
+                    <span ng-repeat="avatar in defaultAvatars" ng-click="onClickSelectAvatar(avatar)"><img ng-src="{{avatar}}" alt="avatar"/></span>
+                </div>
             </div>
+
         </li>
         <li>
             <h5><i class="fas fa-signature"></i> 닉네임</h5>
             <div class="chat-add-input-container">
                 <input type="text" id="input-title" ng-model="nickname" maxlength="16"/>
                 <span class="glyphicon glyphicon-remove" ng-show="nickname.length > 0" ng-click="clearNickname()"></span>
+                <span class="input-border"></span>
             </div>
 
         </li>
@@ -37,6 +41,7 @@
             <div class="chat-add-input-container">
                 <input type="password" id="input-key" ng-model="accessKey" maxlength="20"/>
                 <span class="glyphicon glyphicon-remove" ng-show="accessKey.length > 0" ng-click="clearAccessKey()"></span>
+                <span class="input-border"></span>
             </div>
         </li>
     </ul>

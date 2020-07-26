@@ -1,5 +1,9 @@
 var app = angular.module("mainApp", ['ngAnimate', 'ngSanitize', 'ui.bootstrap','ngFileUpload','ngStorage']);
+app.config(['$qProvider', function ($qProvider) {
 
+    $qProvider.errorOnUnhandledRejections(false);
+
+}]);
 
 app.factory('UserService', function($localStorage) {
     var tempUserModel = {
@@ -83,8 +87,4 @@ app.factory('UserService', function($localStorage) {
     return {
         user : $localStorage.user
     };
-});
-
-app.controller('navController', function ($scope, UserService) {
-    $scope.me = UserService.user;
 });

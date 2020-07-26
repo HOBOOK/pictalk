@@ -87,6 +87,7 @@ div.nav-group .nav-button{
     width: 48px;
     height: 48px;
     border-radius: 50%;
+    cursor: pointer;
     transition: background-color .3s ease-in-out;
     -webkit-transition: background-color .3s ease-in-out;
     position: relative;
@@ -131,6 +132,35 @@ div.loading {
 }
 div.loading img{
 
+}
+/********* 팝업 영역 ***********/
+div.common-alert{
+    position: absolute;
+    bottom: 15px;
+    right: 15px;
+    height: 50px;
+    padding: 10px;
+    width: auto;
+    max-width: 300px;
+    transition: all .3s ease-in-out;
+    background-color: rgba(255,255,255,.7);
+    box-shadow: 0 10px 10px 1px rgba(0,0,0,0.1);
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+div.common-alert span{
+    font-size: 14px;
+    display: flex;
+    margin:0 auto;
+}
+div.common-alert i{
+    color: #000 !important;
+    font-size: 20px !important;
+    margin: 0 10px 0 0 !important;
+}
+div.common-alert:hover{
+    background-color: rgba(255,255,255,1);
 }
 
 

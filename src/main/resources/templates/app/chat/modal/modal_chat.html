@@ -26,6 +26,7 @@
             <div class="chat-add-input-container">
                 <input type="text" id="input-title" ng-model="newChatRoom.title" maxlength="30"/>
                 <span class="glyphicon glyphicon-remove" ng-show="newChatRoom.title.length > 0" ng-click="clearTitle()"></span>
+                <span class="input-border"></span>
             </div>
 
         </li>
@@ -34,12 +35,14 @@
             <div class="chat-add-input-container">
                 <input type="text" ng-model="newChatRoom.description" maxlength="50" required/>
                 <span class="glyphicon glyphicon-remove" ng-show="newChatRoom.description.length > 0" ng-click="clearDescription()"></span>
+                <span class="input-border"></span>
             </div>
         </li>
         <li>
             <h5><i class="fas fa-hashtag"></i> 해시 태그</h5>
             <div class="chat-add-input-container">
                 <input type="text" ng-keypress="onKeyPressAddTag($event)" ng-model="inputTempTag" placeholder="태그 입력후 Enter (최대 5개)" maxlength="16"/>
+                <span class="input-border"></span>
             </div>
             <ul class="chat-add-tag-list">
                 <li ng-repeat="tag in newChatRoom.category track by $index"># {{tag}} <span class="glyphicon glyphicon-remove" ng-click="clearTag(tag)"></span></li>
