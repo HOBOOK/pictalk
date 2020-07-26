@@ -73,12 +73,12 @@
                             <div class="cxl-3 cmd-6" ng-repeat="room in rooms">
                                 <div class="group-card-box file-zoom-effect">
                                     <div>
-                                        <input type="checkbox" class="checkbox-size">
+                                        <input type="checkbox" class="checkbox-size" ng-checked="leader">
                                         <i class="fas fa-bars" style="float: right;" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
 
                                         <div class="dropdown-menu" style="min-width: 7rem;">
-                                            <a class="dropdown-item" href="#">etc</a>
-                                            <div class="dropdown-divider"></div>
+<!--                                            <a class="dropdown-item" href="#">etc</a>-->
+<!--                                            <div class="dropdown-divider"></div>-->
                                             <a class="dropdown-item" href="#">삭제</a>
                                         </div>
                                     </div>
@@ -93,12 +93,14 @@
                                     </div>
 
 
-                                    <!--앵귤러로 바꾸기-->
                                     <div class="detail" style="list-style: none; text-align: center;">
                                         <a type="button" id="tab">▼</a>
                                         <ul class="hide" style="list-style: none; text-align: left; padding:0; margin: 0;">
                                             <li>
-                                                세부정보
+                                                방장 :
+                                            </li>
+                                            <li>
+                                                인원 :
                                             </li>
                                         </ul>
                                     </div>
@@ -129,6 +131,9 @@
 
                         </div>
 
+                        <div>
+                            <input ng-model="leader" type="checkbox" style="width: 20px; height: 20px;">
+                        </div>
                         <foot aria-label="Page navigation example">
                             <ul class="pagination justify-content-center">
                                 <li class="page-item disabled">
