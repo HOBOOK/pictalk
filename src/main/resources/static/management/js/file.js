@@ -129,8 +129,7 @@ app.controller("fileCtrl", function ($scope) {
         }];
     }
 
-
-
+    //이미지 삭제
     $scope.image_delete = function (image) {
         var idx = $scope.images.findIndex(function (item) {
             return item.no == image.no;
@@ -141,5 +140,12 @@ app.controller("fileCtrl", function ($scope) {
         }
     };
 
+    
+    //선택된 채팅 그룹 삭제
+    $scope.all_room_delete = function () {
+
+        //checked index 확인
+
+    };
 
 });
