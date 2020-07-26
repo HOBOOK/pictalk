@@ -52,7 +52,7 @@
                 <input class="tgl tgl-ios" id="cb1" type="checkbox" ng-model="config.isPrivate"/>
                 <label class="tgl-btn" for="cb1"></label>
                 <div class="chat-add-input-container" ng-show="config.isPrivate" >
-                    <input type="password" placeholder="접속암호 설정" minlength="8" maxlength="20" ng-model="newChatRoom.accessKey"/>
+                    <input type="password" placeholder="접속암호 설정" minlength="4" maxlength="20" ng-model="newChatRoom.accessKey"/>
                     <span class="glyphicon glyphicon-remove" ng-show="newChatRoom.accessKey.length > 0" ng-click="clearAccessKey()"></span>
                 </div>
             </div>
