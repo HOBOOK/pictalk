@@ -36,7 +36,7 @@
 
 <th:block layout:fragment="css">
     <!--추가 CSS -->
-<!--    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.21/css/dataTables.bootstrap4.min.css">
     <link rel="stylesheet" href="/management/css/management.css"/>
@@ -64,6 +64,7 @@
                         <th>닉네임</th>
                         <th>성별</th>
                         <th>가입일</th>
+                        <th>최근신고날짜</th>
                         <th>신고횟수</th>
                         <th>상태</th>
                     </tr>
@@ -76,6 +77,7 @@
                         <td>{{account.nickname}}</td>
                         <td>{{account.gender}}</td>
                         <td>{{account.joinDate}}</td>
+                        <td>{{account.reportDate}}</td>
                         <td>{{account.reportCount}}</td>
                         <td><i class="fas fa-circle {{account.connect}}"></i></td>
                     </tr>
@@ -87,6 +89,7 @@
                     <th>닉네임</th>
                     <th>성별</th>
                     <th>가입일</th>
+                    <th>최근신고날짜</th>
                     <th>신고횟수</th>
                     <th>상태</th>
                 </table>

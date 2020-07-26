@@ -13,6 +13,7 @@ app.controller("accountCtrl", function ($scope, $uibModal, $http, $document) {
         authority: 0,
         connect: "on",
         joinDate: "2020-07-09 20:00",
+        reportDate: "2020-07-20 16:00",
         reportCount: 1
     },{
         no: "2",
@@ -25,6 +26,7 @@ app.controller("accountCtrl", function ($scope, $uibModal, $http, $document) {
         authority: 1,
         connect: "off",
         joinDate: "2020-07-09 20:00",
+        reportDate: "2020-07-20 16:00",
         reportCount: 10
     },{
         no: "3",
@@ -37,6 +39,7 @@ app.controller("accountCtrl", function ($scope, $uibModal, $http, $document) {
         authority: 1,
         connect: "ban",
         joinDate: "2020-07-09 20:00",
+        reportDate: "2020-07-20 16:00",
         reportCount: 112
     },{
         no: "4",
@@ -49,6 +52,7 @@ app.controller("accountCtrl", function ($scope, $uibModal, $http, $document) {
         authority: 1,
         connect: "delete",
         joinDate: "2020-07-09 20:00",
+        reportDate: "2020-07-20 16:00",
         reportCount: 112
     }];
 
@@ -62,6 +66,18 @@ app.controller("accountCtrl", function ($scope, $uibModal, $http, $document) {
     $scope.openModal = function(account_info) {
 
         // console.log(account_info);
+
+        //사용자 번호에 해당하는 Log,Report account_info랑 넘겨주기
+        // $scope.getLog = function(){
+        //     $http({
+        //         method:"get",
+        //         url:"/ /",
+        //         // data:{msg:$scope.msg},
+        //     }).success(function(data){
+        //         console.log(data);
+        //     });
+        // };
+
 
         var modalInstance = $uibModal.open({
             templateUrl: '/console/info',
