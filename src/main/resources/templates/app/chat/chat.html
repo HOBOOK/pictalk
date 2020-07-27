@@ -38,7 +38,6 @@
 </th:block>
 
 <section layout:fragment="content" ng-controller="chatController" class="content-chat-container">
-    <nav th:replace="~{app/chat/fragment/nav_chat :: nav}"></nav>
     <!----------------------- 채팅방 목록 컨테이너 ------------------------------>
     <div class="chat-sidebar-container">
         <div th:replace="~{/app/chat/fragment/fragment_chat_list :: chat_list}">

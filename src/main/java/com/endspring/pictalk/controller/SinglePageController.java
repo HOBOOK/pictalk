@@ -8,11 +8,15 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 public class SinglePageController {
     @GetMapping("/")
-    public String test(){
+    public String main(){
         return "app/chat/chat";
     }
     @GetMapping("/chat")
     public String chat(){
+        return "app/chat/chat";
+    }
+    @GetMapping("/mychat")
+    public String myChat(){
         return "app/chat/chat";
     }
     @RequestMapping(value = "modal/modal_chat", method = RequestMethod.GET)
@@ -34,15 +38,15 @@ public class SinglePageController {
     public String mypage(){
         return "personal";
     }
-    @GetMapping("/personal")
+    @GetMapping("/mypage/personal")
     public String personal(){
         return "personal";
     }
-    @GetMapping("/follow")
+    @GetMapping("/mypage/follow")
     public String follow(){
         return "follow";
     }
-    @GetMapping("/pictures")
+    @GetMapping("/mypage/pictures")
     public String pictures(){
         return "pictures";
     }

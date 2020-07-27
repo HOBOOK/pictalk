@@ -9,7 +9,7 @@
 <!--    <script src="http://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>-->
 <!--    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>-->
 <!--    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">-->
-    <script src="mypage/js/mypage.js"></script>
+    <script src="/mypage/js/mypage.js"></script>
 <!--    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.0/angular.js"></script>-->
 
 <!--    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.0/angular-resource.js"></script>-->
@@ -24,20 +24,19 @@
 </th:block>
 
 <th:block layout:fragment="css">
-    <link rel="stylesheet" href="mypage/css/mypage.css"/>
+    <link rel="stylesheet" href="/mypage/css/mypage.css"/>
 
 </th:block>
 
 <section layout:fragment="content" class="wrap">
 <!--    <div class="chat-sidebar-container"></div>-->
-    <nav th:replace="~{app/chat/fragment/nav_chat :: nav}"></nav>
     <div class="wrap" ng-controller = "mypageCtrl">
         <div class="left_wrap mypage-sidebar-container">
             <div>
                 <ul class="nav nav-pills nav-stacked">
                     <li role="presentation" id="personal" class=""  ng-class="{active: selected=='mypage'}"><a href="/mypage" ng-click="selected='personal'">정보</a></li>
-                    <li role="presentation" id="follow" class=""  ng-class="{active: selected=='follow'}" ><a href="/follow" ng-click="selected='follow'">팔로우</a></li>
-                    <li role="presentation" id="pictures" class=""  ng-class="{active: selected=='pictures'}" ><a href="/pictures" ng-click="selected='pictures'">사진 보관함</a></li>
+                    <li role="presentation" id="follow" class=""  ng-class="{active: selected=='follow'}" ><a href="/mypage/follow" ng-click="selected='follow'">팔로우</a></li>
+                    <li role="presentation" id="pictures" class=""  ng-class="{active: selected=='pictures'}" ><a href="/mypage/pictures" ng-click="selected='pictures'">사진 보관함</a></li>
                 </ul>
             </div>
         </div>
