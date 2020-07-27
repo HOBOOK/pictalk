@@ -165,6 +165,18 @@ app.controller('mypageCtrl',function ($scope, $location,$timeout, UserService) {
     // $scope.bigTotalItems = 175;
     // $scope.bigCurrentPage = 1;
 
+
+    $scope.navBarIndex = 0;
+    // 좌측 메뉴바 탭 선택 이벤트
+    $scope.onClickNavBar = function(index, $event){
+        $scope.navBarIndex = index;
+    }
+
+    // 좌측 메뉴바 현재 탭인지 확인
+    $scope.isSelectedNavBar = function(index){
+        return $scope.navBarIndex === index;
+    }
+
 });
 
 

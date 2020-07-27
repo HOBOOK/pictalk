@@ -15,7 +15,6 @@
         <link rel="stylesheet" href="/common/css/util.css"/>
 
         <!-- AngularJs JS -->
-<!--        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.0/angular.js"></script>-->
         <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.0/angular.min.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.0/angular-animate.min.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.0/angular-sanitize.min.js"></script>
@@ -29,13 +28,11 @@
 
 
         <!-- JQuery JS -->
-        <!--    <script src="http://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>-->
         <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
 
 
         <!-- BootStrap JS -->
-        <!--    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>-->
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
 
         <!-- Global Common JS -->
@@ -44,8 +41,7 @@
     </head>
     <body>
         <div class="layout-main" ng-app="mainApp">
-            <!--        <header th:replace="fragment/header :: header"></header>-->
-            <nav th:replace="~{fragment/nav :: nav}"></nav>
+            <header th:replace="fragment/header :: header"></header>
             <div class="content">
                 <section layout:fragment="content"></section>
             </div>

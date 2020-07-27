@@ -1,8 +1,28 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<th:header th:fragment="header">
-    <header>
-        헤더
-    </header>
-</th:header>
+<header th:fragment="header">
+    <div class="header-group">
+        <ul>
+            <span id="logo-main">
+                <a href="/"><img src="/img/logo/logo.png" alt="logo_pictalk" width="32" height="32"/></a>
+            </span>
+            <li style="flex:1;"></li>
+            <li><a th:classappend="${#httpServletRequest.requestURI.contains('chat')} ? 'selected' : ''" class="header-button" th:href="@{/chat}"><i class="fab fa-rocketchat"></i> 채팅</a></li>
+            <li></li>
+            <li><a th:classappend="${#httpServletRequest.requestURI.contains('mypage')} ? 'selected' : ''" class="header-button" th:href="@{/mypage}"><i class="fas fa-user-edit"></i> 프로필</a></li>
+            <li style="flex:1;"></li>
+            <li>
+                <a ng-show="!me" class="header-button" th:href="@{/signin}">
+                    <i  class="fas fa-power-off"></i>
+                </a>
+                <a ng-cloak ng-show="me" class="header-button" th:href="@{/signin}">
+                        <span id="user-avatar-cover">
+                            <img ng-cloak id="user-avatar" ng-show="me" ng-src="{{me.avatar}}" onerror="this.style.display='none'" alt="user_avatar"/>
+                        </span>
+                </a>
+            </li>
+            <li></li>
+        </ul>
+    </div>
+</header>
 </html>

@@ -111,7 +111,7 @@ app.controller("chatController", function ($scope, Scopes, $http, $uibModal, $fi
                 thumbnail: null
             },
             ui:{
-                mainBarIndex: Scopes.get('navController').selectedModuleIndex,
+                navBarIndex: 0,
                 sidebarIndex: 0,
                 scrollLimit:[
                     {limit: 18}, //채팅방 목록
@@ -166,7 +166,7 @@ app.controller("chatController", function ($scope, Scopes, $http, $uibModal, $fi
             $scope.currentRoom = room;
             $scope.initChatRoomData();
             if($scope.isAlreadyJoined(room)){
-                $scope.currentMe = $filter('filter')($scope.currentRoom.participants, {id: $scope.me.id}, true)[0];
+                $scope.currentMe = $filter('filter')($scope.me.myRooms.participants, {id: $scope.me.id}, true)[0];
                 $scope.getChatRoomMessages(room);
             }else{
                 /* 채팅방 프로필 설정창 오픈*/
@@ -178,7 +178,7 @@ app.controller("chatController", function ($scope, Scopes, $http, $uibModal, $fi
                 }
             }
             $scope.setChatRoomMessageIndex($scope.currentRoom);
-            $scope.onClickOpenMainBar(1);
+            $scope.onClickNavBar(1);
 
             if($event)
                 $event.preventDefault();
@@ -334,13 +334,13 @@ app.controller("chatController", function ($scope, Scopes, $http, $uibModal, $fi
     }
 
     // 좌측 메뉴바 탭 선택 이벤트
-    $scope.onClickOpenMainBar = function(index, $event){
-        $scope.config_chat.ui.mainBarIndex = index;
+    $scope.onClickNavBar = function(index, $event){
+        $scope.config_chat.ui.navBarIndex = index;
     }
 
     // 좌측 메뉴바 현재 탭인지 확인
-    $scope.isSelectedMainBar = function(index){
-        return $scope.config_chat.ui.mainBarIndex === index;
+    $scope.isSelectedNavBar = function(index){
+        return $scope.config_chat.ui.navBarIndex === index;
     }
 
     // 우측 메뉴바 선택 이벤트

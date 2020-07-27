@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<nav th:fragment="nav">
+    <div class="nav-group">
+        <ul>
+            <li></li>
+            <li><a ng-class="{selected: isSelectedNavBar(0)}" ng-click="onClickNavBar(0, $event)" tooltip-right="오픈채팅" class="nav-button"><i class="fab fa-rocketchat"></i></a></li>
+            <li><a ng-class="{selected: isSelectedNavBar(1)}" ng-click="onClickNavBar(1, $event)" tooltip-right="내채팅" class="nav-button"><i class="far fa-comment-dots"></i></a></li>
+            <li><a ng-class="{selected: isSelectedNavBar(2)}" ng-click="onClickNavBar(2, $event)" tooltip-right="설정" class="nav-button"><i class="fas fa-cog"></i></a></li>
+            <li style="flex:1;"></li>
+        </ul>
+    </div>
+</nav>
+</html>
