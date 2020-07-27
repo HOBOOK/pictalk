@@ -31,7 +31,7 @@ public class SinglePageController {
 
     @GetMapping("/configuration")
     public String configuration(){
-        return "app/chat/configuration";
+        return "app/configuration/configuration";
     }
 
     @GetMapping("/mypage")

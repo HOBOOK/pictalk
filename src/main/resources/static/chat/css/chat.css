@@ -150,7 +150,7 @@ nav{
     display: inline-block;
     width: calc(100% - 40px);
 }
-.chat-sidebar-header h3{
+.chat-sidebar-header h4{
     display: inline-block;
 }
 
@@ -317,6 +317,7 @@ nav{
     width: 60px;
     height: 60px;
     object-fit: cover;
+    border-radius: 50%;
 }
 
 .chat-room-info{

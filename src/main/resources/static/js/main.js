@@ -110,6 +110,8 @@ app.controller('navController', function ($scope, Scopes, $location) {
 
         }else if(absUrl.indexOf('mypage') !== -1) {
             $scope.selectedModuleIndex = 2;
+        }else if(absUrl.indexOf('configuration') !== -1){
+            $scope.selectedModuleIndex = 3;
         }else{
             $scope.selectedModuleIndex = 0;
 
