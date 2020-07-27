@@ -34,7 +34,6 @@ app.controller('mypageCtrl',function ($scope, $location,$timeout, UserService) {
     $scope.albums = [];
 
 
-
     $scope.numPages = function () {
         return Math.ceil($scope.totalItems.length / $scope.numPerPage);
     };
@@ -44,14 +43,14 @@ app.controller('mypageCtrl',function ($scope, $location,$timeout, UserService) {
 
     $scope.range = function(total){
         var input=[];
-        for(var i= 1;i<$scope.numPages();i++){
+        for(var i= 1;i<=$scope.numPages();i++){
             input.push(i);
         }
         return input;
             };
 
 
-    $scope.$watch('currentPage', function() {
+    $scope.$watch('currentPage + totalItems', function() {
         var begin = (($scope.currentPage - 1) * $scope.numPerPage)
             , end = begin + $scope.numPerPage;
 
@@ -119,6 +118,25 @@ app.controller('mypageCtrl',function ($scope, $location,$timeout, UserService) {
     }
 
 
+    $scope.addImg = function($event,element) {
+
+        var reader = new FileReader();
+        reader.readAsDataURL(element.file);
+
+        reader.onload = function (e) {
+
+
+            $scope.person.album.push({
+                id:$scope.person.album.length+1,
+                url: e.target.result,
+                date: Date.now()
+            });
+
+            $scope.$apply();
+
+        }
+
+    }
     // 보관함 이미지 삭제
     $scope.imgRemove = function (img) {
         var idx = $scope.person.album.findIndex(function (item) {
