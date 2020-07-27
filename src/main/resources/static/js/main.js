@@ -88,3 +88,47 @@ app.factory('UserService', function($localStorage) {
         user : $localStorage.user
     };
 });
+app.factory('Scopes', function ($rootScope) {
+    var mem = {};
+    return {
+        store: function (key, value) {
+            mem[key] = value;
+        },
+        get: function (key) {
+            return mem[key];
+        }
+    };
+});
+
+app.controller('navController', function ($scope, Scopes, $location) {
+    Scopes.store('navController', $scope);
+    $scope.selectedModuleIndex = 0;
+    $scope.initModule = function () {
+        var absUrl = $location.absUrl();
+        if (absUrl.indexOf('mychat') !== -1){
+            $scope.selectedModuleIndex = 1;
+
+        }else if(absUrl.indexOf('mypage') !== -1) {
+            $scope.selectedModuleIndex = 2;
+        }else if(absUrl.indexOf('configuration') !== -1){
+            $scope.selectedModuleIndex = 3;
+        }else{
+            $scope.selectedModuleIndex = 0;
+
+        }
+    }
+
+    $scope.initModule();
+
+    $scope.isSelectedModule = function (index) {
+        return $scope.selectedModuleIndex === index;
+    }
+
+    $scope.onClickSelectModule = function(index, $event){
+        if($scope.selectedModuleIndex <= 1 && (index === 0 || index === 1)){
+            $event.preventDefault();
+            Scopes.get('chatController').onClickOpenMainBar(index);
+        }
+        $scope.selectedModuleIndex = index;
+    }
+});

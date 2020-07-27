@@ -21,10 +21,6 @@
 </th:block>
 
 <th:block layout:fragment="css">
-    <!-- BootStrap CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
-
     <!-- FontAwesome CSS -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.0/css/all.css">
 
@@ -32,13 +28,9 @@
     <link rel="stylesheet" href="/chat/css/chat-animation.css"/>
     <link rel="stylesheet" href="/chat/css/chat.css"/>
     <link rel="stylesheet" href="/chat/css/chat-modal.css"/>
-
-    <!-- Common CSS -->
-    <link rel="stylesheet" href="/common/css/util.css"/>
 </th:block>
 
 <section layout:fragment="content" ng-controller="chatController" class="content-chat-container">
-    <nav th:replace="~{app/chat/fragment/nav_chat :: nav}"></nav>
     <!----------------------- 채팅방 목록 컨테이너 ------------------------------>
     <div class="chat-sidebar-container">
         <div th:replace="~{/app/chat/fragment/fragment_chat_list :: chat_list}">
@@ -63,7 +55,7 @@
                 <div class="chat-header">
                     <img ng-src="{{currentRoom.img}}" onerror="this.src='/img/no-image.png'"/>
                     <div class="chat-header-info">
-                        <h2>{{currentRoom.title}}</h2>
+                        <h4>{{currentRoom.title}}</h4>
                         <p>{{currentRoom.description}}</p>
                     </div>
 
@@ -105,7 +97,7 @@
     <div id="chat-side-tab">
         <div class="chat-sidebar-container chat-sidebar-tab slide-right" id="chat-menu" ng-show="isSelectedSidebar(0)">
             <div class="chat-sidebar-header">
-                <h3>채팅방 정보</h3>
+                <h4>채팅방 정보</h4>
                 <span class="chat-sidebar-button circle-button" ng-click="onClickToggleMenu()"><i class="fas fa-times"></i></span>
             </div>
             <div class="chat-sidebar-content-container height100" when-scrolled="scrollMore(config_chat.ui.scrollLimit[1])">
@@ -171,7 +163,7 @@
         </div>
         <div class="chat-sidebar-container chat-sidebar-tab slide-right" id="#chat-album" ng-show="isSelectedSidebar(1)">
             <div class="chat-sidebar-header">
-                <h3>이미지 서랍</h3>
+                <h4>이미지 서랍</h4>
                 <span class="chat-sidebar-button circle-button" ng-click="onClickOpenSidebar(0)"><i class="fas fa-arrow-left"></i></span>
             </div>
             <div class="chat-sidebar-content-container height100" when-scrolled="scrollMore(config_chat.ui.scrollLimit[2])">
@@ -190,7 +182,7 @@
         </div>
         <div class="chat-sidebar-container chat-sidebar-tab slide-right" id="#chat-image-log" ng-show="isSelectedSidebar(2)">
             <div class="chat-sidebar-header">
-                <h3>사진 기록</h3>
+                <h4>사진 기록</h4>
                 <span class="chat-sidebar-button circle-button" ng-click="onClickOpenSidebar(0)"><i class="fas fa-arrow-left"></i></span>
             </div>
             <div class="chat-sidebar-content-container height100" when-scrolled="scrollMore(config_chat.ui.scrollLimit[3])">

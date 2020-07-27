@@ -12,6 +12,7 @@
         <link rel="stylesheet" href="/css/main.css"/>
         <link rel="stylesheet" href="/css/main-animation.css"/>
         <th:block layout:fragment="css"></th:block>
+        <link rel="stylesheet" href="/common/css/util.css"/>
 
         <!-- AngularJs JS -->
 <!--        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.0/angular.js"></script>-->
@@ -44,7 +45,7 @@
     <body>
         <div class="layout-main" ng-app="mainApp">
             <!--        <header th:replace="fragment/header :: header"></header>-->
-
+            <nav th:replace="~{fragment/nav :: nav}"></nav>
             <div class="content">
                 <section layout:fragment="content"></section>
             </div>

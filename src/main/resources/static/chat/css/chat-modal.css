@@ -1,3 +1,15 @@
+.fade.in {
+    opacity: 1;
+}
+.modal.in .modal-dialog {
+    -webkit-transform: translate(0, 0);
+    -o-transform: translate(0, 0);
+    transform: translate(0, 0);
+}
+.modal-backdrop.in {
+    opacity: 0.5;
+}
+
 .modal-open .modal::-webkit-scrollbar {
     display:none;
     position: absolute;
@@ -53,7 +65,7 @@
     background-color: rgba(65,105,225,0.05);
 }
 
-.chat-modal-header h3{
+.chat-modal-header h4{
     display: inline-block;
     margin: 0 10px 0 10px;
 }

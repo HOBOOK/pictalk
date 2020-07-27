@@ -12,7 +12,8 @@ var chatSideMenu = document.querySelector('#chat-side-tab');
 var layout = document.querySelector('.layout-main');
 var contextMenu = document.querySelector('.chat-context-menu-container');
 
-app.controller("chatController", function ($scope, $http, $uibModal, $filter, $timeout, $compile, $localStorage, $sessionStorage, UserService) {
+app.controller("chatController", function ($scope, Scopes, $http, $uibModal, $filter, $timeout, $compile, $localStorage, $sessionStorage, UserService) {
+    Scopes.store('chatController', $scope);
     // 사용자 모델
     $scope.me = UserService.user;
     // 현재 채팅방의 사용자 모델
@@ -110,7 +111,7 @@ app.controller("chatController", function ($scope, $http, $uibModal, $filter, $t
                 thumbnail: null
             },
             ui:{
-                mainBarIndex: 0,
+                mainBarIndex: Scopes.get('navController').selectedModuleIndex,
                 sidebarIndex: 0,
                 scrollLimit:[
                     {limit: 18}, //채팅방 목록

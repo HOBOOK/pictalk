@@ -71,10 +71,43 @@
         .pagination{
             margin-bottom: 0;
         }
+        .filebox label {
+            display: inline-block;
+            padding: .5em .75em;
+            color: #999;
+            font-size: inherit;
+            line-height: normal;
+            vertical-align: middle;
+            background-color: #fdfdfd;
+            cursor: pointer;
+            border: 1px solid #ebebeb;
+            border-bottom-color: #e2e2e2;
+            border-radius: .25em;
+        }
+        .filebox input[type="file"] {
+            /* 파일 필드 숨기기 */
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip:rect(0,0,0,0);
+            border: 0;
+        }
+
+
 
     </style>
 
     <div class="right_nav" style="display: flex;">
+        <div class="filebox">
+        <input type="file" ng-model="file" name="file"  id="addImgFile" accept=".png, .jpg, .jpeg"
+               ngf-select="addImg($event, this)"
+               ngf-pattern="'image/*'"
+               ngf-accept="'image/*'">
+        <label for="addImgFile">사진 추가</label>
+        </div>
         <ul>
             <li ng-repeat="img in albums" class="right_nav_li">
                 <div class="card">
