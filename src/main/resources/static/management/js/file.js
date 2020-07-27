@@ -57,6 +57,17 @@ app.controller("fileCtrl", function ($scope) {
     }];
 
 
+    $scope.room_delete = function (room) {
+        var idx = $scope.rooms.findIndex(function (item) {
+            return item.no == room.no;
+        })
+
+        if(idx>-1){
+            $scope.rooms.splice(idx,1)
+        }
+    };
+
+
     $scope.rooms_trash = [{
         no: 0,
         type: 0,
@@ -117,5 +128,24 @@ app.controller("fileCtrl", function ($scope) {
             imagePath : "/profile/danbi2.jpg"
         }];
     }
+
+    //이미지 삭제
+    $scope.image_delete = function (image) {
+        var idx = $scope.images.findIndex(function (item) {
+            return item.no == image.no;
+        })
+
+        if(idx>-1){
+            $scope.images.splice(idx,1)
+        }
+    };
+
+    
+    //선택된 채팅 그룹 삭제
+    $scope.all_room_delete = function () {
+
+        //checked index 확인
+
+    };
 
 });

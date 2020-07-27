@@ -79,7 +79,7 @@
                                         <div class="dropdown-menu" style="min-width: 7rem;">
 <!--                                            <a class="dropdown-item" href="#">etc</a>-->
 <!--                                            <div class="dropdown-divider"></div>-->
-                                            <a class="dropdown-item" href="#">삭제</a>
+                                            <a class="dropdown-item" href="#" ng-click="room_delete(room)">삭제</a>
                                         </div>
                                     </div>
 
@@ -100,7 +100,16 @@
                                                 방장 :
                                             </li>
                                             <li>
-                                                인원 :
+                                                정원 :
+                                            </li>
+                                            <li>
+                                                생성일 :
+                                            </li>
+                                            <li>
+                                                설명 :
+                                            </li>
+                                            <li>
+                                                공개여부 :
                                             </li>
                                         </ul>
                                     </div>
@@ -115,7 +124,11 @@
                                 <div class="group-card-box file-zoom-effect">
                                     <div>
                                         <input type="checkbox" class="checkbox-size">
-                                        <i class="fas fa-bars" style="float: right;"></i>
+                                        <i class="fas fa-bars" style="float: right;" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
+
+                                        <div class="dropdown-menu" style="min-width: 7rem;">
+                                            <a class="dropdown-item" href="#" ng-click="image_delete(image)">삭제</a>
+                                        </div>
                                     </div>
 
                                     <div class="photo-group" style="text-align: center;">
@@ -131,8 +144,9 @@
 
                         </div>
 
-                        <div>
-                            <input ng-model="leader" type="checkbox" style="width: 20px; height: 20px;">
+                        <div style="display: flex;">
+                            <input ng-model="leader" type="checkbox" style="width: 20px; height: 20px; margin-top: 5px; margin-right: 5px;">
+                            <button class="btn btn-outline-danger btn-sm">삭제</button>
                         </div>
                         <foot aria-label="Page navigation example">
                             <ul class="pagination justify-content-center">

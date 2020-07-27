@@ -1,11 +1,23 @@
 
-app.controller('infoController', function ($scope, $uibModalInstance, account_info) {
+app.controller('infoController', function ($scope, $http, $uibModalInstance, account_info) {
 
     $scope.close = function() {
         $uibModalInstance.dismiss('cancel');
     }
 
     $scope.account = account_info;
+
+
+    $scope.getLog = function(){
+        $http({
+            method:"get",
+            url:"/ /",
+            // data:{msg:$scope.msg},
+        }).success(function(data){
+            console.log(data);
+        });
+    };
+
 
     $scope.logs = [{
         no: "1",

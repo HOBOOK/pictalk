@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<th:nav th:fragment="nav">
+
+<th:nav th:fragment="nav" ng-controller="alarmCtrl">
     <nav>
         <div class="nav-group">
             <ul>
@@ -12,7 +13,7 @@
                 <li><a tooltip-right="파일" class="nav-button" th:classappend="${#httpServletRequest.requestURI.contains('file')} ? 'selected' : ''" th:href="@{/console/file}"><i class="far fa-images"></i></a></li>
                 <li style="flex:1;"></li>
 
-                <li><a class="nav-button"><i class="far fa-bell"></i>
+                <li><a class="nav-button" ng-click="showHide=!showHide"><i class="far fa-bell"></i>
                     <span style="position: absolute; font-size: 40%; right:8px; top: 5px; " class="badge badge-danger">4</span>
                 </a>
 
@@ -22,18 +23,22 @@
             }
         </style>
 
-                    <div class="my-3 p-3 bg-white rounded shadow-sm" style="position: absolute; bottom: 120px; left: 70px; z-index: 100; width: 320px; height: 400px; overflow: hidden">
-                        <h6 class="border-bottom border-gray pb-2 mb-0">알림</h6>
+                    <div  ng-show="showHide" class="my-3 p-3 bg-white rounded shadow-sm" style="position: absolute; bottom: 110px; left: 75px; z-index: 100; width: 320px; height: 400px; overflow: hidden">
+                        <div class="border-bottom border-gray pb-2 mb-0" style="height: 35px;">
+                            <h6 style="display: inline; float: left;">알림</h6>
+                            <a href="#" style="float: right;" ng-click="alarm_Allclear()">Clear</a>
+                        </div>
+
 
                         <div id="alarm" style="height: 300px; width: 100%; overflow-y: scroll;">
-                            <div class="media text-muted pt-3">
-                                <img src="/img/logo/logo.png" style="width: 35px; height: 35px;">
+                            <div class="media text-muted pt-3 alarm-list" ng-repeat="alarm in alarms" ng-click="alarm_clear(alarm)">
+                                <img src="/img/logo/logo.png" ng-src="{{alarm.profile}}" style="width: 35px; height: 35px;">
                                 <div class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
                                     <div class="d-flex justify-content-between align-items-center w-100">
-                                        <strong class="text-gray-dark">송치민</strong>
-                                        <small>1 min ago</small>
+                                        <strong class="text-gray-dark">{{alarm.name}}</strong>
+                                        <small>{{alarm.time}} min ago</small>
                                     </div>
-                                    <span class="d-block">120번 채팅방 삭제</span>
+                                    <span class="d-block">{{alarm.content}}</span>
                                 </div>
                             </div>
                         </div>
