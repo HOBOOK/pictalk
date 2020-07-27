@@ -1,17 +1,75 @@
 'use strict';
 
 var nav = document.querySelector('.navLi');
+var mypageEditAlert= document.querySelector('#mypage-edit');
 
-app.controller('mypageCtrl',function ($scope, $location,UserService) {
+// app.filter('pagenationRange',function () {
+//     return function(input, total) {
+//         total = parseInt(total);
+//         input.push('prev');
+//         for (var i = 1; i < total; i++) {
+//             input.push(i);
+//         }
+//         input.push('next')
+//         return input;
+//     };
+// });
+
+app.controller('mypageCtrl',function ($scope, $location,$timeout, UserService) {
     $scope.person = UserService.user;
+    $scope.editAlert = false;
 
     $scope.selected = $location.absUrl().split("http://localhost:8080/")[1];
 
+
     $scope.currentPage = 1
-    ,$scope.numPerPage = 1
-    ,$scope.maxSize = 5;
+        ,$scope.numPerPage = 2
+        ,$scope.maxSize = 5,
+        $scope.totalItems = $scope.person.album;
+
+
+
 
     $scope.follows = [];
+    $scope.albums = [];
+
+
+
+    $scope.numPages = function () {
+        return Math.ceil($scope.totalItems.length / $scope.numPerPage);
+    };
+
+    $scope.endPage = $scope.numPages()-1;
+
+
+    $scope.range = function(total){
+        var input=[];
+        for(var i= 1;i<$scope.numPages();i++){
+            input.push(i);
+        }
+        return input;
+            };
+
+
+    $scope.$watch('currentPage', function() {
+        var begin = (($scope.currentPage - 1) * $scope.numPerPage)
+            , end = begin + $scope.numPerPage;
+
+        // $scope.follows = $scope.person.follows.slice(begin, end);
+        $scope.albums = $scope.person.album.slice(begin, end);
+
+    });
+
+
+    $scope.currentPageEvent=function(num){
+        $scope.currentPage= num;
+
+    };
+
+
+
+
+
     // $scope.follows = $scope.person.follows;
 
     // 팔로워 삭제
@@ -33,7 +91,12 @@ app.controller('mypageCtrl',function ($scope, $location,UserService) {
     $scope.editToggle = function () {
         if ($scope.showHide == true) {
             $scope.showHide = false;
-            alert("변경사항이 저장됩니다.");
+
+            $scope.editAlert= true;
+            $timeout(function () {
+                $scope.editAlert = false;
+            }, 2000);
+
             $scope.editText = "수정";
         } else {
             $scope.showHide = true;
@@ -67,31 +130,22 @@ app.controller('mypageCtrl',function ($scope, $location,UserService) {
         }
     };
 
-    // $scope.numPages = function (objects) {
-    //     return Math.ceil(objects.length / $scope.numPerPage);
+
+
+    // $scope.totalItems = $scope.person.album;
+    // $scope.currentPage = 1;
+    //
+    // $scope.setPage = function (pageNo) {
+    //     $scope.currentPage = pageNo;
     // };
     //
-    // $scope.$watch('currentPage + numPerPage', function() {
-    //     var begin = (($scope.currentPage - 1) * $scope.numPerPage)
-    //         , end = begin + $scope.numPerPage;
+    // $scope.pageChanged = function() {
+    //     $log.log('Page changed to: ' + $scope.currentPage);
+    // };
     //
-    //     $scope.follows = $scope.person.follows.slice(begin, end);
-    // });
-
-    $scope.totalItems = 64;
-    $scope.currentPage = 4;
-
-    $scope.setPage = function (pageNo) {
-        $scope.currentPage = pageNo;
-    };
-
-    $scope.pageChanged = function() {
-        $log.log('Page changed to: ' + $scope.currentPage);
-    };
-
-    $scope.maxSize = 5;
-    $scope.bigTotalItems = 175;
-    $scope.bigCurrentPage = 1;
+    // $scope.maxSize = 5;
+    // $scope.bigTotalItems = 175;
+    // $scope.bigCurrentPage = 1;
 
 });
 

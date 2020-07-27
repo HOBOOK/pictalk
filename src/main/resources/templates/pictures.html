@@ -13,6 +13,7 @@
 
         .right_nav{
             overflow: hidden;
+            min-height: 800px;
         }
         .right_nav_li{
             list-style: none;
@@ -67,12 +68,15 @@
             width: 200px;
             height: 200px;
         }
+        .pagination{
+            margin-bottom: 0;
+        }
 
     </style>
 
     <div class="right_nav" style="display: flex;">
         <ul>
-            <li ng-repeat="img in person.album" class="right_nav_li">
+            <li ng-repeat="img in albums" class="right_nav_li">
                 <div class="card">
                     <img class="card-img-top" ng-src='{{img.url}}' alt="Card image cap">
                     <input type="hidden" name="imgId" value={{img.id}}>
@@ -86,13 +90,20 @@
         </ul>
     </div>
 
-    <div class="pagination justify-content-center" ng-show="person.album.length!==0">
-        <ul class="pagination pagination-sm">
-            <li class="page-item"><a class="page-link" href="#">이전</a></li>
-            <li class="page-item"><a class="page-link" href="#">1</a></li>
-            <li class="page-item"><a class="page-link" href="#">2</a></li>
-            <li class="p</div></div>age-item"><a class="page-link" href="#">다음</a></li>
+    <div class="pagination justify-content-center">
+    <nav aria-label="Page navigation example">
+        <ul class="pagination justify-content-center">
+            <li class="page-item" ng-class="{'disabled' : currentPage==1}">
+                <a class="page-link" href="#" tabindex="-1">Previous</a>
+            </li>
+            <li ng-repeat="n in range(totalItems)" class="page-item" ng-click="currentPageEvent(n)"><a class="page-link">{{n}}</a></li>
+<!--            <li class="page-item"><a class="page-link" href="#">2</a></li>-->
+<!--            <li class="page-item"><a class="page-link" href="#">3</a></li>-->
+            <li class="page-item" ng-class="{'disabled' : currentPage == endPage}">
+                <a class="page-link" href="#">Next</a>
+            </li>
         </ul>
+    </nav>
     </div>
     <div ng-show="person.album.length===0" class="noneMessage">
 
