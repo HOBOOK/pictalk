@@ -70,7 +70,7 @@
                         </div>
 
                         <div class="row" ng-show="images_state === 'groups'">
-                            <div class="cxl-3 cmd-6" ng-repeat="room in rooms">
+                            <div class="cxl-3 cmd-6" ng-repeat="room in groups">
                                 <div class="group-card-box file-zoom-effect">
                                     <div>
                                         <input type="checkbox" class="checkbox-size" ng-checked="leader">
@@ -148,19 +148,33 @@
                             <input ng-model="leader" type="checkbox" style="width: 20px; height: 20px; margin-top: 5px; margin-right: 5px;">
                             <button class="btn btn-outline-danger btn-sm">삭제</button>
                         </div>
-                        <foot aria-label="Page navigation example">
-                            <ul class="pagination justify-content-center">
-                                <li class="page-item disabled">
-                                    <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
-                                </li>
-                                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                <li class="page-item">
-                                    <a class="page-link" href="#">Next</a>
-                                </li>
-                            </ul>
-                        </foot>
+<!--                        <foot aria-label="Page navigation example">-->
+<!--                            <ul class="pagination justify-content-center">-->
+<!--                                <li class="page-item disabled">-->
+<!--                                    <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>-->
+<!--                                </li>-->
+<!--                                <li class="page-item"><a class="page-link" href="#">1</a></li>-->
+<!--                                <li class="page-item"><a class="page-link" href="#">2</a></li>-->
+<!--                                <li class="page-item"><a class="page-link" href="#">3</a></li>-->
+<!--                                <li class="page-item">-->
+<!--                                    <a class="page-link" href="#">Next</a>-->
+<!--                                </li>-->
+<!--                            </ul>-->
+<!--                        </foot>-->
+
+<!--                        <div class="pagination justify-content-center">-->
+                            <foot aria-label="Page navigation example">
+                                <ul class="pagination justify-content-center">
+                                    <li class="page-item" ng-class="{'disabled' : currentPage==1}">
+                                        <a class="page-link" href="#" tabindex="-1">Previous</a>
+                                    </li>
+                                    <li ng-repeat="n in range(totalItems)" class="page-item" ng-click="currentPageEvent(n)"><a class="page-link">{{n}}</a></li>
+                                    <li class="page-item" ng-class="{'disabled' : currentPage == endPage}">
+                                        <a class="page-link" href="#">Next</a>
+                                    </li>
+                                </ul>
+                            </foot>
+<!--                        </div>-->
 
                     </div>
 
