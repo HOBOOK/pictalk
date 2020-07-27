@@ -2,7 +2,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Lato&family=Nanum+Gothic+Coding&display=swap'); /* Lato & Nanum Gothic Coding*/
 
 /********** 공통 영역 **********/
-html,body {
+html {
     max-width: 100%;
     min-width: 100%;
     max-height: 100%;
@@ -10,7 +10,14 @@ html,body {
     height: 100%;
     padding: 0;
     margin: 0;
-    overflow: hidden;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+body{
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    margin: 0;
 }
 
 /********** 레이아웃 영역 **********/
@@ -18,33 +25,102 @@ div.layout-main{
     display: flex;
     display: -moz-flex;
     display: -webkit-flex;
+    flex-direction: column;
     height: 100%;
+    max-height: 100%;
     background-color: rgb(231, 236, 241);
     font-family: 'Lato', 'Nanum Gothic Coding', sans-serif !important;
 }
 
 /*********** 헤더 영역 ***********/
-/*div.layout-main header{*/
-/*    position: absolute;*/
-/*    background: transparent;*/
-/*    top:0;*/
-/*    left: 70px;*/
-/*    display: flex;*/
-/*    height: 50px;*/
-/*}*/
+div.layout-main header{
+    background: #fff;
+    width: 100%;
+    display: flex;
+    position: fixed;
+    top:0;
+    left:0;
+    z-index: 1;
+    height: 40px;
+    border-bottom:1px solid rgb(231, 236, 241);
+}
+div.header-group {
+    width: 100%;
+    height:inherit;
+}
+
+div.header-group ul{
+    height: inherit;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    text-align: center;
+}
+
+div.header-group li{
+    display: flex;
+    align-items: center;
+    margin-left: 10px;
+    margin-right: 10px;
+    width: inherit !important;
+}
+
+div.header-group .header-button{
+    text-decoration: none;
+    display: inline-block;
+    height: 36px;
+    line-height: 36px;
+    cursor: pointer;
+    transition: filter 0.3s ease-in-out, -webkit-filter 0.3s ease-in-out;
+    position: relative;
+    font-size: 12px;
+    color: lightseagreen !important;
+}
+div.header-group .header-button:hover{
+    filter: contrast(200%);
+}
+div.header-group .selected{
+    filter: contrast(200%);
+}
+
+div.header-group .header-button i{
+    margin: 0 6px 0 0 !important;
+    color: lightseagreen !important;
+    font-size:18px !important;
+}
+div.header-group #user-avatar-cover{
+    background-color: rgba(0,0,0,0.1);
+    display: inline-block;
+    width:100%;
+    height: 100%;
+    max-width: 100%;
+    max-height: 100%;
+    overflow: hidden;
+    border-radius: 50%;
+}
+div.header-group #user-avatar{
+    border-radius: 50%;
+    object-fit: cover;
+    width:100%;
+    height: 100%;
+    text-indent:-9999px;
+}
 
 /********** 네비게이션 영역 **********/
 div.layout-main nav{
     height: 100%;
+    width:70px;
     display: inline-block;
     background-color: #fff;
+    position: fixed;
+    z-index: 1;
 }
 
 div.layout-main #logo-main{
     display: flex;
     border-radius: 50%;
     margin:0 auto;
-    padding: 15px 0 15px 0;
+    padding: 0 15px 0 15px;
 }
 div.layout-main #logo-main a{
     margin:0 auto;
@@ -60,8 +136,8 @@ div.layout-main #logo-main a:hover img{
 }
 
 div.nav-group {
-    width:70px;
-    height: inherit;
+    height: 100%;
+    width:inherit;
 }
 
 div.nav-group ul{
@@ -103,23 +179,6 @@ div.nav-group .nav-button i{
     margin: 15px 0 0 0 !important;
     color: lightseagreen !important;
     font-size:18px !important;
-}
-div.nav-group #nav-user-avatar-cover{
-    background-color: rgba(0,0,0,0.1);
-    display: inline-block;
-    width:100%;
-    height: 100%;
-    max-width: 100%;
-    max-height: 100%;
-    overflow: hidden;
-    border-radius: 50%;
-}
-div.nav-group #nav-user-avatar{
-    border-radius: 50%;
-    object-fit: cover;
-    width:100%;
-    height: 100%;
-    text-indent:-9999px;
 }
 
 div.loading {
@@ -168,7 +227,16 @@ div.common-alert:hover{
 div.content{
     display: flex;
     flex: 1;
-    overflow-y: auto;
+    z-index: 0;
+    margin-top:40px;
+    height: calc(100% - 40px);
+    max-height: calc(100% - 40px);
+}
+
+div.content .app-wrapper{
+    margin-left: 70px;
+    display: flex;
+    flex: 1;
 }
 
 

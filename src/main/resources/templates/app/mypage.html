@@ -28,20 +28,23 @@
 
 </th:block>
 
-<section layout:fragment="content" class="wrap">
+<section layout:fragment="content" class="wrap" ng-controller="mypageCtrl">
 <!--    <div class="chat-sidebar-container"></div>-->
-    <div class="wrap" ng-controller = "mypageCtrl">
-        <div class="left_wrap mypage-sidebar-container">
-            <div>
-                <ul class="nav nav-pills nav-stacked">
-                    <li role="presentation" id="personal" class=""  ng-class="{active: selected=='mypage'}"><a href="/mypage" ng-click="selected='personal'">정보</a></li>
-                    <li role="presentation" id="follow" class=""  ng-class="{active: selected=='follow'}" ><a href="/mypage/follow" ng-click="selected='follow'">팔로우</a></li>
-                    <li role="presentation" id="pictures" class=""  ng-class="{active: selected=='pictures'}" ><a href="/mypage/pictures" ng-click="selected='pictures'">사진 보관함</a></li>
-                </ul>
-            </div>
-        </div>
-        <div class="right_wrap" >
-            <section layout:fragment="content-mypage"></section>
+    <nav th:replace="~{/fragment/nav_mypage :: nav}"></nav>
+    <div class="app-wrapper">
+<!--        <div class="left_wrap mypage-sidebar-container">-->
+<!--            <div>-->
+<!--                <ul class="nav nav-pills nav-stacked">-->
+<!--                    <li role="presentation" id="personal" class=""  ng-class="{active: selected=='mypage'}"><a href="/mypage" ng-click="selected='personal'">정보</a></li>-->
+<!--                    <li role="presentation" id="follow" class=""  ng-class="{active: selected=='follow'}" ><a href="/mypage/follow" ng-click="selected='follow'">팔로우</a></li>-->
+<!--                    <li role="presentation" id="pictures" class=""  ng-class="{active: selected=='pictures'}" ><a href="/mypage/pictures" ng-click="selected='pictures'">사진 보관함</a></li>-->
+<!--                </ul>-->
+<!--            </div>-->
+<!--        </div>-->
+        <div class="wrap">
+            <section ng-cloak ng-show="isSelectedNavBar(0)" th:replace="~{personal :: content-personal}"></section>
+            <section ng-cloak ng-show="isSelectedNavBar(1)" th:replace="~{follow :: content-follow}"></section>
+            <section ng-cloak ng-show="isSelectedNavBar(2)" th:replace="~{pictures :: content-pictures}"></section>
         </div>
     </div>
 </section>
