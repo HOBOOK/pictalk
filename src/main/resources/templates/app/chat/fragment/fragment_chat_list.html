@@ -27,7 +27,7 @@
                         <img ng-cloak ng-src="{{room.img}}" alt="thumbnail" onerror="this.src='/img/no-image.png'"/>
                     </span>
                 <span class="chat-room-info">
-                        <h5 ng-bind="room.title"></h5>
+                        <h6 ng-bind="room.title"></h6>
                         <span class="chat-room-state">
                             <span ng-cloak ng-show="room.private" class="chat-room-state-item">
                                 <i class="fas fa-key"></i>
@@ -105,7 +105,7 @@
                         <img ng-cloak ng-src="{{room.img}}" alt="thumbnail" class="img-circle" onerror="this.src='/img/no-image.png'"/>
                     </span>
                 <span class="chat-room-info">
-                        <h5 ng-bind="room.title"></h5> <span ng-show="getUnreadMessageCount(room)"><i class="circle-count" ng-bind="getUnreadMessageCount(room)"></i></span>
+                        <h6 ng-bind="room.title"></h6> <span ng-show="getUnreadMessageCount(room)"><i class="circle-count" ng-bind="getUnreadMessageCount(room)"></i></span>
                         <p ng-bind="getLatestMessage(room) ? getLatestMessage(room) : '&nbsp;&nbsp;'"></p>
                     </span>
 
