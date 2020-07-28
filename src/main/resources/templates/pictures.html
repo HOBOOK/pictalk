@@ -76,11 +76,13 @@
             font-size: inherit;
             line-height: normal;
             vertical-align: middle;
-            background-color: #fdfdfd;
             cursor: pointer;
             border: 1px solid #ebebeb;
             border-bottom-color: #e2e2e2;
             border-radius: .25em;
+            width: 100%;
+            height: 100%;
+            font-size: 4.7em;
         }
         .filebox input[type="file"] {
             /* 파일 필드 숨기기 */
@@ -95,18 +97,30 @@
         }
 
 
+        .filebox{
+            width: 200px;
+            height: 200px;
+            margin-right: 10px;
+            border: dashed 2px #999;
+        }
 
+        .picturesUl{
+            padding-left: 0;
+        }
+        .pituresNav{
+            margin-left: 40px;
+        }
     </style>
 
-    <div class="right_nav" style="display: flex;">
+    <div class="right_nav pituresNav" style="display: flex;">
         <div class="filebox">
         <input type="file" ng-model="file" name="file"  id="addImgFile" accept=".png, .jpg, .jpeg"
                ngf-select="addImg($event, this)"
                ngf-pattern="'image/*'"
                ngf-accept="'image/*'">
-        <label for="addImgFile">사진 추가</label>
+        <label for="addImgFile"><i class="fas fa-plus"></i></label>
         </div>
-        <ul>
+        <ul class="picturesUl">
             <li ng-repeat="img in albums" class="right_nav_li">
                 <div class="card">
                     <img class="card-img-top" ng-src='{{img.url}}' alt="Card image cap">
@@ -121,9 +135,9 @@
         </ul>
     </div>
 
-    <div class="pagination justify-content-center">
-    <nav aria-label="Page navigation example">
-        <ul class="pagination justify-content-center">
+    <div class="pagination justify-content-center" ng-show="person.follows.length!==0">
+
+        <ul class="pagination justify-content-center" >
             <li class="page-item" ng-class="{'disabled' : currentPage==1}">
                 <a class="page-link" href="#" tabindex="-1">Previous</a>
             </li>
@@ -134,7 +148,7 @@
                 <a class="page-link" href="#">Next</a>
             </li>
         </ul>
-    </nav>
+
     </div>
     <div ng-show="person.album.length===0" class="noneMessage">
 

@@ -2,14 +2,14 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>회원 가입</title>
     <head>
         <meta charset="utf-8">
         <title>Register</title>
         <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.0/angular.min.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.0/angular-animate.min.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.0/angular-sanitize.min.js"></script>
-
+        <script src="/register/register.js"></script>
         <link rel="canonical" href="https://getbootstrap.com/docs/4.5/examples/checkout/">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
 
@@ -73,18 +73,35 @@
             }
             .warning{
                 color: red;
+                clear: both;
             }
             #nickName{
                 width: 100%;
+            }
+            .checkEmail{
+                margin-left: 10px;
+                height: 38px;
+                border-radius: 5px;
+            }
+            .form-control.input-email{
+                float: left;
+                width: 85%;
+            }
+            .emailLabel{
+                display: block;
+            }
+            .success{
+                color: #86d993;
             }
         </style>
         <!-- Custom styles for this template -->
     </head>
 </head>
-<body class="bg-light" cz-shortcut-listen="true">
-<div ng-app class="container">
+<body ng-app= "registerApp" ng-controller ="registerCtrl"  class="bg-light" cz-shortcut-listen="true">
+<div class="container">
+<!--    ng-controller="registerCtrl"-->
     <div class="py-5 text-center">
-        <h2>Create Account</h2>
+        <h2>회원 가입</h2>
 <!--        <p class="lead">Below is an example form built entirely with Bootstrap’s form controls. Each required form group has a validation state that can be triggered by attempting to submit the form without completing it.</p>-->
     </div>
 
@@ -119,10 +136,16 @@
                 </div>
 
                 <div class="mb-3">
-                    <label for="email">Email</label>
-                    <input type="email" class="form-control" id="email" name="email" placeholder="you@example.com" ng-model="email" required>
+                    <label for="email" class="emailLabel">Email</label>
+                    <input type="email" class="form-control input-email" id="email" name="email" placeholder="you@example.com" ng-model="email" required> <button ng-disabled="registerForm.email.$invalid"ng-click="checkEmail(email)" class="checkEmail">중복 확인</button>
                     <div class="warning" ng-show="registerForm.email.$touched && registerForm.email.$invalid">
                         한 글자 이상 입력해주세요. *이메일 인증을 해야하니 정확히 입력해 주세요.(❀╹◡╹)
+                    </div>
+                    <div class="success" ng-show="checkedEmail">
+                        사용 가능한 이메일입니다.
+                    </div>
+                    <div class="warning" ng-show="checkFirst && !checkedEmail">
+                        이미 사용중인 이메일입니다.
                     </div>
                 </div>
 

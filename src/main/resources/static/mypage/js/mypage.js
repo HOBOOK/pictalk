@@ -18,31 +18,54 @@ var mypageEditAlert= document.querySelector('#mypage-edit');
 app.controller('mypageCtrl',function ($scope, $location,$timeout, UserService) {
     $scope.person = UserService.user;
     $scope.editAlert = false;
+    $scope.navBarIndex = 0;
 
     $scope.selected = $location.absUrl().split("http://localhost:8080/")[1];
 
 
     $scope.currentPage = 1
-        ,$scope.numPerPage = 2
-        ,$scope.maxSize = 5,
-        $scope.totalItems = $scope.person.album;
+    ,$scope.numPerPage = 2
+    ,$scope.totalItems= $scope.person.follows;
 
 
 
 
-    $scope.follows = [];
+    $scope.followers = [];
     $scope.albums = [];
 
+    $scope.onClickNavBar = function(index, $event){
+        $scope.navBarIndex = index;
+        alert(index);
+        if(index!=0){$scope.initPagenation();}
+
+    }
+
+    // 좌측 메뉴바 현재 탭인지 확인
+    $scope.isSelectedNavBar = function(index){
+        return $scope.navBarIndex === index;
+    }
+
+
+    $scope.initPagenation = function(){
+        if($scope.navBarIndex == 1){
+            $scope.totalItems = $scope.person.follows;
+
+        }
+        else if($scope.navBarIndex == 2){
+            $scope.totalItems = $scope.person.album;
+        }
+    }
 
     $scope.numPages = function () {
-        return Math.ceil($scope.totalItems.length / $scope.numPerPage);
+            return Math.ceil($scope.totalItems.length / $scope.numPerPage);
     };
 
-    $scope.endPage = $scope.numPages()-1;
+
 
 
     $scope.range = function(total){
         var input=[];
+        $scope.endPage = $scope.numPages();
         for(var i= 1;i<=$scope.numPages();i++){
             input.push(i);
         }
@@ -55,7 +78,13 @@ app.controller('mypageCtrl',function ($scope, $location,$timeout, UserService) {
             , end = begin + $scope.numPerPage;
 
         // $scope.follows = $scope.person.follows.slice(begin, end);
-        $scope.albums = $scope.person.album.slice(begin, end);
+        if($scope.navBarIndex == 1){
+            $scope.followers = $scope.person.follows.slice(begin, end);
+        }
+        else if($scope.navBarIndex == 2){
+            $scope.albums = $scope.person.album.slice(begin, end);
+        }
+
 
     });
 
@@ -166,16 +195,6 @@ app.controller('mypageCtrl',function ($scope, $location,$timeout, UserService) {
     // $scope.bigCurrentPage = 1;
 
 
-    $scope.navBarIndex = 0;
-    // 좌측 메뉴바 탭 선택 이벤트
-    $scope.onClickNavBar = function(index, $event){
-        $scope.navBarIndex = index;
-    }
-
-    // 좌측 메뉴바 현재 탭인지 확인
-    $scope.isSelectedNavBar = function(index){
-        return $scope.navBarIndex === index;
-    }
 
 });
 
