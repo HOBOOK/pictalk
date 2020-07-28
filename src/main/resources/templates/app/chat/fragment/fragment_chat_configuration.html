@@ -1,0 +1,88 @@
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+
+<th:div th:fragment="chat-sidebar">
+    <!----------- 스크립트 ----------------->
+    <script src="/chat/configuration/js/configuration.js"></script>
+    <!----------- 설정 패널 ---------------->
+    <div ng-controller="configController" ng-cloak class="chat-tab" ng-show="isSelectedNavBar(2)">
+        <div class="chat-sidebar-header">
+            <h4>설정</h4>
+        </div>
+        <div class="chat-sidebar-content-container height100" when-scrolled="scrollMore(config_chat.ui.scrollLimit[0])">
+            <div class="chat-sidebar-content ng-cloak">
+                <h6>보안</h6>
+                <ul class="chat-option-list">
+                    <li>
+                        <span class="chat-option-title">내 정보 비공개</span>
+                        <span class="chat-option-value">
+                            <input class="tgl tgl-ios" id="cb11" type="checkbox" ng-model="config.security.isPrivateProfile" ng-change="saveConfig()"/>
+                            <label class="tgl-btn" for="cb11"></label>
+                        </span>
+                    </li>
+                    <li>
+                        <span class="chat-option-title">대화 초대 거부</span>
+                        <span class="chat-option-value">
+                            <input class="tgl tgl-ios" id="cb12" type="checkbox" ng-model="config.security.isRejectInvite" ng-change="saveConfig()"/>
+                            <label class="tgl-btn" for="cb12"></label>
+                        </span>
+                    </li>
+                </ul>
+            </div>
+            <div class="chat-sidebar-content ng-cloak">
+                <h6>스타일</h6>
+                <ul class="chat-option-list">
+                    <li>
+                        <span class="chat-option-title">어두운 테마</span>
+                        <span class="chat-option-value">
+                            <input class="tgl tgl-ios" id="cb21" type="checkbox" ng-model="config.style.isDarkTheme" ng-change="saveConfig()"/>
+                            <label class="tgl-btn" for="cb21"></label>
+                        </span>
+                    </li>
+                    <li>
+                        <span class="chat-option-title">화면 배율</span>
+                        <span class="chat-option-value">
+                            <div class="config-steps-container">
+                               <div class="config-steps-line">
+                               </div>
+                               <div class="config-steps">
+                                  <div ng-class="setStepBarClass(0)" ng-click="selectStepBar(0)"></div>
+                                  <div ng-class="setStepBarClass(1)" ng-click="selectStepBar(1)"></div>
+                                  <div ng-class="setStepBarClass(2)" ng-click="selectStepBar(2)"></div>
+                               </div>
+                            </div>
+                        </span>
+                    </li>
+                    <li>
+                        <span class="chat-option-title">배경 화면</span>
+                        <span class="chat-option-value">
+                            <a href="#">설정</a>
+                        </span>
+                    </li>
+                </ul>
+            </div>
+            <div class="chat-sidebar-content ng-cloak">
+                <h6>알림</h6>
+                <ul class="chat-option-list">
+                    <li>
+                        <span class="chat-option-title">안읽은 메시지 수 숨기기</span>
+                        <span class="chat-option-value">
+                            <input class="tgl tgl-ios" id="cb31" type="checkbox" ng-model="config.notification.isHideUnreadMessageCount" ng-change="saveConfig()"/>
+                            <label class="tgl-btn" for="cb31"></label>
+                        </span>
+                    </li>
+                    <li>
+                        <span class="chat-option-title">새로운 소식 알림</span>
+                        <span class="chat-option-value">
+                            <input class="tgl tgl-ios" id="cb32" type="checkbox" ng-model="config.notification.isAlertNews" ng-change="saveConfig()"/>
+                            <label class="tgl-btn" for="cb32"></label>
+                        </span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</th:div>
+</html>

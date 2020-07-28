@@ -196,8 +196,8 @@ div.loading img{
 div.common-alert{
     position: absolute;
     opacity: 0;
-    bottom: -300px;
-    right: 15px;
+    bottom: 15px;
+    right: -300px;
     height: 50px;
     padding: 10px;
     width: auto;
@@ -208,12 +208,11 @@ div.common-alert{
 
     align-items: center;
     cursor: pointer;
-    display: none;
+    display: flex;
 }
 div.common-alert.on{
-    bottom: 15px;
+    right: 15px;
     opacity: .8;
-    display: flex;
 }
 div.common-alert span{
     font-size: 14px;
@@ -460,4 +459,45 @@ div.content .app-wrapper{
 }
 .tgl-ios:checked + .tgl-btn:active:after {
     margin-left: -.8em;
+}
+
+
+/********* Step Progress Bar   *********/
+.config-steps-container {
+
+}
+.config-steps-container .config-steps {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100px;
+    height: 20px;
+}
+.config-steps-container .config-step {
+    width: 10px;
+    height: 10px;
+    background: #fff;
+    border: 2px solid #ACACA6;
+    border-radius: 50%;
+    transition: background .3s, width .3s, height .3s;
+    cursor: pointer;
+}
+.config-steps-container .config-step.selected {
+    border: 2px solid lightseagreen;
+    width: 15px;
+    height: 15px;
+}
+.config-steps-container .config-step.completed {
+    border: 2px solid lightseagreen;
+    background: lightseagreen;
+}
+.config-steps-container .config-steps-line {
+    position: absolute;
+    width: 100%;
+    height: 50%;
+    border-bottom: 2px solid #ACACA6;
+    opacity: .3;
+    z-index: 0;
+
 }
