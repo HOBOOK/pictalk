@@ -148,4 +148,40 @@ app.controller("fileCtrl", function ($scope) {
 
     };
 
+
+    //채팅방 그룹 페이징
+    $scope.groups = [];
+     $scope.currentPage = 1,
+         $scope.numPerPage = 5,
+         $scope.maxSize = 5,
+         $scope.totalItems = $scope.rooms;
+
+    $scope.numPages = function () {
+        return Math.ceil($scope.totalItems.length / $scope.numPerPage);
+    };
+
+    $scope.endPage = $scope.numPages();
+
+    $scope.range = function(total){
+        var input=[];
+        for(var i= 1;i<=$scope.numPages();i++){
+            input.push(i);
+        }
+        return input;
+    };
+
+    $scope.$watch('currentPage + totalItems', function() {
+        var begin = (($scope.currentPage - 1) * $scope.numPerPage)
+            , end = begin + $scope.numPerPage;
+
+        // $scope.follows = $scope.person.follows.slice(begin, end);
+        $scope.groups = $scope.rooms.slice(begin, end);
+
+    });
+
+    $scope.currentPageEvent=function(num){
+        $scope.currentPage= num;
+    };
+
+
 });
