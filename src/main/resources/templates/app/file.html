@@ -73,13 +73,13 @@
                             <div class="cxl-3 cmd-6" ng-repeat="room in groups">
                                 <div class="group-card-box file-zoom-effect">
                                     <div>
-                                        <input type="checkbox" class="checkbox-size" ng-checked="leader">
+                                        <input type="checkbox" class="checkbox-size" name="check_list" value="{{room.no}}">
                                         <i class="fas fa-bars" style="float: right;" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
 
                                         <div class="dropdown-menu" style="min-width: 7rem;">
 <!--                                            <a class="dropdown-item" href="#">etc</a>-->
 <!--                                            <div class="dropdown-divider"></div>-->
-                                            <a class="dropdown-item" href="#" ng-click="room_delete(room)">삭제</a>
+                                            <a class="dropdown-item" href="#" ng-click="room_delete(room.no)">삭제</a>
                                         </div>
                                     </div>
 
@@ -119,15 +119,37 @@
                             </div>
                         </div>
 
+                        <!--이미지 채팅방 그룹-->
+                        <div style="display: flex;"  ng-show="images_state === 'groups'">
+                            <input id="allCheck" type="checkbox" style="width: 20px; height: 20px; margin-top: 5px; margin-right: 5px;">
+                            <button class="btn btn-outline-danger btn-sm" ng-click="check_room_delete()">삭제</button>
+                        </div>
+
+
+                        <foot aria-label="Page navigation example" ng-show="images_state === 'groups'">
+                            <ul class="pagination justify-content-center">
+                                <li class="page-item" ng-class="{'disabled' : currentPage==1}">
+                                    <a class="page-link" href="#" tabindex="-1" ng-click="currentPageEvent(currentPage-1)">Previous</a>
+                                </li>
+                                <li ng-repeat="n in range(totalItems)" class="page-item" ng-click="currentPageEvent(n)"><a class="page-link">{{n}}</a></li>
+                                <li class="page-item" ng-class="{'disabled' : currentPage == endPage}">
+                                    <a class="page-link" href="#" ng-click="currentPageEvent(currentPage+1)">Next</a>
+                                </li>
+                            </ul>
+                        </foot>
+
+
+
+                        <!--채팅방 내 이미지-->
                         <div class="row" ng-show="images_state !== 'groups'">
                             <div class="cxl-3 cmd-6" ng-repeat="image in groupImage">
                                 <div class="group-card-box file-zoom-effect">
                                     <div>
-                                        <input type="checkbox" class="checkbox-size">
+                                        <input type="checkbox" class="checkbox-size" name="imageCheck" value="{{image.no}}">
                                         <i class="fas fa-bars" style="float: right;" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
 
                                         <div class="dropdown-menu" style="min-width: 7rem;">
-                                            <a class="dropdown-item" href="#" ng-click="image_delete(image)">삭제</a>
+                                            <a class="dropdown-item" href="#" ng-click="image_delete(image.no)">삭제</a>
                                         </div>
                                     </div>
 
@@ -144,25 +166,13 @@
 
                         </div>
 
-                        <div style="display: flex;">
-                            <input ng-model="leader" type="checkbox" style="width: 20px; height: 20px; margin-top: 5px; margin-right: 5px;">
-                            <button class="btn btn-outline-danger btn-sm">삭제</button>
+
+                        <div style="display: flex;" ng-show="images_state !== 'groups'">
+                            <input id="imageAllCheck" type="checkbox" style="width: 20px; height: 20px; margin-top: 5px; margin-right: 5px;">
+                            <button class="btn btn-outline-danger btn-sm" ng-click="check_image_delete()">삭제</button>
                         </div>
 
-                            <!--그룹-->
-                            <foot aria-label="Page navigation example" ng-show="images_state === 'groups'">
-                                <ul class="pagination justify-content-center">
-                                    <li class="page-item" ng-class="{'disabled' : currentPage==1}">
-                                        <a class="page-link" href="#" tabindex="-1" ng-click="currentPageEvent(currentPage-1)">Previous</a>
-                                    </li>
-                                    <li ng-repeat="n in range(totalItems)" class="page-item" ng-click="currentPageEvent(n)"><a class="page-link">{{n}}</a></li>
-                                    <li class="page-item" ng-class="{'disabled' : currentPage == endPage}">
-                                        <a class="page-link" href="#" ng-click="currentPageEvent(currentPage+1)">Next</a>
-                                    </li>
-                                </ul>
-                            </foot>
 
-                            <!--이미지-->
                             <foot aria-label="Page navigation example" ng-show="images_state !== 'groups'">
                                 <ul class="pagination justify-content-center">
                                     <li class="page-item" ng-class="{'disabled' : imageCurrentPage==1}">
@@ -176,6 +186,9 @@
                             </foot>
 
                     </div>
+
+
+
 
 
 
