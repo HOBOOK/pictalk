@@ -114,16 +114,14 @@ app.controller("fileCtrl", function ($scope) {
         $scope.images_state = "groups";
     }
 
+
+    //페이징 변수
     $scope.images =[];
-    $scope.imageCurrentPage = 1,
-        $scope.imageNumPerPage = 1,
-        $scope.imageMaxSize = 5;
-
+    $scope.numPerPage = 2, $scope.maxSize = 5,
     $scope.groupImage = [];
-
-
+    
     $scope.chat_group_content = function(room) {
-
+        $scope.imageCurrentPage = 1;
         console.log(room.no);
     //    채팅방 이미지 불러오기
 
@@ -148,6 +146,7 @@ app.controller("fileCtrl", function ($scope) {
         }];
 
         $scope.imageTotalItems = $scope.images;
+        $scope.imageEndPage = $scope.numPages();
     }
 
 
@@ -171,41 +170,38 @@ app.controller("fileCtrl", function ($scope) {
     };
 
 
+
+
+
+
     //채팅방 그룹 페이징
     $scope.groups = [];
     $scope.trashs =[];
+
+    //Images, Trash Tab 구분
     $scope.location = 0;
-
-
-
+    
      $scope.currentPage = 1,
-         $scope.numPerPage = 5,
-         $scope.maxSize = 5,
          $scope.totalItems = $scope.rooms;
 
-
-
     $scope.trashCurrentPage = 1,
-        $scope.trashNumPerPage = 3,
-        $scope.trashMaxSize = 5,
         $scope.trashTotalItems = $scope.rooms_trash;
 
 
     $scope.numPages = function () {
         if($scope.location === 1)
-            return Math.ceil($scope.trashTotalItems.length / $scope.trashNumPerPage);
+            return Math.ceil($scope.trashTotalItems.length / $scope.numPerPage);
         else{
             if($scope.images_state === 'groups')
                 return Math.ceil($scope.totalItems.length / $scope.numPerPage);
 
-            return Math.ceil($scope.imageTotalItems.length / $scope.imageNumPerPage);
+            return Math.ceil($scope.imageTotalItems.length / $scope.numPerPage);
         }
 
     };
 
     $scope.endPage = $scope.numPages();
     $scope.trashEndPage = $scope.numPages();
-    $scope.imageEndPage = $scope.numPages();
 
     $scope.range = function(total){
         var input=[];
@@ -215,28 +211,22 @@ app.controller("fileCtrl", function ($scope) {
         return input;
     };
 
-    $scope.$watch('currentPage + totalItems', function() {
-        var begin = (($scope.currentPage - 1) * $scope.numPerPage)
-            , end = begin + $scope.numPerPage;
-
-        $scope.groups = $scope.rooms.slice(begin, end);
-    });
-
     $scope.currentPageEvent=function(num){
+        console.log($scope.location + ' ' + $scope.images_state);
+
         if($scope.location === 1){
-            if($scope.images_state === 'groups'){
-                console.log('groups');
-                $scope.trashCurrentPage= num;
+            $scope.trashCurrentPage= num;
+        }
+        else{
+            if($scope.images_state == 'groups'){
+                $scope.currentPage= num;
             }
             else
             {
-                console.log($scope.images_state);
                 $scope.imageCurrentPage= num;
-
             }
         }
-        else
-            $scope.currentPage= num;
+
     };
 
 
@@ -244,17 +234,25 @@ app.controller("fileCtrl", function ($scope) {
         $scope.location = location;
     }
 
+    $scope.$watch('currentPage + totalItems', function() {
+        var begin = (($scope.currentPage - 1) * $scope.numPerPage)
+            , end = begin + $scope.numPerPage;
+
+        $scope.groups = $scope.rooms.slice(begin, end);
+    });
+
+
     $scope.$watch('trashCurrentPage + trashTotalItems', function() {
-        var begin = (($scope.trashCurrentPage - 1) * $scope.trashNumPerPage)
-            , end = begin + $scope.trashNumPerPage;
+        var begin = (($scope.trashCurrentPage - 1) * $scope.numPerPage)
+            , end = begin + $scope.numPerPage;
 
         $scope.trashs = $scope.rooms_trash.slice(begin, end);
     });
 
 
     $scope.$watch('imageCurrentPage + imageTotalItems', function() {
-        var begin = (($scope.imageCurrentPage - 1) * $scope.imageNumPerPage)
-            , end = begin + $scope.imageNumPerPage;
+        var begin = (($scope.imageCurrentPage - 1) * $scope.numPerPage)
+            , end = begin + $scope.numPerPage;
 
         $scope.groupImage = $scope.images.slice(begin, end);
     });

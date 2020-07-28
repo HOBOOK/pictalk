@@ -153,11 +153,11 @@
                             <foot aria-label="Page navigation example" ng-show="images_state === 'groups'">
                                 <ul class="pagination justify-content-center">
                                     <li class="page-item" ng-class="{'disabled' : currentPage==1}">
-                                        <a class="page-link" href="#" tabindex="-1">Previous</a>
+                                        <a class="page-link" href="#" tabindex="-1" ng-click="currentPageEvent(currentPage-1)">Previous</a>
                                     </li>
                                     <li ng-repeat="n in range(totalItems)" class="page-item" ng-click="currentPageEvent(n)"><a class="page-link">{{n}}</a></li>
                                     <li class="page-item" ng-class="{'disabled' : currentPage == endPage}">
-                                        <a class="page-link" href="#">Next</a>
+                                        <a class="page-link" href="#" ng-click="currentPageEvent(currentPage+1)">Next</a>
                                     </li>
                                 </ul>
                             </foot>
@@ -166,11 +166,11 @@
                             <foot aria-label="Page navigation example" ng-show="images_state !== 'groups'">
                                 <ul class="pagination justify-content-center">
                                     <li class="page-item" ng-class="{'disabled' : imageCurrentPage==1}">
-                                        <a class="page-link" href="#" tabindex="-1">Previous</a>
+                                        <a class="page-link" href="#" tabindex="-1" ng-click="currentPageEvent(imageCurrentPage-1)">Previous</a>
                                     </li>
                                     <li ng-repeat="n in range(imageTotalItems)" class="page-item" ng-click="currentPageEvent(n)"><a class="page-link">{{n}}</a></li>
                                     <li class="page-item" ng-class="{'disabled' : imageCurrentPage == imageEndPage}">
-                                        <a class="page-link" href="#">Next</a>
+                                        <a class="page-link" href="#" ng-click="currentPageEvent(imageCurrentPage+1)">Next</a>
                                     </li>
                                 </ul>
                             </foot>
