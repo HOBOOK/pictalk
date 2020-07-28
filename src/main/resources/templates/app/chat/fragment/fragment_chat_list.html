@@ -2,6 +2,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <th:div th:fragment="chat_list">
+    <!----------- 오픈 채팅 목록 ---------------->
     <div ng-cloak class="chat-tab" ng-show="isSelectedNavBar(0)">
         <div class="chat-sidebar-header">
             <h4>오픈 채팅방</h4>
@@ -95,26 +96,91 @@
             </div>
         </div>
     </div>
+    <!----------- 내 채팅 목록 ---------------->
     <div ng-cloak class="chat-tab" ng-show="isSelectedNavBar(1)">
         <div class="chat-sidebar-header">
             <h4>나의 채팅방</h4>
         </div>
         <div class="chat-sidebar-content-container height100" when-scrolled="scrollMore(config_chat.ui.scrollLimit[0])">
             <div class="chat-sidebar-content chat-room ng-cloak" ng-repeat="room in me.myRooms | limitTo: config_chat.ui.scrollLimit[0].limit" ng-click="connect($event, room)">
-                    <span class="chat-room-thumbnail">
-                        <img ng-cloak ng-src="{{room.img}}" alt="thumbnail" class="img-circle" onerror="this.src='/img/no-image.png'"/>
-                    </span>
+                <span class="chat-room-thumbnail">
+                    <img ng-cloak ng-src="{{room.img}}" alt="thumbnail" class="img-circle" onerror="this.src='/img/no-image.png'"/>
+                </span>
                 <span class="chat-room-info">
-                        <h6 ng-bind="room.title"></h6> <span ng-show="getUnreadMessageCount(room)"><i class="circle-count" ng-bind="getUnreadMessageCount(room)"></i></span>
-                        <p ng-bind="getLatestMessage(room) ? getLatestMessage(room) : '&nbsp;&nbsp;'"></p>
-                    </span>
-
+                    <h6 ng-bind="room.title"></h6>
+                    <span class="chat-room-state" ng-show="getUnreadMessageCount(room)"><i class="circle-count" ng-bind="getUnreadMessageCount(room)"></i></span>
+                    <p ng-bind="getLatestMessage(room) ? getLatestMessage(room) : '&nbsp;&nbsp;'"></p>
+                </span>
                 <div id="chat-current-room" ng-show="currentRoom.id===room.id">
-
                 </div>
             </div>
             <div ng-show="me.myRooms.length===0" class="chat-sidebar-no-content">
                 <span>참여중인 채팅방이 없습니다.</span>
+            </div>
+        </div>
+    </div>
+    <!----------- 설정 패널 ---------------->
+    <div ng-cloak class="chat-tab" ng-show="isSelectedNavBar(2)">
+        <div class="chat-sidebar-header">
+            <h4>설정</h4>
+        </div>
+        <div class="chat-sidebar-content-container height100" when-scrolled="scrollMore(config_chat.ui.scrollLimit[0])">
+            <div class="chat-sidebar-content ng-cloak">
+                <h6>보안</h6>
+                <ul class="chat-option-list">
+                    <li>
+                        <span class="chat-option-title">내 정보 공개</span>
+                        <span class="chat-option-value">
+                            <input class="tgl tgl-ios" id="cb1" type="checkbox"/>
+                            <label class="tgl-btn" for="cb1"></label>
+                        </span>
+                    </li>
+                    <li>
+                        <span class="chat-option-title">대화 초대 거부</span>
+                        <span class="chat-option-value">
+                            <input class="tgl tgl-ios" id="cb2" type="checkbox"/>
+                            <label class="tgl-btn" for="cb2"></label>
+                        </span>
+                    </li>
+                </ul>
+            </div>
+            <div class="chat-sidebar-content ng-cloak">
+                <h6>스타일</h6>
+                <ul class="chat-option-list">
+                    <li>
+                        <span class="chat-option-title">글자 크기</span>
+                        <span class="chat-option-value">
+                            <input class="tgl tgl-ios" id="cb3" type="checkbox"/>
+                            <label class="tgl-btn" for="cb3"></label>
+                        </span>
+                    </li>
+                    <li>
+                        <span class="chat-option-title">배경 화면</span>
+                        <span class="chat-option-value">
+                            <input class="tgl tgl-ios" id="cb4" type="checkbox"/>
+                            <label class="tgl-btn" for="cb4"></label>
+                        </span>
+                    </li>
+                </ul>
+            </div>
+            <div class="chat-sidebar-content ng-cloak">
+                <h6>알림</h6>
+                <ul class="chat-option-list">
+                    <li>
+                        <span class="chat-option-title">안읽은 메시지 수 표시</span>
+                        <span class="chat-option-value">
+                            <input class="tgl tgl-ios" id="cb5" type="checkbox"/>
+                            <label class="tgl-btn" for="cb5"></label>
+                        </span>
+                    </li>
+                    <li>
+                        <span class="chat-option-title">새로운 소식 알림</span>
+                        <span class="chat-option-value">
+                            <input class="tgl tgl-ios" id="cb6" type="checkbox"/>
+                            <label class="tgl-btn" for="cb6"></label>
+                        </span>
+                    </li>
+                </ul>
             </div>
         </div>
     </div>
