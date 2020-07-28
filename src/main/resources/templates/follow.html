@@ -6,8 +6,10 @@
 
         .right_nav{
             overflow: hidden;
+            margin-top: 30px;
+
         }
-        .right_nav_li{
+        .followcards{
             list-style: none;
             float: left;
             display: inline;
@@ -16,18 +18,21 @@
             height: 220px;
             margin-bottom: 10px;
         }
-        .card{
+        .followCard{
             /* height: 100%; */
             width:170px;
             height:220px;
             position:absolute;
+
+            background-color: white;
+            text-align: center;
         }
 
-        li div.card:hover + .hover_card {
+        li div.followCard:hover + .followerHover {
             display:block;
 
         }
-        .img-circle{
+        .followerProfile{
             border-radius: 50%;
             width: 60%;
             margin: auto;
@@ -44,23 +49,23 @@
             padding-top: 3px;
         }
 
-        .hover_card{
+        .followerHover{
             background-color:RGBA(0,0,0,0.5) ;
             width:170px;
-            height:203px;
+            height:220px;
             position:absolute;
             z-index:10;
             display: none;
 
 
         }
-        ul li:hover .hover_card{display: inline;}
+        ul li:hover .followerHover{display: inline;}
 
-        .card-btn{
+        .follow-card-btn{
             width:100px;
             display:block;
             margin-left:35px;
-            margin-top:40px;
+            margin-top:50px;
             top:10px;
             opacity:1.0;
             curser:pointer;
@@ -90,9 +95,9 @@
 
 
         <ul class="right_nav">
-            <li  ng-repeat="follower in person.follows" class="right_nav_li">
-                <div class="card">
-                    <img class="card-img-top img-circle" ng-src='profile/{{follower.avatar}}' alt="Card image cap">
+            <li  ng-repeat="follower in followers" class="followcards">
+                <div class="followCard">
+                    <img class="followerProfile" ng-src='profile/{{follower.avatar}}' alt="Card image cap">
                     <div class="card-body">
                         <h5 class="card-title">{{follower.nickname}}</h5>
                     </div>
@@ -101,22 +106,30 @@
                     </div>
                 </div>
 
-                <div class="hover_card">
-                    <button type="button" class="btn btn-primary btn-sm card-btn">1:1 채팅</button>
-                    <button type="button" class="btn btn-primary btn-sm card-btn" ng-click="followerRemove(follower)">친구 끊기</button>
+                <div class="followerHover">
+                    <button type="button" class="btn btn-primary btn-sm follow-card-btn">1:1 채팅</button>
+                    <button type="button" class="btn btn-primary btn-sm follow-card-btn" ng-click="followerRemove(follower)">친구 끊기</button>
                 </div>
 
         </ul>
-        <div class="container" ng-show="person.follows.length!==0">
+
 <!--            <ul uib-pagination total-items="bigTotalItems" ng-model="bigCurrentPage" max-size="maxSize" class="pagination-sm" boundary-links="true" num-pages="numPages"></ul>-->
 
-            <ul class="pagination pagination-sm">
-                <li class="page-item"><a class="page-link" href="#">이전</a></li>
-                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                <li class="p        </div></div>age-item"><a class="page-link" href="#">다음</a></li>
-            </ul>
-        </div>
+            <div class="pagination justify-content-center" ng-show="person.follows.length!==0">
+
+                <ul class ="pagination justify-content-center">
+                    <li class="page-item" ng-class="{'disabled' : currentPage==1}">
+                        <a class="page-link" href="#" tabindex="-1">Previous</a>
+                    </li>
+                    <li ng-repeat="n in range(totalItems)" class="page-item" ng-click="currentPageEvent(n)"><a class="page-link">{{n}}</a></li>
+                    <!--            <li class="page-item"><a class="page-link" href="#">2</a></li>-->
+                    <!--            <li class="page-item"><a class="page-link" href="#">3</a></li>-->
+                    <li class="page-item" ng-class="{'disabled' : currentPage == endPage}">
+                        <a class="page-link" href="#">Next</a>
+                    </li>
+                 </ul>
+
+            </div>
     <div ng-show="person.follows.length===0" class="noneMessage">
 
         <span id="message"><i class="fas fa-users"></i>팔로우한 친구가 없습니다.</span>

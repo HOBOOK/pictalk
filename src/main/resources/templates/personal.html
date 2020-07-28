@@ -17,10 +17,11 @@
         .needs-validation{
             clear: both;
         }
-        .img-circle{
+        #info-profile{
             border-radius: 50%;
             width: 100px;
             height: 100px;
+            margin: inherit;
         }
         .custom-file{
             margin-top: 30px;
@@ -81,10 +82,19 @@
         .alert span i{
             color: cornflowerblue;
         }
+        .personalWrap{
+            margin-left: 0px;
+            margin-top: 30px;
+
+        }
+        .infoWrap{
+            margin: auto;
+            max-width: 700px;
+        }
     </style>
 
 
-    <div class="row">
+    <div class="row personalWrap">
         <div class="col-md-8 order-md-1 infoWrap">
             <div class="btnWrap">
                 <button type="button" class="btn btn-primary btn-lg btn-sm active" ng-click="editToggle()">{{editText}}</button>
@@ -129,7 +139,7 @@
                     <label>프로필</label>
                     <div class="input-group">
 
-                        <img ng-src="{{person.avatar}}" alt="choidanbi.jpeg" class="img-circle" name="profileimg"/>
+                        <img ng-src="{{person.avatar}}" alt="choidanbi.jpeg" class="img-circle"  id ="info-profile" name="profileimg"/>
                         <div class="custom-file" ng-show="showHide">
                             <input type="file" ng-model="file" name="file" class="custom-file-input" id="inputGroupFile04" accept=".png, .jpg, .jpeg"
                                    ngf-select="changeProfileImg($event, this)"
@@ -156,7 +166,7 @@
                     <label for="password">비밀번호</label>
                     <input type="password" class="form-control" id="password" name="password" ng-model="person.password"  ng-show="showHide" required>
                     <div>
-                        <label class="explain" ng-show="!showHide">{{person.password}}</label>
+                        <label class="explain" ng-show="!showHide" >{{person.password}}</label>
                     </div>
                     <div class="warning" ng-show="personForm.password.$error.required">
                         한 글자 이상 입력해주세요.

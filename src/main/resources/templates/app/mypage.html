@@ -42,7 +42,7 @@
 <!--            </div>-->
 <!--        </div>-->
         <div class="wrap">
-            <section ng-cloak ng-show="isSelectedNavBar(0)" th:replace="~{personal :: content-personal}"></section>
+            <section class="personalSection" style="min-width: 800px;" ng-cloak ng-show="isSelectedNavBar(0)" th:replace="~{personal :: content-personal}"></section>
             <section ng-cloak ng-show="isSelectedNavBar(1)" th:replace="~{follow :: content-follow}"></section>
             <section ng-cloak ng-show="isSelectedNavBar(2)" th:replace="~{pictures :: content-pictures}"></section>
         </div>
