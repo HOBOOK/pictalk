@@ -83,8 +83,6 @@ app.controller('chatProfileModalController', function ($scope, $uibModalInstance
     // 첨부한 이미지 주소 가져와서 렌더링
     $scope.renderAvatarImage = function(){
         $('#imagePreview').css('background-image', 'url('+$scope.avatar +')');
-        $('#imagePreview').hide();
-        $('#imagePreview').fadeIn(650);
     }
 
     $scope.onClickSelectAvatar = function(avatar){

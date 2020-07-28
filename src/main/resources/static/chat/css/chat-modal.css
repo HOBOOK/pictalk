@@ -222,6 +222,8 @@
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
+    -webkit-transition: background-image 0.3s ease-in-out;
+    transition: background-image 0.3s ease-in-out;
 }
 
 .avatar-selector {
