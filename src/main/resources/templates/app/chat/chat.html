@@ -35,9 +35,9 @@
     <!----------------------- 채팅방 목록 컨테이너 ------------------------------>
     <div class="app-wrapper">
         <div class="chat-sidebar-container">
-            <div th:replace="~{/app/chat/fragment/fragment_chat_list :: chat_list}">
-
-            </div>
+            <div ng-show="isSelectedNavBar(0)" th:replace="~{/app/chat/fragment/fragment_chat_list :: chat-sidebar}"></div>
+            <div ng-show="isSelectedNavBar(1)" th:replace="~{/app/chat/fragment/fragment_chat_my_list :: chat-sidebar}"></div>
+            <div ng-show="isSelectedNavBar(2)" th:replace="~{/app/chat/fragment/fragment_chat_configuration :: chat-sidebar}"></div>
             <div class="chat-sidebar-footer">
                 <!--            <div class="chat-footer-tab">-->
                 <!--                <span ng-class="{selected: isSelectedMainBar(0)}" ng-click="onClickOpenMainBar(0, $event)"><i class="far fa-comment-dots"></i></span>-->

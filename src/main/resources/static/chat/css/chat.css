@@ -1,3 +1,7 @@
+html{
+    font-size:small;
+}
+
 .content-chat-container{
     width: 100%;
     height: 100%;
@@ -158,6 +162,29 @@ nav{
     float: right;
 
 }
+
+.chat-option-list{
+    width: 100%;
+    list-style: none;
+    padding: 10px;
+    display:flex;
+    flex-direction: column;
+}
+.chat-option-list li{
+    position: relative;
+    width: 100%;
+    font-size: 0.9rem;
+    margin: 20px 0 20px 0;
+}
+.chat-option-title{
+    position: absolute;
+    left: 0;
+}
+.chat-option-value{
+    position: absolute;
+    right: 0;
+}
+
 #chat-main-tab{
 
 }
@@ -648,10 +675,10 @@ nav{
 /* 채팅 컨테이너 */
 #chat-container{
     flex: 1;
-    margin-top:30px;
+    margin-top:10px;
     margin-left: 10px;
     margin-right: 10px;
-    height: calc(100% - 60px);
+    height: calc(100% - 20px);
     min-width: 400px;
     border-radius: 5px;
     background-color: transparent;
@@ -892,7 +919,7 @@ nav{
 
 .chat-header {
     text-align: left;
-    padding: 15px;
+    padding: 10px;
 }
 
 .chat-header img{

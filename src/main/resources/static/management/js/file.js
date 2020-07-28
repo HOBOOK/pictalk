@@ -114,7 +114,14 @@ app.controller("fileCtrl", function ($scope) {
         $scope.images_state = "groups";
     }
 
+
+    //페이징 변수
+    $scope.images =[];
+    $scope.numPerPage = 2, $scope.maxSize = 5,
+    $scope.groupImage = [];
+    
     $scope.chat_group_content = function(room) {
+        $scope.imageCurrentPage = 1;
         console.log(room.no);
     //    채팅방 이미지 불러오기
 
@@ -126,8 +133,22 @@ app.controller("fileCtrl", function ($scope) {
             user: "지은",
             title: "사진이름1",
             imagePath : "/profile/danbi2.jpg"
+        },{
+            no: 1,
+            user: "치민",
+            title: "사진이름2",
+            imagePath : "/profile/danbi2.jpg"
+        },{
+            no: 2,
+            user: "경호",
+            title: "사진이름3",
+            imagePath : "/profile/danbi2.jpg"
         }];
+
+        $scope.imageTotalItems = $scope.images;
+        $scope.imageEndPage = $scope.numPages();
     }
+
 
     //이미지 삭제
     $scope.image_delete = function (image) {
@@ -147,5 +168,93 @@ app.controller("fileCtrl", function ($scope) {
         //checked index 확인
 
     };
+
+
+
+
+
+
+    //채팅방 그룹 페이징
+    $scope.groups = [];
+    $scope.trashs =[];
+
+    //Images, Trash Tab 구분
+    $scope.location = 0;
+    
+     $scope.currentPage = 1,
+         $scope.totalItems = $scope.rooms;
+
+    $scope.trashCurrentPage = 1,
+        $scope.trashTotalItems = $scope.rooms_trash;
+
+
+    $scope.numPages = function () {
+        if($scope.location === 1)
+            return Math.ceil($scope.trashTotalItems.length / $scope.numPerPage);
+        else{
+            if($scope.images_state === 'groups')
+                return Math.ceil($scope.totalItems.length / $scope.numPerPage);
+
+            return Math.ceil($scope.imageTotalItems.length / $scope.numPerPage);
+        }
+
+    };
+
+    $scope.endPage = $scope.numPages();
+    $scope.trashEndPage = $scope.numPages();
+
+    $scope.range = function(total){
+        var input=[];
+        for(var i= 1;i<=$scope.numPages();i++){
+            input.push(i);
+        }
+        return input;
+    };
+
+    $scope.currentPageEvent=function(num){
+        console.log($scope.location + ' ' + $scope.images_state);
+
+        if($scope.location === 1){
+            $scope.trashCurrentPage= num;
+        }
+        else{
+            if($scope.images_state == 'groups'){
+                $scope.currentPage= num;
+            }
+            else
+            {
+                $scope.imageCurrentPage= num;
+            }
+        }
+
+    };
+
+
+    $scope.changeLocation = function(location){
+        $scope.location = location;
+    }
+
+    $scope.$watch('currentPage + totalItems', function() {
+        var begin = (($scope.currentPage - 1) * $scope.numPerPage)
+            , end = begin + $scope.numPerPage;
+
+        $scope.groups = $scope.rooms.slice(begin, end);
+    });
+
+
+    $scope.$watch('trashCurrentPage + trashTotalItems', function() {
+        var begin = (($scope.trashCurrentPage - 1) * $scope.numPerPage)
+            , end = begin + $scope.numPerPage;
+
+        $scope.trashs = $scope.rooms_trash.slice(begin, end);
+    });
+
+
+    $scope.$watch('imageCurrentPage + imageTotalItems', function() {
+        var begin = (($scope.imageCurrentPage - 1) * $scope.numPerPage)
+            , end = begin + $scope.numPerPage;
+
+        $scope.groupImage = $scope.images.slice(begin, end);
+    });
 
 });

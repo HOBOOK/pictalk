@@ -6,6 +6,7 @@ app.config(['$qProvider', function ($qProvider) {
 }]);
 
 app.factory('UserService', function($localStorage) {
+    // 사용자 계정 모델
     var tempUserModel = {
         id: 0,
         firstName: "choi",
@@ -84,8 +85,29 @@ app.factory('UserService', function($localStorage) {
     }
     if(!$localStorage.user)
         $localStorage.user = tempUserModel;
+
+    
+    // 사용자 환경 설정 모델
+    var config = {
+        security: {
+            isPrivateProfile: false,
+            isRejectInvite: false
+        },
+        style:{
+            isDarkTheme: false,
+            scale: 1,
+            background: ""
+        },
+        notification: {
+            isHideUnreadMessageCount: false,
+            isAlertNews: false
+        }
+    }
+    if(!$localStorage.config)
+        $localStorage.config = config;
     return {
-        user : $localStorage.user
+        user : $localStorage.user,
+        config : $localStorage.config
     };
 });
 app.factory('Scopes', function ($rootScope) {

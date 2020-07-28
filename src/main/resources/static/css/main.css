@@ -34,7 +34,7 @@ div.layout-main{
 
 /*********** 헤더 영역 ***********/
 div.layout-main header{
-    background: #fff;
+    background: rgba(255,255,255,.8);
     width: 100%;
     display: flex;
     position: fixed;
@@ -111,7 +111,7 @@ div.layout-main nav{
     height: 100%;
     width:70px;
     display: inline-block;
-    background-color: #fff;
+    background: rgba(255,255,255,.8);
     position: fixed;
     z-index: 1;
 }
@@ -195,18 +195,24 @@ div.loading img{
 /********* 팝업 영역 ***********/
 div.common-alert{
     position: absolute;
+    opacity: 0;
     bottom: 15px;
-    right: 15px;
+    right: -300px;
     height: 50px;
     padding: 10px;
     width: auto;
     max-width: 300px;
     transition: all .3s ease-in-out;
-    background-color: rgba(255,255,255,.7);
+    background-color: #fff;
     box-shadow: 0 10px 10px 1px rgba(0,0,0,0.1);
-    display: flex;
+
     align-items: center;
     cursor: pointer;
+    display: flex;
+}
+div.common-alert.on{
+    right: 15px;
+    opacity: .8;
 }
 div.common-alert span{
     font-size: 14px;
@@ -376,4 +382,122 @@ div.content .app-wrapper{
     top: 0;
     left: 120%;
     opacity: .7;
+}
+
+
+/********** IOS 스타일 토글 ************/
+.tgl {
+    display: none;
+}
+.tgl, .tgl:after, .tgl:before, .tgl *, .tgl *:after, .tgl *:before, .tgl + .tgl-btn {
+    box-sizing: border-box;
+}
+.tgl::-moz-selection, .tgl:after::-moz-selection, .tgl:before::-moz-selection, .tgl *::-moz-selection, .tgl *:after::-moz-selection, .tgl *:before::-moz-selection, .tgl + .tgl-btn::-moz-selection {
+    background: none;
+}
+.tgl::selection, .tgl:after::selection, .tgl:before::selection, .tgl *::selection, .tgl *:after::selection, .tgl *:before::selection, .tgl + .tgl-btn::selection {
+    background: none;
+}
+.tgl + .tgl-btn {
+    outline: 0;
+    display: block;
+    width: 2.5em;
+    height: 1.3em;
+    position: relative;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+.tgl + .tgl-btn:after, .tgl + .tgl-btn:before {
+    position: relative;
+    display: block;
+    content: "";
+    width: 60%;
+    height: 140%;
+    top: -25%;
+}
+.tgl + .tgl-btn:after {
+    left: -5%;
+}
+.tgl + .tgl-btn:before {
+    display: none;
+}
+.tgl:checked + .tgl-btn:after {
+    left: 50%;
+}
+.tgl-ios + .tgl-btn {
+    background: #fbfbfb;
+    border-radius: 3em;
+    padding: 2px;
+    -webkit-transition: all .4s ease;
+    transition: all .4s ease;
+    border: 1px solid #e8eae9;
+}
+.tgl-ios + .tgl-btn:after {
+    border-radius: 3em;
+    background: #fbfbfb;
+    -webkit-transition: left 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), padding 0.3s ease, margin 0.3s ease;
+    transition: left 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), padding 0.3s ease, margin 0.3s ease;
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1), 0 4px 0 rgba(0, 0, 0, 0.08);
+}
+.tgl-ios + .tgl-btn:hover:after {
+    will-change: padding;
+}
+.tgl-ios + .tgl-btn:active {
+    box-shadow: inset 0 0 0 3em #e8eae9;
+}
+.tgl-ios + .tgl-btn:active:after {
+    padding-right: .8em;
+}
+.tgl-ios:checked + .tgl-btn {
+    background: #86d993;
+}
+.tgl-ios:checked + .tgl-btn:active {
+    box-shadow: none;
+}
+.tgl-ios:checked + .tgl-btn:active:after {
+    margin-left: -.8em;
+}
+
+
+/********* Step Progress Bar   *********/
+.config-steps-container {
+
+}
+.config-steps-container .config-steps {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100px;
+    height: 20px;
+}
+.config-steps-container .config-step {
+    width: 10px;
+    height: 10px;
+    background: #fff;
+    border: 2px solid #ACACA6;
+    border-radius: 50%;
+    transition: background .3s, width .3s, height .3s;
+    cursor: pointer;
+}
+.config-steps-container .config-step.selected {
+    border: 2px solid lightseagreen;
+    width: 15px;
+    height: 15px;
+}
+.config-steps-container .config-step.completed {
+    border: 2px solid lightseagreen;
+    background: lightseagreen;
+}
+.config-steps-container .config-steps-line {
+    position: absolute;
+    width: 100%;
+    height: 50%;
+    border-bottom: 2px solid #ACACA6;
+    opacity: .3;
+    z-index: 0;
+
 }

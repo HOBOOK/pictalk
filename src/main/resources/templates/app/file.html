@@ -51,8 +51,8 @@
             <div class="manager-sidebar">
 
                     <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical" style="background-color: white; border-radius: 0.25rem;">
-                        <a class="nav-link active" id="v-pills-images-tab" data-toggle="pill" href="#v-pills-images" role="tab" aria-controls="v-pills-images" aria-selected="true" style="font-size: 20px;">Images</a>
-                        <a class="nav-link" id="v-pills-trash-tab" data-toggle="pill" href="#v-pills-trash" role="tab" aria-controls="v-pills-trash" aria-selected="false" style="font-size: 20px;">Trash</a>
+                        <a class="nav-link active" id="v-pills-images-tab" data-toggle="pill" href="#v-pills-images" role="tab" aria-controls="v-pills-images" aria-selected="true" style="font-size: 20px;" ng-click="changeLocation(0)">Images</a>
+                        <a class="nav-link" id="v-pills-trash-tab" data-toggle="pill" href="#v-pills-trash" role="tab" aria-controls="v-pills-trash" aria-selected="false" style="font-size: 20px;" ng-click="changeLocation(1)">Trash</a>
                     </div>
 
             </div>
@@ -70,7 +70,7 @@
                         </div>
 
                         <div class="row" ng-show="images_state === 'groups'">
-                            <div class="cxl-3 cmd-6" ng-repeat="room in rooms">
+                            <div class="cxl-3 cmd-6" ng-repeat="room in groups">
                                 <div class="group-card-box file-zoom-effect">
                                     <div>
                                         <input type="checkbox" class="checkbox-size" ng-checked="leader">
@@ -120,7 +120,7 @@
                         </div>
 
                         <div class="row" ng-show="images_state !== 'groups'">
-                            <div class="cxl-3 cmd-6" ng-repeat="image in images">
+                            <div class="cxl-3 cmd-6" ng-repeat="image in groupImage">
                                 <div class="group-card-box file-zoom-effect">
                                     <div>
                                         <input type="checkbox" class="checkbox-size">
@@ -148,19 +148,32 @@
                             <input ng-model="leader" type="checkbox" style="width: 20px; height: 20px; margin-top: 5px; margin-right: 5px;">
                             <button class="btn btn-outline-danger btn-sm">삭제</button>
                         </div>
-                        <foot aria-label="Page navigation example">
-                            <ul class="pagination justify-content-center">
-                                <li class="page-item disabled">
-                                    <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
-                                </li>
-                                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                <li class="page-item">
-                                    <a class="page-link" href="#">Next</a>
-                                </li>
-                            </ul>
-                        </foot>
+
+                            <!--그룹-->
+                            <foot aria-label="Page navigation example" ng-show="images_state === 'groups'">
+                                <ul class="pagination justify-content-center">
+                                    <li class="page-item" ng-class="{'disabled' : currentPage==1}">
+                                        <a class="page-link" href="#" tabindex="-1" ng-click="currentPageEvent(currentPage-1)">Previous</a>
+                                    </li>
+                                    <li ng-repeat="n in range(totalItems)" class="page-item" ng-click="currentPageEvent(n)"><a class="page-link">{{n}}</a></li>
+                                    <li class="page-item" ng-class="{'disabled' : currentPage == endPage}">
+                                        <a class="page-link" href="#" ng-click="currentPageEvent(currentPage+1)">Next</a>
+                                    </li>
+                                </ul>
+                            </foot>
+
+                            <!--이미지-->
+                            <foot aria-label="Page navigation example" ng-show="images_state !== 'groups'">
+                                <ul class="pagination justify-content-center">
+                                    <li class="page-item" ng-class="{'disabled' : imageCurrentPage==1}">
+                                        <a class="page-link" href="#" tabindex="-1" ng-click="currentPageEvent(imageCurrentPage-1)">Previous</a>
+                                    </li>
+                                    <li ng-repeat="n in range(imageTotalItems)" class="page-item" ng-click="currentPageEvent(n)"><a class="page-link">{{n}}</a></li>
+                                    <li class="page-item" ng-class="{'disabled' : imageCurrentPage == imageEndPage}">
+                                        <a class="page-link" href="#" ng-click="currentPageEvent(imageCurrentPage+1)">Next</a>
+                                    </li>
+                                </ul>
+                            </foot>
 
                     </div>
 
@@ -174,7 +187,7 @@
                         </div>
 
                         <div class="row">
-                            <div class="cxl-3 cmd-6" ng-repeat="trash in rooms_trash">
+                            <div class="cxl-3 cmd-6" ng-repeat="trash in trashs">
                                 <div class="group-card-box file-zoom-effect">
                                     <div>
                                         <input type="checkbox" class="checkbox-size">
@@ -195,18 +208,15 @@
 
                         <foot aria-label="Page navigation example">
                             <ul class="pagination justify-content-center">
-                                <li class="page-item disabled">
-                                    <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
+                                <li class="page-item" ng-class="{'disabled' : trashCurrentPage==1}">
+                                    <a class="page-link" href="#" tabindex="-1">Previous</a>
                                 </li>
-                                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                <li class="page-item">
+                                <li ng-repeat="n in range(trashTotalItems)" class="page-item" ng-click="currentPageEvent(n)"><a class="page-link">{{n}}</a></li>
+                                <li class="page-item" ng-class="{'disabled' : trashCurrentPage == trashEndPage}">
                                     <a class="page-link" href="#">Next</a>
                                 </li>
                             </ul>
                         </foot>
-
 
                     </div>
 

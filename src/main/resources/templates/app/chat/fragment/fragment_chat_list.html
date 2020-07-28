@@ -1,7 +1,8 @@
 
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<th:div th:fragment="chat_list">
+<th:div th:fragment="chat-sidebar">
+    <!----------- 오픈 채팅 목록 ---------------->
     <div ng-cloak class="chat-tab" ng-show="isSelectedNavBar(0)">
         <div class="chat-sidebar-header">
             <h4>오픈 채팅방</h4>
@@ -92,29 +93,6 @@
             </div>
             <div ng-show="filteredRooms.length===0" class="chat-sidebar-no-content">
                 <span>개설된 오픈 채팅방이 없습니다.</span>
-            </div>
-        </div>
-    </div>
-    <div ng-cloak class="chat-tab" ng-show="isSelectedNavBar(1)">
-        <div class="chat-sidebar-header">
-            <h4>나의 채팅방</h4>
-        </div>
-        <div class="chat-sidebar-content-container height100" when-scrolled="scrollMore(config_chat.ui.scrollLimit[0])">
-            <div class="chat-sidebar-content chat-room ng-cloak" ng-repeat="room in me.myRooms | limitTo: config_chat.ui.scrollLimit[0].limit" ng-click="connect($event, room)">
-                    <span class="chat-room-thumbnail">
-                        <img ng-cloak ng-src="{{room.img}}" alt="thumbnail" class="img-circle" onerror="this.src='/img/no-image.png'"/>
-                    </span>
-                <span class="chat-room-info">
-                        <h6 ng-bind="room.title"></h6> <span ng-show="getUnreadMessageCount(room)"><i class="circle-count" ng-bind="getUnreadMessageCount(room)"></i></span>
-                        <p ng-bind="getLatestMessage(room) ? getLatestMessage(room) : '&nbsp;&nbsp;'"></p>
-                    </span>
-
-                <div id="chat-current-room" ng-show="currentRoom.id===room.id">
-
-                </div>
-            </div>
-            <div ng-show="me.myRooms.length===0" class="chat-sidebar-no-content">
-                <span>참여중인 채팅방이 없습니다.</span>
             </div>
         </div>
     </div>
