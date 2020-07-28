@@ -1,22 +1,59 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<th:header th:fragment="header">
-    <header>
-<!--        <div class="manager-header">-->
-<!--            <a class="p-2 mr-md-3 text-dark" href="#">-->
-<!--                <img src="/management/img/alarm_icon.png" class="rounded-circle-profile">-->
-<!--            </a>-->
-<!--            <a class="p-2 mr-md-3 text-dark dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">-->
-<!--                <img src="/management/img/profile.png" class="rounded-circle-profile"> 치민-->
-<!--            </a>-->
+<header th:fragment="header">
+    <div class="header-group" ng-controller="alarmCtrl">
+        <ul>
+            <span id="logo-main">
+                <a href="/"><img src="/img/logo/logo.png" alt="logo_pictalk" width="32" height="32"/></a>
+            </span>
+            <li style="flex:1;"></li>
 
-<!--            <div class="dropdown-menu" aria-labelledby="navbarDropdown">-->
-<!--                <a class="dropdown-item" href="#">마이페이지</a>-->
-<!--                <div class="dropdown-divider"></div>-->
-<!--                <a class="dropdown-item" href="#">로그아웃</a>-->
-<!--            </div>-->
-<!--        </div>-->
+            <li><a class="header-button" ng-click="showHide=!showHide"><i class="far fa-bell"></i>
+                <span style="position: absolute; font-size: 40%; top: 5px; left: 15px; " class="badge badge-danger">4</span>
+            </a>
 
-    </header>
-</th:header>
+                <style>
+                    #alarm::-webkit-scrollbar {
+                        display: none;
+                    }
+                </style>
+
+                <div  ng-show="showHide" class="my-3 p-3 bg-white rounded shadow-sm" style="position: absolute; top: 20px; right: 90px; z-index: 100; width: 320px; height: 400px; overflow: hidden">
+                    <div class="border-bottom border-gray pb-2 mb-0" style="height: 35px;">
+                        <h6 style="display: inline; float: left;">알림</h6>
+                        <a href="#" style="float: right;" ng-click="alarm_Allclear()">Clear</a>
+                    </div>
+
+
+                    <div id="alarm" style="height: 300px; width: 100%; overflow-y: scroll;">
+                        <div class="media text-muted pt-3 alarm-list" ng-repeat="alarm in alarms" ng-click="alarm_clear(alarm)">
+                            <img src="/img/logo/logo.png" ng-src="{{alarm.profile}}" style="width: 35px; height: 35px;">
+                            <div class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
+                                <div class="d-flex justify-content-between align-items-center w-100">
+                                    <strong class="text-gray-dark">{{alarm.name}}</strong>
+                                    <small>{{alarm.time}} min ago</small>
+                                </div>
+                                <span class="d-block">{{alarm.content}}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <small sa class="d-block text-right mt-3">
+                        <a href="#">더보기</a>
+                    </small>
+                </div>
+
+            <li>
+                <a ng-show="!me" class="header-button" th:href="@{/signin}">
+                    <i  class="fas fa-power-off"></i>
+                </a>
+                <a ng-cloak ng-show="me" class="header-button" th:href="@{/signin}">
+                        <span id="user-avatar-cover">
+                            <img ng-cloak id="user-avatar" ng-show="me" ng-src="{{me.avatar}}" onerror="this.style.display='none'" alt="user_avatar"/>
+                        </span>
+                </a>
+            </li>
+            <li></li>
+        </ul>
+    </div>
+</header>
 </html>
