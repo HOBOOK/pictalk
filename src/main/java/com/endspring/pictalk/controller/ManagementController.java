@@ -8,26 +8,26 @@ public class ManagementController {
 
     @GetMapping("/console")
     public String console(){
-        return "app/dashboard";
+        return "app/console/dashboard";
     }
 
     @GetMapping("/console/dashboard")
     public String dashboard(){
-        return "app/dashboard";
+        return "app/console/dashboard";
     }
 
     @GetMapping("/console/file")
     public String file(){
-        return "app/file";
+        return "app/console/file";
     }
 
     @GetMapping("/console/account")
     public String account(){
-        return "app/account";
+        return "app/console/account";
     }
 
     @GetMapping("/console/info")
     public String info(){
-        return "app/info";
+        return "app/console/modal/info";
     }
 }
