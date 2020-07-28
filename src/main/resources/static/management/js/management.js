@@ -37,7 +37,7 @@ app.controller("alarmCtrl", function ($scope) {
     }];
 
 
-    //Back단에서 읽음 처리하기
+    //나중에 Back단에서 읽음 처리하기~
     $scope.alarm_Allclear = function() {
         $scope.alarms.splice(0);
     };
