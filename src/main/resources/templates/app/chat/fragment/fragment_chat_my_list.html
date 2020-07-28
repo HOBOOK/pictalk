@@ -14,7 +14,9 @@
                 </span>
                 <span class="chat-room-info">
                     <h6 ng-bind="room.title"></h6>
-                    <span class="chat-room-state" ng-show="getUnreadMessageCount(room)"><i class="circle-count" ng-bind="getUnreadMessageCount(room)"></i></span>
+                    <span class="chat-room-state" ng-show="getUnreadMessageCount(room)">
+                        <i ng-show="!config.notification.isHideUnreadMessageCount" class="circle-count" ng-bind="getUnreadMessageCount(room)"></i>
+                    </span>
                     <p ng-bind="getLatestMessage(room) ? getLatestMessage(room) : '&nbsp;&nbsp;'"></p>
                 </span>
                 <div id="chat-current-room" ng-show="currentRoom.id===room.id">

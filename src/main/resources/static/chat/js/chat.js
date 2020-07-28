@@ -18,6 +18,8 @@ app.controller("chatController", function ($scope, Scopes, $http, $uibModal, $fi
     $scope.me = UserService.user;
     // 현재 채팅방의 사용자 모델
     $scope.currentMe = angular.copy($scope.me);
+    // 사용자 설정
+    $scope.config = UserService.config;
 
     $scope.loadChatList = function(){
         $scope.filteredRooms = null;
