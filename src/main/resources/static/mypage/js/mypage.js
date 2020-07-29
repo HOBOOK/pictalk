@@ -86,6 +86,9 @@ app.controller('mypageCtrl',function ($scope, $location,$timeout, UserService) {
         if($scope.endPage<$scope.currentPage){
             $scope.currentPage = $scope.endPage;
         }
+        if($scope.currentPage<$scope.numPages()){
+            $scope.currentPage = 1;
+        }
     });
 
 
