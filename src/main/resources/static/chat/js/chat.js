@@ -18,6 +18,8 @@ app.controller("chatController", function ($scope, Scopes, $http, $uibModal, $fi
     $scope.me = UserService.user;
     // 현재 채팅방의 사용자 모델
     $scope.currentMe = angular.copy($scope.me);
+    // 사용자 설정
+    $scope.config = UserService.config;
 
     $scope.loadChatList = function(){
         $scope.filteredRooms = null;
@@ -166,7 +168,14 @@ app.controller("chatController", function ($scope, Scopes, $http, $uibModal, $fi
             $scope.currentRoom = room;
             $scope.initChatRoomData();
             if($scope.isAlreadyJoined(room)){
-                $scope.currentMe = $filter('filter')($scope.me.myRooms.participants, {id: $scope.me.id}, true)[0];
+                var savedTargetRoom = $filter('filter')($scope.me.myRooms, {id: room.id}, true)[0];
+                if(!savedTargetRoom){
+                    console.log('오류 -> ' + 'savedTargetRoom');
+                }
+                $scope.currentMe = $filter('filter')(savedTargetRoom.participants, {id: $scope.me.id}, true)[0];
+                if(!$scope.currentMe){
+                    console.log('오류 -> ' + 'currentMe');
+                }
                 $scope.getChatRoomMessages(room);
             }else{
                 /* 채팅방 프로필 설정창 오픈*/

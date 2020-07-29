@@ -9,7 +9,7 @@
             <li style="flex:1;"></li>
 
             <li><a class="header-button" ng-click="showHide=!showHide"><i class="far fa-bell"></i>
-                <span style="position: absolute; font-size: 40%; top: 5px; left: 15px; " class="badge badge-danger">4</span>
+                <span style="position: absolute; font-size: 40%; top: 5px; left: 15px; " class="badge badge-danger" ng-show="alarms.length!==0">{{alarms.length}}</span>
             </a>
 
                 <style>
@@ -18,7 +18,7 @@
                     }
                 </style>
 
-                <div  ng-show="showHide" class="my-3 p-3 bg-white rounded shadow-sm" style="position: absolute; top: 20px; right: 90px; z-index: 100; width: 320px; height: 400px; overflow: hidden">
+                <div  ng-show="showHide" class="my-3 p-3 bg-white rounded shadow-sm" style="position: absolute; top: 25px; right: 90px; z-index: 100; width: 320px; height: 380px; overflow: hidden">
                     <div class="border-bottom border-gray pb-2 mb-0" style="height: 35px;">
                         <h6 style="display: inline; float: left;">알림</h6>
                         <a href="#" style="float: right;" ng-click="alarm_Allclear()">Clear</a>
@@ -37,9 +37,9 @@
                             </div>
                         </div>
                     </div>
-                    <small sa class="d-block text-right mt-3">
-                        <a href="#">더보기</a>
-                    </small>
+<!--                    <small sa class="d-block text-right mt-3">-->
+<!--                        <a href="#">더보기</a>-->
+<!--                    </small>-->
                 </div>
 
             <li>
@@ -53,6 +53,7 @@
                 </a>
             </li>
             <li></li>
+
         </ul>
     </div>
 </header>

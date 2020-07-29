@@ -1,5 +1,4 @@
 app.controller("fileCtrl", function ($scope) {
-    //초기값
     $scope.images_state = "groups";
     $scope.trash_state = "groups";
 
@@ -10,61 +9,63 @@ app.controller("fileCtrl", function ($scope) {
         title: "방제목1AAAAaaaaaaaaaaaaaaaaaa",
         imagePath : "/chat/img/image_example.jpg"
     },{
-        no: 0,
+        no: 1,
         type: 0,
         title: "방제목2방제목2방제목2방제목2방제목2방제목2",
         imagePath : "/chat/img/image_example.jpg"
     },{
-        no: 0,
+        no: 2,
         type: 0,
         title: "방제목3",
         imagePath : "/chat/img/image_example.jpg"
     },{
-        no: 0,
+        no: 3,
         type: 0,
         title: "방제목4",
         imagePath : "/chat/img/image_example.jpg"
     },{
-        no: 0,
+        no: 4,
         type: 0,
         title: "방제목5",
         imagePath : "/chat/img/image_example.jpg"
     },{
-        no: 0,
+        no: 5,
         type: 0,
         title: "방제목6",
         imagePath : "/chat/img/image_example.jpg"
     },{
-        no: 0,
+        no: 6,
         type: 0,
         title: "방제목7",
         imagePath : "/chat/img/image_example.jpg"
     },{
-        no: 0,
+        no: 7,
         type: 0,
         title: "방제목8",
         imagePath : "/chat/img/image_example.jpg"
     },{
-        no: 0,
+        no: 8,
         type: 0,
         title: "방제목9",
         imagePath : "/chat/img/image_example.jpg"
     },{
-        no: 0,
+        no: 9,
         type: 0,
         title: "방제목10",
         imagePath : "/chat/img/image_example.jpg"
     }];
 
 
+    //이미지 채팅방 그룹 삭제
     $scope.room_delete = function (room) {
         var idx = $scope.rooms.findIndex(function (item) {
-            return item.no == room.no;
+            return item.no == room;
         })
 
         if(idx>-1){
             $scope.rooms.splice(idx,1)
         }
+        $("#allCheck").prop("checked",false);
     };
 
 
@@ -112,6 +113,8 @@ app.controller("fileCtrl", function ($scope) {
 
     $scope.images_button = function(){
         $scope.images_state = "groups";
+        $("input[name='imageCheck']").prop("checked",false);
+        $("#imageAllCheck").prop("checked",false);
     }
 
 
@@ -150,10 +153,11 @@ app.controller("fileCtrl", function ($scope) {
     }
 
 
-    //이미지 삭제
+    //이미지 채팅방 내 개별 이미지 삭제
     $scope.image_delete = function (image) {
+        console.log(image);
         var idx = $scope.images.findIndex(function (item) {
-            return item.no == image.no;
+            return item.no == image;
         })
 
         if(idx>-1){
@@ -161,16 +165,56 @@ app.controller("fileCtrl", function ($scope) {
         }
     };
 
-    
-    //선택된 채팅 그룹 삭제
-    $scope.all_room_delete = function () {
+    //선택된 이미지 채팅방 그룹 삭제
+    $scope.check_room_delete = function () {
 
-        //checked index 확인
+        var list = $("input[name='check_list']");
+        for(var i = 0; i < list.length; i++){
+            if(list[i].checked){ //선택되어 있으면 배열에 값을 저장함
+                $scope.room_delete(list[i].value);
+            }
+        }
+        $("#allCheck").prop("checked",false);
+    };
 
+
+    //선택된 이미지 삭제
+    $scope.check_image_delete = function () {
+
+        var list = $("input[name='imageCheck']");
+        for(var i = 0; i < list.length; i++){
+            if(list[i].checked){ //선택되어 있으면 배열에 값을 저장함
+                $scope.image_delete(list[i].value);
+            }
+        }
+        $("#imageAllCheck").prop("checked",false);
     };
 
 
 
+
+
+
+    //이미지 채팅방 현재 페이지 전체 선택
+    $(function(){
+        $("#allCheck").click(function(){
+            if($("#allCheck").prop("checked")) {
+                $("input[name='check_list']").prop("checked",true);
+            } else {
+                $("input[name='check_list']").prop("checked",false);
+            }
+        })
+    });
+    //채팅방 이미지 현재 페이지 전체 선택
+    $(function(){
+        $("#imageAllCheck").click(function(){
+            if($("#imageAllCheck").prop("checked")) {
+                $("input[name='imageCheck']").prop("checked",true);
+            } else {
+                $("input[name='imageCheck']").prop("checked",false);
+            }
+        })
+    });
 
 
 
@@ -228,8 +272,8 @@ app.controller("fileCtrl", function ($scope) {
         }
 
     };
-
-
+    
+    //Tab위치 변수
     $scope.changeLocation = function(location){
         $scope.location = location;
     }
