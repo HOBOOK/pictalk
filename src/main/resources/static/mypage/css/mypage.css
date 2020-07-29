@@ -1,6 +1,5 @@
 .wrap{
     width: 100%;
-    min-height: 800px;
     /*position: relative;*/
     display: flex;
 }

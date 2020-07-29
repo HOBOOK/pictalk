@@ -72,7 +72,7 @@
                     </ul>
                     <form id="messageForm" name="messageForm">
                         <div class="input-group clearfix">
-                            <input type="text" id="chat-message" placeholder="메시지 입력..." autocomplete="off"/>
+                            <input type="text" id="chat-message" placeholder="메시지 입력..." autocomplete="off" minlength="1" maxlength="200"/>
 
                             <div class="form-buttons">
                                 <button type="submit" ng-click="sendMessage($event)" class="circle">
@@ -205,8 +205,8 @@
 
         <!----------------------- 채팅방 컨텍스트 메뉴 ------------------------------>
         <ul id="chat-message-context" class="dropdown-menu chat-context-menu" role='menu'>
-            <li><a href="#" ng-click="onClickReportMessage()">내용 신고</a></li>
-            <li><a href="#" ng-click="onClickHideMessage()">삭제</a></li>
+            <li ng-click="onClickReportMessage()">메시지 신고</li>
+            <li ng-click="onClickHideMessage()">삭제</li>
         </ul>
     </div>
 </section>

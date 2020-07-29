@@ -11,7 +11,6 @@
 
         .right_nav{
             overflow: hidden;
-            min-height: 800px;
         }
         .right_nav_li{
             list-style: none;
@@ -66,8 +65,10 @@
             width: 200px;
             height: 200px;
         }
-        .pagination{
+        ul.pagination{
             margin-bottom: 0;
+            position: absolute;
+            bottom:30px;
         }
         .filebox label {
             display: inline-block;
@@ -139,13 +140,13 @@
 
         <ul class="pagination justify-content-center" >
             <li class="page-item" ng-class="{'disabled' : currentPage==1}">
-                <a class="page-link" href="#" tabindex="-1">Previous</a>
+                <a class="page-link" href="#" ng-click="currentPage = currentPage-1 ">Previous</a>
             </li>
             <li ng-repeat="n in range(totalItems)" class="page-item" ng-click="currentPageEvent(n)"><a class="page-link">{{n}}</a></li>
 <!--            <li class="page-item"><a class="page-link" href="#">2</a></li>-->
 <!--            <li class="page-item"><a class="page-link" href="#">3</a></li>-->
             <li class="page-item" ng-class="{'disabled' : currentPage == endPage}">
-                <a class="page-link" href="#">Next</a>
+                <a class="page-link" href="#" ng-click="currentPage = currentPage+1 ">Next</a>
             </li>
         </ul>
 

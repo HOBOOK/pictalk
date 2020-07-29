@@ -20,7 +20,7 @@ html{
 }
 .content-chat-container .circle-count{
     border-radius: 50%;
-    background-color: darkseagreen;
+    background-color: royalblue;
     width: 16px;
     height: 16px;
     line-height: 16px;
@@ -210,7 +210,7 @@ nav{
 }
 .chat-tag{
     display: inline-block;
-    background-color: rgba(65,105,225,0.6);
+    background-color: royalblue;
     color:#fff;
     margin-right:6px;
     padding: 2px;
@@ -223,7 +223,7 @@ nav{
     -o-transition: background-color .3s ease-in-out;
 }
 .chat-tag:hover{
-    background-color: rgba(65,105,225,0.75);
+    background-color: rgba(65,105,225,0.8);
 }
 
 .chat-sidebar-container{
@@ -394,7 +394,7 @@ nav{
 .chat-room-info .chat-room-state-item{
     border-radius: 3px;
     padding:2px;
-    background-color: rgba(65,105,225,0.6);
+    background-color: royalblue;
     font-size: 8px;
     color: white;
     vertical-align: top;
@@ -486,7 +486,7 @@ nav{
 
 
 #chat-current-room{
-    width: 2px;
+    width: 4px;
     position: absolute;
     left: 0;
     top:0;
@@ -800,7 +800,7 @@ nav{
     left: 60px;
     color: #333;
     font-weight: 600;
-    font-size: 10px;
+    font-size: 0.7rem;
 }
 #chat-page .chat-message-cover.me span{
     float: right;
@@ -812,15 +812,16 @@ nav{
 #chat-page .chat-message p {
     display: inline-block;
     position: relative;
-    font-size: 14px;
+    font-size: 1rem;
     color: #43464b;
     border-radius: 5px;
-    margin-top:20px;
+    margin-bottom:1rem;
     padding:5px;
     background-color: #fff;
     margin-right:auto;
     margin-left:40px;
     cursor: pointer;
+    word-break:break-all;
 }
 #chat-page .chat-message.me p{
     margin-left:auto;
@@ -858,29 +859,43 @@ nav{
 #chat-page .chat-equal-cover{
     display: flex;
     flex-direction: column;
+    margin-top: 1.4rem;
+}
+
+#chat-page .chat-equal-cover a{
+    text-decoration: none;
+    position: relative;
+    color: inherit !important;
 }
 
 #messageArea .chat-message img{
     display: flex;
-    margin-top: 20px;
     max-width: 75%;
     max-height: 300px;
     border-radius: 5px;
     margin-right: auto;
     margin-left: 40px;
     cursor: pointer;
+    margin-bottom:1rem;
 }
 #messageArea .chat-message.me img{
     margin-right: 40px;
     margin-left:auto;
 }
 
-#chat-page h6{
-    font-size: 10px;
+#messageArea .chat-message h6{
+    font-size: 0.7rem;
     font-weight: normal;
     display: inline-block;
     align-self: flex-end;
-    margin: 0 10px 0 10px;
+    position: absolute;
+    bottom: 0;
+    right: -5rem;
+    left:0;
+}
+#messageArea .chat-message.me h6{
+    left: -5rem;
+    right:0;
 }
 
 #chat-message {
@@ -934,8 +949,10 @@ nav{
 .chat-header-info {
     margin: 0;
     display: inline-block;
-    vertical-align: middle;
+    vertical-align: top;
     max-width: calc(100% - 120px);
+    width: calc(100% - 120px);
+    position: relative;
 }
 .chat-header-info h2{
     margin: 0;
@@ -943,6 +960,11 @@ nav{
 }
 .chat-header-info p{
     margin:0;
+    position: absolute;
+    white-space: nowrap;
+}
+.chat-header-info p:hover{
+    white-space: unset;
 }
 
 .chat-header-menu{
@@ -984,10 +1006,19 @@ nav{
 
 /*** 컨텍스트 메뉴 ***/
 
-.chat-context-menu{
-    font-size:12px;
-
+#chat-message-context{
+    font-size: 0.8rem;
 }
+#chat-message-context li{
+    margin: 5px 0 5px 0;
+    padding: 5px;
+    transition: background-color .2s ease-in-out;
+    cursor: pointer;
+}
+#chat-message-context li:hover{
+    background-color: rgba(0,0,0,0.08);
+}
+
 
 
 
