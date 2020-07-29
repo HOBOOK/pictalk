@@ -94,7 +94,7 @@
 <!--    <link data-require="bootstrap-css@2.3.2" data-semver="2.3.2" rel="stylesheet" href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" />-->
 
 
-        <ul class="right_nav">
+        <ul class="right_nav" ng-show="person.follows.length!==0">
             <li  ng-repeat="follower in followers" class="followcards">
                 <div class="followCard">
                     <img class="followerProfile" ng-src='profile/{{follower.avatar}}' alt="Card image cap">

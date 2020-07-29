@@ -27,15 +27,13 @@ app.controller('mypageCtrl',function ($scope, $location,$timeout, UserService) {
     ,$scope.numPerPage = 2
     ,$scope.totalItems= $scope.person.follows;
 
-
-
-
-    $scope.followers = [];
+    var begin = (($scope.currentPage - 1) * $scope.numPerPage)
+        , end = begin + $scope.numPerPage;
+    $scope.followers = $scope.person.follows.slice(begin, end);
     $scope.albums = [];
 
     $scope.onClickNavBar = function(index, $event){
         $scope.navBarIndex = index;
-        alert(index);
         if(index!=0){$scope.initPagenation();}
 
     }
@@ -73,9 +71,10 @@ app.controller('mypageCtrl',function ($scope, $location,$timeout, UserService) {
             };
 
 
-    $scope.$watch('currentPage + totalItems', function() {
+    $scope.$watch('currentPage + totalItems + endPage', function() {
         var begin = (($scope.currentPage - 1) * $scope.numPerPage)
             , end = begin + $scope.numPerPage;
+
 
         // $scope.follows = $scope.person.follows.slice(begin, end);
         if($scope.navBarIndex == 1){
@@ -84,7 +83,6 @@ app.controller('mypageCtrl',function ($scope, $location,$timeout, UserService) {
         else if($scope.navBarIndex == 2){
             $scope.albums = $scope.person.album.slice(begin, end);
         }
-
 
     });
 
