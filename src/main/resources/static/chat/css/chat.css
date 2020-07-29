@@ -800,7 +800,7 @@ nav{
     left: 60px;
     color: #333;
     font-weight: 600;
-    font-size: 10px;
+    font-size: 0.7rem;
 }
 #chat-page .chat-message-cover.me span{
     float: right;
@@ -812,7 +812,7 @@ nav{
 #chat-page .chat-message p {
     display: inline-block;
     position: relative;
-    font-size: 14px;
+    font-size: 1rem;
     color: #43464b;
     border-radius: 5px;
     margin-top:20px;
@@ -821,6 +821,9 @@ nav{
     margin-right:auto;
     margin-left:40px;
     cursor: pointer;
+    word-wrap: break-word;      /* IE 5.5-7 */
+    white-space: -moz-pre-wrap; /* Firefox 1.0-2.0 */
+    white-space: pre-wrap;      /* current browsers */
 }
 #chat-page .chat-message.me p{
     margin-left:auto;
@@ -876,7 +879,7 @@ nav{
 }
 
 #chat-page h6{
-    font-size: 10px;
+    font-size: 0.7rem;
     font-weight: normal;
     display: inline-block;
     align-self: flex-end;
