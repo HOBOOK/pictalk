@@ -72,7 +72,7 @@
                     </ul>
                     <form id="messageForm" name="messageForm">
                         <div class="input-group clearfix">
-                            <input type="text" id="chat-message" placeholder="메시지 입력..." autocomplete="off"/>
+                            <input type="text" id="chat-message" placeholder="메시지 입력..." autocomplete="off" minlength="1" maxlength="200"/>
 
                             <div class="form-buttons">
                                 <button type="submit" ng-click="sendMessage($event)" class="circle">

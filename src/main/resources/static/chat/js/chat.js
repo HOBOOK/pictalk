@@ -289,9 +289,11 @@ app.controller("chatController", function ($scope, Scopes, $http, $uibModal, $fi
         if(room.messages.length > 0){
             var msg = room.messages[room.messages.length-1];
             if(msg.type==='CHAT'){
+                if(msg.content.length>30)
+                    return msg.content.substring(0,30)+'...';
                 return msg.content;
             }else if(msg.type==='IMAGE'){
-                return '사진';
+                return '(사진)';
             }else{
                 return '';
             }
