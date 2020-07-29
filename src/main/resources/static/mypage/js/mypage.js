@@ -30,7 +30,7 @@ app.controller('mypageCtrl',function ($scope, $location,$timeout, UserService) {
     var begin = (($scope.currentPage - 1) * $scope.numPerPage)
         , end = begin + $scope.numPerPage;
     $scope.followers = $scope.person.follows.slice(begin, end);
-    $scope.albums = [];
+    $scope.albums = $scope.person.album.slice(begin, end);
 
     $scope.onClickNavBar = function(index, $event){
         $scope.navBarIndex = index;
@@ -86,7 +86,7 @@ app.controller('mypageCtrl',function ($scope, $location,$timeout, UserService) {
         if($scope.endPage<$scope.currentPage){
             $scope.currentPage = $scope.endPage;
         }
-        if($scope.currentPage<$scope.numPages()){
+        if($scope.currentPage==0 && $scope.numPages()>0){
             $scope.currentPage = 1;
         }
     });
