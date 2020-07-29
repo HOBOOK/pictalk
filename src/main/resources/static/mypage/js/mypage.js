@@ -83,7 +83,9 @@ app.controller('mypageCtrl',function ($scope, $location,$timeout, UserService) {
         else if($scope.navBarIndex == 2){
             $scope.albums = $scope.person.album.slice(begin, end);
         }
-
+        if($scope.endPage<$scope.currentPage){
+            $scope.currentPage = $scope.endPage;
+        }
     });
 
 
