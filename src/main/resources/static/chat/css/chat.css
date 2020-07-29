@@ -877,12 +877,17 @@ nav{
     margin-left:auto;
 }
 
-#chat-page h6{
+#messageArea .chat-message h6{
     font-size: 0.7rem;
     font-weight: normal;
     display: inline-block;
     align-self: flex-end;
-    margin: 0 10px 1rem 10px;
+    position: absolute;
+    bottom: 0;
+    right: -60px;
+}
+#messageArea .chat-message.me h6{
+    left: -60px;
 }
 
 #chat-message {

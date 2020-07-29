@@ -573,22 +573,17 @@ app.controller("chatController", function ($scope, Scopes, $http, $uibModal, $fi
         usernameElement.appendChild(usernameText);
         messageCoverElement.appendChild(usernameElement);
 
-        var coverElement = document.createElement('div');
-        coverElement.classList.add('chat-equal-cover');
-        tempMessageCover = coverElement;
-        renderInMessage(message, isEqualSender);
-
         var dateElement = document.createElement('h6');
         var dateText = document.createTextNode(parseDateString(message.date.substring(11)));
         dateElement.appendChild(dateText);
 
-        if(isMe){
-            messageCoverElement.appendChild(dateElement);
-            messageCoverElement.appendChild(coverElement);
-        }else{
-            messageCoverElement.appendChild(coverElement);
-            messageCoverElement.appendChild(dateElement);
-        }
+        var coverElement = document.createElement('div');
+        coverElement.classList.add('chat-equal-cover');
+        coverElement.appendChild(dateElement);
+        tempMessageCover = coverElement;
+        renderInMessage(message, isEqualSender);
+
+        messageCoverElement.appendChild(coverElement);
 
         messageElement.appendChild(messageCoverElement);
 
@@ -602,12 +597,16 @@ app.controller("chatController", function ($scope, Scopes, $http, $uibModal, $fi
         var messageText = document.createTextNode(message.content);
         if(!isEqualSender)
             textElement.classList.add('start');
+        var dateElement = tempMessageCover.getElementsByTagName('h6')[0];
+        textElement.appendChild(dateElement);
         textElement.appendChild(messageText);
         textElement.setAttribute( 'ng-right-click', 'onLoadContextMenu(' + message.id +')');
         textElement.setAttribute('context', 'chat-message-context');
         message.element = textElement;
+
         $compile(textElement)($scope);
         tempMessageCover.appendChild(textElement);
+
     }
 
     // 메시지 커버 내부에 이미지 그리는 함수
