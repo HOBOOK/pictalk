@@ -4,11 +4,11 @@
     <div class="header-group" ng-controller="alarmCtrl">
         <ul>
             <span id="logo-main">
-                <a href="/"><img src="/img/logo/logo.png" alt="logo_pictalk" width="32" height="32"/></a>
+                <a src="/"><img src="/img/logo/logo.png" alt="logo_pictalk" width="32" height="32"/></a>
             </span>
             <li style="flex:1;"></li>
 
-            <li><a class="header-button" ng-click="showHide=!showHide"><i class="far fa-bell"></i>
+            <li><a class="header-button" ng-click="notificationButton()"><i class="far fa-bell"></i>
                 <span style="position: absolute; font-size: 40%; top: 5px; left: 15px; " class="badge badge-danger" ng-show="alarms.length!==0">{{alarms.length}}</span>
             </a>
 
@@ -18,7 +18,8 @@
                     }
                 </style>
 
-                <div  ng-show="showHide" class="my-3 p-3 bg-white rounded shadow-sm" style="position: absolute; top: 25px; right: 90px; z-index: 100; width: 320px; height: 380px; overflow: hidden">
+
+                <div id="notification" class="my-3 p-3 bg-white rounded shadow-sm" style="display: none; position: absolute; top: 25px; right: 90px; z-index: 100; width: 320px; height: 380px; overflow: hidden; border: 1px solid rgba(0,0,0,.15);">
                     <div class="border-bottom border-gray pb-2 mb-0" style="height: 35px;">
                         <h6 style="display: inline; float: left;">알림</h6>
                         <a href="#" style="float: right;" ng-click="alarm_Allclear()">Clear</a>

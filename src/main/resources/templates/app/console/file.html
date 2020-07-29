@@ -133,7 +133,7 @@
                                 </li>
                                 <li ng-repeat="n in range(totalItems)" class="page-item" ng-click="currentPageEvent(n)"><a class="page-link">{{n}}</a></li>
                                 <li class="page-item" ng-class="{'disabled' : currentPage == endPage}">
-                                    <a class="page-link" href="#" ng-click="currentPageEvent(currentPage+1)">Next</a>
+                                    <a class="page-link" href="#" ng-click="currentPageEvent(n+1)">Next</a>
                                 </li>
                             </ul>
                         </foot>

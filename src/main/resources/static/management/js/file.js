@@ -149,7 +149,6 @@ app.controller("fileCtrl", function ($scope) {
         }];
 
         $scope.imageTotalItems = $scope.images;
-        $scope.imageEndPage = $scope.numPages();
     }
 
 
@@ -244,11 +243,23 @@ app.controller("fileCtrl", function ($scope) {
 
     };
 
-    $scope.endPage = $scope.numPages();
-    $scope.trashEndPage = $scope.numPages();
 
     $scope.range = function(total){
         var input=[];
+
+        if($scope.location === 1){
+            $scope.trashEndPage = $scope.numPages();
+        }
+        else{
+            if($scope.images_state == 'groups'){
+                $scope.endPage = $scope.numPages();
+            }
+            else
+            {
+                $scope.imageEndPage = $scope.numPages();
+            }
+        }
+
         for(var i= 1;i<=$scope.numPages();i++){
             input.push(i);
         }
@@ -278,27 +289,36 @@ app.controller("fileCtrl", function ($scope) {
         $scope.location = location;
     }
 
-    $scope.$watch('currentPage + totalItems', function() {
+    $scope.$watch('currentPage + totalItems + endPage', function() {
         var begin = (($scope.currentPage - 1) * $scope.numPerPage)
             , end = begin + $scope.numPerPage;
 
         $scope.groups = $scope.rooms.slice(begin, end);
+        if($scope.endPage<$scope.currentPage){
+            $scope.currentPage = $scope.endPage;
+        }
     });
 
 
-    $scope.$watch('trashCurrentPage + trashTotalItems', function() {
+    $scope.$watch('trashCurrentPage + trashTotalItems + trashEndPage', function() {
         var begin = (($scope.trashCurrentPage - 1) * $scope.numPerPage)
             , end = begin + $scope.numPerPage;
 
         $scope.trashs = $scope.rooms_trash.slice(begin, end);
+        if($scope.trashEndPage<$scope.trashCurrentPage){
+            $scope.trashCurrentPage = $scope.trashEndPage;
+        }
     });
 
 
-    $scope.$watch('imageCurrentPage + imageTotalItems', function() {
+    $scope.$watch('imageCurrentPage + imageTotalItems + imageEndPage', function() {
         var begin = (($scope.imageCurrentPage - 1) * $scope.numPerPage)
             , end = begin + $scope.numPerPage;
 
         $scope.groupImage = $scope.images.slice(begin, end);
+        if($scope.imageEndPage<$scope.imageCurrentPage){
+            $scope.imageCurrentPage = $scope.imageEndPage;
+        }
     });
 
 });
