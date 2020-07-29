@@ -815,7 +815,7 @@ nav{
     font-size: 1rem;
     color: #43464b;
     border-radius: 5px;
-    margin-top:20px;
+    margin-bottom:1rem;
     padding:5px;
     background-color: #fff;
     margin-right:auto;
@@ -859,11 +859,12 @@ nav{
 #chat-page .chat-equal-cover{
     display: flex;
     flex-direction: column;
+    margin-top: 1.4rem;
 }
 
 #messageArea .chat-message img{
     display: flex;
-    margin-top: 20px;
+    margin-top: 1.4rem;
     max-width: 75%;
     max-height: 300px;
     border-radius: 5px;
@@ -881,7 +882,7 @@ nav{
     font-weight: normal;
     display: inline-block;
     align-self: flex-end;
-    margin: 0 10px 0 10px;
+    margin: 0 10px 1rem 10px;
 }
 
 #chat-message {
@@ -985,10 +986,19 @@ nav{
 
 /*** 컨텍스트 메뉴 ***/
 
-.chat-context-menu{
-    font-size:12px;
-
+#chat-message-context{
+    font-size: 0.8rem;
 }
+#chat-message-context li{
+    margin: 5px 0 5px 0;
+    padding: 5px;
+    transition: background-color .2s ease-in-out;
+    cursor: pointer;
+}
+#chat-message-context li:hover{
+    background-color: rgba(0,0,0,0.08);
+}
+
 
 
 
