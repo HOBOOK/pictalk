@@ -612,6 +612,8 @@ app.controller("chatController", function ($scope, Scopes, $http, $uibModal, $fi
     // 메시지 커버 내부에 이미지 그리는 함수
     function renderInImageMessage(message){
         var imageCoverElement = document.createElement('a');
+        var dateElement = tempMessageCover.getElementsByTagName('h6')[0];
+        imageCoverElement.appendChild(dateElement);
         imageCoverElement.classList.add('spotlight');
         imageCoverElement.href = message.content;
         var imageElement = document.createElement('img');
@@ -666,23 +668,17 @@ app.controller("chatController", function ($scope, Scopes, $http, $uibModal, $fi
         usernameElement.appendChild(usernameText);
         messageCoverElement.appendChild(usernameElement);
 
-        var coverElement = document.createElement('div');
-        coverElement.classList.add('chat-equal-cover');
-        tempMessageCover = coverElement;
-        renderInImageMessage(message);
-
         var dateElement = document.createElement('h6');
         var dateText = document.createTextNode(parseDateString(message.date.substring(11)));
         dateElement.appendChild(dateText);
 
-        if(isMe){
-            messageCoverElement.appendChild(dateElement);
-            messageCoverElement.appendChild(coverElement);
-        }else{
-            messageCoverElement.appendChild(coverElement);
-            messageCoverElement.appendChild(dateElement);
-        }
+        var coverElement = document.createElement('div');
+        coverElement.classList.add('chat-equal-cover');
+        coverElement.appendChild(dateElement);
+        tempMessageCover = coverElement;
+        renderInImageMessage(message);
 
+        messageCoverElement.appendChild(coverElement);
         messageElement.appendChild(messageCoverElement);
 
         messageArea.appendChild(messageElement);

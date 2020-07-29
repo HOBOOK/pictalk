@@ -862,6 +862,12 @@ nav{
     margin-top: 1.4rem;
 }
 
+#chat-page .chat-equal-cover a{
+    text-decoration: none;
+    position: relative;
+    color: inherit !important;
+}
+
 #messageArea .chat-message img{
     display: flex;
     max-width: 75%;
@@ -884,10 +890,12 @@ nav{
     align-self: flex-end;
     position: absolute;
     bottom: 0;
-    right: -60px;
+    right: -5rem;
+    left:0;
 }
 #messageArea .chat-message.me h6{
-    left: -60px;
+    left: -5rem;
+    right:0;
 }
 
 #chat-message {
