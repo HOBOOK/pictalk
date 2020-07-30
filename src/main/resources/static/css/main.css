@@ -87,6 +87,10 @@ div.header-group .header-button i{
     margin: 0 6px 0 0 !important;
     color: lightseagreen !important;
     font-size:18px !important;
+    vertical-align: middle !important;
+}
+div.header-group .selected i{
+    animation: scaleInfinite 3s infinite;
 }
 div.header-group #user-avatar-cover{
     background-color: rgba(0,0,0,0.1);

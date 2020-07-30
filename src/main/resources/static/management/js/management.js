@@ -51,4 +51,56 @@ app.controller("alarmCtrl", function ($scope) {
         }
     };
 
+
+    // $("body").click(function(e) {
+    //     if(!$('#notification').has(e.target).length) {
+    //         $scope.showHide = false;
+    //     }
+    // });
+
+    //
+    // $('html').click(function(e) {
+    //     if(!$(e.target).hasClass("notification")) {
+    //         $scope.showHide = false;
+    //     }
+    // });
+
+
+    // $scope.noti = function() {
+    //     if($scope.showHide==true)
+    //         $scope.showHide = false;
+    //     else
+    //         $scope.showHide = true;
+    // };
+
+    // $('html').click(function (e) {
+    //     if (e.target.id == 'notification') {
+    //         //do something
+    //         alert('?');
+    //     } else {
+    //         alert('11');
+    //         $scope.showHide = false;
+    //     }
+    // });
+
+    //알림창 버튼
+    $scope.notificationButton = function () {
+        if($("#notification").css("display") === "block") {
+            $("#notification").hide();
+        }else{
+            $("#notification").show();
+        }
+    };
+
+    //알림창 밖 section 부분 클릭시 닫기
+    $("section").click(function(e) {
+        if($("#notification").css("display") === "block") {
+            if(!$('#notification').has(e.target).length == 1) {
+                $("#notification").hide();
+            }
+        }
+    });
+
+
+
 });

@@ -64,7 +64,8 @@
 
                     <!--사진 Images Tab-->
                     <div class="tab-pane fade show active" id="v-pills-images" role="tabpanel" aria-labelledby="v-pills-images-tab">
-                        <!--테스트-->
+
+                        <div ng-show="rooms.length!==0">
                         <div style="width: 270px; height: 40px;">
                             <h5 class="file-title-hidden" style="height: 30px;" ng-show="images_state !== 'groups'"><a href="#" ng-click="images_button()">Images</a> > <a>{{images_state}}</a></h5>
                         </div>
@@ -133,13 +134,14 @@
                                 </li>
                                 <li ng-repeat="n in range(totalItems)" class="page-item" ng-click="currentPageEvent(n)"><a class="page-link">{{n}}</a></li>
                                 <li class="page-item" ng-class="{'disabled' : currentPage == endPage}">
-                                    <a class="page-link" href="#" ng-click="currentPageEvent(currentPage+1)">Next</a>
+                                    <a class="page-link" href="#" ng-click="currentPageEvent(n+1)">Next</a>
                                 </li>
                             </ul>
                         </foot>
 
+                        </div>
 
-
+                        <div ng-show="images.length!==0">
                         <!--채팅방 내 이미지-->
                         <div class="row" ng-show="images_state !== 'groups'">
                             <div class="cxl-3 cmd-6" ng-repeat="image in groupImage">
@@ -185,6 +187,7 @@
                                 </ul>
                             </foot>
 
+                        </div>
                     </div>
 
 
