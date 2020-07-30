@@ -1,0 +1,23 @@
+
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<th:div th:fragment="chat-sidebar">
+    <!----------- 채팅방 기록---------------->
+    <div ng-cloak class="chat-tab slide-right" ng-show="isSelectedSidebar(2)">
+        <div class="chat-sidebar-header">
+            <h4>사진 기록</h4>
+            <span class="chat-sidebar-button circle-button" ng-click="onClickOpenSidebar(0)"><i class="fas fa-arrow-left"></i></span>
+        </div>
+        <div class="chat-sidebar-content-container height100" when-scrolled="scrollMore(config_chat.ui.scrollLimit[3])">
+            <div class="chat-sidebar-content">
+                <div class="chat-album-grid spotlight-group">
+                    <div ng-repeat="image in currentRoom.storageImage | limitTo: config_chat.ui.scrollLimit[3].limit | orderBy: '-date'">
+                        <a class="spotlight" ng-href="{{image.url}}">
+                            <img draggable="true" drag-item id="{{image.url}}" ng-src="{{image.url}}" onerror="this.src='/img/no-image.png'"/>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</th:div>
+</html>

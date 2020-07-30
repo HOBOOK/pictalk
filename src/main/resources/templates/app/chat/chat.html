@@ -38,12 +38,6 @@
             <div ng-show="isSelectedNavBar(0)" th:replace="~{/app/chat/fragment/fragment_chat_list :: chat-sidebar}"></div>
             <div ng-show="isSelectedNavBar(1)" th:replace="~{/app/chat/fragment/fragment_chat_my_list :: chat-sidebar}"></div>
             <div ng-show="isSelectedNavBar(2)" th:replace="~{/app/chat/fragment/fragment_chat_configuration :: chat-sidebar}"></div>
-            <div class="chat-sidebar-footer">
-                <!--            <div class="chat-footer-tab">-->
-                <!--                <span ng-class="{selected: isSelectedMainBar(0)}" ng-click="onClickOpenMainBar(0, $event)"><i class="far fa-comment-dots"></i></span>-->
-                <!--                <span ng-class="{selected: isSelectedMainBar(1)}" ng-click="onClickOpenMainBar(1, $event)"><i class="far fa-user"></i></span>-->
-                <!--            </div>-->
-            </div>
         </div>
 
         <!----------------------- 채팅방 컨테이너 ------------------------------>
@@ -66,6 +60,20 @@
                                 <i class="fas fa-bars"></i>
                             </span>
                         </div>
+                    </div>
+                    <div class="chat-notification">
+                        <span class="chat-notification-content">
+                            공지사항 입니다.
+                        </span>
+                        <span class="chat-notification-buttons">
+                            <span class="circle-button">
+                                <i class="fas fa-angle-down"></i>
+                            </span>
+                            <span class="circle-button">
+                                <i class="fas fa-times"></i>
+                            </span>
+                        </span>
+
                     </div>
                     <ul id="messageArea" drop-item>
 
@@ -96,111 +104,10 @@
         </div>
 
         <!----------------------- 채팅방 정보 컨테이너 ------------------------------>
-        <div id="chat-side-tab">
-            <div class="chat-sidebar-container chat-sidebar-tab slide-right" id="chat-menu" ng-show="isSelectedSidebar(0)">
-                <div class="chat-sidebar-header">
-                    <h4>채팅방 정보</h4>
-                    <span class="chat-sidebar-button circle-button" ng-click="onClickToggleMenu()"><i class="fas fa-times"></i></span>
-                </div>
-                <div class="chat-sidebar-content-container height100" when-scrolled="scrollMore(config_chat.ui.scrollLimit[1])">
-                    <div class="chat-sidebar-content" id="chat-profile" back-img="{{currentRoom.img}}">
-
-                        <img ng-src="{{currentRoom.img}}" onerror="this.src='/img/no-image.png'"/>
-                        <h4 ng-bind="currentRoom.title"></h4>
-                        <h6 ng-bind="currentRoom.description"></h6>
-                        <ul class="chat-profile-tags">
-                            <li ng-repeat="category in currentRoom.category">
-                                <a href="#"># {{category}}</a>
-                            </li>
-                        </ul>
-                        <span class="chat-profile-create"><h6>생성일 | </h6> {{currentRoom.createDate}}</span>
-                        <div class="chat-profile-manager-info">
-                            <h6>방장 | </h6>
-                            <img ng-src="{{manager.avatar}}" onerror="this.src='/img/no-image.png'"/>
-                            <span ng-bind="manager.nickname"></span>
-
-                        </div>
-                        <ul class="chat-profile-menu">
-                            <li><a href="#"><i class="fas fa-comment-dots"></i> 공지</a></li>
-                            <li><a href="#"><i class="fas fa-vote-yea"></i> 투표</a></li>
-                        </ul>
-                    </div>
-                    <div class="chat-sidebar-content" id="chat-data-log">
-                        <h6>사진 기록 ({{currentRoom.storageImage.length}})</h6><span class="btn-more" ng-click="onClickOpenSidebar(2)">더보기</span>
-                        <ul class="chat-data-image">
-                            <li ng-repeat="image in currentRoom.storageImage | limitTo: 4 | orderBy: '-date'">
-                                <a class="spotlight" ng-href="{{image.url}}">
-                                    <img ng-src="{{image.url}}" onerror="this.src='/img/no-image.png'"/>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="chat-sidebar-content" id="chat-user-info">
-                        <h6>참여자 정보 ({{currentRoom.participants.length}})</h6>
-                        <ul class="chat-user-profile">
-                            <li ng-repeat="participant in currentRoom.participants | limitTo: config_chat.ui.scrollLimit[1].limit">
-                                <div class="chat-participant-info" ng-click="onClickParticipant(participant)">
-                                    <img ng-src="{{participant.avatar}}"/>
-                                    <span ng-bind="participant.nickname"></span>
-                                </div>
-                                <div class="chat-user-menu" ng-show="participant.id === config_chat.selectedParticipant.id">
-                                    <ul>
-                                        <li><span><i class="far fa-comments"></i></span><br/> 1:1 대화</li>
-                                        <li><span><i class="fas fa-user-plus"></i></span><br/> 팔로우</li>
-                                        <!--                                    <li><span><i class="far fa-bell"></i></span><br/> 신고</li>-->
-                                    </ul>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="chat-sidebar-footer">
-                    <div class="chat-footer-buttons">
-                        <button tooltip-top="나가기" type="button" class="sidebar" ng-click="onClickExitChatRoom()">
-                            <i class="fas fa-door-open"></i>
-                        </button>
-                    </div>
-
-                </div>
-            </div>
-            <div class="chat-sidebar-container chat-sidebar-tab slide-right" id="#chat-album" ng-show="isSelectedSidebar(1)">
-                <div class="chat-sidebar-header">
-                    <h4>이미지 서랍</h4>
-                    <span class="chat-sidebar-button circle-button" ng-click="onClickOpenSidebar(0)"><i class="fas fa-arrow-left"></i></span>
-                </div>
-                <div class="chat-sidebar-content-container height100" when-scrolled="scrollMore(config_chat.ui.scrollLimit[2])">
-                    <div class="chat-sidebar-content">
-                        <div class="chat-album-grid spotlight-group">
-                            <div ng-repeat="image in me.album | limitTo: config_chat.ui.scrollLimit[2].limit | orderBy: '-date'">
-                                <a class="spotlight" ng-href="{{image.url}}">
-                                    <img draggable="true" drag-item id="{{image.url}}" ng-src="{{image.url}}"/>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="chat-sidebar-footer">
-                </div>
-            </div>
-            <div class="chat-sidebar-container chat-sidebar-tab slide-right" id="#chat-image-log" ng-show="isSelectedSidebar(2)">
-                <div class="chat-sidebar-header">
-                    <h4>사진 기록</h4>
-                    <span class="chat-sidebar-button circle-button" ng-click="onClickOpenSidebar(0)"><i class="fas fa-arrow-left"></i></span>
-                </div>
-                <div class="chat-sidebar-content-container height100" when-scrolled="scrollMore(config_chat.ui.scrollLimit[3])">
-                    <div class="chat-sidebar-content">
-                        <div class="chat-album-grid spotlight-group">
-                            <div ng-repeat="image in currentRoom.storageImage | limitTo: config_chat.ui.scrollLimit[3].limit | orderBy: '-date'">
-                                <a class="spotlight" ng-href="{{image.url}}">
-                                    <img draggable="true" drag-item id="{{image.url}}" ng-src="{{image.url}}" onerror="this.src='/img/no-image.png'"/>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="chat-sidebar-footer">
-                </div>
-            </div>
+        <div class="chat-sidebar-container chat-sidebar-tab hidden">
+            <div ng-show="isSelectedSidebar(0)" th:replace="~{/app/chat/fragment/fragment_chat_info :: chat-sidebar}"></div>
+            <div ng-show="isSelectedSidebar(1)" th:replace="~{/app/chat/fragment/fragment_chat_album :: chat-sidebar}"></div>
+            <div ng-show="isSelectedSidebar(2)" th:replace="~{/app/chat/fragment/fragment_chat_storage :: chat-sidebar}"></div>
         </div>
 
         <!----------------------- 채팅방 컨텍스트 메뉴 ------------------------------>
