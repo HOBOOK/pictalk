@@ -846,6 +846,7 @@ nav{
     margin-left:40px;
     cursor: pointer;
     word-break:break-all;
+    animation: messagePopup .3s;
 }
 #chat-page .chat-message.me p{
     margin-left:auto;
@@ -901,6 +902,7 @@ nav{
     margin-left: 40px;
     cursor: pointer;
     margin-bottom:1rem;
+    animation: messagePopup .3s;
 }
 #messageArea .chat-message.me img{
     margin-right: 40px;

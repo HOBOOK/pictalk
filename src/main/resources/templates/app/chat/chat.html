@@ -38,8 +38,6 @@
             <div ng-show="isSelectedNavBar(0)" th:replace="~{/app/chat/fragment/fragment_chat_list :: chat-sidebar}"></div>
             <div ng-show="isSelectedNavBar(1)" th:replace="~{/app/chat/fragment/fragment_chat_my_list :: chat-sidebar}"></div>
             <div ng-show="isSelectedNavBar(2)" th:replace="~{/app/chat/fragment/fragment_chat_configuration :: chat-sidebar}"></div>
-            <div class="chat-sidebar-footer">
-            </div>
         </div>
 
         <!----------------------- 채팅방 컨테이너 ------------------------------>
@@ -110,13 +108,6 @@
             <div ng-show="isSelectedSidebar(0)" th:replace="~{/app/chat/fragment/fragment_chat_info :: chat-sidebar}"></div>
             <div ng-show="isSelectedSidebar(1)" th:replace="~{/app/chat/fragment/fragment_chat_album :: chat-sidebar}"></div>
             <div ng-show="isSelectedSidebar(2)" th:replace="~{/app/chat/fragment/fragment_chat_storage :: chat-sidebar}"></div>
-            <div class="chat-sidebar-footer">
-                <div class="chat-footer-buttons">
-                    <button tooltip-top="나가기" type="button" class="sidebar" ng-click="onClickExitChatRoom()">
-                        <i class="fas fa-door-open"></i>
-                    </button>
-                </div>
-            </div>
         </div>
 
         <!----------------------- 채팅방 컨텍스트 메뉴 ------------------------------>
