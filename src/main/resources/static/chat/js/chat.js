@@ -39,7 +39,13 @@ app.controller("chatController", function ($scope, Scopes, $http, $uibModal, $fi
                 like: [],
                 messages:[],
                 accessKey: "1234",
-                storageImage:[]
+                storageImage:[],
+                notification: "공지사항 입니다.",
+                config:{
+                    isHideNotification: false,
+                    isEditNotification: false,
+                    isMoreNotification: false
+                }
             }];
 
             var roomImages = ["/chat/img/thumbnail_example.png","/chat/img/image_example.jpg"];
@@ -59,7 +65,13 @@ app.controller("chatController", function ($scope, Scopes, $http, $uibModal, $fi
                     like: [],
                     messages:[],
                     accessKey: "",
-                    storageImage:[]
+                    storageImage:[],
+                    notification: "",
+                    config:{
+                        isHideNotification: false,
+                        isEditNotification: false,
+                        isMoreNotification: false
+                    }
                 });
 
                 // 채팅방 참여자 인풋
@@ -425,6 +437,17 @@ app.controller("chatController", function ($scope, Scopes, $http, $uibModal, $fi
             }
         }
     }
+
+    // 공지 편집 이벤트
+    $scope.onClickEditNotification = function(room){
+        room.config.isEditNotification = !room.config.isEditNotification;
+    }
+
+    // 공지 더보기 이벤트
+    $scope.onClickMoreNotification = function(room){
+        if(!room.config.isEditNotification)
+            room.config.isMoreNotification = !room.config.isMoreNotification;
+    }
     
     // 스크롤 이벤트
     $scope.scrollMore = function(limit){
@@ -521,6 +544,22 @@ app.controller("chatController", function ($scope, Scopes, $http, $uibModal, $fi
                 elem.parentNode.replaceChild(textElement, elem);
             }
         }
+    }
+
+    // 공지 더보기 스타일
+    $scope.styleNotificationText =function (room) {
+        if(room){
+            if(room.config.isMoreNotification){
+                return {
+                    "white-space" : "initial"
+                }
+            }else{
+                return {
+                    "white-space" : "nowrap"
+                }
+            }
+        }
+        return "";
     }
 
     function disConnect(){
@@ -700,6 +739,7 @@ app.controller("chatController", function ($scope, Scopes, $http, $uibModal, $fi
     function clearChatText() {
         $("#messageArea").empty();
     }
+
 });
 
 // 채팅방 정보 배경 이미지 변경

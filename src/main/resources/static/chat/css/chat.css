@@ -702,13 +702,35 @@ nav{
     opacity: .8;
     z-index: 10;
     align-items: center;
+    transition: opacity .3s ease-in-out;
+}
+
+#chat-page .chat-notification.hide{
+    opacity: 0;
 }
 
 #chat-page .chat-notification-content{
     font-size: 1rem;
-    height: 1.5rem;
-    line-height: 1.5rem;
     display: flex;
+    width: calc(100% - 110px);
+}
+
+#chat-page .chat-notification-content textarea, #chat-page .chat-notification-content textarea:disabled{
+    outline: none;
+    background: transparent;
+    border:none;
+    width: 100%;
+    min-height: 2rem;
+    overflow: hidden;
+    resize: none;
+}
+
+#chat-page .chat-notification-content p{
+    margin:0 !important;
+    position: relative !important;
+    text-overflow: ellipsis;
+    word-break: break-all;
+    overflow:hidden;
 }
 
 #chat-page .chat-notification-buttons{

@@ -53,7 +53,13 @@ app.controller('chatModalController', function ($scope, $uibModalInstance) {
         like: [],
         messages: [],
         accessKey: "",
-        storageImage:[]
+        storageImage:[],
+        notification: "",
+        config:{
+            isHideNotification: false,
+            isEditNotification: false,
+            isMoreNotification: false
+        }
     }
 
     // 제목 인풋 초기화
