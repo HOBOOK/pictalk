@@ -67,10 +67,10 @@
                             <p ng-show="!currentRoom.config.isEditNotification" ng-bind="getNotification(currentRoom)" ng-style="styleNotificationText(currentRoom)"></p>
                         </span>
                         <span class="chat-notification-buttons">
-                            <span tooltip-bottom="수정" ng-cloak ng-click="onClickEditNotification(currentRoom)" ng-show="me.id === currentRoom.manager_id" class="circle-button" ng-class="currentRoom.config.isEditNotification ? 'edit' : ''">
+                            <span tooltip-bottom="수정" ng-cloak ng-click="onClickEditNotification(currentRoom)" ng-show="me.id === currentRoom.manager_id" class="circle-button" ng-class="currentRoom.config.isEditNotification ? 'clicked' : ''">
                                 <i class="far fa-edit"></i>
                             </span>
-                            <span tooltip-bottom="더보기" class="circle-button" ng-click="onClickMoreNotification(currentRoom)">
+                            <span tooltip-bottom="더보기" class="circle-button" ng-click="onClickMoreNotification(currentRoom)" ng-class="currentRoom.config.isMoreNotification ? 'clicked' : ''">
                                 <i ng-show="!currentRoom.config.isMoreNotification" class="fas fa-angle-down"></i>
                                 <i ng-show="currentRoom.config.isMoreNotification" class="fas fa-angle-up"></i>
                             </span>

@@ -127,7 +127,7 @@ span.circle-button{
 span.circle-button:hover{
     background-color: rgba(0,0,0,0.1);
 }
-span.circle-button.edit{
+span.circle-button.clicked{
     background-color: rgba(0,0,0,0.08);
 }
 
