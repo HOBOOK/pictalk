@@ -81,6 +81,126 @@ app.factory('UserService', function($localStorage) {
                 state:"on"
 
 
+            },
+            {
+                id: 5,
+                avatar: 'choidanbi.jpeg',
+                nickname: '경호',
+                state:"on"
+
+
+            },
+            {
+                id: 6,
+                avatar: 'choidanbi.jpeg',
+                nickname: '경호',
+                state:"on"
+
+
+            },
+            {
+                id: 7,
+                avatar: 'choidanbi.jpeg',
+                nickname: '경호',
+                state:"on"
+
+
+            },
+            {
+                id: 8,
+                avatar: 'choidanbi.jpeg',
+                nickname: '경호',
+                state:"on"
+
+
+            },
+            {
+                id: 9,
+                avatar: 'choidanbi.jpeg',
+                nickname: '경호',
+                state:"on"
+
+
+            },
+            {
+                id: 10,
+                avatar: 'choidanbi.jpeg',
+                nickname: '경호',
+                state:"on"
+
+
+            },
+            {
+                id: 11,
+                avatar: 'choidanbi.jpeg',
+                nickname: '경호',
+                state:"on"
+
+
+            },
+            {
+                id: 12,
+                avatar: 'choidanbi.jpeg',
+                nickname: '경호',
+                state:"on"
+
+
+            },
+            {
+                id: 13,
+                avatar: 'choidanbi.jpeg',
+                nickname: '경호',
+                state:"on"
+
+
+            },
+            {
+                id: 14,
+                avatar: 'choidanbi.jpeg',
+                nickname: '경호',
+                state:"on"
+
+
+            },
+            {
+                id: 15,
+                avatar: 'choidanbi.jpeg',
+                nickname: '경호',
+                state:"on"
+
+
+            },
+            {
+                id: 16,
+                avatar: 'choidanbi.jpeg',
+                nickname: '경호',
+                state:"on"
+
+
+            },
+            {
+                id: 17,
+                avatar: 'choidanbi.jpeg',
+                nickname: '경호',
+                state:"on"
+
+
+            },
+            {
+                id: 18,
+                avatar: 'choidanbi.jpeg',
+                nickname: '경호',
+                state:"on"
+
+
+            },
+            {
+                id: 19,
+                avatar: 'choidanbi.jpeg',
+                nickname: '경호',
+                state:"on"
+
+
             }]
     }
     if(!$localStorage.user)

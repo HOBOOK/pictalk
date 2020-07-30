@@ -114,14 +114,23 @@
     </style>
 
     <div class="right_nav pituresNav" style="display: flex;">
-        <div class="filebox">
-        <input type="file" ng-model="file" name="file"  id="addImgFile" accept=".png, .jpg, .jpeg"
-               ngf-select="addImg($event, this)"
-               ngf-pattern="'image/*'"
-               ngf-accept="'image/*'">
-        <label for="addImgFile"><i class="fas fa-plus"></i></label>
-        </div>
+<!--        <div class="filebox">-->
+<!--        <input type="file" ng-model="file" name="file"  id="addImgFile" accept=".png, .jpg, .jpeg"-->
+<!--               ngf-select="addImg($event, this)"-->
+<!--               ngf-pattern="'image/*'"-->
+<!--               ngf-accept="'image/*'">-->
+<!--        <label for="addImgFile"><i class="fas fa-plus"></i></label>-->
+<!--        </div>-->
         <ul class="picturesUl">
+            <li class="right_nav_li">
+            <div class="filebox">
+                <input type="file" ng-model="file" name="file"  id="addImgFile" accept=".png, .jpg, .jpeg"
+                       ngf-select="addImg($event, this)"
+                       ngf-pattern="'image/*'"
+                       ngf-accept="'image/*'">
+                <label for="addImgFile"><i class="fas fa-plus"></i></label>
+            </div>
+            </li>
             <li ng-repeat="img in albums" class="right_nav_li">
                 <div class="card">
                     <img class="card-img-top" ng-src='{{img.url}}' alt="Card image cap">

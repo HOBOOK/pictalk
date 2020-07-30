@@ -24,7 +24,7 @@ app.controller('mypageCtrl',function ($scope, $location,$timeout, UserService) {
 
 
     $scope.currentPage = 1
-    ,$scope.numPerPage = 2
+    ,$scope.numPerPage = 21
     ,$scope.totalItems= $scope.person.follows;
 
     var begin = (($scope.currentPage - 1) * $scope.numPerPage)
@@ -35,22 +35,26 @@ app.controller('mypageCtrl',function ($scope, $location,$timeout, UserService) {
     $scope.onClickNavBar = function(index, $event){
         $scope.navBarIndex = index;
         if(index!=0){$scope.initPagenation();}
+        $scope.currentPage = 1;
 
     }
 
     // 좌측 메뉴바 현재 탭인지 확인
     $scope.isSelectedNavBar = function(index){
         return $scope.navBarIndex === index;
+
     }
 
 
     $scope.initPagenation = function(){
         if($scope.navBarIndex == 1){
             $scope.totalItems = $scope.person.follows;
+            $scope.numPerPage = 21;
 
         }
         else if($scope.navBarIndex == 2){
             $scope.totalItems = $scope.person.album;
+            $scope.numPerPage = 31;
         }
     }
 
