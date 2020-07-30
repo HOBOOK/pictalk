@@ -8,6 +8,7 @@
                 <li></li>
                 <li><a tooltip-right="대시" class="nav-button" th:classappend="${#httpServletRequest.requestURI.contains('dashboard')} ? 'selected' : ''" th:href="@{/console/dashboard}"><i class="fas fa-chart-bar"></i></a></li>
                 <li><a tooltip-right="계정" class="nav-button" th:classappend="${#httpServletRequest.requestURI.contains('account')} ? 'selected' : ''" th:href="@{/console/account}"><i class="far fa-address-card"></i></a></li>
+                <li><a tooltip-right="채팅방" class="nav-button" th:classappend="${#httpServletRequest.requestURI.contains('chatroom')} ? 'selected' : ''" th:href="@{/console/chatroom}"><i class="far fa-comment"></i></a></li>
                 <li><a tooltip-right="파일" class="nav-button" th:classappend="${#httpServletRequest.requestURI.contains('file')} ? 'selected' : ''" th:href="@{/console/file}"><i class="far fa-images"></i></a></li>
                 <li style="flex:1;"></li>
             </ul>

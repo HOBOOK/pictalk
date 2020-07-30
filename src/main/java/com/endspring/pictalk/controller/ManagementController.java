@@ -26,6 +26,11 @@ public class ManagementController {
         return "app/console/account";
     }
 
+    @GetMapping("/console/chatroom")
+    public String chatroom(){
+        return "app/console/chatroom";
+    }
+
     @GetMapping("/console/info")
     public String info(){
         return "app/console/modal/info";

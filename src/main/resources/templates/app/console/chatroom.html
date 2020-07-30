@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout/layout_manager">
+
+<th:block layout:fragment="title">픽톡(PicTalk) | 관리자</th:block>
+<th:block layout:fragment="js">
+    <!--추가 JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
+    <script type="text/javascript" charset="utf8" src="/management/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" charset="utf8" src="/management/js/dataTables.bootstrap4.min.js"></script>
+
+
+
+    <!--추가 JS 끝-->
+</th:block>
+<th:block layout:fragment="js-end">
+
+</th:block>
+
+
+<th:block layout:fragment="css">
+    <!--추가 CSS -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.21/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" href="/management/css/management.css"/>
+    <!--추가 CSS 끝-->
+</th:block>
+
+<section layout:fragment="content" ng-controller="chatroomCtrl" class="manager-layout">
+
+    <!-- Start Content-->
+    <div class="manager">
+
+        <div class="manager-title">
+            <div id="title-font">채팅방 관리</div>
+        </div>
+
+        <div class="manager-content">
+
+            <div class="account-table">
+                <table id="account-table" class="table table-striped table-bordered table-hover text-center" style="width: 100%;">
+                    <thead>
+                    <tr>
+                        <th>No</th>
+                        <th>방이름</th>
+                        <th>방장</th>
+                        <th>정원</th>
+                        <th>..</th>
+                        <th>..</th>
+                        <th>..</th>
+                        <th>..</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="">
+                        <td>..</td>
+                        <td>..</td>
+                        <td>..</td>
+                        <td>..</td>
+                        <td>..</td>
+                        <td>..</td>
+                        <td>..</td>
+                        <td>..</td>
+                    </tr>
+
+                    </tbody>
+                    <th>No</th>
+                    <th>방이름</th>
+                    <th>방장</th>
+                    <th>정원</th>
+                    <th>..</th>
+                    <th>..</th>
+                    <th>..</th>
+                    <th>..</th>
+                </table>
+            </div>
+
+        </div>
+    </div>
+
+
+</section>
+
