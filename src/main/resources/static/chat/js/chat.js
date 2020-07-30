@@ -34,7 +34,7 @@ app.controller("chatController", function ($scope, Scopes, $http, $uibModal, $fi
                 max: 100,
                 createDate: "2020.07.13",
                 private: true,
-                manager_id: 1,
+                manager_id: 0,
                 participants: [],
                 like: [],
                 messages:[],
@@ -142,6 +142,7 @@ app.controller("chatController", function ($scope, Scopes, $http, $uibModal, $fi
     // 채팅방 임시 데이터 생성
     $scope.initChatRoomData = function(){
         $scope.manager = $filter('filter')($scope.currentRoom.participants, {id: currentRoom.manager_id}, true)[0];
+        $scope.$apply();
     }
 
     // 채팅방의 사진 저장소에 사진 추가
@@ -177,19 +178,17 @@ app.controller("chatController", function ($scope, Scopes, $http, $uibModal, $fi
             chatPage.classList.remove('hidden');
             connectingElement.classList.add('hidden');
             clearChatText();
-            $scope.currentRoom = room;
-            $scope.initChatRoomData();
             if($scope.isAlreadyJoined(room)){
-                var savedTargetRoom = $filter('filter')($scope.me.myRooms, {id: room.id}, true)[0];
-                if(!savedTargetRoom){
-                    console.log('오류 -> ' + 'savedTargetRoom');
-                }
-                $scope.currentMe = $filter('filter')(savedTargetRoom.participants, {id: $scope.me.id}, true)[0];
+                $scope.currentRoom = $filter('filter')($scope.me.myRooms, {id: room.id}, true)[0];
+                $scope.initChatRoomData();
+                $scope.currentMe = $filter('filter')($scope.currentRoom.participants, {id: $scope.me.id}, true)[0];
                 if(!$scope.currentMe){
                     console.log('오류 -> ' + 'currentMe');
                 }
-                $scope.getChatRoomMessages(room);
+                $scope.getChatRoomMessages($scope.currentRoom);
             }else{
+                $scope.currentRoom = room;
+                $scope.initChatRoomData();
                 /* 채팅방 프로필 설정창 오픈*/
                 $scope.currentRoom.participants.push(angular.copy($scope.currentMe));
                 if($scope.currentRoom.participants.length===1)
@@ -544,6 +543,13 @@ app.controller("chatController", function ($scope, Scopes, $http, $uibModal, $fi
                 elem.parentNode.replaceChild(textElement, elem);
             }
         }
+    }
+    // 공지 가져오기
+    $scope.getNotification = function(room){
+        if(room.notification.length > 0)
+            return room.notification;
+        else
+            return '공지사항이 없습니다.';
     }
 
     // 공지 더보기 스타일

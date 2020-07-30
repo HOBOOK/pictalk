@@ -127,6 +127,9 @@ span.circle-button{
 span.circle-button:hover{
     background-color: rgba(0,0,0,0.1);
 }
+span.circle-button.edit{
+    background-color: rgba(0,0,0,0.08);
+}
 
 
 .btn-more{
@@ -713,6 +716,7 @@ nav{
     font-size: 1rem;
     display: flex;
     width: calc(100% - 110px);
+    min-height: 2rem;
 }
 
 #chat-page .chat-notification-content textarea, #chat-page .chat-notification-content textarea:disabled{
