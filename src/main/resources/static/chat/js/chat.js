@@ -606,7 +606,6 @@ app.controller("chatController", function ($scope, Scopes, $http, $uibModal, $fi
 
         $compile(textElement)($scope);
         tempMessageCover.appendChild(textElement);
-
     }
 
     // 메시지 커버 내부에 이미지 그리는 함수

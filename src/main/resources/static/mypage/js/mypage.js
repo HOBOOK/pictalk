@@ -3,17 +3,16 @@
 var nav = document.querySelector('.navLi');
 var mypageEditAlert= document.querySelector('#mypage-edit');
 
-// app.filter('pagenationRange',function () {
-//     return function(input, total) {
-//         total = parseInt(total);
-//         input.push('prev');
-//         for (var i = 1; i < total; i++) {
-//             input.push(i);
-//         }
-//         input.push('next')
-//         return input;
-//     };
-// });
+//비밀번호 *로 바꾸기
+app.filter('passwordRepeat', function() {
+    return function(input, total) {
+        total = parseInt(total);
+        for (var i=0; i<total; i++)
+            input.push(i);
+        return input;
+    };
+});
+
 
 app.controller('mypageCtrl',function ($scope, $location,$timeout, UserService) {
     $scope.person = UserService.user;
