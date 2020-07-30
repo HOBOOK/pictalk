@@ -1,4 +1,4 @@
-var appRegister = angular.module("registerApp", []);
+var appRegister = angular.module("registerApp", ['ngAnimate']);
 
 
 //사용자 정의 정규식
@@ -23,16 +23,32 @@ var appRegister = angular.module("registerApp", []);
 // });
 //
 
-appRegister.controller('registerCtrl',function ($scope) {
+appRegister.controller('registerCtrl',function ($scope,$timeout) {
 
     $scope.checkFirst = false;
     $scope.checkedEmail = false;
+    $scope.editAlert= false;
+    $scope.createdUser={};
 
+    $scope.checkEmailalert = false;
+
+
+    $scope.creatUser = function(user){
+        $scope.createdUser = angular.copy(user);
+        $scope.editAlert= false;
+        $scope.editAlert= true;
+        $timeout(function () {
+            $scope.editAlert = false;
+        }, 3500);
+
+
+    }
 
     $scope.checkEmail = function (email) {
 
         $scope.checkFirst = true;
         $scope.checkedEmail = true;
+        $scope.checkEmailalert = false;
 
     }
 

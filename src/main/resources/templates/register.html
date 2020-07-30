@@ -10,6 +10,7 @@
         <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.0/angular-animate.min.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.0/angular-sanitize.min.js"></script>
         <script src="/register/register.js"></script>
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.0/css/all.css">
         <link rel="canonical" href="https://getbootstrap.com/docs/4.5/examples/checkout/">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
 
@@ -47,10 +48,9 @@
                 display: inline-block;
             }
 
-            .explain{
+            .socialLabel{
                 margin-top: 20px;
-                margin-bottom: 10px
-            ;
+                margin-bottom: 10px;
                 text-align: center;
                 font-size: large;
                 color: #9e9e9e;
@@ -72,7 +72,7 @@
                 border: solid 1px red;
             }
             .warning{
-                color: red;
+                color: #e53935;
                 clear: both;
             }
             #nickName{
@@ -93,6 +93,48 @@
             .success{
                 color: #86d993;
             }
+
+            .explain{
+                font-size: 13px;
+                margin-top: 10px;
+                text-align: left;
+            }
+            .modal-backdrop{
+                background-color: rgba(0,0,0,0.3);
+
+            }
+            .modal-backdrop.ng-hide-add,
+            .modal-backdrop.ng-hide-remove {
+                -webkit-transition : 0.5s ease-in-out opacity;
+                -moz-transition    : 0.5s ease-in-out opacity;
+                -ms-transition     : 0.5s ease-in-out opacity;
+                -o-transition      : 0.5s ease-in-out opacity;
+                transition         : 0.5s ease-in-out opacity;
+                opacity            : 1;
+            }
+
+            .modal-backdrop.ng-hide {
+                opacity : 0;
+            }
+            .alert{
+                margin: auto;
+                left: 50%;
+                top: 50%;
+                background-color: white;
+                width: 400px;
+                margin-left: -150px;
+                margin-top: -250px;
+                text-align: center;
+            }
+            .alert span i{
+                color: cornflowerblue;
+            }
+            .modal-backdrop.in {
+                opacity: 0.5;
+            }
+            #welcomeImg{
+                height: 280px;
+            }
         </style>
         <!-- Custom styles for this template -->
     </head>
@@ -111,16 +153,16 @@
                 <div class="row">
                     <div class="col-md-6 mb-3">
                         <label for="firstName">이름</label>
-                        <input type="text" class="form-control" id="firstName" name="firstName" placeholder="" ng-model="firstName" required>
-                        <div class="warning" ng-show="registerForm.firstName.$touched && registerForm.firstName.$invalid">
-                            한 글자 이상 입력해주세요.
+                        <input type="text" class="form-control" id="firstName" name="firstName" placeholder="" ng-model="newUser.firstName" required>
+                        <div class="warning explain" ng-show="registerForm.firstName.$touched && registerForm.firstName.$invalid">
+                            &nbsp<i class="fas fa-exclamation-circle"></i> &nbsp 한 글자 이상 입력해주세요.
                         </div>
                     </div>
                     <div class="col-md-6 mb-3">
                         <label for="lastName">성</label>
-                        <input type="text" class="form-control" id="lastName" name="lastName" placeholder="" value="" ng-model="lastName" required>
-                        <div class="warning" ng-show="registerForm.lastName.$touched && registerForm.lastName.$invalid">
-                            한 글자 이상 입력해주세요.
+                        <input type="text" class="form-control" id="lastName" name="lastName" placeholder="" value="" ng-model="newUser.lastName" required>
+                        <div class="warning explain" ng-show="registerForm.lastName.$touched && registerForm.lastName.$invalid">
+                            &nbsp<i class="fas fa-exclamation-circle"></i> &nbsp 한 글자 이상 입력해주세요.
                         </div>
                     </div>
                 </div>
@@ -128,54 +170,76 @@
                 <div class="mb-3">
                     <label for="nickName">닉네임</label>
                     <div class="input-group">
-                        <input type="text" class="form-control" id="nickName" name="nickName" placeholder="닉네임" ng-model="nickName" required>
-                        <div class="warning" ng-show="registerForm.nickName.$touched && registerForm.nickName.$invalid">
-                            한 글자 이상 입력해주세요.
+                        <input type="text" class="form-control" id="nickName" name="nickName" placeholder="닉네임" ng-model="newUser.nickName" required>
+                        <div class="warning explain" ng-show="registerForm.nickName.$touched && registerForm.nickName.$invalid">
+                            &nbsp<i class="fas fa-exclamation-circle"></i> &nbsp 한 글자 이상 입력해주세요.
                         </div>
                     </div>
                 </div>
 
                 <div class="mb-3">
                     <label for="email" class="emailLabel">Email</label>
-                    <input type="email" class="form-control input-email" id="email" name="email" placeholder="you@example.com" ng-model="email" required> <button ng-disabled="registerForm.email.$invalid"ng-click="checkEmail(email)" class="checkEmail">중복 확인</button>
-                    <div class="warning" ng-show="registerForm.email.$touched && registerForm.email.$invalid">
-                        한 글자 이상 입력해주세요. *이메일 인증을 해야하니 정확히 입력해 주세요.(❀╹◡╹)
+                    <input type="email" class="form-control input-email" id="email" name="email" placeholder="you@example.com" ng-model="newUser.email" required> <button ng-disabled="registerForm.email.$invalid"ng-click="checkEmail(email)" class="checkEmail">중복 확인</button>
+                    <div class="warning explain" ng-show="registerForm.email.$touched && registerForm.email.$invalid">
+                        &nbsp<i class="fas fa-exclamation-circle"></i> &nbsp 한 글자 이상 입력해주세요. *이메일 인증을 해야하니 정확히 입력해 주세요.(❀╹◡╹)
                     </div>
-                    <div class="success" ng-show="checkedEmail">
+                    <div class="success explain" ng-show="checkedEmail">
                         사용 가능한 이메일입니다.
                     </div>
-                    <div class="warning" ng-show="checkFirst && !checkedEmail">
-                        이미 사용중인 이메일입니다.
+                    <div class="warning explain" ng-show="checkFirst && !checkedEmail">
+                        &nbsp<i class="fas fa-exclamation-circle"></i> &nbsp 이미 사용중인 이메일입니다.
                     </div>
                 </div>
+                <br>
 
                 <div class="mb-3">
                     <label for="password">비밀번호</label>
-                    <input type="text" class="form-control" id="password" name="password" ng-model="password" required>
-                    <div class="warning" ng-show="registerForm.password.$touched && registerForm.password.$invalid">
-                        한 글자 이상 입력해주세요.
+                    <input type="password" class="form-control" id="password" name="password" ng-model="newUser.password"  ng-pattern="/^(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]/" required>
+                    <div class="warning explain" ng-show="registerForm.password.$touched && registerForm.password.$invalid || registerForm.password.$error.pattern">
+                        &nbsp<i class="fas fa-exclamation-circle"></i> &nbsp 한 글자 이상 입력해주세요.(특수문자와 숫자를 하나 이상 포함시켜주세요!)
                     </div>
+
+                </div>
+                <div class="mb-3">
+                    <label for="repassword">비밀번호 확인</label>
+                    <input type="password" class="form-control" id="repassword" name="repassword" ng-model="repassword" ng-pattern="/^(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]/" required>
+                    <div class="warning explain" ng-show="registerForm.repassword.$touched && registerForm.repassword.$invalid || registerForm.repassword.$error.pattern &&(newUser.password != repassword)">
+                        &nbsp<i class="fas fa-exclamation-circle"></i> &nbsp 비밀번호가 일치하지 않습니다.
+                    </div>
+
                 </div>
                 <div class="mb-4">
                     <label>성별</label>
                     <div class="custom-control custom-radio">
-                        <input id="credit" name="paymentMethod" type="radio" class="custom-control-input" checked="" required="">
+                        <input id="credit" name="paymentMethod" type="radio" class="custom-control-input" ng-model="newUser.gender" value="Female" checked="" required="">
                         <label class="custom-control-label" for="credit">여자</label>
                     </div>
                     <div class="custom-control custom-radio">
-                        <input id="debit" name="paymentMethod" type="radio" class="custom-control-input" required="">
+                        <input id="debit" name="paymentMethod" type="radio" class="custom-control-input" ng-model="newUser.gender" value="Male" required="">
                         <label class="custom-control-label" for="debit">남자</label>
                     </div>
 
                 </div>
 
                 <hr class="mb-4">
-                <button class="btn btn-primary btn-lg btn-block" type="submit" ng-disabled="registerForm.$invalid">계정 생성</button>
+                <button class="btn btn-primary btn-lg btn-block" type="submit" ng-click="checkedEmail ? creatUser(newUser) : (checkEmailalert=true)" ng-disabled="registerForm.$invalid">계정 생성</button>
+                <div class="warning explain" ng-show="checkEmailalert">
+                    &nbsp<i class="fas fa-exclamation-circle"></i> &nbsp 이메일 중복확인 해주세요.
+                </div>
 
 
             </form>
+            <div class="modal-backdrop" id="mypage-edit" ng-show="editAlert" >
+                <div class="alert">
+                    <span>
+                        <img id = "welcomeImg" src="img/check.gif">
+                        <h3>회원가입이 완료되었습니다!</h3>
+                        <h6>이제 채팅을 시작하세요!</h6>
+                    </span>
+                </div>
+            </div>
             <div>
-                <div class="explain">소셜 계정으로 가입하기</div>
+                <div class="socialLabel">소셜 계정으로 가입하기</div>
                 <ul class="list-inline">
                     <li><a><img src="icon/facebook.png"/></a></li>
                     <li><a><img src="icon/google.png"/></a></li>
