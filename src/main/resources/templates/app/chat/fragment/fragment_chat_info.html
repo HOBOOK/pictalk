@@ -1,0 +1,64 @@
+
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<th:div th:fragment="chat-sidebar">
+    <!----------- 채팅방 정보 ---------------->
+    <div ng-cloak class="chat-tab slide-right" ng-show="isSelectedSidebar(0)">
+        <div class="chat-sidebar-header">
+            <h4>채팅방 정보</h4>
+            <span class="chat-sidebar-button circle-button" ng-click="onClickToggleMenu()"><i class="fas fa-times"></i></span>
+        </div>
+        <div class="chat-sidebar-content-container height100" when-scrolled="scrollMore(config_chat.ui.scrollLimit[1])">
+            <div class="chat-sidebar-content" id="chat-profile" back-img="{{currentRoom.img}}">
+
+                <img ng-src="{{currentRoom.img}}" onerror="this.src='/img/no-image.png'"/>
+                <h4 ng-bind="currentRoom.title"></h4>
+                <h6 ng-bind="currentRoom.description"></h6>
+                <ul class="chat-profile-tags">
+                    <li ng-repeat="category in currentRoom.category">
+                        <a href="#"># {{category}}</a>
+                    </li>
+                </ul>
+                <span class="chat-profile-create"><h6>생성일 | </h6> {{currentRoom.createDate}}</span>
+                <div class="chat-profile-manager-info">
+                    <h6>방장 | </h6>
+                    <img ng-src="{{manager.avatar}}" onerror="this.src='/img/no-image.png'"/>
+                    <span ng-bind="manager.nickname"></span>
+
+                </div>
+                <ul class="chat-profile-menu">
+                    <li><a href="#"><i class="fas fa-comment-dots"></i> 공지</a></li>
+                    <li><a href="#"><i class="fas fa-vote-yea"></i> 투표</a></li>
+                </ul>
+            </div>
+            <div class="chat-sidebar-content" id="chat-data-log">
+                <h6>사진 기록 ({{currentRoom.storageImage.length}})</h6><span class="btn-more" ng-click="onClickOpenSidebar(2)">더보기</span>
+                <ul class="chat-data-image">
+                    <li ng-repeat="image in currentRoom.storageImage | limitTo: 4 | orderBy: '-date'">
+                        <a class="spotlight" ng-href="{{image.url}}">
+                            <img ng-src="{{image.url}}" onerror="this.src='/img/no-image.png'"/>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="chat-sidebar-content" id="chat-user-info">
+                <h6>참여자 정보 ({{currentRoom.participants.length}})</h6>
+                <ul class="chat-user-profile">
+                    <li ng-repeat="participant in currentRoom.participants | limitTo: config_chat.ui.scrollLimit[1].limit">
+                        <div class="chat-participant-info" ng-click="onClickParticipant(participant)">
+                            <img ng-src="{{participant.avatar}}"/>
+                            <span ng-bind="participant.nickname"></span>
+                        </div>
+                        <div class="chat-user-menu" ng-show="participant.id === config_chat.selectedParticipant.id">
+                            <ul>
+                                <li><span><i class="far fa-comments"></i></span><br/> 1:1 대화</li>
+                                <li><span><i class="fas fa-user-plus"></i></span><br/> 팔로우</li>
+                                <!--                                    <li><span><i class="far fa-bell"></i></span><br/> 신고</li>-->
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</th:div>
+</html>

@@ -3,7 +3,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <th:div th:fragment="chat-sidebar">
     <!----------- 오픈 채팅 목록 ---------------->
-    <div ng-cloak class="chat-tab" ng-show="isSelectedNavBar(0)">
+    <div ng-cloak class="chat-tab slide-left" ng-show="isSelectedNavBar(0)">
         <div class="chat-sidebar-header">
             <h4>오픈 채팅방</h4>
             <span tooltip-bottom="방 생성" class="chat-sidebar-button circle-button" ng-click="onClickAddChatRoom()"><i class="fas fa-plus"></i></span>
@@ -32,6 +32,9 @@
                         <span class="chat-room-state">
                             <span ng-cloak ng-show="room.private" class="chat-room-state-item">
                                 <i class="fas fa-key"></i>
+                            </span>
+                            <span ng-cloak ng-show="room.type===1" class="chat-room-state-item">
+                                <i class="far fa-image"></i>
                             </span>
                             <span class="chat-room-state-item">
                                 <i class="fas fa-user-alt"></i>

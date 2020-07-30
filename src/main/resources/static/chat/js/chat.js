@@ -8,7 +8,7 @@ var messageInput = document.querySelector('#chat-message');
 var messageArea = document.querySelector('#messageArea');
 var tempMessageCover = document.createElement('div');
 var connectingElement = document.querySelector('.connecting');
-var chatSideMenu = document.querySelector('#chat-side-tab');
+var chatSideMenu = document.querySelector('.chat-sidebar-tab');
 var layout = document.querySelector('.layout-main');
 var contextMenu = document.querySelector('.chat-context-menu-container');
 
@@ -46,7 +46,7 @@ app.controller("chatController", function ($scope, Scopes, $http, $uibModal, $fi
             for(var i = 1; i < 100; i++){
                 $scope.rooms.push({
                     id: i,
-                    type: 1,
+                    type: i%2,
                     title: "방제목 " + i,
                     description: "대화하고 노실분들 입장하세요 (대화방에 대한 설명이 긴 경우 ... 으로 표시됩니다)",
                     category:["태그1","태그2"],
