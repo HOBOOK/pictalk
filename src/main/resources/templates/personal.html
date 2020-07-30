@@ -166,14 +166,14 @@
                     <label for="password">비밀번호</label>
                     <input type="password" class="form-control" id="password" name="password" ng-model="person.password"  ng-show="showHide" required>
                     <div>
-                        <label class="explain" ng-show="!showHide" >{{person.password}}</label>
+                        <label class="explain" ng-show="!showHide" ng-repeat="n in [] | passwordRepeat:person.password.length">*</label>
                     </div>
                     <div class="warning" ng-show="personForm.password.$error.required">
                         한 글자 이상 입력해주세요.
                     </div>
                 </div>
                 <div class="mb-4">
-                    <label>성별</label>z
+                    <label>성별</label>
                     <div>
                         <label ng-if="person.gender === 'Female' " class="explain">여자</label>
                         <label ng-if="person.gender === 'Male' " class="explain">남자</label>
