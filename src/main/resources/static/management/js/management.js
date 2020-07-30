@@ -40,7 +40,9 @@ app.controller("alarmCtrl", function ($scope) {
     //나중에 Back단에서 읽음 처리하기~
     $scope.alarm_Allclear = function() {
         $scope.alarms.splice(0);
+        $("#notification").hide();
     };
+
     $scope.alarm_clear = function (alarm) {
         var idx = $scope.alarms.findIndex(function (item) {
             return item.no == alarm.no;
@@ -51,37 +53,6 @@ app.controller("alarmCtrl", function ($scope) {
         }
     };
 
-
-    // $("body").click(function(e) {
-    //     if(!$('#notification').has(e.target).length) {
-    //         $scope.showHide = false;
-    //     }
-    // });
-
-    //
-    // $('html').click(function(e) {
-    //     if(!$(e.target).hasClass("notification")) {
-    //         $scope.showHide = false;
-    //     }
-    // });
-
-
-    // $scope.noti = function() {
-    //     if($scope.showHide==true)
-    //         $scope.showHide = false;
-    //     else
-    //         $scope.showHide = true;
-    // };
-
-    // $('html').click(function (e) {
-    //     if (e.target.id == 'notification') {
-    //         //do something
-    //         alert('?');
-    //     } else {
-    //         alert('11');
-    //         $scope.showHide = false;
-    //     }
-    // });
 
     //알림창 버튼
     $scope.notificationButton = function () {
