@@ -32,8 +32,8 @@
 
 <section layout:fragment="content" ng-controller="chatController" class="content-chat-container">
     <nav th:replace="~{app/chat/fragment/nav_chat :: nav}"></nav>
-    <!----------------------- 채팅방 목록 컨테이너 ------------------------------>
     <div class="app-wrapper">
+        <!----------------------- 채팅방 목록 컨테이너 ------------------------------>
         <div class="chat-sidebar-container">
             <div ng-show="isSelectedNavBar(0)" th:replace="~{/app/chat/fragment/fragment_chat_list :: chat-sidebar}"></div>
             <div ng-show="isSelectedNavBar(1)" th:replace="~{/app/chat/fragment/fragment_chat_my_list :: chat-sidebar}"></div>
@@ -61,19 +61,23 @@
                             </span>
                         </div>
                     </div>
-                    <div class="chat-notification">
+                    <div class="chat-notification" ng-show="currentRoom" ng-class="currentRoom.config.isHideNotification ? 'hide' : ''" ng-cloak>
                         <span class="chat-notification-content">
-                            공지사항 입니다.
+                            <textarea ng-show="currentRoom.config.isEditNotification" ng-model="currentRoom.notification" maxlength="300" rows="9"></textarea>
+                            <p ng-show="!currentRoom.config.isEditNotification" ng-bind="getNotification(currentRoom)" ng-style="styleNotificationText(currentRoom)"></p>
                         </span>
                         <span class="chat-notification-buttons">
-                            <span class="circle-button">
-                                <i class="fas fa-angle-down"></i>
+                            <span tooltip-bottom="수정" ng-cloak ng-click="onClickEditNotification(currentRoom)" ng-show="me.id === currentRoom.manager_id" class="circle-button" ng-class="currentRoom.config.isEditNotification ? 'clicked' : ''">
+                                <i class="far fa-edit"></i>
                             </span>
-                            <span class="circle-button">
+                            <span tooltip-bottom="더보기" class="circle-button" ng-click="onClickMoreNotification(currentRoom)" ng-class="currentRoom.config.isMoreNotification ? 'clicked' : ''">
+                                <i ng-show="!currentRoom.config.isMoreNotification" class="fas fa-angle-down"></i>
+                                <i ng-show="currentRoom.config.isMoreNotification" class="fas fa-angle-up"></i>
+                            </span>
+                            <span tooltip-bottom="숨기기" class="circle-button" ng-click="currentRoom.config.isHideNotification = true;">
                                 <i class="fas fa-times"></i>
                             </span>
                         </span>
-
                     </div>
                     <ul id="messageArea" drop-item>
 
