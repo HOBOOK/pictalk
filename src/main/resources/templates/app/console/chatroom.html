@@ -10,7 +10,7 @@
     <script type="text/javascript" charset="utf8" src="/management/js/jquery.dataTables.min.js"></script>
     <script type="text/javascript" charset="utf8" src="/management/js/dataTables.bootstrap4.min.js"></script>
 
-
+    <script src="/management/js/chatroom.js"></script>
 
     <!--추가 JS 끝-->
 </th:block>
@@ -26,7 +26,7 @@
     <!--추가 CSS 끝-->
 </th:block>
 
-<section layout:fragment="content" ng-controller="chatroomCtrl" class="manager-layout">
+<section layout:fragment="content" ng-controller="chatRoomCtrl" class="manager-layout">
 
     <!-- Start Content-->
     <div class="manager">
@@ -42,36 +42,39 @@
                     <thead>
                     <tr>
                         <th>No</th>
-                        <th>방이름</th>
-                        <th>방장</th>
+                        <th>방제목</th>
+                        <th>설명</th>
+                        <th>태그</th>
                         <th>정원</th>
-                        <th>..</th>
-                        <th>..</th>
-                        <th>..</th>
-                        <th>..</th>
+                        <th>생성일</th>
+                        <th>타입</th>
+                        <th>공개여부</th>
+                        <th>방장</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr ng-repeat="">
-                        <td>..</td>
-                        <td>..</td>
-                        <td>..</td>
-                        <td>..</td>
-                        <td>..</td>
-                        <td>..</td>
-                        <td>..</td>
-                        <td>..</td>
+                    <tr ng-repeat="chatroom in chatrooms">
+                        <td>{{chatroom.no}}</td>
+                        <td>{{chatroom.title}}</td>
+                        <td>{{chatroom.description}}</td>
+                        <td>{{chatroom.category}}</td>
+                        <td>{{chatroom.max}}</td>
+                        <td>{{chatroom.createDate}}</td>
+                        <td>{{chatroom.type}}</td>
+                        <td>{{chatroom.private}}</td>
+                        <td>{{chatroom.manager_id}}</td>
                     </tr>
 
                     </tbody>
                     <th>No</th>
-                    <th>방이름</th>
-                    <th>방장</th>
+                    <th>방제목</th>
+                    <th>설명</th>
+                    <th>태그</th>
                     <th>정원</th>
-                    <th>..</th>
-                    <th>..</th>
-                    <th>..</th>
-                    <th>..</th>
+                    <th>생성일</th>
+                    <th>타입</th>
+                    <th>공개여부</th>
+                    <th>방장</th>
                 </table>
             </div>
 
