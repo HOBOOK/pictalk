@@ -23,11 +23,11 @@ var appRegister = angular.module("registerApp", ['ngAnimate']);
 // });
 //
 
-appRegister.controller('registerCtrl',function ($scope,$timeout) {
+appRegister.controller('registerCtrl',function ($scope,$timeout,$window) {
 
     $scope.checkFirst = false;
     $scope.checkedEmail = false;
-    $scope.editAlert= false;
+    $scope.registerAlert= false;
     $scope.createdUser={};
 
     $scope.checkEmailalert = false;
@@ -35,14 +35,15 @@ appRegister.controller('registerCtrl',function ($scope,$timeout) {
 
     $scope.creatUser = function(user){
         $scope.createdUser = angular.copy(user);
-        $scope.editAlert= false;
-        $scope.editAlert= true;
-        $timeout(function () {
-            $scope.editAlert = false;
+        $scope.registerAlert= false;
+        $scope.registerAlert= true;
+        $scope.result = $timeout(function () {
+            $scope.registerAlert = false;
+            $window.location.href = "../signin";
         }, 3500);
 
-
     }
+
 
     $scope.checkEmail = function (email) {
 
