@@ -12,7 +12,7 @@ var chatSideMenu = document.querySelector('.chat-sidebar-tab');
 var layout = document.querySelector('.layout-main');
 var contextMenu = document.querySelector('.chat-context-menu-container');
 
-app.controller("chatController", function ($scope, Scopes, $http, $uibModal, $filter, $timeout, $compile, $localStorage, $sessionStorage, UserService) {
+app.controller("chatController", function ($scope, Scopes, $http, $sce, $uibModal, $filter, $timeout, $compile, $localStorage, $sessionStorage, UserService) {
     Scopes.store('chatController', $scope);
     // 사용자 모델
     $scope.me = UserService.user;
@@ -546,10 +546,12 @@ app.controller("chatController", function ($scope, Scopes, $http, $uibModal, $fi
     }
     // 공지 가져오기
     $scope.getNotification = function(room){
-        if(room.notification.length > 0)
-            return room.notification;
-        else
-            return '공지사항이 없습니다.';
+        if(room){
+            if(room.notification.length > 0)
+                return room.notification;
+            else
+                return '공지사항이 없습니다.';
+        }
     }
 
     // 공지 더보기 스타일
@@ -566,6 +568,30 @@ app.controller("chatController", function ($scope, Scopes, $http, $uibModal, $fi
             }
         }
         return "";
+    }
+
+    // 텍스트 메시지에서 url이 포함된 경우 추출하는 함수
+    $scope.extractUrlFromMessage = function(content){
+        var urlRE= new RegExp("([a-zA-Z0-9]+://)?([a-zA-Z0-9_]+:[a-zA-Z0-9_]+@)?([a-zA-Z0-9.-]+\\.[A-Za-z]{2,4})(:[0-9]+)?([^ ])+");
+        if(content.match(urlRE)){
+            var url = urlRE.exec(content)[0];
+            $scope.getUrlMetaData(url);
+        }else{
+            console.log('url이 포함되어 있지 않음');
+        }
+    }
+
+    // 링크 주소 메타 데이터 가져오기
+    $scope.getUrlMetaData = function (url) {
+        $http({
+            method: 'JSONP',
+            url: $sce.trustAsResourceUrl(url)
+        }).
+        then(function(data) {
+            console.log('success -> ' + data);
+        },function(error) {
+            console.log('error -> ' + error);
+        });
     }
 
     function disConnect(){
