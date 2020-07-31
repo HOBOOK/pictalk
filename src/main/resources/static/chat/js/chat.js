@@ -292,6 +292,9 @@ app.controller("chatController", function ($scope, Scopes, $http, $sce, $uibModa
             }else if(room.messages[i].type==='IMAGE'){
                 renderImageMessage(room.messages[i]);
             }
+            $timeout(function () {
+                messageArea.scrollTop = messageArea.scrollHeight;
+            },100);
         }
     }
 
@@ -891,6 +894,28 @@ app.directive('ngRightClick', function($parse) {
             });
         });
     };
+});
+
+// 가로 스크롤 이벤트
+app.directive('hScroll', function(){
+    return {
+        restrict: 'A',
+        link: function(scope,elem,attrs){
+            $(elem).on('wheel', function(evt){
+                console.log(evt.offsetX + ':' + evt.offsetY);
+                var current = elem[0].scrollLeft;
+                var wheel = evt.originalEvent.wheelDelta;
+                if(wheel >0){
+                    elem[0].scrollLeft -= 200;
+                }else if(wheel <0){
+                    elem[0].scrollLeft += 200;
+                }
+                evt.preventDefault();
+            });
+        }
+
+    }
+
 });
 
 

@@ -82,27 +82,38 @@
                     <ul id="messageArea" drop-item>
 
                     </ul>
-                    <form id="messageForm" name="messageForm">
-                        <div class="input-group clearfix">
-                            <input type="text" id="chat-message" placeholder="메시지 입력..." autocomplete="off" minlength="1" maxlength="200"/>
-
-                            <div class="form-buttons">
-                                <button type="submit" ng-click="sendMessage($event)" class="circle">
-                                    <i class="fas fa-paper-plane"></i>
-                                </button>
-                                <button tooltip-top="이미지 서랍" type="button" ng-click="onClickOpenSidebar(1)" class="circleSub">
-                                    <i class="fas fa-images"></i>
-                                </button>
-                                <button tooltip-top="이미지 첨부" class="circleSub" ng-model="file" type="file" name="file" id="imageUpload" accept=".png, .jpg, .jpeg"
-                                        ngf-select="sendImageFileMessage($event, this)"
-                                        ngf-pattern="'image/*'"
-                                        ngf-accept="'image/*'"
-                                        ngf-max-size="5000KB">
-                                    <i class="fas fa-paperclip"></i>
-                                </button>
+                    <div class="chat-input-container">
+                        <div ng-show="currentRoom && currentRoom.type === 1" class="chat-input-image-container" h-scroll>
+                            <div class="chat-input-images">
+                                <span ng-repeat="image in me.album | limitTo: 20">
+                                    <img ng-src="{{image.url}}"/>
+                                </span>
+                                <span>
+                                    <a href="#">더보기</a>
+                                </span>
                             </div>
                         </div>
-                    </form>
+                        <form class="messageForm" name="messageForm">
+                            <div class="input-group clearfix">
+                                <input type="text" id="chat-message" placeholder="메시지 입력..." autocomplete="off" minlength="1" maxlength="200"/>
+                                <div class="form-buttons">
+                                    <button type="submit" ng-click="sendMessage($event)" class="circle">
+                                        <i class="fas fa-paper-plane"></i>
+                                    </button>
+                                    <button tooltip-top="이미지 서랍" type="button" ng-click="onClickOpenSidebar(1)" class="circleSub">
+                                        <i class="fas fa-images"></i>
+                                    </button>
+                                    <button tooltip-top="이미지 첨부" class="circleSub" ng-model="file" type="file" name="file" id="imageUpload" accept=".png, .jpg, .jpeg"
+                                            ngf-select="sendImageFileMessage($event, this)"
+                                            ngf-pattern="'image/*'"
+                                            ngf-accept="'image/*'"
+                                            ngf-max-size="5000KB">
+                                        <i class="fas fa-paperclip"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
