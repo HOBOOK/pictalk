@@ -55,7 +55,8 @@ button {
     vertical-align: middle;
     padding: 0.6rem 1rem;
     border-radius: 2px;
-    transition: all 0.2s ease-in-out;
+    transition: none !important;
+    -webkit-transition: none !important;
     cursor: pointer;
     min-height: 38px;
 }
@@ -683,7 +684,9 @@ nav{
     background-color: transparent;
 }
 .chat-container {
-    display: inline-block;
+    display: flex;
+    flex-direction: column;
+    flex:1;
     width: 100%;
     height: 100%;
     position: relative;
@@ -771,13 +774,13 @@ nav{
     overflow-y: overlay;
     height: calc(100% - 170px);
     width: calc(100% - 20px);
-    margin-left:10px;
     max-height: calc(100% - 170px);
     border-top: 1px solid rgba(0,0,0,0.15);
     border-bottom: 1px solid rgba(0,0,0,0.15);
+    margin: 0 0 0 10px !important;
 }
 
-#chat-page #messageForm {
+#chat-page .messageForm {
     padding: 10px;
 }
 
@@ -951,30 +954,29 @@ nav{
 }
 
 #chat-message {
-    width: 100%;
     min-height: 38px;
     font-size: 15px;
     border: none;
 }
 
 
-#messageForm .input-group{
+.messageForm .input-group{
     border-radius: 5px;
     background-color: #fff;
     padding:10px;
     width: 100%;
 }
 
-#messageForm .input-group input {
+.messageForm .input-group input {
     float: left;
     width: calc(100% - 150px);
     outline: none;
 }
-#messageForm .input-group input:disabled {
+.messageForm .input-group input:disabled {
     background-color: #fff;
 }
 
-#messageForm .input-group button {
+.messageForm .input-group button {
     float: left;
     width: 38px;
     height: 38px;
@@ -1045,6 +1047,88 @@ nav{
     height: auto;
 }
 
+.chat-input-container{
+    position: relative;
+}
+
+.chat-input-image-container{
+    height: 130px;
+    width: calc(100% - 20px);
+    max-width: calc(100% - 20px);
+    background-color: rgba(255,255,255,.7);
+
+    position: absolute;
+    bottom:100%;
+    left:10px;
+    border-radius: 5px;
+    display: flex;
+}
+
+.chat-input-images::-webkit-scrollbar {
+    display:none;
+    position: absolute;
+    height: 3px;
+    background-color: transparent;
+}
+.chat-input-images:hover::-webkit-scrollbar{
+    display: inline-block;
+}
+.chat-input-images::-webkit-scrollbar-track
+{
+    border-radius:3px;
+    background-color: transparent;
+}
+
+.chat-input-images::-webkit-scrollbar-thumb
+{
+    border-radius: 3px;
+    background-color: rgba(0,0,0,0.15);
+}
+.chat-input-images{
+    margin:15px;
+    white-space: nowrap;
+    overflow-x: scroll;
+    overflow-x: overlay;
+    overflow-y: hidden;
+    scroll-behavior: smooth;
+    width: calc(100% - 80px);
+    max-width: calc(100% - 80px);
+}
+
+.chat-input-images > span {
+    flex: 0 0 auto;
+    cursor: pointer;
+    margin-right: 5px;
+    display: inline-block;
+    border: 2px solid transparent;
+    border-radius: 3px;
+    position: relative;
+}
+.chat-input-images .image-cover{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top:0;
+    border: 2px solid royalblue;
+    border-radius: 3px;
+    opacity: 0;
+    background-color: rgba(0,0,0,.3);
+}
+.chat-input-images > span.selected .image-cover{
+    opacity: 1;
+}
+.chat-input-images img{
+    width:96px;
+    height: 96px;
+    border-radius: 3px;
+    object-fit: cover;
+}
+.chat-input-buttons{
+    display: flex;
+    align-items: center;
+    color:grey;
+}
+
 
 
 .connecting {
@@ -1062,9 +1146,9 @@ nav{
     font-size: 0.8rem;
 }
 #chat-message-context li{
-    margin: 5px 0 5px 0;
+    margin: 0;
     padding: 5px;
-    transition: background-color .2s ease-in-out;
+    transition: background-color .1s ease-in-out;
     cursor: pointer;
 }
 #chat-message-context li:hover{
