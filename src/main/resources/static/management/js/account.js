@@ -114,8 +114,30 @@ app.controller("accountCtrl", function ($scope, $uibModal, $http, $document) {
     //     });
     // }
 
-});
 
-// app.config(['$qProvider', function ($qProvider) {
-//     $qProvider.errorOnUnhandledRejections(false);
-// }]);
+
+
+
+
+    $scope.openAddModal = function() {
+
+        var modalInstance = $uibModal.open({
+            templateUrl: '/console/add',
+            controller: 'addAccountCtrl',
+            size: 'lg',
+            resolve: {
+
+            }
+        });
+        modalInstance.result.then(function (item) {
+
+        }, function () {
+            alert('2');
+        });
+    }
+
+
+
+
+
+});

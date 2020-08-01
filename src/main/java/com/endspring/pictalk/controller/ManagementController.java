@@ -35,4 +35,9 @@ public class ManagementController {
     public String info(){
         return "app/console/modal/info";
     }
+
+    @GetMapping("/console/add")
+    public String add(){
+        return "app/console/modal/add";
+    }
 }

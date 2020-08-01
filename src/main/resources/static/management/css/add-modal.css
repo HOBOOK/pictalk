@@ -1,0 +1,85 @@
+.bd-placeholder-img {
+    font-size: 1.125rem;
+    text-anchor: middle;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+@media (min-width: 768px) {
+    .bd-placeholder-img-lg {
+        font-size: 3.5rem;
+    }
+}
+.container {
+    max-width: 960px;
+}
+.col-md-8{
+    margin: auto;
+}
+.list-inline li{
+    display: inline-block;
+    margin-right: 10px;
+
+}
+ul{
+    text-align: center;
+}
+
+li a{
+    display: inline-block;
+}
+
+.socialLabel{
+    margin-top: 20px;
+    margin-bottom: 10px;
+    text-align: center;
+    font-size: large;
+    color: #9e9e9e;
+
+}
+.list-inline img{
+    height: 35px;
+    margin-top: 10px;
+}
+
+
+.my-5 .pt-5{
+    margin-top: 20px;
+}
+.mb-3 .ng-valid{
+    border: solid 1px green;
+}
+.mb-3 .ng-invalid.ng-dirty{
+    border: solid 1px red;
+}
+.warning{
+    color: #e53935;
+    clear: both;
+}
+#nickName{
+    width: 100%;
+}
+.checkEmail{
+    margin-left: 10px;
+    height: 38px;
+    border-radius: 5px;
+    padding:revert;
+}
+.form-control.input-email{
+    float: left;
+    width: 80%;
+}
+.emailLabel{
+    display: block;
+}
+.success{
+    color: #86d993;
+}
+
+.explain{
+    font-size: 13px;
+    margin-top: 10px;
+    text-align: left;
+}
