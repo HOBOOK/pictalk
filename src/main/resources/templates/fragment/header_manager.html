@@ -13,20 +13,20 @@
             </a>
 
                 <style>
-                    #alarm::-webkit-scrollbar {
-                        display: none;
-                    }
+                    /*#alarm::-webkit-scrollbar {*/
+                    /*    display: none;*/
+                    /*}*/
+
                 </style>
 
 
-                <div id="notification" class="my-3 p-3 bg-white rounded shadow-sm" style="display: none; position: absolute; top: 25px; right: 90px; z-index: 100; width: 320px; height: 380px; overflow: hidden; border: 1px solid rgba(0,0,0,.15);">
+                <div id="notification" class="my-3 p-3 bg-white rounded shadow-sm select-none alarm-modal" style="display: none; position: absolute; top: 25px; right: 90px; z-index: 100; width: 320px; height: 380px; overflow: hidden; border: 1px solid rgba(0,0,0,.15);">
                     <div class="border-bottom border-gray pb-2 mb-0" style="height: 35px;">
                         <h6 style="display: inline; float: left;">Notification</h6>
-                        <a href="#" style="float: right;" ng-click="alarm_Allclear()"><i class="fas fa-check"></i></a>
+                        <a href="#" style="float: right;" ng-click="alarm_Allclear()"><i class="fas fa-check" style="color: lightseagreen;"></i></a>
                     </div>
 
-
-                    <div id="alarm" style="height: 300px; width: 100%; overflow-y: scroll;">
+                    <div class="chat-sidebar-content-container" id="alarm" style="height: 300px; width: 100%;">
                         <div class="media text-muted pt-3 alarm-list" ng-repeat="alarm in alarms" ng-click="alarm_clear(alarm)">
                             <img src="/img/logo/logo.png" ng-src="{{alarm.profile}}" style="width: 35px; height: 35px;">
                             <div class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">

@@ -71,6 +71,14 @@
     border-radius: 5px;
     margin-bottom: 30px;
 }
+.card-box:hover {
+    -ms-transform: scale(1.02);
+    -webkit-transform: scale(1.02);
+    transform: scale(1.02);
+    -webkit-box-shadow: 0px 0px 10px 3px lightseagreen;;
+    -moz-box-shadow: 0px 0px 10px 3px lightseagreen;
+    box-shadow: 0px 0px 10px 3px lightseagreen;
+}
 
 .badge{
     font-size: 120%;
@@ -286,12 +294,53 @@
     -webkit-user-select: none;
     user-select: none;
 }
-
-alarm-modal {
-    -webkit-box-shadow: 0px 0px 14px 1px rgba(170, 170, 170, 0.75);
-    -moz-box-shadow: 0px 0px 14px 1px rgba(170, 170, 170, 0.75);
-    box-shadow: 0px 0px 14px 1px rgba(170, 170, 170,0.75);
+.alarm-list:active{
+    background-color: lightseagreen;
 }
+
+/*.alarm-modal {*/
+/*    -webkit-box-shadow: 0px 0px 14px 1px rgba(170, 170, 170, 0.75);*/
+/*    -moz-box-shadow: 0px 0px 14px 1px rgba(170, 170, 170, 0.75);*/
+/*    box-shadow: 0px 0px 14px 1px rgba(170, 170, 170,0.75);*/
+/*}*/
+
+
+.select-none{
+    -ms-user-select:none;
+    -moz-user-select:none;
+    -khtml-user-select:none;
+    -webkit-user-select:none;
+    user-select:none;
+}
+
+
+.chat-sidebar-content-container::-webkit-scrollbar {
+    display:none;
+    position: absolute;
+    width: 3px;
+    background-color: transparent;
+}
+.chat-sidebar-content-container:hover::-webkit-scrollbar{
+    display: inline-block;
+}
+.chat-sidebar-content-container::-webkit-scrollbar-track
+{
+    border-radius:3px;
+    background-color: transparent;
+}
+
+.chat-sidebar-content-container::-webkit-scrollbar-thumb
+{
+    border-radius: 3px;
+    background-color: rgba(0,0,0,0.15);
+}
+
+.chat-sidebar-content-container{
+    overflow-y: scroll;
+    overflow-y: overlay;
+    overflow-x: hidden;
+}
+
 
 
 
