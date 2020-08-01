@@ -129,7 +129,7 @@ app.controller("chatController", function ($scope, Scopes, $http, $sce, $uibModa
             selectedImages: [],
             ui:{
                 navBarIndex: 0,
-                sidebarIndex: 0,
+                sidebarIndex: -1,
                 scrollLimit:[
                     {limit: 18}, //채팅방 목록
                     {limit: 18}, //채팅방 정보(참여자 수)
@@ -245,6 +245,7 @@ app.controller("chatController", function ($scope, Scopes, $http, $sce, $uibModa
         $scope.setChatRoomMessageIndex($scope.currentRoom);
         renderMessage(message);
         $event.preventDefault();
+        scrollToBottom();
     };
     // 이미지 메시지 배열 전송
     $scope.sendSelectedImageMessage = function($event){
@@ -252,6 +253,10 @@ app.controller("chatController", function ($scope, Scopes, $http, $sce, $uibModa
             for(var i = 0; i < $scope.config_chat.selectedImages.length; i++){
                 $scope.sendImageMessage($event, $scope.config_chat.selectedImages[i].url);
             }
+            $timeout(function () {
+                scrollToBottom();
+            },100);
+
             $scope.config_chat.selectedImages = [];
         }
     }
@@ -278,6 +283,7 @@ app.controller("chatController", function ($scope, Scopes, $http, $sce, $uibModa
         }
         $scope.addImageToChatStorage($scope.currentRoom, image);
         $event.preventDefault();
+        scrollToBottom();
     };
 
     // 업로드 이미지 메시지 전송
@@ -320,10 +326,10 @@ app.controller("chatController", function ($scope, Scopes, $http, $sce, $uibModa
             }else if(room.messages[i].type==='IMAGE'){
                 renderImageMessage(room.messages[i]);
             }
-            $timeout(function () {
-                messageArea.scrollTop = messageArea.scrollHeight;
-            },100);
         }
+        $timeout(function () {
+            scrollToBottom();
+        },100);
     }
 
     // 채팅방의 가장 최근 메시지 정보를 가져오는 함수
@@ -349,9 +355,10 @@ app.controller("chatController", function ($scope, Scopes, $http, $sce, $uibModa
 
         var display = chatSideMenu.style.display;
         if(display === 'none' || display ===''){
+            $scope.config_chat.ui.sidebarIndex = 0;
             chatSideMenu.style.display = 'inline-block';
         }else{
-            $scope.config_chat.ui.sidebarIndex = 0;
+            $scope.config_chat.ui.sidebarIndex = -1;
             chatSideMenu.style.display = 'none';
         }
     };
@@ -398,6 +405,10 @@ app.controller("chatController", function ($scope, Scopes, $http, $sce, $uibModa
 
     // 우측 메뉴바 선택 이벤트
     $scope.onClickOpenSidebar = function(index){
+        if($scope.config_chat.ui.sidebarIndex === index){
+            $scope.onClickToggleMenu();
+            return;
+        }
         $scope.config_chat.ui.sidebarIndex = index;
         var display = chatSideMenu.style.display;
         if(display === 'none' || display ===''){
@@ -577,6 +588,19 @@ app.controller("chatController", function ($scope, Scopes, $http, $sce, $uibModa
         $scope.selectedMessage = $filter('filter')($scope.currentRoom.messages, {id: messageId}, true)[0];
     }
 
+    // 이미지 메시지 저장
+    $scope.onClickSaveSelectedImage = function($event){
+        if($scope.selectedMessage && $scope.selectedMessage.type === 'IMAGE'){
+            var image = {
+                id: $scope.selectedMessage.id,
+                url: $scope.selectedMessage.content,
+                date: Date.now().toString()
+            }
+            $scope.me.album.push(image);
+        }
+        $event.preventDefault();
+    }
+
     // 메시지 신고
     $scope.onClickReportMessage = function () {
         if($scope.selectedMessage){
@@ -659,7 +683,6 @@ app.controller("chatController", function ($scope, Scopes, $http, $sce, $uibModa
         var isEqualSender = $scope.isEqualLastMessageSender(message);
         if(isEqualSender){
             renderInMessage(message, isEqualSender);
-            messageArea.scrollTop = messageArea.scrollHeight;
             return;
         }
         var messageElement = document.createElement('li');
@@ -710,7 +733,6 @@ app.controller("chatController", function ($scope, Scopes, $http, $sce, $uibModa
         messageElement.appendChild(messageCoverElement);
 
         messageArea.appendChild(messageElement);
-        messageArea.scrollTop = messageArea.scrollHeight;
     }
 
     // 메시지 커버 내부에 말풍선 그리는 함수
@@ -753,7 +775,6 @@ app.controller("chatController", function ($scope, Scopes, $http, $sce, $uibModa
 
         if($scope.isEqualLastMessageSender(message)){
             renderInImageMessage(message);
-            messageArea.scrollTop = messageArea.scrollHeight;
             return;
         }
 
@@ -803,9 +824,6 @@ app.controller("chatController", function ($scope, Scopes, $http, $sce, $uibModa
         messageElement.appendChild(messageCoverElement);
 
         messageArea.appendChild(messageElement);
-        setTimeout(function () {
-            messageArea.scrollTop = messageArea.scrollHeight;
-        },50);
     }
 
 
@@ -819,8 +837,14 @@ app.controller("chatController", function ($scope, Scopes, $http, $sce, $uibModa
         return colors[index];
     }
 
+    // 텍스트 입력창 초기화
     function clearChatText() {
         $scope.config_chat.tempMessage = "";
+    }
+
+    // 스크롤 아래로 내리기
+    function scrollToBottom(){
+        messageArea.scrollTop = messageArea.scrollHeight;
     }
 
 });

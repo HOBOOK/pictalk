@@ -90,12 +90,11 @@
                                     <div class="image-cover"></div>
                                 </span>
                             </div>
-                            <span>
-                                <span class="circle-button" ng-click="onClickOpenSidebar(1)">
-                                    <i class="fab fa-buromobelexperte"></i>
+                            <div class="chat-input-buttons">
+                                <span tooltip-top="전체보기" class="circle-button" ng-click="onClickOpenSidebar(1)">
+                                    <i class="fas fa-th-large"></i>
                                 </span>
-                                전체보기
-                            </span>
+                            </div>
                         </div>
                         <form class="messageForm" name="messageForm">
                             <div class="input-group clearfix">
@@ -134,6 +133,7 @@
 
         <!----------------------- 채팅방 컨텍스트 메뉴 ------------------------------>
         <ul id="chat-message-context" class="dropdown-menu chat-context-menu" role='menu'>
+            <li ng-cloak ng-show="selectedMessage.type === 'IMAGE'" ng-click="onClickSaveSelectedImage($event)">이미지 보관</li>
             <li ng-click="onClickReportMessage()">메시지 신고</li>
             <li ng-click="onClickHideMessage()">삭제</li>
         </ul>

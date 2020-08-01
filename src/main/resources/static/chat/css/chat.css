@@ -1123,6 +1123,11 @@ nav{
     border-radius: 3px;
     object-fit: cover;
 }
+.chat-input-buttons{
+    display: flex;
+    align-items: center;
+    color:grey;
+}
 
 
 
@@ -1141,9 +1146,9 @@ nav{
     font-size: 0.8rem;
 }
 #chat-message-context li{
-    margin: 5px 0 5px 0;
+    margin: 0;
     padding: 5px;
-    transition: background-color .2s ease-in-out;
+    transition: background-color .1s ease-in-out;
     cursor: pointer;
 }
 #chat-message-context li:hover{
