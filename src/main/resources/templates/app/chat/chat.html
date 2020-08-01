@@ -83,24 +83,31 @@
 
                     </ul>
                     <div class="chat-input-container">
-                        <div ng-show="currentRoom && currentRoom.type === 1" class="chat-input-image-container" h-scroll>
-                            <div class="chat-input-images">
-                                <span ng-repeat="image in me.album | limitTo: 20">
+                        <div ng-show="config_chat.ui.visibleImageInput" class="chat-input-image-container slide-up">
+                            <div class="chat-input-images" h-scroll>
+                                <span ng-class="isSelectedImage(image) ? 'selected' : ''" ng-click="onClickSelectImage(image)" ng-repeat="image in me.album | limitTo: 20">
                                     <img ng-src="{{image.url}}"/>
-                                </span>
-                                <span>
-                                    <a href="#">더보기</a>
+                                    <div class="image-cover"></div>
                                 </span>
                             </div>
+                            <span>
+                                <span class="circle-button" ng-click="onClickOpenSidebar(1)">
+                                    <i class="fab fa-buromobelexperte"></i>
+                                </span>
+                                전체보기
+                            </span>
                         </div>
                         <form class="messageForm" name="messageForm">
                             <div class="input-group clearfix">
-                                <input type="text" id="chat-message" placeholder="메시지 입력..." autocomplete="off" minlength="1" maxlength="200"/>
+                                <input type="text" id="chat-message" ng-model="config_chat.tempMessage" placeholder="메시지 입력..." autocomplete="off" minlength="1" maxlength="200"/>
                                 <div class="form-buttons">
-                                    <button type="submit" ng-click="sendMessage($event)" class="circle">
+                                    <button tooltip-top="메시지 전송" ng-show="!config_chat.ui.visibleImageInput" type="submit" ng-click="sendMessage($event)" ng-class="isValidationSendMessage() ? 'circle' : 'circleSub'">
                                         <i class="fas fa-paper-plane"></i>
                                     </button>
-                                    <button tooltip-top="이미지 서랍" type="button" ng-click="onClickOpenSidebar(1)" class="circleSub">
+                                    <button tooltip-top="이미지 전송" ng-show="config_chat.ui.visibleImageInput" type="submit" ng-click="sendSelectedImageMessage($event)" ng-class="isValidationSendImageMessage() ? 'circle' : 'circleSub'">
+                                        <i class="fas fa-upload"></i>
+                                    </button>
+                                    <button tooltip-top="이미지 서랍" type="button" ng-click="onClickOpenImageInput()" ng-class="config_chat.ui.visibleImageInput ? 'circle' : 'circleSub'">
                                         <i class="fas fa-images"></i>
                                     </button>
                                     <button tooltip-top="이미지 첨부" class="circleSub" ng-model="file" type="file" name="file" id="imageUpload" accept=".png, .jpg, .jpeg"
@@ -120,9 +127,9 @@
 
         <!----------------------- 채팅방 정보 컨테이너 ------------------------------>
         <div class="chat-sidebar-container chat-sidebar-tab hidden">
-            <div ng-show="isSelectedSidebar(0)" th:replace="~{/app/chat/fragment/fragment_chat_info :: chat-sidebar}"></div>
-            <div ng-show="isSelectedSidebar(1)" th:replace="~{/app/chat/fragment/fragment_chat_album :: chat-sidebar}"></div>
-            <div ng-show="isSelectedSidebar(2)" th:replace="~{/app/chat/fragment/fragment_chat_storage :: chat-sidebar}"></div>
+            <div ng-cloak ng-show="isSelectedSidebar(0)" th:replace="~{/app/chat/fragment/fragment_chat_info :: chat-sidebar}"></div>
+            <div ng-cloak ng-show="isSelectedSidebar(1)" th:replace="~{/app/chat/fragment/fragment_chat_album :: chat-sidebar}"></div>
+            <div ng-cloak ng-show="isSelectedSidebar(2)" th:replace="~{/app/chat/fragment/fragment_chat_storage :: chat-sidebar}"></div>
         </div>
 
         <!----------------------- 채팅방 컨텍스트 메뉴 ------------------------------>

@@ -4,7 +4,6 @@ var stompClient = null;
 var rooms = null;
 var currentRoom  = null;
 var chatPage = document.querySelector('#chat-page');
-var messageInput = document.querySelector('#chat-message');
 var messageArea = document.querySelector('#messageArea');
 var tempMessageCover = document.createElement('div');
 var connectingElement = document.querySelector('.connecting');
@@ -117,6 +116,8 @@ app.controller("chatController", function ($scope, Scopes, $http, $sce, $uibModa
     // 채팅 모듈 설정 데이터
     $scope.initConfig = function(){
         $scope.config_chat = {
+            // 입력한 메시지
+            tempMessage: "",
             // 채팅방 내 유저선택시 들어오는 모델
             selectedParticipant: {
                 id: -1,
@@ -124,6 +125,8 @@ app.controller("chatController", function ($scope, Scopes, $http, $sce, $uibModa
                 email: null,
                 thumbnail: null
             },
+            // 이미지 선택 배열
+            selectedImages: [],
             ui:{
                 navBarIndex: 0,
                 sidebarIndex: 0,
@@ -133,7 +136,8 @@ app.controller("chatController", function ($scope, Scopes, $http, $sce, $uibModa
                     {limit: 18}, //이미지 서랍
                     {limit: 18} //채팅방 사진 저장소
                 ],
-                visibleContextMenu: false
+                visibleContextMenu: false,
+                visibleImageInput: false
             }
         }
     }
@@ -205,12 +209,27 @@ app.controller("chatController", function ($scope, Scopes, $http, $sce, $uibModa
         }, 1000);
     };
 
+    // 메시지 전송 검증
+    $scope.isValidationSendMessage = function(){
+        if($scope.config_chat.tempMessage.length>0 && !$scope.config_chat.ui.visibleImageInput){
+            return true;
+        }
+        return false;
+    }
+    // 이미지 메시지 전송 검증
+    $scope.isValidationSendImageMessage = function(){
+        if($scope.config_chat.selectedImages.length>0)
+            return true;
+        return false;
+    }
+
     // 메시지 전송
     $scope.sendMessage = function ($event) {
-        var messageContent = messageInput.value.trim();
+        var messageContent = $scope.config_chat.tempMessage;
         if(messageContent.length<1){
             return;
         }
+        clearChatText();
         var message = {
             id: $scope.currentRoom.messages.length > 0 ? $scope.currentRoom.messages[$scope.currentRoom.messages.length-1].index + 1 : 0,
             type: 'CHAT',
@@ -227,6 +246,15 @@ app.controller("chatController", function ($scope, Scopes, $http, $sce, $uibModa
         renderMessage(message);
         $event.preventDefault();
     };
+    // 이미지 메시지 배열 전송
+    $scope.sendSelectedImageMessage = function($event){
+        if($scope.isValidationSendImageMessage()){
+            for(var i = 0; i < $scope.config_chat.selectedImages.length; i++){
+                $scope.sendImageMessage($event, $scope.config_chat.selectedImages[i].url);
+            }
+            $scope.config_chat.selectedImages = [];
+        }
+    }
 
     // 이미지 메시지 전송
     $scope.sendImageMessage = function($event, url){
@@ -380,6 +408,26 @@ app.controller("chatController", function ($scope, Scopes, $http, $sce, $uibModa
     // 우측 메뉴바 현재 탭인지 확인
     $scope.isSelectedSidebar = function(index){
         return $scope.config_chat.ui.sidebarIndex === index;
+    }
+
+    // 이미지 인풋창 오픈
+    $scope.onClickOpenImageInput = function(){
+        $scope.config_chat.ui.visibleImageInput = !$scope.config_chat.ui.visibleImageInput;
+        $scope.config_chat.selectedImages = [];
+    }
+
+    // 이미지 목록창에서 이미지배열 선택
+    $scope.onClickSelectImage = function (image) {
+        if($scope.isSelectedImage(image)){
+            $scope.config_chat.selectedImages.splice($scope.config_chat.selectedImages.indexOf(image), 1);
+        }else{
+            $scope.config_chat.selectedImages.push(image);
+        }
+    }
+
+    // 선택된 이미지인지 확인
+    $scope.isSelectedImage = function(image){
+        return $scope.config_chat.selectedImages.indexOf(image) !== -1;
     }
 
     // 채팅방 프로필 설정 모달창 오픈
@@ -597,6 +645,7 @@ app.controller("chatController", function ($scope, Scopes, $http, $sce, $uibModa
         });
     }
 
+
     function disConnect(){
         currentRoom = null;
         chatPage.classList.add('hidden');
@@ -605,7 +654,6 @@ app.controller("chatController", function ($scope, Scopes, $http, $sce, $uibModa
 
     // 텍스트 메시지를 그리는 함수
     function renderMessage(message) {
-        messageInput.value = '';
         var isMe = message.sender === $scope.currentMe.nickname;
 
         var isEqualSender = $scope.isEqualLastMessageSender(message);
@@ -772,7 +820,7 @@ app.controller("chatController", function ($scope, Scopes, $http, $sce, $uibModa
     }
 
     function clearChatText() {
-        $("#messageArea").empty();
+        $scope.config_chat.tempMessage = "";
     }
 
 });
@@ -902,7 +950,6 @@ app.directive('hScroll', function(){
         restrict: 'A',
         link: function(scope,elem,attrs){
             $(elem).on('wheel', function(evt){
-                console.log(evt.offsetX + ':' + evt.offsetY);
                 var current = elem[0].scrollLeft;
                 var wheel = evt.originalEvent.wheelDelta;
                 if(wheel >0){
