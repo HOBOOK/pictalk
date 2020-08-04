@@ -4,7 +4,7 @@
     <div class="header-group">
         <ul>
             <span id="logo-main">
-                <a href="/"><img src="/img/logo/logo.png" alt="logo_pictalk" width="32" height="32"/></a>
+                <a href="/"><img src="/img/logo/logo.png" alt="logo_pictalk" height="26"/></a>
             </span>
             <li style="flex:1;"></li>
             <li><a th:classappend="${#httpServletRequest.requestURI.contains('chat')} ? 'selected' : ''" class="header-button" th:href="@{/chat}"><i class="fab fa-rocketchat"></i> 채팅</a></li>

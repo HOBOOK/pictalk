@@ -200,6 +200,9 @@ nav{
     border-radius: 5px;
     box-shadow: 0 0 38px -12px rgba(0,0,0,.15);
 }
+body.dark .chat-tab{
+    background-color: rgb(30,30,30);
+}
 
 #chat-room-search{
     margin-top: 20px;
@@ -296,8 +299,10 @@ nav{
     margin-right: auto;
     padding:12px 10px 12px 10px;
     width: 100%;
-    background-color: white;
     border-top:1px solid rgba(0,0,0,0.07);
+}
+body.dark .chat-sidebar-content{
+    border-top:1px solid rgba(255,255,255,0.07);
 }
 
 .chat-sidebar-content h6{
@@ -711,6 +716,10 @@ nav{
     transition: opacity .3s ease-in-out;
 }
 
+body.dark #chat-page .chat-notification{
+    background-color: rgb(30,30,30);
+}
+
 #chat-page .chat-notification.hide{
     opacity: 0;
 }
@@ -957,6 +966,8 @@ nav{
     min-height: 38px;
     font-size: 15px;
     border: none;
+    background-color: inherit;
+    color: inherit;
 }
 
 
@@ -965,6 +976,9 @@ nav{
     background-color: #fff;
     padding:10px;
     width: 100%;
+}
+body.dark .messageForm .input-group{
+    background-color: rgb(30,30,30);
 }
 
 .messageForm .input-group input {

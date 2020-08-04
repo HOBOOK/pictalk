@@ -21,6 +21,10 @@ body{
     background-color: rgb(231, 236, 241) !important;
     font-family: 'Lato', 'Nanum Gothic Coding', sans-serif !important;
 }
+body.dark{
+    background-color: rgb(25, 25, 25) !important;
+    color: rgb(241,246,251);
+}
 
 /********** 레이아웃 영역 **********/
 div.layout-main{
@@ -44,6 +48,12 @@ div.layout-main header{
     height: 40px;
     border-bottom:1px solid rgb(231, 236, 241);
     box-shadow: 0 1px 3px 0 rgba(231,236,241,0.3);
+}
+body.dark > div.layout-main header{
+    background: rgba(30,30,30,.8);
+    border-bottom: 1px solid rgb(25, 25, 25);
+    box-shadow: 0 1px 3px 0 rgba(36,36,41,0.3);
+
 }
 div.header-group {
     width: 100%;
@@ -121,24 +131,30 @@ div.layout-main nav{
     position: fixed;
     z-index: 1;
 }
+body.dark > div.layout-main nav{
+    background: rgba(30,30,30,.8);
+    box-shadow: 1px 0 3px 0 rgba(25,25,25,0.3);
+}
 
 div.layout-main #logo-main{
     display: flex;
     border-radius: 50%;
     margin:0 auto;
-    padding: 0 15px 0 15px;
+    padding: 0 22px 0 22px;
+    align-items: center;
 }
 div.layout-main #logo-main a{
     margin:0 auto;
     text-align: center;
+
 }
 div.layout-main #logo-main img{
     transition: filter 0.3s ease-in-out;
     transition: filter 0.3s ease-in-out, -webkit-filter 0.3s ease-in-out;
 }
 div.layout-main #logo-main a:hover img{
-    filter: brightness(150%);
-    -webkit-filter: brightness(150%);
+    filter: brightness(130%);
+    -webkit-filter: brightness(130%);
 }
 
 div.nav-group {
@@ -440,6 +456,10 @@ div.content .app-wrapper{
     -webkit-transition: all .4s ease;
     transition: all .4s ease;
     border: 1px solid #e8eae9;
+}
+body.dark .tgl-ios + .tgl-btn{
+    background: #505050;
+    border: 1px solid #404040;
 }
 .tgl-ios + .tgl-btn:after {
     border-radius: 3em;

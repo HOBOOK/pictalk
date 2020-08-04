@@ -2,6 +2,7 @@
 
 app.controller('configController',function ($scope, $timeout, UserService) {
     var alertPopup = document.querySelector('.common-alert');
+    var body = document.querySelector('body');
     $scope.config = UserService.config;
 
     /* 저장 완료 함수 */
@@ -37,6 +38,16 @@ app.controller('configController',function ($scope, $timeout, UserService) {
                 break;
         }
         $('html').css('font-size', scale);
+        $scope.saveConfig();
+    }
+
+    // 어두운 테마 설정
+    $scope.selectDarkTheme = function(){
+        if($scope.config.style.isDarkTheme){
+            body.classList.add('dark');
+        }else{
+            body.classList.remove('dark');
+        }
         $scope.saveConfig();
     }
 });
