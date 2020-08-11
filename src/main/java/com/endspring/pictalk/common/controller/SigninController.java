@@ -1,4 +1,4 @@
-package com.endspring.pictalk.controller;
+package com.endspring.pictalk.common.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;

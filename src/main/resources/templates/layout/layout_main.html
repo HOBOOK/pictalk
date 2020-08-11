@@ -47,7 +47,7 @@
     </head>
     <body>
         <div class="layout-main" ng-app="mainApp">
-            <header th:replace="fragment/header :: header"></header>
+            <header th:replace="~{fragment/header :: header}"></header>
             <div class="content">
                 <section layout:fragment="content"></section>
             </div>

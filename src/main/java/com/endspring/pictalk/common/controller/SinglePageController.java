@@ -1,21 +1,25 @@
-package com.endspring.pictalk.controller;
+package com.endspring.pictalk.common.controller;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
 public class SinglePageController {
-    @GetMapping("/")
+    @RequestMapping("/")
     public String main(){
         return "app/chat/chat";
     }
-    @GetMapping("/chat")
+    @RequestMapping("/chat")
     public String chat(){
         return "app/chat/chat";
     }
-    @GetMapping("/mychat")
+    @RequestMapping("/layout/layout_main")
+    public String layoutMain(){
+        return "layout/layout_main";
+    }
+
+    @RequestMapping("/mychat")
     public String myChat(){
         return "app/chat/chat";
     }
@@ -29,24 +33,24 @@ public class SinglePageController {
         return "app/chat/modal/modal_chat_profile";
     }
 
-    @GetMapping("/configuration")
+    @RequestMapping("/configuration")
     public String configuration(){
         return "app/configuration/configuration";
     }
 
-    @GetMapping("/mypage")
+    @RequestMapping("/mypage")
     public String mypage(){
         return "app/mypage";
     }
-    @GetMapping("/mypage/personal")
+    @RequestMapping("/mypage/personal")
     public String personal(){
         return "personal";
     }
-    @GetMapping("/mypage/follow")
+    @RequestMapping("/mypage/follow")
     public String follow(){
         return "follow";
     }
-    @GetMapping("/mypage/pictures")
+    @RequestMapping("/mypage/pictures")
     public String pictures(){
         return "pictures";
     }
