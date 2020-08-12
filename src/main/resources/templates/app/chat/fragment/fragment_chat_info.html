@@ -14,7 +14,7 @@
                 <h4 ng-bind="currentRoom.title"></h4>
                 <h6 ng-bind="currentRoom.description"></h6>
                 <ul class="chat-profile-tags">
-                    <li ng-repeat="category in currentRoom.category">
+                    <li ng-repeat="category in currentRoom.categories">
                         <a href="#"># {{category}}</a>
                     </li>
                 </ul>
@@ -31,9 +31,9 @@
                 </ul>
             </div>
             <div class="chat-sidebar-content" id="chat-data-log">
-                <h6>사진 기록 ({{currentRoom.storageImage.length}})</h6><span class="btn-more" ng-click="onClickOpenSidebar(2)">더보기</span>
+                <h6>사진 기록 ({{currentRoom.savedImages.length}})</h6><span class="btn-more" ng-click="onClickOpenSidebar(2)">더보기</span>
                 <ul class="chat-data-image">
-                    <li ng-repeat="image in currentRoom.storageImage | limitTo: 4 | orderBy: '-date'">
+                    <li ng-repeat="image in currentRoom.savedImages | limitTo: 4 | orderBy: '-date'">
                         <a class="spotlight" ng-href="{{image.url}}">
                             <img ng-src="{{image.url}}" onerror="this.src='/img/no-image.png'"/>
                         </a>

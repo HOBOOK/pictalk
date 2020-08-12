@@ -61,20 +61,20 @@
                             </span>
                         </div>
                     </div>
-                    <div class="chat-notification" ng-show="currentRoom" ng-class="currentRoom.config.isHideNotification ? 'hide' : ''" ng-cloak>
+                    <div class="chat-notification" ng-show="currentRoom" ng-class="currentRoom.chatRoomConfig.isHideNotification ? 'hide' : ''" ng-cloak>
                         <span class="chat-notification-content">
-                            <textarea ng-show="currentRoom.config.isEditNotification" ng-model="currentRoom.notification" maxlength="300" rows="9"></textarea>
-                            <p ng-show="!currentRoom.config.isEditNotification" ng-bind="getNotification(currentRoom)" ng-style="styleNotificationText(currentRoom)"></p>
+                            <textarea ng-show="currentRoom.chatRoomConfig.isEditNotification" ng-model="currentRoom.notification" maxlength="300" rows="9"></textarea>
+                            <p ng-show="!currentRoom.chatRoomConfig.isEditNotification" ng-bind="getNotification(currentRoom)" ng-style="styleNotificationText(currentRoom)"></p>
                         </span>
                         <span class="chat-notification-buttons">
-                            <span tooltip-bottom="수정" ng-cloak ng-click="onClickEditNotification(currentRoom)" ng-show="me.id === currentRoom.manager_id" class="circle-button" ng-class="currentRoom.config.isEditNotification ? 'clicked' : ''">
+                            <span tooltip-bottom="수정" ng-cloak ng-click="onClickEditNotification(currentRoom)" ng-show="me.id === currentRoom.managerId" class="circle-button" ng-class="currentRoom.chatRoomConfig.isEditNotification ? 'clicked' : ''">
                                 <i class="far fa-edit"></i>
                             </span>
-                            <span tooltip-bottom="더보기" class="circle-button" ng-click="onClickMoreNotification(currentRoom)" ng-class="currentRoom.config.isMoreNotification ? 'clicked' : ''">
-                                <i ng-show="!currentRoom.config.isMoreNotification" class="fas fa-angle-down"></i>
-                                <i ng-show="currentRoom.config.isMoreNotification" class="fas fa-angle-up"></i>
+                            <span tooltip-bottom="더보기" class="circle-button" ng-click="onClickMoreNotification(currentRoom)" ng-class="currentRoom.chatRoomConfig.isMoreNotification ? 'clicked' : ''">
+                                <i ng-show="!currentRoom.chatRoomConfig.isMoreNotification" class="fas fa-angle-down"></i>
+                                <i ng-show="currentRoom.chatRoomConfig.isMoreNotification" class="fas fa-angle-up"></i>
                             </span>
-                            <span tooltip-bottom="숨기기" class="circle-button" ng-click="currentRoom.config.isHideNotification = true;">
+                            <span tooltip-bottom="숨기기" class="circle-button" ng-click="currentRoom.chatRoomConfig.isHideNotification = true;">
                                 <i class="fas fa-times"></i>
                             </span>
                         </span>

@@ -22,57 +22,12 @@ app.controller("chatController", function ($scope, Scopes, $http, $sce, $uibModa
 
     $scope.loadChatList = function(){
         $scope.filteredRooms = null;
-        $timeout(function () {
-            $scope.rooms = [{
-                id: 0,
-                type: 0,
-                title: "방제목",
-                description: "대화하고 노실분들 입장하세용",
-                category:["태그1","태그2"],
-                img: "/chat/img/thumbnail_gif_example.gif",
-                max: 100,
-                createDate: "2020.07.13",
-                private: true,
-                manager_id: 0,
-                participants: [],
-                like: [],
-                messages:[],
-                accessKey: "1234",
-                storageImage:[],
-                notification: "공지사항 입니다.",
-                config:{
-                    isHideNotification: false,
-                    isEditNotification: false,
-                    isMoreNotification: false
-                }
-            }];
-
-            var roomImages = ["/chat/img/thumbnail_example.png","/chat/img/image_example.jpg"];
-            for(var i = 1; i < 100; i++){
-                $scope.rooms.push({
-                    id: i,
-                    type: i%2,
-                    title: "방제목 " + i,
-                    description: "대화하고 노실분들 입장하세요 (대화방에 대한 설명이 긴 경우 ... 으로 표시됩니다)",
-                    category:["태그1","태그2"],
-                    img: roomImages[(i%roomImages.length)],
-                    max: 500,
-                    createDate: "2020.07.13",
-                    private: false,
-                    manager_id: 1,
-                    participants: [],
-                    like: [],
-                    messages:[],
-                    accessKey: "",
-                    storageImage:[],
-                    notification: "",
-                    config:{
-                        isHideNotification: false,
-                        isEditNotification: false,
-                        isMoreNotification: false
-                    }
-                });
-
+        $http({
+            method: 'GET',
+            url: 'test'
+        }).then(function successCallback(response){
+            $scope.rooms = response.data;
+            for(var i = 0; i < $scope.rooms.length; i++){
                 // 채팅방 참여자 인풋
                 $scope.rooms[i].participants = [
                     {
@@ -108,8 +63,9 @@ app.controller("chatController", function ($scope, Scopes, $http, $sce, $uibModa
                 }
             }
             $scope.filteredRooms = $scope.rooms;
-            $scope.$apply();
-        },1000);
+        }, function errorCallback(response){
+            console.log('채팅방 정보를 가져오는데 오류발생 -> ' +response);
+        });
     }
     $scope.loadChatList();
 
@@ -145,17 +101,16 @@ app.controller("chatController", function ($scope, Scopes, $http, $sce, $uibModa
 
     // 채팅방 임시 데이터 생성
     $scope.initChatRoomData = function(){
-        $scope.manager = $filter('filter')($scope.currentRoom.participants, {id: currentRoom.manager_id}, true)[0];
-        $scope.$apply();
+        $scope.manager = $filter('filter')($scope.currentRoom.participants, {id: currentRoom.managerId}, true)[0];
     }
 
     // 채팅방의 사진 저장소에 사진 추가
     $scope.addImageToChatStorage = function(room, image){
         // 중복된 이미지가 저장소에 있는지 확인
-        if($filter('filter')(room.storageImage, {url: image.url}, true)[0] != null){
+        if($filter('filter')(room.savedImages, {url: image.url}, true)[0] != null){
 
         }else{
-            room.storageImage.push(image);
+            room.savedImages.push(image);
         }
 
     }
@@ -373,7 +328,7 @@ app.controller("chatController", function ($scope, Scopes, $http, $sce, $uibModa
             $scope.deleteChatRoom();
         }else{
             // 방장 위임
-            if($scope.currentRoom.manager_id === $scope.me.id){
+            if($scope.currentRoom.managerId === $scope.me.id){
                 $scope.assignChatRoomManager();
             }
         }
@@ -389,8 +344,8 @@ app.controller("chatController", function ($scope, Scopes, $http, $sce, $uibModa
     
     // 방장 위임
     $scope.assignChatRoomManager = function(){
-        console.log('방장 위임 : ' + $scope.currentRoom.manager_id + ' -> ' + $scope.currentRoom.participants[0].id);
-        $scope.currentRoom.manager_id = $scope.currentRoom.participants[0].id;
+        console.log('방장 위임 : ' + $scope.currentRoom.managerId + ' -> ' + $scope.currentRoom.participants[0].id);
+        $scope.currentRoom.managerId = $scope.currentRoom.participants[0].id;
     }
 
     // 좌측 메뉴바 탭 선택 이벤트
@@ -501,13 +456,13 @@ app.controller("chatController", function ($scope, Scopes, $http, $sce, $uibModa
 
     // 공지 편집 이벤트
     $scope.onClickEditNotification = function(room){
-        room.config.isEditNotification = !room.config.isEditNotification;
+        room.chatRoomConfig.isEditNotification = !room.chatRoomConfig.isEditNotification;
     }
 
     // 공지 더보기 이벤트
     $scope.onClickMoreNotification = function(room){
-        if(!room.config.isEditNotification)
-            room.config.isMoreNotification = !room.config.isMoreNotification;
+        if(!room.chatRoomConfig.isEditNotification)
+            room.chatRoomConfig.isMoreNotification = !room.chatRoomConfig.isMoreNotification;
     }
     
     // 스크롤 이벤트
@@ -526,7 +481,7 @@ app.controller("chatController", function ($scope, Scopes, $http, $sce, $uibModa
             $scope.config_chat.ui.scrollLimit[0].limit = 18;
             var tempRooms = $scope.rooms;
             $scope.filteredRooms = $filter('filter')(tempRooms, function (room) {
-                return (room.title.indexOf(keyword) !== -1 || room.category.filter(function (category) {
+                return (room.title.indexOf(keyword) !== -1 || room.categories.filter(function (category) {
                     return category.indexOf(keyword)!==-1
                 })[0]);
             });
@@ -546,7 +501,7 @@ app.controller("chatController", function ($scope, Scopes, $http, $sce, $uibModa
             $scope.config_chat.ui.scrollLimit[0].limit = 18;
             var tempRooms = $scope.rooms;
             $scope.filteredRooms = $filter('filter')(tempRooms, function (room) {
-                return room.category.filter(function (category) {
+                return room.categories.filter(function (category) {
                     return category === tag;
                 })[0];
             });
@@ -560,14 +515,14 @@ app.controller("chatController", function ($scope, Scopes, $http, $sce, $uibModa
     // 좋아요 버튼
     $scope.onClickLikeChatRoom = function (room) {
         if($scope.isAlreadyLikeChatRoom(room)){
-            room.like.splice(room.like.indexOf($scope.me.id),1);
+            room.likes.splice(room.like.indexOf($scope.me.id),1);
         }else{
-            room.like.push($scope.me.id);
+            room.likes.push($scope.me.id);
         }
     }
     // 이미 좋아요를 눌렀는지 확인
     $scope.isAlreadyLikeChatRoom = function (room) {
-        if(room.like.indexOf($scope.me.id)===-1){
+        if(room.likes.indexOf($scope.me.id)===-1){
             return false;
         }else{
             return true;
@@ -632,7 +587,7 @@ app.controller("chatController", function ($scope, Scopes, $http, $sce, $uibModa
     // 공지 더보기 스타일
     $scope.styleNotificationText =function (room) {
         if(room){
-            if(room.config.isMoreNotification){
+            if(room.chatRoomConfig.isMoreNotification){
                 return {
                     "white-space" : "initial"
                 }

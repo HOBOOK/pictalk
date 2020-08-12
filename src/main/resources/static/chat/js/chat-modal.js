@@ -1,11 +1,25 @@
-app.controller('chatModalController', function ($scope, $uibModalInstance) {
+app.controller('chatModalController', function ($scope, $http, $uibModalInstance) {
 
     // 모달 생성 이벤트
     $scope.ok = function() {
         if($scope.validationAddChatRoom()){
             $scope.saveConfig();
-            $uibModalInstance.close($scope.newChatRoom);
+            $scope.createChatRoom();
         }
+    }
+
+    $scope.createChatRoom = function(){
+        $http({
+            method: 'POST',
+            url: 'test',
+            data: $scope.newChatRoom
+        }).then(function successCallback(response){
+            console.log('새로운 채팅방 생성 성공 -> ' +response);
+            $uibModalInstance.close(response.data);
+        }, function errorCallback(response){
+            console.log('채팅방 정보를 생성 오류발생 -> ' +response);
+            $uibModalInstance.cancel();
+        });
     }
 
     // 모달 취소 이벤트
@@ -19,7 +33,7 @@ app.controller('chatModalController', function ($scope, $uibModalInstance) {
 
     $scope.saveConfig = function(){
         var config = $scope.config;
-        $scope.newChatRoom.private = config.isPrivate;
+        $scope.newChatRoom.isPrivate = config.isPrivate;
         $scope.newChatRoom.type = config.isImageChat ? 1 : 0;
 
     }
@@ -38,24 +52,21 @@ app.controller('chatModalController', function ($scope, $uibModalInstance) {
 
     // 새로운 채팅방 모델
     $scope.newChatRoom={
-        id: null,
         type: 0,
         title: "",
         description: "",
-        category:[],
+        categories:[],
         img: "/img/no-image.png",
         max: $scope.selectedMaxChatRoomMemberCountOption.value,
-        createDate: "2020.07.13",
-        private: false,
-        manager_id: 0,
-        latestMessage: "",
+        isPrivate: false,
+        managerId: 0,
         participants: [],
-        like: [],
+        likes: [],
         messages: [],
         accessKey: "",
-        storageImage:[],
+        savedImages:[],
         notification: "",
-        config:{
+        chatRoomConfig:{
             isHideNotification: false,
             isEditNotification: false,
             isMoreNotification: false
@@ -77,16 +88,16 @@ app.controller('chatModalController', function ($scope, $uibModalInstance) {
 
     // 태그 제거
     $scope.clearTag = function(tag){
-        var index = $scope.newChatRoom.category.indexOf(tag);
-        $scope.newChatRoom.category.splice(index, 1);
+        var index = $scope.newChatRoom.categories.indexOf(tag);
+        $scope.newChatRoom.categories.splice(index, 1);
     }
     
     // 태그 추가 이벤트 (Enter)
     $scope.inputTempTag = "";
     $scope.onKeyPressAddTag = function ($event) {
         if($event.which === 13){
-            if($scope.newChatRoom.category.length<5 && $scope.inputTempTag.length>0)
-                $scope.newChatRoom.category.push($scope.inputTempTag);
+            if($scope.newChatRoom.categories.length<5 && $scope.inputTempTag.length>0)
+                $scope.newChatRoom.categories.push($scope.inputTempTag);
             $scope.inputTempTag = "";
         }
     }

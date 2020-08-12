@@ -30,7 +30,7 @@
                 <span class="chat-room-info">
                         <h6 ng-bind="room.title"></h6>
                         <span class="chat-room-state">
-                            <span ng-cloak ng-show="room.private" class="chat-room-state-item">
+                            <span ng-cloak ng-show="room.isPrivate" class="chat-room-state-item">
                                 <i class="fas fa-key"></i>
                             </span>
                             <span ng-cloak ng-show="room.type===1" class="chat-room-state-item">
@@ -47,7 +47,7 @@
                     </span>
                 <div class="chat-room-detail" thumbnail-img="{{room.img}}">
                     <div class="chat-detail-tags">
-                        <span class="chat-detail-tag" ng-repeat="tag in room.category">#{{tag}}</span>
+                        <span class="chat-detail-tag" ng-repeat="tag in room.categories">#{{tag}}</span>
                     </div>
                     <div class="chat-detail-sub">
                             <span class="heart" ng-click="onClickPreventParentEvent($event)">
@@ -87,7 +87,7 @@
                                             </g>
                                         </g>
                                     </svg>
-                                    <p ng-bind="room.like.length"></p>
+                                    <p ng-bind="room.likes.length"></p>
                                 </label>
                             </span>
                     </div>

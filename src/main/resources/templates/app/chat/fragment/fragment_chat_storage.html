@@ -10,7 +10,7 @@
         <div class="chat-sidebar-content-container height100" when-scrolled="scrollMore(config_chat.ui.scrollLimit[3])">
             <div class="chat-sidebar-content">
                 <div class="chat-album-grid spotlight-group">
-                    <div ng-repeat="image in currentRoom.storageImage | limitTo: config_chat.ui.scrollLimit[3].limit | orderBy: '-date'">
+                    <div ng-repeat="image in currentRoom.savedImages | limitTo: config_chat.ui.scrollLimit[3].limit | orderBy: '-date'">
                         <a class="spotlight" ng-href="{{image.url}}">
                             <img draggable="true" drag-item id="{{image.url}}" ng-src="{{image.url}}" onerror="this.src='/img/no-image.png'"/>
                         </a>
